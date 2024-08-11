@@ -1,7 +1,7 @@
 import '../stylesheet/Header.css'
 import { Link } from 'react-router-dom';
 
-function Header(props: { icon: any; }){
+function Header(props: { icon: any}){
 
     const {icon} = props
 
@@ -15,7 +15,8 @@ function Header(props: { icon: any; }){
                 </Link>
                 <div className="logo-box">
                     <div className="img-box">
-                        <img src="/images/Lenovo_Global_Corporate_Logo.png" alt="" />
+                        {/* <img src="/images/Lenovo_Global_Corporate_Logo.png" alt="" /> */}
+                        MY<span>&nbsp;LOGO</span>
                     </div>
                 </div>
             </div>
@@ -26,16 +27,18 @@ function Header(props: { icon: any; }){
                 </a>
             </div>
             <nav>
-                <Link to='/' className='menu'>Home</Link>
-                <Link to='/Product' className='menu'>Product</Link>
-                <Link to='/Profile' className='menu'>Profile</Link>
+                <Link to='/' className='menu' id='home'>Home</Link>
+                <Link to='/Product' className='menu' id='product'>Product</Link>
+                <Link to='/Profile' className='menu' id='profile'>Profile</Link>
                 <Link to='/Cart' className="cart-box">
                     <img src="/images/icon/cart.png" alt="" />
                 </Link>
                 <div className="line"></div>
                 <Link to='/Login' className="login-box">
                     <img src="/images/icon/account.png" alt="" />
-                    <span>Log-In</span>
+                    <div className="text-box">
+                        Log-<span>In</span>
+                    </div>
                 </Link>
             </nav>
             

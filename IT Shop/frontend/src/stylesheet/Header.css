@@ -41,9 +41,16 @@
                 height: 50px;
                 display: flex;
                 justify-content: center;
+                align-items: center;
+                font-size: 30px;
+                font-weight: 600;
     
                 & img{
                     height: 100%;
+                }
+
+                & span{
+                    color: var(--subtheme-color1);
                 }
             }
         }
@@ -100,17 +107,11 @@
             color: var(--mainfont-color);
         }
 
-        & a:visited{
-            color: var(--mainfont-color);
-        }
-
         & .menu{
             border: 4px solid transparent;
             padding: 6px 15px;
-            text-decoration: none;
             border-radius: 40px;
-
-            
+            color: var(--mainfont-color);
         }
 
         & .menu:hover{
@@ -118,6 +119,14 @@
             background-color: var(--subtheme-color2);
             color: var(--subfont-color2);
             transition: all 0.5s;
+        }
+
+        & .sl-btn{
+            border: 4px solid var(--subtheme-color1);
+            padding: 6px 15px;
+            border-radius: 40px;
+            color: var(--subfont-color2);
+            background-color: var(--subtheme-color2);
         }
 
         & .cart-box{
@@ -149,6 +158,13 @@
                 width: 35px;
                 height: 35px;
             }
+            
+            & .text-box{
+                & span{
+                    color: var(--subtheme-color1);
+                }
+            }
+            
         }
     }
 
