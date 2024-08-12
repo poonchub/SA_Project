@@ -80,31 +80,42 @@
                 & span{
                     font-size: 25px;
                 }
+
+                & span:first-child{
+                    margin-right: 25px;
+                }
     
                 & .num-of-quantity{
                     width: 30px;
                     margin: 0px 20px;
                     text-align: center;
+                    color: var(--subtheme-color1);
                     
                 }
     
-                & .add-button{
-                    /* border: 1px solid red; */
+                & .quantity-btn{
+                    border: 3px solid black;
                     width: 40px;
                     height: 40px;
                     cursor: pointer;
-                    background-color: gray;
-                    cursor: pointer;
+                    background-color: transparent;
+                    border-radius: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 28px;
+                    color: var(--subtheme-color1);
+                    font-weight: 600;
                 }
-    
-                & .sub-button{
-                    /* border: 1px solid red; */
-                    width: 40px;
-                    height: 40px;
-                    cursor: pointer;
-                    background-color: gray;
-                    margin-left: 20px;
-                    cursor: pointer;
+
+                & .quantity-btn::selection{
+                    background-color: transparent;
+                }
+
+                & .quantity-btn:active{
+                    background-color: var(--subtheme-color1);
+                    color: var(--subfont-color2);
+                    border: 3px solid var(--subtheme-color1);
                 }
             }
         
