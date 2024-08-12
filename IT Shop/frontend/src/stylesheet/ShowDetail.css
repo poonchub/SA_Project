@@ -141,7 +141,7 @@
                     font-weight: 550;
                     text-align: center;
             
-                    & .cart-button{
+                    & .btn{
                         border: 3px solid var(--subtheme-color1);
                         width: 48%;
                         height: 100%;
@@ -153,21 +153,12 @@
                         transition: all 0.5s;
                     }
             
-                    & .order-button{
-                        border: 3px solid var(--subtheme-color1);
-                        width: 48%;
-                        height: 100%;
-                        border-radius: 15px;
+                    & #order-button{
                         background-color: var(--subtheme-color1);
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
                         color: var(--subfont-color2);
-                        cursor: pointer;
-                        transition: all 0.5s;
                     }
     
-                    & .cart-button:hover, .order-button:hover{
+                    & .btn:hover{
                         box-shadow: 0px 0px 8px var(--shadow-color2);
                         font-size: 33px;
                     }
@@ -217,18 +208,80 @@
         margin-left: 0px;
         width: 100vw;
         height: calc((100vh - 170px)*2/3);
-        padding-left: 25px;
 
         & .main-detail{
-            padding-top: 10px;
+            padding: 10px 30px 0px 30px;
+
 
             & .text-box{
                 margin-top: 0px;
                 width: 100%;
 
-                & .sub-text-box .productname-box{
-                    width: 95%;
+                & .sub-text-box{
+
+                    & .productname-box{
+                        width: 100%;
+                        font-size: 22px;
+                        line-height: 2rem;
+                    }
+
+                    & .brand-box{
+                        font-size: 16px;
+                        line-height: 1.4rem;
+                    }
                 }
+
+                & .price-box{
+                    font-size: 23px;
+                }
+            }
+
+            & .active-box{
+                width: 100%;
+
+                & .quantity-box{
+                    
+                    & span {
+                        font-size: 19px;
+                    }
+
+                    & .quantity-btn{
+                        font-size: 20px;
+                    }
+
+                    & .num-of-quantity{
+                        margin: 0px 10px;
+                    }
+
+                    & .quantity-btn{
+                        width: 28px;
+                        height: 28px;
+                    }
+                }
+            }
+
+            & .button-box .btn{
+                font-size: 22px;
+            }
+
+            & .button-box .btn:hover{
+                font-size: 23px;
+            }
+        }
+
+        & .description-box{
+            & .line{
+                width: 95%;
+                margin: 15px 2.5% 15px 2.5%;
+            }
+
+            & span{
+                font-size: 19px;
+                margin: 0px 30px;
+            }
+
+            & .text-box{
+                padding: 5px 10% 10px 10%;
             }
         }
     }
@@ -242,7 +295,7 @@
 }
 
 ::-webkit-scrollbar{
-    width: 10px;
+    width: 5px;
     background-color: #F5F5F5;
 }
 

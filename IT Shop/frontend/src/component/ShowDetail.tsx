@@ -52,10 +52,10 @@ function ShowDetail(){
                         </div>
                     </div>
                     <div className="button-box">
-                        <div className="cart-button">
+                        <div className="btn" id="cart-button">
                             เพิ่มลงตะกร้า
                         </div>
-                        <div className="order-button">
+                        <div className="btn" id="order-button">
                             ซื้อทันที
                         </div>
                     </div>

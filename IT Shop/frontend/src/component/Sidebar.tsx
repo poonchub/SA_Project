@@ -20,11 +20,11 @@ function Sidebar(){
             <div className="range-box">
                 <h4>Range</h4>
                 <div className="input-box">
-                    <p>Min</p>
+                    <p className="min">Min</p>
                     <input className="min-value" type="number" min={0}/>
-                    <p>-</p>
+                    <p className="to">-</p>
                     <input className="max-value" type="number" min={0}/>
-                    <p>Max</p>
+                    <p className="max">Max</p>
                 </div>
             </div>
             <div className="category-box">

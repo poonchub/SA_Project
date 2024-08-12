@@ -1,37 +1,49 @@
 @import "ColorSheet.css";
 
-.container-cat-item{
-    /* border: 1px solid red; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-    border: 3px solid transparent;
-    border-radius: 15px;
-
-    & .img-box{
+@media only screen and (max-width:3000px){
+    .container-cat-item{
         /* border: 1px solid red; */
-        width: 35px;
         display: flex;
-        justify-content: center;
         align-items: center;
-        margin-right: 30px;
-
-        & img{
-            width: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+        border: 3px solid transparent;
+        border-radius: 15px;
+        transition: all 0.5s;
+    
+        & .img-box{
+            /* border: 1px solid red; */
+            width: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 30px;
+    
+            & img{
+                width: 100%;
+            }
+        }
+    
+        & .title-box{
+            /* border: 1px solid red; */
+            width: 130px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
-
-    & .title-box{
-        /* border: 1px solid red; */
-        width: 130px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    
+    .container-cat-item:hover{
+        border: 3px solid var(--subtheme-color1);
+        cursor: pointer;
     }
 }
 
-.container-cat-item:hover{
-    border: 3px solid var(--subtheme-color1);
-    cursor: pointer;
+@media only screen and (max-width:790px){
+    .container-cat-item .title-box{
+        display: none;
+    }
+    .container-cat-item .img-box{
+        margin-right: 0px;
+    }
 }
