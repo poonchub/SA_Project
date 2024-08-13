@@ -5,7 +5,7 @@ import ProductItem from "./ProductItem"
 function ShowProduct(){
 
     const productElements = product.map((subProduct,index) => {
-        return <ProductItem key={index} product={subProduct} index={index}/>
+        return <ProductItem key={index} product={subProduct}/>
     })
 
     return (

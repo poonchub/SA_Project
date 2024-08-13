@@ -1,10 +1,10 @@
-import { useState } from "react";
+
 import "../stylesheet/ProductItem.css"
 import { Link } from "react-router-dom";
-import ShowImage from "./ShowImage";
 
-function ProductItem(props: { index: any; product: any; }){
-    const {index,product} = props;
+
+function ProductItem(props: {product: any; }){
+    const {product} = props;
     const num = product.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
     return (
