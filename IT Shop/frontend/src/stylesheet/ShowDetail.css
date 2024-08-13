@@ -9,7 +9,7 @@
     --btn-font: 32px;
 }
 
-@media only screen and (max-width:3000px){
+@media only screen and (max-width:5000px){
     .showdetail-container{
         /* border: 1px solid red; */
         position: fixed;
@@ -23,7 +23,7 @@
         & .main-detail{
             /* border: 1px solid red; */
             width: 100%;
-            height: 50%;
+            height: 60%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -79,8 +79,10 @@
                 /* border: 1px solid red; */
                 height: 35%;
                 width: 90%;
-                margin-bottom: 20px;
-                margin-top: 20px;
+                margin: 20px 0px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
     
                 & .quantity-box{
                     /* border: 1px solid red; */
@@ -131,7 +133,7 @@
             
                 & .button-box{
                     /* border: 1px solid red; */
-                    height: 60%;
+                    height: 50%;
                     margin-top: 25px;
                     display: flex;
                     justify-content: space-around;
@@ -140,6 +142,8 @@
                     font-size: var(--btn-font);
                     font-weight: 550;
                     text-align: center;
+                    min-height: 70px;
+                    max-height: 100px;
             
                     & .btn{
                         border: 3px solid var(--subtheme-color1);
@@ -167,14 +171,14 @@
         }
     
         & .description-box{
-            height: 50%;
+            height: 40%;
             
             & .line{
                 width: 90%;
                 height: 3px;
-                background-color: lightgray;
+                background-color: var(--subtheme-color2);
                 border-radius: 50px;
-                margin: 10px 0px 20px 0px;
+                margin: 15px 0px 15px 0px;
             }
             
             & span{
@@ -186,7 +190,9 @@
             & .text-box{
                 /* border: 1px solid red; */
                 overflow: scroll;
-                height: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                height: 81%;
                 padding: 5px 10% 10px 50px;
                 margin-top: 10px;
                 font-size: var(--description-font);
@@ -266,6 +272,66 @@
 
             & .button-box .btn:hover{
                 font-size: 23px;
+            }
+        }
+
+        & .description-box{
+            & .line{
+                width: 95%;
+                margin: 15px 2.5% 15px 2.5%;
+            }
+
+            & span{
+                font-size: 19px;
+                margin: 0px 30px;
+            }
+
+            & .text-box{
+                padding: 5px 10% 10px 10%;
+            }
+        }
+    }
+    
+}
+
+@media only screen and (max-width:400px){
+    .showdetail-container{
+        & .main-detail{
+            & .text-box{
+                & .sub-text-box{
+                    & .productname-box{
+                        font-size: 18px;
+                        line-height: 1.3rem;
+                    }
+
+                    & .brand-box{
+                        font-size: 14px;
+                        line-height: 1rem;
+                    }
+                }
+
+                & .price-box{
+                    font-size: 18px;
+                }
+            }
+
+            & .active-box{
+                & .quantity-box{
+                    & span {
+                        font-size: 16px;
+                    }
+                    & .quantity-btn{
+                        font-size: 16px;
+                    }
+                }
+            }
+
+            & .button-box .btn{
+                font-size: 17px;
+            }
+
+            & .button-box .btn:hover{
+                font-size: 18px;
             }
         }
 
