@@ -1,17 +1,16 @@
 @import "ColorSheet.css";
 
-:root{
-    --productname-font: 35px;
-    --brand-font: 20px;
-    --price-font: 35px;
-    --title-font: 25px;
-    --description-font: 17px;
-    --btn-font: 32px;
+:root {
+    --productname-font: 30px;
+    --brand-font: 16px;
+    --price-font: 28px;
+    --title-font: 18px;
+    --description-font: 16px;
+    --btn-font: 20px;
 }
 
-@media only screen and (max-width:5000px){
-    .showdetail-container{
-        /* border: 1px solid red; */
+@media only screen and (max-width:5000px) {
+    .showdetail-container {
         position: fixed;
         margin-top: 75px;
         margin-left: 50vw;
@@ -19,356 +18,296 @@
         height: calc(100vh - 75px);
         display: flex;
         flex-direction: column;
-    
-        & .main-detail{
-            /* border: 1px solid red; */
-            width: 100%;
-            height: 60%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow: scroll;
-            overflow-y: auto;
-            overflow-x: hidden;
-            
-            & .text-box{
-                /* border: 1px solid red; */
-                width: 90%;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                margin-top: 40px;
-        
-                & .sub-text-box{
-                    /* border: 1px solid red; */
-                    width: 100%;
-                    display: flex;
-                    flex-direction: column;
-        
-                    & .productname-box{
-                        /* border: 1px solid red; */
-                        width: 80%;
-                        font-size: var(--productname-font);
-                        margin-bottom: 10px;
-                        color: var(--mainfont-color);
-                        line-height: 2.8rem;
-                    }
-        
-                    & .brand-box{
-                        /* border: 1px solid red; */
-                        width: 100%;
-                        font-size: var(--brand-font);
-                        color: var(--subfont-color1);
-                        line-height: 1.8rem;
-                    }
+        padding: 30px 5% 20px 0px;
+        overflow: auto;
+
+        & .text-box {
+            & .sub-text-box {
+                width: 100%;
+
+                & .productname-box {
+                    font-size: var(--productname-font);
+                    font-weight: 600;
+                    line-height: 2.3rem;
+                    margin-bottom: 15px;
+                    color: var(--mainfont-color);
                 }
-        
-                & .price-box{
-                    /* border: 1px solid red; */
-                    width: 95%;
-                    margin-top: 20px;
-                    display: flex;
-                    justify-content:end;
-                    align-items: center;
-                    font-size: var(--price-font);
-                    color: var(--subfont-color3);
+
+                & .brand-box {
+                    margin-bottom: 20px;
+                    font-size: var(--brand-font);
+                    color: var(--subfont-color1);
                 }
             }
-    
-            & .active-box{
-                /* border: 1px solid red; */
-                height: 35%;
-                width: 90%;
-                margin: 20px 0px;
+
+            & .price-box {
                 display: flex;
-                flex-direction: column;
                 justify-content: flex-end;
-    
-                & .quantity-box{
-                    /* border: 1px solid red; */
-                    display: flex;
-                    align-items: center;
-        
-                    & span{
-                        font-size: var(--title-font);
-                    }
-    
-                    & span:first-child{
-                        margin-right: 25px;
-                    }
-        
-                    & .num-of-quantity{
-                        width: 30px;
-                        margin: 0px 20px;
-                        text-align: center;
-                        color: var(--subtheme-color1);
-                        
-                    }
-        
-                    & .quantity-btn{
-                        border: 3px solid black;
-                        width: 40px;
-                        height: 40px;
-                        cursor: pointer;
-                        background-color: transparent;
-                        border-radius: 50px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        font-size: 28px;
-                        color: var(--subtheme-color1);
-                        font-weight: 600;
-                    }
-    
-                    & .quantity-btn::selection{
-                        background-color: transparent;
-                    }
-    
-                    & .quantity-btn:active{
-                        background-color: var(--subtheme-color1);
-                        color: var(--subfont-color2);
-                        border: 3px solid var(--subtheme-color1);
-                    }
+                padding-right: 20px;
+                font-size: var(--price-font);
+                color: var(--subfont-color3);
+                font-weight: 660;
+                margin-bottom: 15px;
+            }
+        }
+
+        & .active-box {
+            margin-bottom: 20px;
+
+            & .quantity-box {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+                font-size: var(--title-font);
+                font-weight: 600;
+
+                & span:first-child {
+                    margin-right: 15px;
+                    color: var(--mainfont-color);
                 }
-            
-                & .button-box{
-                    /* border: 1px solid red; */
-                    height: 50%;
-                    margin-top: 25px;
+
+                & .num-of-quantity {
                     display: flex;
-                    justify-content: space-around;
+                    justify-content: center;
                     align-items: center;
-                    padding: 0px 10px;
+                    color: var(--subfont-color3);
+                    width: 45px;
+                }
+
+                & .quantity-btn {
+                    border: 2px solid black;
+                    width: 30px;
+                    height: 30px;
+                    cursor: pointer;
+                }
+
+                & .quantity-btn::selection {
+
+                }
+
+                & .quantity-btn:active {
+
+                }
+            }
+
+            & .button-box {
+                display: flex;
+                justify-content: space-around;
+
+                & .btn {
+                    border: 3px solid var(--subtheme-color1);
+                    border-radius: 10px;
+                    width: 48%;
+                    height: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     font-size: var(--btn-font);
-                    font-weight: 550;
-                    text-align: center;
-                    min-height: 70px;
-                    max-height: 100px;
-            
-                    & .btn{
-                        border: 3px solid var(--subtheme-color1);
-                        width: 48%;
-                        height: 100%;
-                        border-radius: 15px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        cursor: pointer;
-                        transition: all 0.5s;
-                    }
-            
-                    & #order-button{
-                        background-color: var(--subtheme-color1);
-                        color: var(--subfont-color2);
-                    }
-    
-                    & .btn:hover{
-                        box-shadow: 0px 0px 8px var(--shadow-color2);
-                        font-size: 33px;
-                    }
+                    font-weight: 650;
+                    transition: all 0.5s;
                 }
-            }   
-        }
-    
-        & .description-box{
-            height: 40%;
-            
-            & .line{
-                width: 90%;
-                height: 3px;
-                background-color: var(--subtheme-color2);
-                border-radius: 50px;
-                margin: 15px 0px 15px 0px;
-            }
-            
-            & span{
-                /* border: 1px solid red; */
-                width: 90%;
-                font-size: 25px;
-            }
-            
-            & .text-box{
-                /* border: 1px solid red; */
-                overflow: scroll;
-                overflow-x: hidden;
-                overflow-y: auto;
-                height: 81%;
-                padding: 5px 10% 10px 50px;
-                margin-top: 10px;
-                font-size: var(--description-font);
+
+                & #order-button {
+                    background-color: var(--subtheme-color1);
+                    color: var(--subfont-color2);
+                }
+
+                & .btn:hover {
+                    box-shadow: 0px 0px 8px var(--shadow-color2);
+                    font-size: 21px;
+                    cursor: pointer;
+                }
             }
         }
-        
+
+        & .line{
+            border: 1px solid var(--mainfont-color);
+            margin-bottom: 15px;
+
+        }
+
+        & .des-ti {
+            font-size: var(--title-font);
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--mainfont-color);
+        }
+
+        & .des-text {
+            /* border: 1px solid red; */
+            padding-left: 30px;
+        }
     }
 }
 
-@media only screen and (max-width:1100px){
-    .showdetail-container{
+@media only screen and (max-width:1100px) {
+    .showdetail-container {
         margin-top: 130px;
     }
 }
 
-@media only screen and (max-width:870px){
-    .showdetail-container{
+@media only screen and (max-width:870px) {
+    .showdetail-container {
         margin-top: calc(170px + (((100vh - 170px) * 1 / 3)));
         margin-left: 0px;
         width: 100vw;
         height: calc((100vh - 170px)*2/3);
 
-        & .main-detail{
+        & .main-detail {
             padding: 10px 30px 0px 30px;
 
 
-            & .text-box{
+            & .text-box {
                 margin-top: 0px;
                 width: 100%;
 
-                & .sub-text-box{
+                & .sub-text-box {
 
-                    & .productname-box{
+                    & .productname-box {
                         width: 100%;
                         font-size: 22px;
                         line-height: 2rem;
                     }
 
-                    & .brand-box{
+                    & .brand-box {
                         font-size: 16px;
                         line-height: 1.4rem;
                     }
                 }
 
-                & .price-box{
+                & .price-box {
                     font-size: 23px;
                 }
             }
 
-            & .active-box{
+            & .active-box {
                 width: 100%;
 
-                & .quantity-box{
-                    
+                & .quantity-box {
+
                     & span {
                         font-size: 19px;
                     }
 
-                    & .quantity-btn{
+                    & .quantity-btn {
                         font-size: 20px;
                     }
 
-                    & .num-of-quantity{
+                    & .num-of-quantity {
                         margin: 0px 10px;
                     }
 
-                    & .quantity-btn{
+                    & .quantity-btn {
                         width: 28px;
                         height: 28px;
                     }
                 }
             }
 
-            & .button-box .btn{
+            & .button-box .btn {
                 font-size: 22px;
             }
 
-            & .button-box .btn:hover{
+            & .button-box .btn:hover {
                 font-size: 23px;
             }
         }
 
-        & .description-box{
-            & .line{
+        & .description-box {
+            & .line {
                 width: 95%;
                 margin: 15px 2.5% 15px 2.5%;
             }
 
-            & span{
+            & span {
                 font-size: 19px;
                 margin: 0px 30px;
             }
 
-            & .text-box{
+            & .text-box {
                 padding: 5px 10% 10px 10%;
             }
         }
     }
-    
+
 }
 
-@media only screen and (max-width:400px){
-    .showdetail-container{
-        & .main-detail{
-            & .text-box{
-                & .sub-text-box{
-                    & .productname-box{
+@media only screen and (max-width:400px) {
+    .showdetail-container {
+        & .main-detail {
+            & .text-box {
+                & .sub-text-box {
+                    & .productname-box {
                         font-size: 18px;
                         line-height: 1.3rem;
                     }
 
-                    & .brand-box{
+                    & .brand-box {
                         font-size: 14px;
                         line-height: 1rem;
                     }
                 }
 
-                & .price-box{
+                & .price-box {
                     font-size: 18px;
                 }
             }
 
-            & .active-box{
-                & .quantity-box{
+            & .active-box {
+                & .quantity-box {
                     & span {
                         font-size: 16px;
                     }
-                    & .quantity-btn{
+
+                    & .quantity-btn {
                         font-size: 16px;
                     }
                 }
             }
 
-            & .button-box .btn{
+            & .button-box .btn {
                 font-size: 17px;
             }
 
-            & .button-box .btn:hover{
+            & .button-box .btn:hover {
                 font-size: 18px;
             }
         }
 
-        & .description-box{
-            & .line{
+        & .description-box {
+            & .line {
                 width: 95%;
                 margin: 15px 2.5% 15px 2.5%;
             }
 
-            & span{
+            & span {
                 font-size: 19px;
                 margin: 0px 30px;
             }
 
-            & .text-box{
+            & .text-box {
                 padding: 5px 10% 10px 10%;
             }
         }
     }
-    
+
 }
 
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(121, 121, 121, 0.041);
     border-radius: 15px;
     background-color: #f5f5f5;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     width: 5px;
     background-color: #F5F5F5;
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
     border-radius: 15px;
     -webkit-box-shadow: inset 0 0 6px rgba(204, 204, 204, 0.3);
     background-color: #b8b8b8;
     margin-top: 50px;
-    
+
 }
