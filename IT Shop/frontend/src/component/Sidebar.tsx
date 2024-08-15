@@ -18,11 +18,11 @@ function Sidebar(){
     return (
         <div className="container-sidebar">
             <div className="range-box">
-                <h4>Range</h4>
+                <h4 className="head-ti">Range</h4>
                 <div className="input-box">
                     <p className="min">Min</p>
                     <input className="min-value" type="number" min={0}/>
-                    <p className="to">-</p>
+                    <p className="to">−</p>
                     <input className="max-value" type="number" min={0}/>
                     <p className="max">Max</p>
                 </div>

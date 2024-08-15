@@ -2,32 +2,31 @@
 
 @media only screen and (max-width:5000px){
     .container-brand-item{
-        /* border: 1px solid red; */
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         border: 3px solid transparent;
         border-radius: 15px;
         transition: all 0.5s;
+        height: 47px;
+        font-size: 14px;
     
         & .img-box{
-            /* border: 1px solid red; */
             height: 30px;
-            width: 35px;
+            width: 60px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-right: 30px;
+            margin: 0px 7.5px;
     
             & img{
-                height: 100%;
+                width: 100%;
             }
         }
     
         & .title-box{
-            /* border: 1px solid red; */
-            width: 130px;
+            width: 115px;
             display: flex;
             justify-content: center;
             align-items: center;

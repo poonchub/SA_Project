@@ -1,5 +1,5 @@
 :root {
-    --maintheme-color: #f2f5ff;
+    --maintheme-color: rgb(246, 249, 252);
     --subtheme-color1: #FF2E63;
     --subtheme-color2: #05183f;
     --subtheme-color3: #FFFFFF;
@@ -7,7 +7,7 @@
     --mainfont-color: #05183f;
     --subfont-color1: #555555c0;
     --subfont-color2: #FFFFFF;
-    --subfont-color3: #FF3C00;
+    --subfont-color3: rgb(212, 0, 26);
 
     --shadow-color1: rgb(211, 211, 211);
     --shadow-color2: #FF2E63;

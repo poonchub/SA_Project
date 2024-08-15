@@ -76,4 +76,4 @@ function ShowDetail(){
     )
 }
 
-export default ShowDetail
+export default ShowDetail;
