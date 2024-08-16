@@ -1,4 +1,3 @@
-
 import product from "../../data/product";
 import SmallImage from "../SmallImage/SmallImage";
 import "./ShowImage.css"

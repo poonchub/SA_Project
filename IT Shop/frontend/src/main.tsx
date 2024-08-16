@@ -2,11 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider} from 'react-router-dom'
-import Home from './page/Home.tsx'
-import Product from './page/Product.tsx'
-import Selected from './page/Selected.tsx'
-import Profile from './page/Profile.tsx'
-import Payment from './page/Payment.tsx'
+import Home from './pages/Home.tsx'
+import Product from './pages/Product.tsx'
+import Selected from './pages/Selected.tsx'
+import Profile from './pages/Profile.tsx'
+import Payment from './pages/Payment.tsx'
 
 const router = createBrowserRouter([
   {

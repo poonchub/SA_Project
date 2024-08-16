@@ -1,8 +1,7 @@
 import { useState } from "react";
-import "./Profile.css"
-import Header from "../component/Header/Header";
+import Header from "../components/Header/Header";
 
-function Profile(){
+function Login(){
 
     const [icon, setIcon] = useState("/images/icon/Hamburger.png");
 
@@ -13,4 +12,4 @@ function Profile(){
     )
 }
 
-export default Profile;
+export default Login;

@@ -1,9 +1,8 @@
 import { useState } from "react";
-import "./Login.css"
-import Header from "../component/Header/Header";
+import Header from "../components/Header/Header";
 
-function Login(){
-
+function Cart(){
+    
     const [icon, setIcon] = useState("/images/icon/Hamburger.png");
 
     return (
@@ -13,4 +12,4 @@ function Login(){
     )
 }
 
-export default Login;
+export default Cart;

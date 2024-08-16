@@ -1,8 +1,7 @@
 import { useState } from "react";
-import Header from "../component/Header/Header";
-import ShowDetail from "../component/ShowDetail/ShowDetail";
-import ShowImage from "../component/ShowImage";
-import "./Selected.css"
+import Header from "../components/Header/Header";
+import ShowDetail from "../components/ShowDetail/ShowDetail";
+import ShowImage from "../components/ShowImage/ShowImage";
 
 function Selected(){
 

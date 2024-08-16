@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Header from "../component/Header/Header";
-import "./Selected.css"
+import Header from "../components/Header/Header";
 
 function Payment(){
 

@@ -1,6 +1,5 @@
 import { useState } from "react"
-import Header from "../component/Header/Header"
-import "./Home.css"
+import Header from "../components/Header/Header";
 
 function Home(){
 

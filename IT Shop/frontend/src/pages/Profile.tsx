@@ -1,9 +1,8 @@
 import { useState } from "react";
-import Header from "../component/Header/Header"
-import "./Cart.css"
+import Header from "../components/Header/Header";
 
-function Cart(){
-    
+function Profile(){
+
     const [icon, setIcon] = useState("/images/icon/Hamburger.png");
 
     return (
@@ -13,4 +12,4 @@ function Cart(){
     )
 }
 
-export default Cart;
+export default Profile;
