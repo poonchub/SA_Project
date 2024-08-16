@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Profile.css"
-import Header from "../component/Header";
+import Header from "../component/Header/Header";
 
 function Profile(){
 

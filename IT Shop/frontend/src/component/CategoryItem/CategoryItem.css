@@ -1,7 +1,7 @@
-@import "ColorSheet.css";
+@import "../../stylesheet/ColorSheet.css";
 
 @media only screen and (max-width:5000px){
-    .container-brand-item{
+    .container-cat-item{
         display: flex;
         align-items: center;
         justify-content: center;
@@ -13,15 +13,15 @@
         font-size: 14px;
     
         & .img-box{
-            height: 30px;
             width: 60px;
+            height: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0px 7.5px;
     
             & img{
-                width: 100%;
+                height: 100%;
             }
         }
     
@@ -30,21 +30,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            
         }
     }
     
-    .container-brand-item:hover{
+    .container-cat-item:hover{
         border: 3px solid var(--subtheme-color1);
         cursor: pointer;
     }
 }
 
 @media only screen and (max-width:790px){
-    .container-brand-item .title-box{
+    .container-cat-item .title-box{
         display: none;
     }
-    .container-brand-item .img-box{
+    .container-cat-item .img-box{
         margin-right: 0px;
     }
 }

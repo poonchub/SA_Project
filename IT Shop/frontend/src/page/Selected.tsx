@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Header from "../component/Header";
-import ShowDetail from "../component/ShowDetail";
+import Header from "../component/Header/Header";
+import ShowDetail from "../component/ShowDetail/ShowDetail";
 import ShowImage from "../component/ShowImage";
 import "./Selected.css"
 

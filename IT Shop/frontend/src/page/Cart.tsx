@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Header from "../component/Header"
+import Header from "../component/Header/Header"
 import "./Cart.css"
 
 function Cart(){

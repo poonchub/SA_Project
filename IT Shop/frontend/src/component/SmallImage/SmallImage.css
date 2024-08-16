@@ -1,4 +1,4 @@
-@import "ColorSheet.css";
+@import "../../stylesheet/ColorSheet.css";
 
 @media only screen and (max-width:5000px){
     .smallimage-container{

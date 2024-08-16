@@ -1,4 +1,4 @@
-import "../stylesheet/SmallImage.css"
+import "./SmallImage.css"
 
 function SmallImage(props: any){
 

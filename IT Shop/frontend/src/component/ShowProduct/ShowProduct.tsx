@@ -1,6 +1,8 @@
-import product from "../data/product"
-import "../stylesheet/ShowProduct.css"
-import ProductItem from "./ProductItem"
+
+import product from "../../data/product"
+import ProductItem from "../ProductItem/ProductItem"
+import "./ShowProduct.css"
+
 
 function ShowProduct(){
 

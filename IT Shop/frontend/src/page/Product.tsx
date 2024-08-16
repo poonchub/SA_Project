@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Header from "../component/Header"
+import Header from "../component/Header/Header"
 import ShowProduct from "../component/ShowProduct"
 import Sidebar from "../component/Sidebar"
 import "./Product.css"

@@ -1,9 +1,8 @@
-import brand from "../data/brand";
-import category from "../data/category";
-import "../stylesheet/Sideber.css"
-// import "../stylesheet/Sidebar_hidemode.css"
-import BrandItem from "./BrandItem";
-import CategoryItem from "./CategoryItem";
+import brand from "../../data/brand"
+import category from "../../data/category"
+import BrandItem from "../BrandItem/BrandItem"
+import CategoryItem from "../CategoryItem/CategoryItem"
+import "./Sidebar.css"
 
 function Sidebar(){
 

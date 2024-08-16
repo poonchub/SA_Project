@@ -1,4 +1,4 @@
-import "../stylesheet/CategoryItem.css"
+import "./CategoryItem.css"
 
 function CategoryItem(props: { category: any; }){
     const {category} = props;

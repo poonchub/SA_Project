@@ -1,4 +1,4 @@
-import "../stylesheet/BrandItem.css"
+import "./BrandItem.css"
 
 function BrandItem(props: { brand: any; }){
     const {brand} = props;

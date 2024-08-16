@@ -1,4 +1,4 @@
-@import "ColorSheet.css";
+@import "../../stylesheet/ColorSheet.css";
 
 :root {
     --productname-font: 30px;

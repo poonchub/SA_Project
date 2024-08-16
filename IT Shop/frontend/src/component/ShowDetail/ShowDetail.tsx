@@ -1,6 +1,6 @@
 import { useState } from "react";
-import product from "../data/product"
-import "../stylesheet/ShowDetail.css"
+import product from "../../data/product"
+import "./ShowDetail.css"
 
 function ShowDetail(){
 

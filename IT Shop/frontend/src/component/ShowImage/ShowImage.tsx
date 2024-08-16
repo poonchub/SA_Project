@@ -1,6 +1,8 @@
-import product from "../data/product";
-import "../stylesheet/ShowImage.css"
-import SmallImage from "./SmallImage";
+
+import product from "../../data/product";
+import SmallImage from "../SmallImage/SmallImage";
+import "./ShowImage.css"
+
 
 function ShowImage(){
 
