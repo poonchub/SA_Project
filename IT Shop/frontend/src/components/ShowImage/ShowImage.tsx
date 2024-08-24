@@ -1,29 +1,55 @@
+import { useRef, useState } from "react";
 import product from "../../data/product";
 import SmallImage from "../SmallImage/SmallImage";
 import "./ShowImage.css"
+import { selectedIndex } from "../../data/selectedIndex";
 
 
 function ShowImage(){
 
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [mainImg, setMainImg] = useState(product[selectedIndex].thumbnailUrl.pic1)
+
+    const scrollLeft = () => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({
+                left: -50,
+                behavior: 'smooth'
+            });
+        }
+      };
+    
+    const scrollRight = () => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({
+                left: 50,
+                behavior: 'smooth'
+            });
+        }
+    };
+
     return (
         <div className="showimage-container">
+            <div className="background-container">
+                <video className="video-background" src="./videos/video1.mp4" autoPlay loop muted></video>
+            </div>
             <div className="main-container-img-box">
-                <img src={product[0].thumbnailUrl.pic1} alt="" />
+                <img src={mainImg} alt="" />
             </div>
             <div className="sub-container-img-box">
-                <a className="button-left">
-                    <img src="" alt="" />
-                </a>
-                <div className="img-box">
-                    <SmallImage product={product[0].thumbnailUrl.pic1}/>
-                    <SmallImage product={product[0].thumbnailUrl.pic2}/>
-                    <SmallImage product={product[0].thumbnailUrl.pic3}/>
-                    <SmallImage product={product[0].thumbnailUrl.pic4}/>
-                    <SmallImage product={product[0].thumbnailUrl.pic5}/>
+                <div className="btn-box" id="button-left">
+                    <img src="./images/icon/left-back.png" alt="" onClick={scrollLeft}/>
                 </div>
-                <a className="button-right">
-                    <img src="" alt="" />
-                </a>
+                <div className="img-small-box" ref={scrollRef}>
+                    <SmallImage product={product[selectedIndex].thumbnailUrl.pic1}/>
+                    <SmallImage product={product[selectedIndex].thumbnailUrl.pic2}/>
+                    <SmallImage product={product[selectedIndex].thumbnailUrl.pic3}/>
+                    <SmallImage product={product[selectedIndex].thumbnailUrl.pic4}/>
+                    <SmallImage product={product[selectedIndex].thumbnailUrl.pic5}/>
+                </div>
+                <div className="btn-box" id="button-right">
+                    <img src="./images/icon/left-back.png" alt="" onClick={scrollRight}/>
+                </div>
             </div>
         </div>
     )

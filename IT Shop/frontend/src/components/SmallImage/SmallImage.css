@@ -2,7 +2,6 @@
 
 @media only screen and (max-width:5000px){
     .smallimage-container{
-        /* border: 1px solid red; */
         min-width: 80px;
         display: flex;
         align-items: center;
@@ -11,7 +10,7 @@
         overflow: hidden;
     
         & img{
-            width: 85%;
+            width: 88%;
             transition: all 0.3s;
             border-radius: 15px;
             border: 2px solid transparent;

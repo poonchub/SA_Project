@@ -1,13 +1,14 @@
 import "./ProductItem.css"
 import { Link } from "react-router-dom";
+import { setSelectedIndex } from "../../data/selectedIndex";
 
+function ProductItem(props: { product: any; index: any; }){
 
-function ProductItem(props: {product: any; }){
-    const {product} = props;
+    const {product, index} = props;
     const num = product.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-
+    
     return (
-        <Link to="/Selected">
+        <Link to="/Selected" onClick={()=> setSelectedIndex(index)}> 
             <div className="container-product-item">
                 <div className="img-box">
                     <img src={product.thumbnailUrl.pic1} alt="" />

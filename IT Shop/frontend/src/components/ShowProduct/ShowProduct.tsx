@@ -6,8 +6,8 @@ import "./ShowProduct.css"
 
 function ShowProduct(){
 
-    const productElements = product.map((subProduct,index) => {
-        return <ProductItem key={index} product={subProduct}/>
+    const productElements = product.map((subProduct, index) => {
+        return <ProductItem key={index} product={subProduct} index={index}/>
     })
 
     return (
