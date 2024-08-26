@@ -113,5 +113,4 @@ func SetupDatabase() {
 		},	
 	}
 	db.Create(&products)
-
 }
