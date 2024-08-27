@@ -13,7 +13,7 @@ func ListCategories(c *gin.Context) {
 
 	db := config.DB()
 
-	db.Find(&categories)
+	db.Preload("Owner").Find(&categories)
 
 	c.JSON(http.StatusOK, &categories)
 }

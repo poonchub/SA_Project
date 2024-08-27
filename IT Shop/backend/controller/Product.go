@@ -13,7 +13,7 @@ func ListProducts(c *gin.Context) {
 
 	db := config.DB()
 
-	db.Find(&products)
+	db.Preload("Category.Owner").Preload("Brand").Find(&products)
 
 	c.JSON(http.StatusOK, &products)
 }

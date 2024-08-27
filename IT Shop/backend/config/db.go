@@ -39,17 +39,17 @@ func SetupDatabase() {
 		&entity.Picture{},
 	)
 
-	Owner := []*entity.Owner{
-		{
-			Prefix: "Mr.",
-			FirstName: "Poonchub",
-			LastName: "Nanawan",
-			AdminRole: "Owner",
-			Email: "poonchubnanawan310@gmail.com",
-			Password: "123456",
-		},
+	Owner := &entity.Owner{
+		Prefix: "Mr.",
+		FirstName: "Poonchub",
+		LastName: "Nanawan",
+		AdminRole: "Owner",
+		Email: "poonchubnanawan310@gmail.com",
+		Password: "123456",
 	}
-	db.Create(&Owner)
+	db.FirstOrCreate(Owner, &entity.Owner{
+		Email: "poonchubnanawan310@gmail.com",
+	})
 
 	categories := []*entity.Category{
 		{
@@ -65,7 +65,11 @@ func SetupDatabase() {
 			OwnerID: 1,
 		},
 	}
-	db.Create(&categories)
+	for _, category := range categories{
+		db.FirstOrCreate(category, &entity.Category{
+			Name: category.Name,
+		})
+	}
 
 	brands := []*entity.Brand{
 		{
@@ -84,7 +88,11 @@ func SetupDatabase() {
 			Name: "SUMSUNG",
 		},
 	}
-	db.Create(&brands)
+	for _, brand := range brands{
+		db.FirstOrCreate(brand, &entity.Brand{
+			Name: brand.Name,
+		})
+	}
 
 	products := []*entity.Product{
 		{
@@ -112,5 +120,9 @@ func SetupDatabase() {
 			BrandID: 2,
 		},	
 	}
-	db.Create(&products)
+	for _, product := range products{
+		db.FirstOrCreate(product, &entity.Product{
+			ProductName: product.ProductName,
+		})
+	}
 }
