@@ -1,6 +1,5 @@
 export interface PictureInterface {
     ID?:        number;
-    // File?:    
-
+    File?:      Blob;
     ProductID?: number;
 }

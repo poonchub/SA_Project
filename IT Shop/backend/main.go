@@ -19,12 +19,19 @@ func main(){
 	r.Use(CORSMiddleware())
 
 	router := r.Group("")
-	{
+	{	
+		// Product
 		router.GET("/products", controller.ListProducts)
 
+		// Category
 		router.GET("/categories", controller.ListCategories)
 
+		// Brand
 		router.GET("/brands", controller.ListBrands)
+
+		// Picture
+		router.GET("/pictures", controller.ListPictures)
+		router.GET("/picture/:id", controller.GetPictureByProductID)
 	}
 
 	r.GET("/", func(c *gin.Context) {

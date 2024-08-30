@@ -6,6 +6,6 @@ type Picture struct{
 	gorm.Model
 	File 		[]byte
 	
-	ProductID	string
+	ProductID	uint
 	Product		Product		`gorm:"foreignKey:ProductID"`
 }

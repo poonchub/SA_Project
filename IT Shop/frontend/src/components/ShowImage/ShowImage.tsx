@@ -1,14 +1,39 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import product from "../../data/product";
 import SmallImage from "../SmallImage/SmallImage";
 import "./ShowImage.css"
 import { selectedIndex } from "../../data/selectedIndex";
+import { PictureInterface } from "../../Interfaces/IPicture";
+import { GetPictureByProductID } from "../../services/http";
 
 
 function ShowImage(){
 
     const scrollRef = useRef<HTMLDivElement>(null);
-    const [mainImg, setMainImg] = useState(product[selectedIndex].thumbnailUrl.pic1)
+
+    const [pictures, setPictures] = useState<PictureInterface[]>([]);
+
+    const [mainImg, setMainImg] = useState("")
+
+    // show first picture
+    if (mainImg=="" && pictures.length > 0){
+        const imageUrl = `data:image/png;base64,${pictures[0].File}`
+        setMainImg(imageUrl)
+    }
+
+    async function getPictures(){
+        let res = await GetPictureByProductID(selectedIndex+1)
+        if (res) {
+            setPictures(res);
+        }
+    }
+    useEffect(()=> {
+        getPictures()
+    }, [])
+
+    const pictureElements = pictures.map((subPicture, index) => {
+        return <SmallImage key={index} picture={subPicture} setMainImg={setMainImg}/>
+    })
 
     const scrollLeft = () => {
         if (scrollRef.current) {
@@ -41,11 +66,7 @@ function ShowImage(){
                     <img src="./images/icon/left-back.png" alt="" onClick={scrollLeft}/>
                 </div>
                 <div className="img-small-box" ref={scrollRef}>
-                    <SmallImage product={product[selectedIndex].thumbnailUrl.pic1}/>
-                    <SmallImage product={product[selectedIndex].thumbnailUrl.pic2}/>
-                    <SmallImage product={product[selectedIndex].thumbnailUrl.pic3}/>
-                    <SmallImage product={product[selectedIndex].thumbnailUrl.pic4}/>
-                    <SmallImage product={product[selectedIndex].thumbnailUrl.pic5}/>
+                    {pictureElements}
                 </div>
                 <div className="btn-box" id="button-right">
                     <img src="./images/icon/left-back.png" alt="" onClick={scrollRight}/>

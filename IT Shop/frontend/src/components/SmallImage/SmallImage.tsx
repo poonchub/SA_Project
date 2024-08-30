@@ -1,12 +1,14 @@
 import "./SmallImage.css"
 
-function SmallImage(props: any){
+function SmallImage(props: { picture: any; setMainImg: any; }){
 
-    const {product} = props
+    const {picture, setMainImg} = props
+
+    const imageUrl = `data:image/png;base64,${picture.File}`
 
     return (
-        <div className="smallimage-container">
-            <img src={product} alt="" />
+        <div className="smallimage-container" onClick={()=>setMainImg(imageUrl)}>
+            <img src={imageUrl} alt="" />
         </div>
     )
 }

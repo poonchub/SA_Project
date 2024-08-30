@@ -131,7 +131,10 @@
         }
 
         & .des-text {
-            padding-left: 30px;
+            margin: 0px 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-collapse: collapse;
         }
     }
 }
