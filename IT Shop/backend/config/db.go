@@ -126,7 +126,7 @@ func SetupDatabase() {
 		{
 			ProductName: "MONITOR (จอมอนิเตอร์) LENOVO G24E-20 - 23.8 VA FHD 100Hz", 
 			Description: 	`Brands	LENOVO
-							Display Size (in.)	24\"
+							Display Size (in.)	24"
 							Panel Type	VA Technology
 							Resolution	1920 x 1080
 							Display color	16.7 Million
