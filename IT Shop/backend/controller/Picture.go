@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GET /pictures
 func ListPictures(c *gin.Context) {
 	var pictures []entity.Picture
 
@@ -18,6 +19,7 @@ func ListPictures(c *gin.Context) {
 	c.JSON(http.StatusOK, &pictures)
 }
 
+// GET /pictures/:id
 func GetPictureByProductID(c *gin.Context) {
 	ID := c.Param("id")
 	var picture []entity.Picture

@@ -20,25 +20,49 @@ func main(){
 
 	router := r.Group("")
 	{	
-		// Product
-		router.GET("/products", controller.ListProducts)
-
-		// Category
-		router.GET("/categories", controller.ListCategories)
+		// Adderss
+		router.GET("/addresses", controller.ListAddresses)
+		router.GET("/address/:id", controller.GetAddressByID)
 
 		// Brand
 		router.GET("/brands", controller.ListBrands)
 
+		// Cart
+
+		// Category
+		router.GET("/categories", controller.ListCategories)
+
+		// Customer
+
+		// Order 
+		router.GET("/orders", controller.ListOrders)
+		router.GET("/order/:id", controller.GetOrderByID)
+		router.POST("/order", controller.CreateOrder)
+		router.PATCH("/order", controller.UpdateOrder)
+
+		// OrderItem
+		router.GET("/orderItems", controller.ListOrderItems)
+		router.GET("/orderItem/:id", controller.GetOrderItemByID)
+		router.POST("/orderItem", controller.CreateOrderItem)
+		router.PATCH("/orderItem", controller.UpdateOrderItem)
+
+		// Owner
+
+		// Payment
+
 		// Picture
 		router.GET("/pictures", controller.ListPictures)
 		router.GET("/picture/:id", controller.GetPictureByProductID)
+
+		// Product
+		router.GET("/products", controller.ListProducts)
+		router.GET("/product/:id", controller.GetProductByID)
+
 	}
 
 	r.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "API RUNNING... PORT: %s", PORT)
 	})
-
-	// Run the server
 
 	r.Run("localhost:" + PORT)
 

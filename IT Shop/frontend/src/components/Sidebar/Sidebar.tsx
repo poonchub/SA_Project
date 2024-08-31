@@ -1,16 +1,39 @@
-import brand from "../../data/brand"
-import category from "../../data/category"
+import { useEffect, useState } from "react"
+import { BrandInterface } from "../../Interfaces/IBrand"
 import BrandItem from "../BrandItem/BrandItem"
 import CategoryItem from "../CategoryItem/CategoryItem"
 import "./Sidebar.css"
+import { GetBrands, GetCategories } from "../../services/http"
+import { CategoryInterface } from "../../Interfaces/ICategory"
 
 function Sidebar(){
 
-    const categoryElements = category.map((subCategory,index) => {
+    const [brands, setBrands] = useState<BrandInterface[]>([]);
+    const [categories, setCategories] = useState<CategoryInterface[]>([]);
+
+    async function getBrands(){
+        let res = await GetBrands()
+        if (res) {
+            setBrands(res);
+        }
+    }
+    async function getCategories(){
+        let res = await GetCategories()
+        if (res) {
+            setCategories(res);
+        }
+    }
+
+    useEffect(()=> {
+        getBrands()
+        getCategories()
+    }, [])
+
+    const categoryElements = categories.map((subCategory,index) => {
         return <CategoryItem key={index} category={subCategory}/>
     })
 
-    const brandElements = brand.map((subBrand,index) => {
+    const brandElements = brands.map((subBrand,index) => {
         return <BrandItem key={index} brand={subBrand}/>
     })
 

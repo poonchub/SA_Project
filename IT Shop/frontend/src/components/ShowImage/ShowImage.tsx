@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import product from "../../data/product";
 import SmallImage from "../SmallImage/SmallImage";
 import "./ShowImage.css"
 import { selectedIndex } from "../../data/selectedIndex";

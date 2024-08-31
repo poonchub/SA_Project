@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GET /categories
 func ListCategories(c *gin.Context) {
 	var categories []entity.Category
 

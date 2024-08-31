@@ -21,12 +21,14 @@ function ProductItem(props: { product: any; index: any; }){
     useEffect(()=> {
         getPictures()
     }, [])
-
-    const picture = pictures.length > 0 ? pictures[index].File : '';
+    
+    const picture = pictures.length > 0 ? pictures[0].File : '';
 
     const imageUrl = `data:image/png;base64,${picture}`
 
     const num = product.PricePerPiece.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
+    console.log(pictures.length)
     
     return (
         <Link to="/Selected" onClick={()=> setSelectedIndex(index)}> 

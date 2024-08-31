@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"main/entity"
+	"time"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -40,7 +41,8 @@ func SetupDatabase() {
 		&entity.Picture{},
 	)
 
-	Owner := &entity.Owner{
+	// Create Owner
+	owner := &entity.Owner{
 		Prefix: "Mr.",
 		FirstName: "Poonchub",
 		LastName: "Nanawan",
@@ -48,51 +50,68 @@ func SetupDatabase() {
 		Email: "poonchubnanawan310@gmail.com",
 		Password: "123456",
 	}
-	db.FirstOrCreate(Owner, &entity.Owner{
-		Email: "poonchubnanawan310@gmail.com",
+	db.FirstOrCreate(owner, &entity.Owner{
+		Email: owner.Email,
 	})
 
-	categories := []*entity.Category{
+	// Create Customer
+	BirthDay, _ := time.Parse("2006-01-02", "2003-06-02")
+	customer := &entity.Customer{
+		Prefix: "Mr.",
+		FirstName: "Poonchub",
+		LastName: "Nanawan",
+		Email: "poonchubnanawan320@gmail.com",
+		Password: "123456",
+		Birthday: BirthDay,
+	}
+	db.FirstOrCreate(customer, &entity.Customer{
+		Email: customer.Email,
+	})
+
+	// Create Address
+	addresses := []*entity.Address{
 		{
-			Name: "NoteBook",
-			OwnerID: 1,
+			Province: "สกลนคร",
+			District: "เมือง",
+			Subdistrict: "เหล่าปอแดง",
+			ZipCode: "47000",
+			AddressDetail: "324/3 บ้านท่าวัด",
+			CustomerID: 1,
 		},
 		{
-			Name: "Monitor",
-			OwnerID: 1,
-		},
-		{
-			Name: "Ram",
-			OwnerID: 1,
+			Province: "นครราชสีมา",
+			District: "เมือง",
+			Subdistrict: "สุรนารี",
+			ZipCode: "30000",
+			AddressDetail: "111 มหาวิทยาลัยเทคโนโลยีสุรนารี หอพักสุรนิเวศ 13 โซนล่าง",
+			CustomerID: 1,
 		},
 	}
-	for _, category := range categories{
-		db.FirstOrCreate(category, &entity.Category{
-			Name: category.Name,
+	for _, address := range addresses{
+		db.FirstOrCreate(address, &entity.Address{
+			AddressDetail: address.AddressDetail,
+			CustomerID: address.CustomerID,
 		})
 	}
 
-	brands := []*entity.Brand{
-		{
-			Name: "ASUS",
-		},
-		{
-			Name: "LENOVO",
-		},
-		{
-			Name: "T-FORCE",
-		},
-		{
-			Name: "ACER",
-		},
-		{
-			Name: "SUMSUNG",
-		},
+	// Create Category
+	categories := []string{"Notebook", "Monitor", "RAM", "Graphic Card", "CPU", "Mainboard", "Computer"}
+	for _, category := range categories {
+		path := fmt.Sprintf("images/category/%s.png", category)
+			err := createCategory(category, path, 1)
+			if err != nil {
+				panic(err)
+			}
 	}
-	for _, brand := range brands{
-		db.FirstOrCreate(brand, &entity.Brand{
-			Name: brand.Name,
-		})
+
+	// Create Brand
+	brands := []string{"ASUS", "LENOVO", "T-FORCE", "MSI", "SAMSUNG", "NVIDIA", "INTEL"}
+	for _, brand := range brands {
+		path := fmt.Sprintf("images/brand/%s.png", brand)
+			err := createBrand(brand, path)
+			if err != nil {
+				panic(err)
+			}
 	}
 
 	// Create Product
@@ -167,7 +186,104 @@ func SetupDatabase() {
 			Stock: 20,
 			CategoryID: 3,
 			BrandID: 3,
-		},	
+		},
+		{
+			ProductName: "VGA(การ์ดจอ) ASUS ROG STRIX GEFORCE RTX 4090 O24G GAMING - 24GB GDDR6X",
+			Description: 	`Brands	ASUS
+							GPU Series	NVIDIA GeForce RTX™ 40 Series
+							GPU Model	GeForce RTX™ 4090
+							Memory Size	24GB GDDR6X
+							Bus Standard	PCI Express 4.0
+							CUDA® Cores	16384
+							Memory Interface	384-bit
+							Boost Clock	2640 MHz
+							Base Clock	2610 MHz
+							Memory Clock	21.0 Gbps
+							Max Digital Resolution	1366 x 768
+							HDMI Port	2 x HDMI 2.1a
+							Display Port	-
+							DVI Port	N/A
+							VGA Port	5 x VGA
+							Cooler Fan	3 Fans
+							Power Connector	1 x 16-pin
+							Power Requirement	1000 Watt
+							Dimension (W x H x D)	357.6 x 149.3 x 70.1 mm.
+							Warranty	3 Years`,
+			PricePerPiece: 93990.00,
+			Stock: 10,
+			CategoryID: 4,
+			BrandID: 1,
+		},
+		{
+			ProductName: "CPU (ซีพียู) INTEL 1700 CORE I5-12400F 2.5GHz 6C 12T",
+			Description: 	`Brand	INTEL
+							Series	12th Gen Intel® Core™
+							Processor Number	Core™ i5-12400F
+							Socket Type	Intel® LGA-1700
+							Cores/Threads	6 (6P) Cores / 12 Threads
+							Base Frequency	2.5 GHz
+							Max Turbo Frequency	4.4 GHz
+							L2 Cache	7.5 MB
+							L3 Cache	18 MB
+							Graphics Models	Discrete Graphics Card Required
+							64Bit Support	N/A
+							CPU Cooler	Yes
+							Maximum Turbo Power	65 Watt
+							Warranty	3 Years`,
+			PricePerPiece: 4290.00,
+			Stock: 7,
+			CategoryID: 5,
+			BrandID: 7,
+		},
+		{
+			ProductName: "MAINBOARD (เมนบอร์ด)(AM5) MSI MEG X670E GODLIKE",
+			Description: 	`Brands	MSI
+							CPU Support	
+							AMD Ryzen 7000 Series
+							AMD Ryzen 8000 Series
+							AMD Ryzen 9000 Series
+							CPU Socket	AMD AM5
+							Chipset	AMD X670
+							Memory Slots	4 x DIMM
+							Memory Type	DDR5
+							Max Memory	256GB
+							Onboard Audio Chipset	
+							Realtek ALC4082 Codec
+							ESS ES9280AQ Combo DAC/HPA
+							Audio Channels	8-Channel 7.1-Channel USB High Performance Audio
+							Expansion Slots	1 x PCIe 5.0 x16 Slot
+							Storage	
+							4 x M.2 Socket
+							8 x SATA3 6Gb/s port(s)
+							Rear Panel I/O	1 x Wi-Fi/Bluetooth, 1 x Clear CMOS button, 1 x Optical S/PDIF out, 1 x Flash BIOS button, 1 x Smart button, 1 x 2.5G LAN, 5 x Audio jacks, 1 x 10G SUPER LAN, 7 x USB 10Gbps Type-A, 2 x USB 3.2 Gen 2x2 20Gbps Type-C
+							LAN Chipset	Marvell AQC113CS-B1-C 10Gbps LAN
+							Intel I225V 2.5Gbps LAN
+							LAN Speed	100/1000/2500 Mbps, 100/1000/2500/5000/10000 Mbps
+							Dimensions	28.8 x 30.4 cm
+							Power Pin	24+8+8 Pin
+							Form Factor	E-ATX
+							Warranty	3 Years`,
+			PricePerPiece: 42900.00,
+			Stock: 11,
+			CategoryID: 6,
+			BrandID: 4,
+		},
+		{
+			ProductName: "JBSINTD5-223 INTEL I9-14900KS 6.2GHz 24C/32T / Z790 / ONBOARD / 96GB DDR5 5600MHz / M.2 1TB / 1300W (80+PLATINUM) / CS360",
+			Description: 	`CPU	Intel® CORE I9-14900KS 6.2GHz 24C/32T
+							Mainboard	GIGABYTE Z790 AORUS MASTER DDR5 (REV.1.0)
+							Graphic card	ONBOARD Intel® UHD Graphics 770 (อัพเกรดการ์ดจอติดต่อ ADMIN)
+							Memory	G.SKILL TRIDENT Z5 NEO RGB 96GB (48x2) DDR5 5600MHz
+							Storage	M.2 WD BLACK SN770 1TB (5,150MB/s)
+							Power Supply	MSI MEG AI1300P PCIE5 1300W (80+PLATINUM)
+							Case	NZXT H9 ELITE (MATTE BLACK)(CM-H91EB-01)(ATX) | (เลือกเคสติดต่อ ADMIN)
+							Cooling System	NZXT KRAKEN ELITE 360 RGB BLACK
+							Warranty	3 Years (ยกเว้น CASE ประกัน 1 ปี)`,
+			PricePerPiece: 96990.00,
+			Stock: 20,
+			CategoryID: 7,
+			BrandID: 7,
+		},
 	}
 	for _, product := range products{
 		db.FirstOrCreate(product, &entity.Product{
@@ -176,8 +292,10 @@ func SetupDatabase() {
 	}
 
 	// Create Picture Product
-	for i:=uint(1); i<=3 ;i++{
-		for j:=1 ; j<=5 ; j++ {
+	for i:=uint(1); i<=7 ;i++{
+		dir := fmt.Sprintf("images/product/product%d", i)
+		count := countFilesInDir(dir)
+		for j:=1 ; j<=count ; j++ {
 			path := fmt.Sprintf("images/product/product%d/p0%d.jpg", i, j)
 			err := createPicture(path, i)
 			if err != nil {
@@ -187,18 +305,31 @@ func SetupDatabase() {
 	}
 }
 
-func createBrand(Name string, filePath string) error {
+func createCategory(name string, filePath string, id uint) error {
     imageData, err := ioutil.ReadFile(filePath)
     if err != nil {
         return err
     }
 
-    image := entity.Brand{Name: Name ,Picture: imageData}
+    category := entity.Category{Name: name, Picture: imageData, OwnerID: id}
 
-	if err := db.Where("name = ?", &image.Name).FirstOrCreate(&image).Error; err != nil {
+	if err := db.Where("name = ?", &category.Name).FirstOrCreate(&category).Error; err != nil {
+        return err
+    }
+    return nil
+}
+
+func createBrand(name string, filePath string) error {
+    imageData, err := ioutil.ReadFile(filePath)
+    if err != nil {
         return err
     }
 
+    brand := entity.Brand{Name: name, Picture: imageData}
+
+	if err := db.Where("name = ?", &brand.Name).FirstOrCreate(&brand).Error; err != nil {
+        return err
+    }
     return nil
 }
 
@@ -208,11 +339,26 @@ func createPicture(filePath string, id uint) error {
         return err
     }
 
-    image := entity.Picture{File: imageData, ProductID: id}
+    picture := entity.Picture{File: imageData, ProductID: id}
 
-	if err := db.Where("file = ?", &image.File).FirstOrCreate(&image).Error; err != nil {
+	if err := db.Where("file = ?", &picture.File).FirstOrCreate(&picture).Error; err != nil {
         return err
     }
-
     return nil
+}
+
+func countFilesInDir(dir string) (int) {
+    files, err := ioutil.ReadDir(dir)
+    if err != nil {
+        return 0
+    }
+
+    fileCount := 0
+    for _, file := range files {
+        if !file.IsDir() {
+            fileCount++
+        }
+    }
+
+    return fileCount
 }

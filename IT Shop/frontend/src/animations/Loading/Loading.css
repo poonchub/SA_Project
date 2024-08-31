@@ -1,14 +1,16 @@
-.loading-container{
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+@media only screen and (max-width:5000px){
+    .loading-container{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
 
-    & .video-loading {
-        position: fixed;
-        height: 120%;
-        min-height: 120%;
+        & .video-loading {
+            position: fixed;
+            height: 120%;
+            min-height: 120%;
+        }
     }
 }
