@@ -42,13 +42,14 @@ func SetupDatabase() {
 	)
 
 	// Create Owner
+	hashedPassword, _ := HashPassword("123456")
 	owner := &entity.Owner{
 		Prefix: "Mr.",
 		FirstName: "Poonchub",
 		LastName: "Nanawan",
 		AdminRole: "Owner",
 		Email: "poonchubnanawan310@gmail.com",
-		Password: "123456",
+		Password: hashedPassword,
 	}
 	db.FirstOrCreate(owner, &entity.Owner{
 		Email: owner.Email,
@@ -61,7 +62,7 @@ func SetupDatabase() {
 		FirstName: "Poonchub",
 		LastName: "Nanawan",
 		Email: "poonchubnanawan320@gmail.com",
-		Password: "123456",
+		Password: hashedPassword,
 		Birthday: BirthDay,
 	}
 	db.FirstOrCreate(customer, &entity.Customer{
