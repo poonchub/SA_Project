@@ -1,0 +1,22 @@
+@import "../../stylesheet/ColorSheet.css";
+
+.popup-container{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.685);
+    position: absolute;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & .detail-box{
+        width: 30%;
+        height: 40%;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0px 0px 4px 2px var(--shadow-color2);
+        padding: 20px;
+        
+    }
+}

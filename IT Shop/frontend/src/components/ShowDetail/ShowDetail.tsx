@@ -1,14 +1,21 @@
-import { useEffect, useState } from "react";
-import product from "../../data/product"
+import { useContext, useEffect, useState } from "react";
 import "./ShowDetail.css"
-import { GetProduct } from "../../services/http";
+import { CreateOrder, CreateOrderItem, GetProduct} from "../../services/http";
 import { ProductInterFace } from "../../Interfaces/IProduct";
 import { selectedIndex } from "../../data/selectedIndex";
+import { OrderInterface } from "../../Interfaces/IOrder";
+
+import { message } from "antd";
+import { OrderItemInterface } from "../../Interfaces/IOrderItem";
+import { PopupContext } from "../../pages/Selected";
+import PopupConfirmOrder from "../PopupConfirmOrder/PopupConfirmOrder";
 
 function ShowDetail(){
 
     const [products, setProducts] = useState<ProductInterFace[]>([]);
     const [quantity, setQuantity] = useState(1);
+    const [messageApi, contextHolder] = message.useMessage();
+    const {setPopup} = useContext(PopupContext)
 
     async function getProducts(){
         let res = await GetProduct()
@@ -16,6 +23,65 @@ function ShowDetail(){
             setProducts(res);
         }
     }
+
+    function add(){
+        setQuantity(quantity+1)
+    }
+
+    function minus(){
+        if (quantity==1){
+            setQuantity(1)
+        }
+        else {
+            setQuantity(quantity-1)
+        }
+    }
+
+    function showPopup(){
+        setPopup(<PopupConfirmOrder setPopup={setPopup}/>)
+    }
+
+    // async function createOrder() {
+    //     const orderData: OrderInterface = {
+    //         TotalPrice: 0,
+    //         Status: "not yet paid",
+    //         CustomerID: 1,
+    //         AddressID: 1
+    //     };
+
+    //     // @ts-ignore
+    //     const price = (products[selectedIndex].PricePerPiece)*quantity;
+    //     const orderItemData: OrderItemInterface ={
+    //         Quantity: quantity,
+    //         Price: price,
+    //         OrderID: 1,
+    //         ProductID: products[selectedIndex].ID
+    //     }
+
+    //     try {
+    //         const resultOrder = await CreateOrder(orderData);
+    //         const resultOrderItem = await CreateOrderItem(orderItemData)
+
+    //         if (resultOrder || resultOrderItem){
+    //             messageApi.open({
+    //                 type: "success",
+    //                 content: "คำสั่งซื้อของคุณถูกสร้างเรียบร้อยแล้ว",
+    //             });
+    //         } else {
+    //             messageApi.open({
+    //                 type: "error",
+    //                 content: "เกิดข้อผิดพลาดในการสร้างคำสั่งซื้อ",
+    //             });
+    //         }
+
+    //     } catch (error) {
+    //         console.error("Error creating order:", error);
+    //         messageApi.open({
+    //             type: "error",
+    //             content: "เกิดข้อผิดพลาดในการสร้างคำสั่งซื้อ",
+    //         });
+    //     }
+    // }
 
     useEffect(()=> {
         getProducts()
@@ -37,35 +103,25 @@ function ShowDetail(){
     const desElement = wordsArray.map((words, index) => {
         const w = words.trim().split("\t")
         return (
-            <tr key={index}>
-                {w.map((_w, index) => (
-                    <td key={index} style={{
-                        padding: '10px 25px 10px 30px',
-                        borderBottom: "1px solid lightgray",
-                        width: index === 0 ? '22%' : 'auto'
-                    }}>
-                        {_w}
-                    </td>
-                ))}
-            </tr>
+            <tbody key={index}>
+                <tr>
+                    {w.map((_w, index) => (
+                        <td key={index} style={{
+                            padding: '10px 25px 10px 30px',
+                            borderBottom: "1px solid lightgray",
+                            width: index === 0 ? '22%' : 'auto'
+                        }}>
+                            {_w}
+                        </td>
+                    ))}
+                </tr>
+            </tbody>  
         )
     })
 
-    function add(){
-        setQuantity(quantity+1)
-    }
-
-    function minus(){
-        if (quantity==1){
-            setQuantity(1)
-        }
-        else {
-            setQuantity(quantity-1)
-        }
-    }
-
     return (
         <div className="showdetail-container">
+            {contextHolder}
             <div className="text-box">
                 <div className="sub-text-box">
                     <div className="productname-box">
@@ -99,7 +155,7 @@ function ShowDetail(){
                     <div className="btn" id="cart-button">
                         เพิ่มลงตะกร้า
                     </div>
-                    <div className="btn" id="order-button">
+                    <div className="btn" id="order-button" onClick={showPopup}>
                         ซื้อทันที
                     </div>
                 </div>

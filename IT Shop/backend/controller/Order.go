@@ -37,6 +37,34 @@ func GetOrderByID(c *gin.Context) {
 	c.JSON(http.StatusOK, order)
 }
 
+// GET /orders/:id
+func GetOrderByCustomerID(c *gin.Context) {
+	ID := c.Param("id")
+	var orders []entity.Order
+
+	db := config.DB()
+	results := db.Preload("Customer").Preload("Address.Customer").Find(&orders, "customer_id=?", ID)
+	if results.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, orders)
+}
+
+// GET /neworder/:id
+func GetNewOrderByCustomerID(c *gin.Context) {
+	ID := c.Param("id")
+	var orders []entity.Order
+
+	db := config.DB()
+	results := db.Preload("Customer").Preload("Address.Customer").Last(&orders, "customer_id=?", ID)
+	if results.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, orders)
+}
+
 // POST /order
 func CreateOrder(c *gin.Context) {
 	var order entity.Order

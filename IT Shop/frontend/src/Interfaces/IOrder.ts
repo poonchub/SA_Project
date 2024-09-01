@@ -2,7 +2,7 @@ export interface OrderInterface {
     ID?:        number;
     OrderDate?: string;
     TotalPrice: number;
-    Satus?:     string;
+    Status?:     string;
 
     CustomerID?:    number;
     AddressID?:     number;

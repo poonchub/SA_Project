@@ -37,7 +37,7 @@ func GetOrderItemByID(c *gin.Context) {
 	c.JSON(http.StatusOK, orderItem)
 }
 
-// POST /order
+// POST /orderItem
 func CreateOrderItem(c *gin.Context) {
 	var orderItem entity.OrderItem
 
@@ -76,6 +76,8 @@ func CreateOrderItem(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+
 
 	c.JSON(http.StatusCreated, gin.H{"message": "Created success", "data": odItem})
 }

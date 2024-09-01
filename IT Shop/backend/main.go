@@ -37,6 +37,8 @@ func main(){
 		// Order 
 		router.GET("/orders", controller.ListOrders)
 		router.GET("/order/:id", controller.GetOrderByID)
+		router.GET("/orders/:id", controller.GetOrderByCustomerID)
+		router.GET("/neworder/:id", controller.GetNewOrderByCustomerID)
 		router.POST("/order", controller.CreateOrder)
 		router.PATCH("/order", controller.UpdateOrder)
 

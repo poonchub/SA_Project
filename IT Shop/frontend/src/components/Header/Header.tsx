@@ -1,8 +1,12 @@
+import { useContext } from 'react';
 import './Header.css'
 import { Link } from 'react-router-dom';
+import { SearchTextContext } from '../../pages/Product';
 
 function Header(props: { icon: any}){
 
+    const {searchText, setSearchText} = useContext(SearchTextContext)
+    
     const {icon} = props
 
     return (
@@ -21,7 +25,12 @@ function Header(props: { icon: any}){
                 </div>
             </div>
             <div className="search-bar">
-                <input type="text" placeholder='Search'/>
+                <input 
+                    type="text" 
+                    placeholder='Search'
+                    value={searchText}
+                    onChange={(event) => {setSearchText(event.target.value)}}
+                />
                 <a href="#" className="img-box">
                     <img src="/images/icon/search.png" alt="" />
                 </a>
