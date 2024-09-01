@@ -60,6 +60,7 @@ func main(){
 		// Product
 		router.GET("/products", controller.ListProducts)
 		router.GET("/product/:id", controller.GetProductByID)
+		router.PATCH("/product", controller.UpdateProduct)
 
 	}
 

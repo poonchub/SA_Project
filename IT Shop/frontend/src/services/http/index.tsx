@@ -1,5 +1,6 @@
 import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
+import { ProductInterFace } from "../../Interfaces/IProduct";
 
 const apiUrl = "http://localhost:8000";
 
@@ -362,6 +363,25 @@ async function GetProductByID(id: Number | undefined) {
   return res;
 }
 
+async function UpdateProduct(data: ProductInterFace) {
+  const requestOptions = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/product`, requestOptions)
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
 export {
     // Address  --------------------------
     GetAddresses,
@@ -395,4 +415,5 @@ export {
     // Product  --------------------------
     GetProduct,
     GetProductByID,
+    UpdateProduct,
 }

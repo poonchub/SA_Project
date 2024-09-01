@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { AddressInterface } from "../../Interfaces/IAddress";
 import "./PopupConfirmOrder.css"
-import { CreateOrder, CreateOrderItem, GetAddressByCustomerID } from "../../services/http";
+import { CreateOrder, CreateOrderItem, GetAddressByCustomerID, UpdateProduct } from "../../services/http";
 import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { selectedIndex } from "../../data/selectedIndex";
+import { ProductInterFace } from "../../Interfaces/IProduct";
 
 function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any; quantity: any; products: any; messageApi: any; }){
 
@@ -37,8 +38,6 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
             };
             const resultOrder = await CreateOrder(orderData);
 
-            console.log(resultOrder.data.ID)
-
             if (resultOrder) {
                 const newOrderID = resultOrder.data.ID;
 
@@ -50,8 +49,14 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
                 };
     
                 const resultOrderItem = await CreateOrderItem(orderItemData);
+
+                const updateProductData: ProductInterFace = {
+                    ID: products[selectedIndex].ID,
+                    Stock: (products[selectedIndex].Stock)-1
+                }
+                const resultUpdateProduct = await UpdateProduct(updateProductData)
     
-                if (resultOrderItem) {
+                if (resultOrderItem && resultUpdateProduct) {
                     messageApi.open({
                         type: "success",
                         content: "คำสั่งซื้อของคุณถูกสร้างเรียบร้อยแล้ว",
@@ -150,8 +155,8 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
                     </tbody>
                 </table>
                 <div className="btn-box">
-                    <button className="confirm-btn" onClick={createOrder}>ยืนยันคำสั่งซื้อ</button>
                     <button className="cancel-btn" onClick={closePopup}>ยกเลิก</button>
+                    <button className="confirm-btn" onClick={createOrder}>ยืนยันคำสั่งซื้อ</button>
                 </div>
             </div>
         </div>

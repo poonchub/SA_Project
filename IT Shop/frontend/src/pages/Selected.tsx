@@ -19,7 +19,7 @@ function Selected(){
         setLoading(true)
         setTimeout(() => {
             setLoading(false)
-        }, 1800)
+        }, 1500)
     }, [])
 
     return (
