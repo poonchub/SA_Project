@@ -1,12 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import "./ShowDetail.css"
-import { CreateOrder, CreateOrderItem, GetProduct} from "../../services/http";
+import { GetProduct} from "../../services/http";
 import { ProductInterFace } from "../../Interfaces/IProduct";
 import { selectedIndex } from "../../data/selectedIndex";
-import { OrderInterface } from "../../Interfaces/IOrder";
-
 import { message } from "antd";
-import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { PopupContext } from "../../pages/Selected";
 import PopupConfirmOrder from "../PopupConfirmOrder/PopupConfirmOrder";
 
@@ -38,50 +35,8 @@ function ShowDetail(){
     }
 
     function showPopup(){
-        setPopup(<PopupConfirmOrder setPopup={setPopup}/>)
+        setPopup(<PopupConfirmOrder setPopup={setPopup} productName={productName} price={price} quantity={quantity} products={products} messageApi={messageApi}/>)
     }
-
-    // async function createOrder() {
-    //     const orderData: OrderInterface = {
-    //         TotalPrice: 0,
-    //         Status: "not yet paid",
-    //         CustomerID: 1,
-    //         AddressID: 1
-    //     };
-
-    //     // @ts-ignore
-    //     const price = (products[selectedIndex].PricePerPiece)*quantity;
-    //     const orderItemData: OrderItemInterface ={
-    //         Quantity: quantity,
-    //         Price: price,
-    //         OrderID: 1,
-    //         ProductID: products[selectedIndex].ID
-    //     }
-
-    //     try {
-    //         const resultOrder = await CreateOrder(orderData);
-    //         const resultOrderItem = await CreateOrderItem(orderItemData)
-
-    //         if (resultOrder || resultOrderItem){
-    //             messageApi.open({
-    //                 type: "success",
-    //                 content: "คำสั่งซื้อของคุณถูกสร้างเรียบร้อยแล้ว",
-    //             });
-    //         } else {
-    //             messageApi.open({
-    //                 type: "error",
-    //                 content: "เกิดข้อผิดพลาดในการสร้างคำสั่งซื้อ",
-    //             });
-    //         }
-
-    //     } catch (error) {
-    //         console.error("Error creating order:", error);
-    //         messageApi.open({
-    //             type: "error",
-    //             content: "เกิดข้อผิดพลาดในการสร้างคำสั่งซื้อ",
-    //         });
-    //     }
-    // }
 
     useEffect(()=> {
         getProducts()

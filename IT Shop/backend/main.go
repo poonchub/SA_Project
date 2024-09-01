@@ -23,6 +23,7 @@ func main(){
 		// Adderss
 		router.GET("/addresses", controller.ListAddresses)
 		router.GET("/address/:id", controller.GetAddressByID)
+		router.GET("/addresses/:id", controller.GetAddressByCustomerID)
 
 		// Brand
 		router.GET("/brands", controller.ListBrands)

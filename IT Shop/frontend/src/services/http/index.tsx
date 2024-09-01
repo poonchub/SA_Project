@@ -41,6 +41,23 @@ async function GetAddressByID(id: Number | undefined) {
   return res;
 }
 
+async function GetAddressByCustomerID(id: Number | undefined) {
+  const requestOptions = {
+    method: "GET"
+  };
+
+  let res = await fetch(`${apiUrl}/addresses/${id}`, requestOptions)
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
 // Brand
 async function GetBrands() {
   const requestOptions = {
@@ -349,6 +366,7 @@ export {
     // Address  --------------------------
     GetAddresses,
     GetAddressByID,
+    GetAddressByCustomerID,
 
     // Brand  ----------------------------
     GetBrands,

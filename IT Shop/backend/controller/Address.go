@@ -36,3 +36,17 @@ func GetAddressByID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, address)
 }
+
+// GET /addresses/:id
+func GetAddressByCustomerID(c *gin.Context) {
+	ID := c.Param("id")
+	var addresses []entity.Address
+
+	db := config.DB()
+	results := db.Preload("Customer").Find(&addresses, "customer_id=?", ID)
+	if results.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, addresses)
+}
