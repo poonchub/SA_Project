@@ -1,22 +1,49 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import './Header.css'
 import { Link } from 'react-router-dom';
-import { SearchTextContext } from '../../pages/Product';
+import { Context } from '../../pages/Product';
 
-function Header(props: { icon: any}){
+function Header(props: { page: any; }){
 
-    const {searchText, setSearchText} = useContext(SearchTextContext)
-    
-    const {icon} = props
+    const {page} = props
+    const {searchText, setSearchText, setMode} = useContext(Context)
+    const [isToggled, setIsToggled] = useState(true);
+
+    function toggleMode(){
+        setIsToggled(!isToggled);
+        console.log(isToggled)
+        if(isToggled){
+            setMode("half")
+        }
+        else{
+            setMode("")
+        }
+    }
+
+    let modeElement = <></>
+    if (page == "product"){
+        modeElement = (
+            <div className="option-box" onClick={toggleMode}>
+                <div className="img-box">
+                    <img src={"images/icon/Hamburger.png"} alt="" />
+                </div>
+            </div>
+        )
+    }
+    else if (page=="selected"){
+        modeElement = (
+            <Link to="/Product" className="option-box">
+                <div className="img-box">
+                    <img src={"images/icon/back.png"} alt="" />
+                </div>
+            </Link>
+        )
+    }
 
     return (
         <div className="container-head">
             <div className="left-side">
-                <Link to="/Product" className="hamburger-box">
-                    <div className="img-box">
-                        <img src={icon} alt="" />
-                    </div>
-                </Link>
+                {modeElement}
                 <div className="logo-box">
                     <div className="img-box">
                         {/* <img src="/images/Lenovo_Global_Corporate_Logo.png" alt="" /> */}

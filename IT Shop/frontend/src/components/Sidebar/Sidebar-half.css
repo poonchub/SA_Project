@@ -1,13 +1,13 @@
 @import "../../stylesheet/ColorSheet.css";
 
 @media only screen and (max-width:5000px) {
-    .container-sidebar {
+    .container-sidebar-half {
         display: grid;
         margin-top: 85px;
         position: fixed;
-        width: 295px;
+        width: 160px;
         grid-template-columns: 100%;
-        grid-template-rows: 70px calc((100vh - 155px)/2) calc(((100vh - 160px)/2));
+        grid-template-rows: 100px calc((100vh - 185px)/2) calc(((100vh - 185px)/2));
         box-sizing: border-box;
         padding-left: 20px;
         background-color: var(--subtheme-color3);
@@ -23,15 +23,40 @@
             }
 
             & .input-box {
-                display: flex;
+                display: grid;
+                grid-template-columns: repeat(2, auto);
+                grid-template-rows: repeat(2, auto);
+                grid-template-areas:
+                    "min min-value"
+                    "max max-value";
+                gap: 7px;
+                margin-top: 10px;
                 justify-content: center;
                 align-items: center;
-                margin-top: 10px;
 
                 & p {
-                    margin: 0px 8px 0px 8px;
+                    margin: 0px;
                     font-weight: 650;
                     font-size: 14px;
+                }
+                & .min {
+                    grid-area: min;
+                }
+    
+                & .min-value {
+                    grid-area: min-value;
+                }
+    
+                & .max {
+                    grid-area: max;
+                }
+    
+                & .max-value {
+                    grid-area: max-value;
+                }
+    
+                & .to {
+                    display: none;
                 }
 
                 & input {
@@ -78,61 +103,20 @@
             margin: 15px 0px 12px 0px;
             font-weight: 900;
         }
-    }
+    }   
 }
 
 @media only screen and (max-width:1100px) {
-    .container-sidebar {
-        margin-top: 130px;
-        grid-template-rows: 70px calc((100vh - 200px)/2) calc(((100vh - 160px)/2));
+    .container-sidebar-half {
+        margin-top: 140px;
+        grid-template-rows: 100px calc((100vh - 240px)/2) calc(((100vh - 240px)/2));
     }
 }
 
 @media only screen and (max-width:870px) {
-    .container-sidebar {
-        margin-top: 170px;
-        grid-template-rows: 70px calc((100vh - 240px)/2) calc(((100vh - 160px)/2));
-    }
-}
-
-@media only screen and (max-width:790px) {
-    .container-sidebar {
-        width: 160px;
-        grid-template-rows: 100px calc((100vh - 260px)/2) calc(((100vh - 160px)/2));
-
-        & .range-box .input-box {
-            display: grid;
-            grid-template-columns: repeat(2, auto);
-            grid-template-rows: repeat(2, auto);
-            grid-template-areas:
-                "min min-value"
-                "max max-value";
-            gap: 7px;
-
-            & p {
-                margin: 0px;
-            }
-
-            & .min {
-                grid-area: min;
-            }
-
-            & .min-value {
-                grid-area: min-value;
-            }
-
-            & .max {
-                grid-area: max;
-            }
-
-            & .max-value {
-                grid-area: max-value;
-            }
-
-            & .to {
-                display: none;
-            }
-        }
+    .container-sidebar-half {
+        margin-top: 180px;
+        grid-template-rows: 100px calc((100vh - 280px)/2) calc(((100vh - 280px)/2));
     }
 }
 

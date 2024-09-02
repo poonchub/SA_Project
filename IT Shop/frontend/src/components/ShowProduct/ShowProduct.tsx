@@ -1,17 +1,16 @@
-
 import { useContext, useEffect, useState } from "react";
-// import product from "../../data/product"
 import { GetProduct } from "../../services/http";
 import ProductItem from "../ProductItem/ProductItem"
 import "./ShowProduct.css"
+import "./ShowProduct-half.css"
 import { ProductInterFace } from "../../Interfaces/IProduct";
-import { SearchTextContext } from "../../pages/Product";
+import { Context } from "../../pages/Product";
 
 
 function ShowProduct(){
 
     const [products, setProducts] = useState<ProductInterFace[]>([]);
-    const {searchText, setSearchText} = useContext(SearchTextContext)
+    const {searchText, mode, minRange, maxRange, category} = useContext(Context)
 
     async function getProducts(){
         let res = await GetProduct()
@@ -24,14 +23,26 @@ function ShowProduct(){
         getProducts()
     }, [])
     
+    console.log(minRange)
+    console.log(maxRange)
+
     const filteredProduct = products.filter((subProduct) => {
         // @ts-ignore
-        return subProduct.ProductName.toLowerCase().includes(searchText.toLowerCase());
-    });
+        return subProduct.ProductName.toLowerCase().includes(searchText.toLowerCase()) && (subProduct.PricePerPiece >= minRange && subProduct.PricePerPiece <= maxRange)
+    })
 
     const productElements = filteredProduct.map((subProduct, index) => {
         return <ProductItem key={index} product={subProduct} searchText={searchText}/>
     })
+
+    if (mode=="half"){
+        const con_show = document.querySelector(".container-showproduct")
+        con_show?.setAttribute("class","container-showproduct-half")
+    }
+    else {
+        const con_show = document.querySelector(".container-showproduct-half")
+        con_show?.setAttribute("class","container-showproduct")
+    }
 
     return (
         <div className="container-showproduct">

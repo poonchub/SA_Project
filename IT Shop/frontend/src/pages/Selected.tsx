@@ -8,12 +8,11 @@ export const PopupContext = createContext({setPopup: (param: any) => {}})
 
 function Selected(){
 
-    const [icon, setIcon] = useState("/images/icon/back.png");
-
     const [loading, setLoading] = useState(false)
 
     const [popup, setPopup] = useState(null)
 
+    
 
     useEffect(() => {
         setLoading(true)
@@ -30,7 +29,7 @@ function Selected(){
                 :   
                 <>
                     {popup}
-                    <Header icon={icon}/>
+                    <Header page={"selected"}/>
                     <ShowImage/>
                     <ShowDetail/>
                 </>   

@@ -20,8 +20,8 @@
             width: 300px;
             justify-content: space-around;
     
-            & .hamburger-box{
-                /* border: 1px solid red; */
+            & .option-box{
+                cursor: pointer;
                 width: 25px;
                 display: flex;
                 align-items: center;
@@ -30,6 +30,10 @@
                 & img{
                     width: 100%;
                 }
+            }
+
+            & .hidden-option-box{
+                display: none;
             }
         
             & .logo-box{
@@ -73,7 +77,7 @@
                 padding-left: 10px;
                 width: 90%;
                 border: 0px;
-                font-size: 19px;
+                font-size: 16px;
             }
     
             input:focus-visible{

@@ -1,0 +1,37 @@
+@import "../../stylesheet/ColorSheet.css";
+
+@media only screen and (max-width:5000px){
+    .container-brand-item-half{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 5px;
+        border: 3px solid transparent;
+        border-radius: 15px;
+        transition: all 0.5s;
+        height: 47px;
+        font-size: 14px;
+    
+        & .img-box{
+            height: 30px;
+            width: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0px 7.5px 0px 0px;
+    
+            & img{
+                width: 100%;
+            }
+        }
+    
+        & .title-box{
+            display: none;
+        }
+    }
+    
+    .container-brand-item-half:hover{
+        border: 3px solid var(--subtheme-color1);
+        cursor: pointer;
+    }
+}
