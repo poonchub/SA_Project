@@ -9,10 +9,9 @@ import { GetPictureByProductID } from "../../services/http";
 function ShowImage(){
 
     const scrollRef = useRef<HTMLDivElement>(null);
-
     const [pictures, setPictures] = useState<PictureInterface[]>([]);
-
     const [mainImg, setMainImg] = useState("")
+    const [imgClick, setImgClick] = useState(null)
 
     // show first picture
     if (mainImg=="" && pictures.length > 0){
@@ -31,7 +30,7 @@ function ShowImage(){
     }, [])
 
     const pictureElements = pictures.map((subPicture, index) => {
-        return <SmallImage key={index} picture={subPicture} setMainImg={setMainImg}/>
+        return <SmallImage key={index} picture={subPicture} setMainImg={setMainImg} imgClick={imgClick} setImgClick={setImgClick}/>
     })
 
     const scrollLeft = () => {

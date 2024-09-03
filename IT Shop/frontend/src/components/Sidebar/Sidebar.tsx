@@ -96,8 +96,8 @@ function Sidebar(){
                         min={1000}
                         step={500}
                         onChange={(event) => {
-                            setMaxRange(event.target.value)}
-                        }
+                            setMaxRange(event.target.value)
+                        }}
                     />
                     <p className="max">Max</p>
                 </div>

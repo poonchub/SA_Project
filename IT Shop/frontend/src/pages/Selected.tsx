@@ -12,8 +12,6 @@ function Selected(){
 
     const [popup, setPopup] = useState(null)
 
-    
-
     useEffect(() => {
         setLoading(true)
         setTimeout(() => {

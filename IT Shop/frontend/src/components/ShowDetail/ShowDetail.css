@@ -18,7 +18,7 @@
         height: calc(100vh - 75px);
         display: flex;
         flex-direction: column;
-        padding: 30px 5% 20px 0px;
+        padding: 40px 5% 20px 0px;
         overflow: auto;
 
         & .text-box {
