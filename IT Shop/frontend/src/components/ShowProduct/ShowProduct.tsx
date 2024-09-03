@@ -10,7 +10,7 @@ import { Context } from "../../pages/Product";
 function ShowProduct(){
 
     const [products, setProducts] = useState<ProductInterFace[]>([]);
-    const {searchText, mode, minRange, maxRange, category} = useContext(Context)
+    const {searchText, mode, minRange, maxRange, categoryClick, brandClick} = useContext(Context)
 
     async function getProducts(){
         let res = await GetProduct()
@@ -22,17 +22,30 @@ function ShowProduct(){
     useEffect(()=> {
         getProducts()
     }, [])
-    
-    console.log(minRange)
-    console.log(maxRange)
 
-    const filteredProduct = products.filter((subProduct) => {
-        // @ts-ignore
-        return subProduct.ProductName.toLowerCase().includes(searchText.toLowerCase()) && (subProduct.PricePerPiece >= minRange && subProduct.PricePerPiece <= maxRange)
+    const filteredProduct = (categoryClick!=null && brandClick!=null) ? 
+        products.filter((subProduct) => {
+            // @ts-ignore
+            return subProduct.ProductName.toLowerCase().includes(searchText.toLowerCase()) && (subProduct.PricePerPiece >= minRange && subProduct.PricePerPiece <= maxRange) && subProduct.CategoryID==categoryClick && subProduct.BrandID==brandClick
+        }
+    ) : (categoryClick!=null) ? 
+        products.filter((subProduct) => {
+            // @ts-ignore
+            return subProduct.ProductName.toLowerCase().includes(searchText.toLowerCase()) && (subProduct.PricePerPiece >= minRange && subProduct.PricePerPiece <= maxRange) && subProduct.CategoryID==categoryClick
+        }
+    ) : (brandClick!=null) ? 
+        products.filter((subProduct) => {
+            // @ts-ignore
+            return subProduct.ProductName.toLowerCase().includes(searchText.toLowerCase()) && (subProduct.PricePerPiece >= minRange && subProduct.PricePerPiece <= maxRange) && subProduct.BrandID==brandClick
+        }
+    ) : 
+        products.filter((subProduct) => {
+            // @ts-ignore
+            return subProduct.ProductName.toLowerCase().includes(searchText.toLowerCase()) && (subProduct.PricePerPiece >= minRange && subProduct.PricePerPiece <= maxRange)
     })
 
     const productElements = filteredProduct.map((subProduct, index) => {
-        return <ProductItem key={index} product={subProduct} searchText={searchText}/>
+        return <ProductItem key={index} product={subProduct} searchText={searchText} category={categoryClick}/>
     })
 
     if (mode=="half"){

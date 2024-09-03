@@ -71,13 +71,10 @@ func CreateOrderItem(c *gin.Context) {
 		Product: product,
 	}
 
-	// บันทึก
-	if err := db.Preload("Address.Custome").Create(&odItem).Error; err != nil {
+	if err := db.Preload("Address.Customer").Create(&odItem).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-
 
 	c.JSON(http.StatusCreated, gin.H{"message": "Created success", "data": odItem})
 }

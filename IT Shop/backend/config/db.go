@@ -96,7 +96,7 @@ func SetupDatabase() {
 	}
 
 	// Create Category
-	categories := []string{"All Product", "Notebook", "Monitor", "RAM", "Graphic Card", "CPU", "Mainboard", "Computer"}
+	categories := []string{"Notebook", "Monitor", "RAM", "Graphic Card", "CPU", "Mainboard", "Computer"}
 	for _, category := range categories {
 		path := fmt.Sprintf("images/category/%s.png", category)
 			err := createCategory(category, path, 1)
@@ -140,7 +140,7 @@ func SetupDatabase() {
 							Warranty	2 Years`, 
 			PricePerPiece: 28990.00,
 			Stock: 20,
-			CategoryID: 2,
+			CategoryID: 1,
 			BrandID: 1,
 		},
 		{
@@ -169,7 +169,7 @@ func SetupDatabase() {
 							Warranty	3 Years`, 
 			PricePerPiece: 4390.00,
 			Stock: 15,
-			CategoryID: 3,
+			CategoryID: 2,
 			BrandID: 2,
 		},
 		{
@@ -185,7 +185,7 @@ func SetupDatabase() {
 							Warranty	Lifetime`, 
 			PricePerPiece: 1190.00,
 			Stock: 20,
-			CategoryID: 4,
+			CategoryID: 3,
 			BrandID: 3,
 		},
 		{
@@ -212,7 +212,7 @@ func SetupDatabase() {
 							Warranty	3 Years`,
 			PricePerPiece: 93990.00,
 			Stock: 10,
-			CategoryID: 5,
+			CategoryID: 4,
 			BrandID: 1,
 		},
 		{
@@ -233,7 +233,7 @@ func SetupDatabase() {
 							Warranty	3 Years`,
 			PricePerPiece: 4290.00,
 			Stock: 7,
-			CategoryID: 6,
+			CategoryID: 5,
 			BrandID: 7,
 		},
 		{
@@ -266,7 +266,7 @@ func SetupDatabase() {
 							Warranty	3 Years`,
 			PricePerPiece: 42900.00,
 			Stock: 11,
-			CategoryID: 7,
+			CategoryID: 6,
 			BrandID: 4,
 		},
 		{

@@ -13,8 +13,10 @@ export const Context = createContext({
     setMinRange: (param: any) => {},
     maxRange: 100000,
     setMaxRange: (param: any) => {},
-    category: null,
-    setCategory: (param: any) => {},
+    categoryClick: null,
+    setCategoryClick: (param: any) => {},
+    brandClick: null,
+    setBrandClick: (param: any) => {},
 })
 
 function Product(){
@@ -22,7 +24,8 @@ function Product(){
     const [minRange, setMinRange] = useState(0);
     const [maxRange, setMaxRange] = useState(100000);
     const [mode, setMode] = useState("")
-    const [category, setCategory] = useState(null)
+    const [categoryClick, setCategoryClick] = useState(null)
+    const [brandClick, setBrandClick] = useState(null)
 
     return (
         <Context.Provider value={{
@@ -34,8 +37,10 @@ function Product(){
             setMinRange,
             maxRange,
             setMaxRange,
-            category,
-            setCategory
+            categoryClick,
+            setCategoryClick,
+            brandClick,
+            setBrandClick
         }}>
             <Header page={"product"} />
             <Sidebar/>

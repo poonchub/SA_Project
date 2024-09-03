@@ -5,9 +5,9 @@ import { PictureInterface } from "../../Interfaces/IPicture";
 import { useEffect, useState } from "react";
 import { GetPictureByProductID } from "../../services/http";
 
-function ProductItem(props: { product: any; searchText: any; }){
+function ProductItem(props: { product: any; searchText: any; category: any}){
 
-    const {product, searchText} = props;
+    const {product, searchText, category} = props;
 
     const [pictures, setPictures] = useState<PictureInterface[]>([]);
 
@@ -20,7 +20,7 @@ function ProductItem(props: { product: any; searchText: any; }){
 
     useEffect(()=> {
         getPictures()
-    }, [searchText])
+    }, [searchText, category])
     
     const picture = pictures.length > 0 ? pictures[0].File : '';
 
