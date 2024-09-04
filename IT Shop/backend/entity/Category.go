@@ -4,8 +4,8 @@ import "gorm.io/gorm"
 
 type Category struct {
 	gorm.Model
-	Name 	string
-	Picture	[]byte
+	CategoryName 	string
+	ImagePath		string
 
 	Products	[]Product	`gorm:"foreignKey:CategoryID"`
 

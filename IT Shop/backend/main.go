@@ -18,6 +18,8 @@ func main(){
 
 	r.Use(CORSMiddleware())
 
+	r.Static("/images", "./images")
+
 	router := r.Group("")
 	{	
 		// Adderss
@@ -39,7 +41,6 @@ func main(){
 		router.GET("/orders", controller.ListOrders)
 		router.GET("/order/:id", controller.GetOrderByID)
 		router.GET("/orders/:id", controller.GetOrderByCustomerID)
-		router.GET("/neworder/:id", controller.GetNewOrderByCustomerID)
 		router.POST("/order", controller.CreateOrder)
 		router.PATCH("/order", controller.UpdateOrder)
 
@@ -53,9 +54,9 @@ func main(){
 
 		// Payment
 
-		// Picture
-		router.GET("/pictures", controller.ListPictures)
-		router.GET("/picture/:id", controller.GetPictureByProductID)
+		// Image
+		router.GET("/product-images/:productId", controller.GetImageByProductByID)
+		router.POST("/product-image/:productId", controller.CreateImage)
 
 		// Product
 		router.GET("/products", controller.ListProducts)
@@ -69,7 +70,7 @@ func main(){
 	})
 
 	r.Run("localhost:" + PORT)
-
+	
 }
 
 func CORSMiddleware() gin.HandlerFunc {

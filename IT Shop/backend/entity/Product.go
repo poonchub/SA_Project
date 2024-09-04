@@ -11,7 +11,7 @@ type Product struct {
 	
 	Carts			[]Cart		`gorm:"foreignKey:ProductID"`
 	OrderItems		[]OrderItem	`gorm:"foreignKey:ProductID"`
-	Pictures		[]Picture	`gorm:"foreignKey:ProductID"`
+	Image			[]Image		`gorm:"foreignKey:ProductID"`
 
 	CategoryID		uint
 	Category		Category	`gorm:"foreignKey:CategoryID"`

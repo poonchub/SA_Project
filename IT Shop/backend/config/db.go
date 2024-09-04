@@ -37,8 +37,8 @@ func SetupDatabase() {
 		&entity.Brand{}, 
 		&entity.Category{}, 
 		&entity.Owner{}, 
-		&entity.Cart{}, 
-		&entity.Picture{},
+		&entity.Cart{},
+		&entity.Image{},
 	)
 
 	// Create Owner
@@ -292,13 +292,13 @@ func SetupDatabase() {
 		})
 	}
 
-	// Create Picture Product
+	// Create Image Product
 	for i:=uint(1); i<=7 ;i++{
 		dir := fmt.Sprintf("images/product/product%d", i)
 		count := countFilesInDir(dir)
 		for j:=1 ; j<=count ; j++ {
-			path := fmt.Sprintf("images/product/product%d/p0%d.jpg", i, j)
-			err := createPicture(path, i)
+			filePath := fmt.Sprintf("images/product/product%d/p0%d.jpg", i, j)
+			err := createImage(filePath, i)
 			if err != nil {
 				panic(err)
 			}
@@ -307,42 +307,28 @@ func SetupDatabase() {
 }
 
 func createCategory(name string, filePath string, id uint) error {
-    imageData, err := ioutil.ReadFile(filePath)
-    if err != nil {
-        return err
-    }
+    category := entity.Category{CategoryName: name, ImagePath: filePath, OwnerID: id}
 
-    category := entity.Category{Name: name, Picture: imageData, OwnerID: id}
-
-	if err := db.Where("name = ?", &category.Name).FirstOrCreate(&category).Error; err != nil {
+	if err := db.Where("category_name = ?", &category.CategoryName).FirstOrCreate(&category).Error; err != nil {
         return err
     }
     return nil
 }
 
 func createBrand(name string, filePath string) error {
-    imageData, err := ioutil.ReadFile(filePath)
-    if err != nil {
-        return err
-    }
+    brand := entity.Brand{BrandName: name, ImagePath: filePath}
 
-    brand := entity.Brand{Name: name, Picture: imageData}
-
-	if err := db.Where("name = ?", &brand.Name).FirstOrCreate(&brand).Error; err != nil {
+	if err := db.Where("brand_name = ?", &brand.BrandName).FirstOrCreate(&brand).Error; err != nil {
         return err
     }
     return nil
 }
 
-func createPicture(filePath string, id uint) error {
-    imageData, err := ioutil.ReadFile(filePath)
-    if err != nil {
-        return err
-    }
+func createImage(filePath string, id uint) error {
 
-    picture := entity.Picture{File: imageData, ProductID: id}
+    image := entity.Image{FilePath: filePath, ProductID: id}
 
-	if err := db.Where("file = ?", &picture.File).FirstOrCreate(&picture).Error; err != nil {
+	if err := db.Where("file_path = ?", &image.FilePath).FirstOrCreate(&image).Error; err != nil {
         return err
     }
     return nil

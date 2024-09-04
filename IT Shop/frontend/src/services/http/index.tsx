@@ -2,7 +2,7 @@ import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { ProductInterFace } from "../../Interfaces/IProduct";
 
-const apiUrl = "http://localhost:8000";
+export const apiUrl = "http://localhost:8000";
 
 // Address
 async function GetAddresses() {
@@ -156,22 +156,6 @@ async function GetOrderByCustomerID(id: Number | undefined) {
   return res;
 }
 
-async function GetNewOrderByCustomerID(id: Number | undefined) {
-  const requestOptions = {
-    method: "GET"
-  };
-
-  let res = await fetch(`${apiUrl}/neworder/${id}`, requestOptions)
-    .then((res) => {
-      if (res.status == 200) {
-        return res.json();
-      } else {
-        return false;
-      }
-    });
-
-  return res;
-}
 
 async function CreateOrder(data: OrderInterface) {
   const requestOptions = {
@@ -287,16 +271,13 @@ async function UpdateOrderItem(data: OrderItemInterface) {
   return res;
 }
 
-// Picture
-async function GetPictures() {
+// Image
+async function GetImageByProductID(id: Number | undefined) {
   const requestOptions = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    method: "GET"
   };
 
-  let res = await fetch(`${apiUrl}/pictures`, requestOptions)
+  let res = await fetch(`${apiUrl}/product-images/${id}`, requestOptions)
     .then((res) => {
       if (res.status == 200) {
         return res.json();
@@ -308,14 +289,16 @@ async function GetPictures() {
   return res;
 }
 
-async function GetPictureByProductID(id: Number | undefined) {
+async function CreateImage(formData:FormData) {
   const requestOptions = {
-    method: "GET"
+    method: "POST",
+    // headers: { "Content-Type": "application/json" },
+    body: formData,
   };
 
-  let res = await fetch(`${apiUrl}/picture/${id}`, requestOptions)
+  let res = await fetch(`${apiUrl}/product-image/1`, requestOptions)
     .then((res) => {
-      if (res.status == 200) {
+      if (res.status == 201) {
         return res.json();
       } else {
         return false;
@@ -398,7 +381,6 @@ export {
     GetOrders,
     GetOrderByID,
     GetOrderByCustomerID,
-    GetNewOrderByCustomerID,
     CreateOrder,
     UpdateOrder,
 
@@ -408,9 +390,9 @@ export {
     CreateOrderItem,
     UpdateOrderItem,
 
-    // Picture  --------------------------
-    GetPictures, 
-    GetPictureByProductID,
+    // Image  ----------------------------
+    GetImageByProductID,
+    CreateImage,
 
     // Product  --------------------------
     GetProduct,

@@ -1,12 +1,12 @@
-import { useState } from "react";
 import "./CategoryItem.css"
 import "./Categoryitem-half.css"
+import { apiUrl } from "../../services/http";
 
 function CategoryItem(props: { category: any; mode: any; categoryClick: any; setCategoryClick: any; }){
     
     const {category, mode, categoryClick, setCategoryClick} = props;
 
-    const imageUrl = `data:image/png;base64,${category.Picture}`
+    const imageUrl = `${apiUrl}/${category.ImagePath}`
 
     // จัดการการเปลี่ยนโหมด Sidebar
     if(mode=="half"){
@@ -43,7 +43,7 @@ function CategoryItem(props: { category: any; mode: any; categoryClick: any; set
                 <img src={imageUrl} alt="" />
             </div>
             <div className="title-box">
-                <h4>{category.Name}</h4>
+                <h4>{category.CategoryName}</h4>
             </div>
         </div>
     )

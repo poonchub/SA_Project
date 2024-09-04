@@ -1,30 +1,28 @@
 import "./ProductItem.css"
 import { Link } from "react-router-dom";
 import { setSelectedIndex } from "../../data/selectedIndex";
-import { PictureInterface } from "../../Interfaces/IPicture";
 import { useEffect, useState } from "react";
-import { GetPictureByProductID } from "../../services/http";
+import { apiUrl, GetImageByProductID } from "../../services/http";
+import { ImageInterface } from "../../Interfaces/IImage";
 
 function ProductItem(props: { product: any; searchText: any; category: any}){
 
     const {product, searchText, category} = props;
 
-    const [pictures, setPictures] = useState<PictureInterface[]>([]);
+    const [images, setImages] = useState<ImageInterface[]>([]);
 
-    async function getPictures(){
-        let res = await GetPictureByProductID(product.ID)
+    async function getImages(){
+        let res = await GetImageByProductID(product.ID)
         if (res) {
-            setPictures(res);
+            setImages(res);
         }
     }
 
     useEffect(()=> {
-        getPictures()
+        getImages()
     }, [searchText, category])
-    
-    const picture = pictures.length > 0 ? pictures[0].File : '';
 
-    const imageUrl = `data:image/png;base64,${picture}`
+    const imageUrl = images.length > 0 ? `${apiUrl}/${images[0].FilePath}` : '';
 
     const num = product.PricePerPiece.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
     

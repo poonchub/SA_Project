@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import "./SmallImage.css"
+import { apiUrl } from "../../services/http";
 
-function SmallImage(props: { picture: any; setMainImg: any; imgClick: any; setImgClick: any }){
+function SmallImage(props: { image: any; setMainImg: any; imgClick: any; setImgClick: any }){
 
-    const {picture, setMainImg, imgClick, setImgClick} = props
+    const {image, setMainImg, imgClick, setImgClick} = props
 
-    const imageUrl = `data:image/png;base64,${picture.File}`
+    const imageUrl = `${apiUrl}/${image.FilePath}`
 
     // จัดการการแสดงผลของ element เมื่อ click
     const allElements = document.querySelectorAll(".small-img")
@@ -29,10 +30,10 @@ function SmallImage(props: { picture: any; setMainImg: any; imgClick: any; setIm
     return (
         <div className="smallimage-container">
             <img className="small-img" src={imageUrl} alt="" 
-                id={`img${picture.ID}`} 
+                id={`img${image.ID}`} 
                 onClick={()=> {
                     setMainImg(imageUrl)
-                    setImgClick(picture.ID)
+                    setImgClick(image.ID)
                 }}
             />
         </div>

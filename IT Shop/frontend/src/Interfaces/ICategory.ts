@@ -1,6 +1,6 @@
 export interface CategoryInterface {
-    ID?:        number;
-    Name?:      string;
+    ID?:                number;
+    CategoryName?:      string;
     
     OwnerID?:   number;
 }

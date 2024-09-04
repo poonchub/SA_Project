@@ -1,10 +1,11 @@
 import "./BrandItem.css"
 import "./BrandItem-half.css"
+import { apiUrl } from "../../services/http";
 
 function BrandItem(props: { brand: any; mode: any; brandClick: any; setBrandClick: any; }){
     const {brand, mode, brandClick, setBrandClick} = props;
 
-    const imageUrl = `data:image/png;base64,${brand.Picture}`
+    const imageUrl = `${apiUrl}/${brand.ImagePath}`
 
     if(mode=="half"){
         const con_brand = document.querySelector(".container-brand-item")
@@ -40,7 +41,7 @@ function BrandItem(props: { brand: any; mode: any; brandClick: any; setBrandClic
                 <img src={imageUrl} alt="" />
             </div>
             <div className="title-box">
-                <h4>{brand.Name}</h4>
+                <h4>{brand.BrandName}</h4>
             </div>
         </div>
     )
