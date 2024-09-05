@@ -3,29 +3,33 @@ import Header from "../components/Header/Header";
 import { CreateImage } from "../services/http";
 
 function Home(){
-    const [image, setImage] = useState(null);
-    const [previewUrl, setPreviewUrl] = useState('');
+    const [images, setImages] = useState([]);
     const [uploadMessage, setUploadMessage] = useState('');
 
     const handleImageChange = (e:any) => {
-        const file = e.target.files[0];
-        setImage(file);
-        setPreviewUrl(URL.createObjectURL(file));
+        const file = e.target.files
+        setImages(file);
     };
 
+    console.log(images)
+
     const handleUpload = async () => {
-        if (!image) return;
+        if (images.length === 0){
+            setUploadMessage("Please select images to upload.");
+            return;
+        } 
 
         const formData = new FormData();
-        formData.append('image', image);
-
-        await CreateImage(formData)
-
+        for (const image of images) {
+            formData.append('image', image);
+        }
+        const res = await CreateImage(formData)
+        console.log(res)
     };
 
     return (
         <>
-            {/* <Header page={"home"}/> */}
+            <Header page={"home"}/>
             <div className="input-image" style={{
                 display: "flex",
                 justifyContent: "center",
@@ -33,8 +37,10 @@ function Home(){
                 width: "100vw",
                 height: "100vh"
             }}>
-                <input type="file" onChange={handleImageChange} />
-                {previewUrl && <img src={previewUrl} alt="Preview" width="200" />}
+                <input type="file" 
+                    onChange={handleImageChange} 
+                    multiple
+                />
                 <button onClick={handleUpload}>Upload</button>
                 {uploadMessage && <p>{uploadMessage}</p>}
             </div>

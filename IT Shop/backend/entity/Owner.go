@@ -10,6 +10,7 @@ type Owner struct {
 	AdminRole	string
 	Email		string
 	Password	string
+	ProfilePath	string
 
 	Categories	[]Category	`gorm:"foreignKey:OwnerID"`
 }

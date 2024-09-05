@@ -11,7 +11,7 @@ type Payment struct {
 	PaymentDate	   	time.Time
 	PaymentMethod	string
 	Amount			float32
-	Slip          	[]byte
+	SlipPath        string
 
 	CustomerID		uint
 	Customer		Customer	`gorm:"foreignKey:CustomerID"`

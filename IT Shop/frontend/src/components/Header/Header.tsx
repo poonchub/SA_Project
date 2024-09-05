@@ -51,7 +51,9 @@ function Header(props: { page: any; }){
                     </div>
                 </div>
             </div>
-            <div className="search-bar">
+            <div className="search-bar" style={{
+                visibility: page=="product" ? "visible" : "hidden"
+            }}>
                 <input 
                     type="text" 
                     placeholder='Search'

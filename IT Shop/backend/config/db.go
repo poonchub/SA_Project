@@ -50,6 +50,7 @@ func SetupDatabase() {
 		AdminRole: "Owner",
 		Email: "poonchubnanawan310@gmail.com",
 		Password: hashedPassword,
+		ProfilePath: "images/profile/owner/owner_id01.jpg",
 	}
 	db.FirstOrCreate(owner, &entity.Owner{
 		Email: owner.Email,
@@ -64,6 +65,7 @@ func SetupDatabase() {
 		Email: "poonchubnanawan320@gmail.com",
 		Password: hashedPassword,
 		Birthday: BirthDay,
+		ProfilePath: "images/profile/customer/customer_id01.jpg",
 	}
 	db.FirstOrCreate(customer, &entity.Customer{
 		Email: customer.Email,

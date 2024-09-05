@@ -2,7 +2,6 @@
 
 @media only screen and (max-width:5000px) {
     .container-head {
-        /* border: 1px solid red; */
         width: 100%;
         height: 75px;
         display: flex;
@@ -15,7 +14,6 @@
         background-color: var(--subtheme-color3);
     
         & .left-side{
-            /* border: 1px solid red; */
             display: flex;
             width: 300px;
             justify-content: space-around;
