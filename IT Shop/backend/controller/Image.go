@@ -71,11 +71,12 @@ func CreateImage(c *gin.Context){
 			ProductID: uint(productID),
 			Product:   product,
 		}
-		if err := db.Create(&image).Error; err != nil {
+		if err := db.Create(&image).Error; 
+		err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Files uploaded successfully"})
+	c.JSON(http.StatusCreated, gin.H{"message": "Files uploaded successfully"})
 }
