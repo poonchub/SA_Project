@@ -8,24 +8,18 @@ function SmallImage(props: { image: any; setMainImg: any; imgClick: any; setImgC
 
     const imageUrl = `${apiUrl}/${image.FilePath}`
 
-    // จัดการการแสดงผลของ element เมื่อ click
-    const allElements = document.querySelectorAll(".small-img")
-    const clickNowElement = document.querySelector(`#img${imgClick}`)
-
-    // if(clickNowElement!=null && allElements!=null){
-    //     allElements.forEach((item) => {
+    // useEffect(()=>{
+    //     const allElement = document.querySelectorAll(".small-img")
+    //     const clickElement = document.querySelector(`#img${imgClick}`)
+    //     if (clickElement!=null){
+    //         allElement.forEach((item)=>{
+    //             // @ts-ignore
+    //             item.style.borderColor = "transparent"
+    //         })
     //         // @ts-ignore
-    //         item.style.borderColor = "transparent"
-    //     })
-    //     // @ts-ignore
-    //     clickNowElement.style.borderColor = "var(--subtheme-color1)"
-    // }
-    // else {
-    //     allElements.forEach((item) => {
-    //         // @ts-ignore
-    //         item.style.borderColor = "transparent"
-    //     })
-    // }
+    //         clickElement.style.borderColor = "var(--subtheme-color1)"
+    //     }
+    // }, [imgClick])
 
     return (
         <div className="smallimage-container">
@@ -34,6 +28,9 @@ function SmallImage(props: { image: any; setMainImg: any; imgClick: any; setImgC
                 onClick={()=> {
                     setMainImg(imageUrl)
                     setImgClick(image.ID)
+                }}
+                style={{
+                    borderColor: image.ID==imgClick ? "var(--subtheme-color1)" : "transparent"
                 }}
             />
         </div>

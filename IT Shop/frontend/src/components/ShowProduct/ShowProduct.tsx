@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { GetProduct } from "../../services/http";
-import ProductItem from "../ProductItem/ProductItem"
 import "./ShowProduct.css"
 import "./ShowProduct-half.css"
 import { ProductInterFace } from "../../Interfaces/IProduct";
 import { Context } from "../../pages/Product";
+import ProductItem from "../ProductItem/ProductItem";
 
 
 function ShowProduct(){

@@ -2,6 +2,7 @@ import "./BrandItem.css"
 import "./BrandItem-half.css"
 import { apiUrl } from "../../services/http";
 
+
 function BrandItem(props: { brand: any; mode: any; brandClick: any; setBrandClick: any; }){
     const {brand, mode, brandClick, setBrandClick} = props;
 

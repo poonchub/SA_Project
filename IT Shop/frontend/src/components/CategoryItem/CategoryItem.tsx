@@ -1,6 +1,6 @@
+import { apiUrl } from "../../services/http";
 import "./CategoryItem.css"
 import "./Categoryitem-half.css"
-import { apiUrl } from "../../services/http";
 
 function CategoryItem(props: { category: any; mode: any; categoryClick: any; setCategoryClick: any; }){
     

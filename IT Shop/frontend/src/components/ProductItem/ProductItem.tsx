@@ -1,9 +1,9 @@
 import "./ProductItem.css"
 import { Link } from "react-router-dom";
-import { setSelectedIndex } from "../../data/selectedIndex";
 import { useEffect, useState } from "react";
-import { apiUrl, GetImageByProductID } from "../../services/http";
 import { ImageInterface } from "../../Interfaces/IImage";
+import { apiUrl, GetImageByProductID } from "../../services/http";
+import { setSelectedIndex } from "../../data/selectedIndex";
 
 function ProductItem(props: { product: any; searchText: any; category: any}){
 

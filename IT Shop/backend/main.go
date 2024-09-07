@@ -18,9 +18,11 @@ func main(){
 
 	r.Use(CORSMiddleware())
 
+	r.POST("/signup", controller.SignIn)
+
 	r.Static("/images", "./images")
 
-	router := r.Group("")
+	router := r.Group("/")
 	{	
 		// Adderss
 		router.GET("/addresses", controller.ListAddresses)

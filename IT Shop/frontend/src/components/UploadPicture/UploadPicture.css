@@ -1,0 +1,25 @@
+.create-product{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+
+    & .upload-form{
+        display: flex;
+        flex-direction: column;
+
+        & .image-label{
+            margin-top: 7px;
+        }
+
+        & .submit-btn{
+            margin-top: 7px;
+        }
+    }
+
+    & .message{
+        margin-top: 7px;
+    }
+}

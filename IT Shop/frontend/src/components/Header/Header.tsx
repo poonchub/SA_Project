@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './Header.css'
 import { Link } from 'react-router-dom';
 import { Context } from '../../pages/Product';
@@ -11,7 +11,6 @@ function Header(props: { page: any; }){
 
     function toggleMode(){
         setIsToggled(!isToggled);
-        console.log(isToggled)
         if(isToggled){
             setMode("half")
         }
@@ -40,8 +39,18 @@ function Header(props: { page: any; }){
         )
     }
 
+    useEffect(()=>{
+        const menu = document.querySelector(`#${page}`)
+        if (menu!=null){
+            menu.setAttribute("class", "menu-selected")
+        }
+    }, [])
+
     return (
-        <div className="container-head">
+        <div className="container-head" style={{
+            backgroundColor: page=="home" ? "transparent" : "var(--subtheme-color3)",
+            boxShadow: page=="home" ? "none" : "0px 2px 5px var(--shadow-color1)"
+        }}>
             <div className="left-side">
                 {modeElement}
                 <div className="logo-box">

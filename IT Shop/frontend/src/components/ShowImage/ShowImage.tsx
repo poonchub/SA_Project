@@ -11,12 +11,14 @@ function ShowImage(){
     const scrollRef = useRef<HTMLDivElement>(null);
     const [images, setImages] = useState<ImageInterface[]>([]);
     const [mainImg, setMainImg] = useState("")
-    const [imgClick, setImgClick] = useState(null)
+    const [imgClick, setImgClick] = useState(1)
 
     // show first picture
     if (mainImg=="" && images.length > 0){
         const imageUrl =`${apiUrl}/${images[0].FilePath}`
         setMainImg(imageUrl)
+        // @ts-ignore
+        setImgClick(images[0].ID)
     }
 
     async function getImages(){
