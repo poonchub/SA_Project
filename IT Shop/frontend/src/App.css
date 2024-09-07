@@ -1,3 +1,5 @@
+@import "./stylesheet/ColorSheet.css";
+
 body {
     /* border: 1px solid red; */
     width: 100vw;
@@ -6,4 +8,32 @@ body {
     margin: 0%;
     box-sizing: border-box;
     background-color: #ffffff;
+}
+
+.logout-container{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 99;
+    display: flex;
+    justify-content: flex-end;
+
+    & .popup-bg{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0
+    }
+
+    & .detail-box{
+        position: relative;
+        top: 70px;
+        left: -18px;
+        width: 200px;
+        height: 140px;
+        background-color: var(--subtheme-color3);
+        border-radius: 15px;
+        box-shadow: 0 0 5px 2px var(--shadow-color1);
+    }
 }

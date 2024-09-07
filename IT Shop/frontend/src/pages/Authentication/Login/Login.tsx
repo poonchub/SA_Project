@@ -11,6 +11,7 @@ function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [messageApi, contextHolder] = message.useMessage();
+    const [customer, setCustomer] =useState()
 
 	async function onFinish(e: any) {
 		e.preventDefault();
@@ -18,14 +19,18 @@ function Login() {
 			Email: email,
 			Password: password
 		}
-		let res = await SignIn(data);
-		console.log(res)
-		if (res) {
+		let resSignin = await SignIn(data);
+		if (resSignin) {
 			messageApi.success("Sign-in successful");
 			localStorage.setItem("isLogin", "true");
-			localStorage.setItem("token_type", res.token_type);
-			localStorage.setItem("token", res.token);
-			localStorage.setItem("id", res.id);
+			localStorage.setItem("token_type", resSignin.token_type);
+			localStorage.setItem("token", resSignin.token);
+			localStorage.setItem("id", resSignin.id);
+
+            let resGetCustomer = await GetCustomerByID(resSignin.id)
+
+            localStorage.setItem("firstName", resGetCustomer.FirstName);
+            localStorage.setItem("profilePath", resGetCustomer.ProfilePath);
 
 			setTimeout(() => {
 				location.href = "/";
@@ -34,7 +39,22 @@ function Login() {
 		else {
 			messageApi.error("Email or Password is Incorrect");
 		}
+
+        
+
 	}
+
+    async function getCustomer(){
+        const id = localStorage.getItem("id")
+        if (id !== null) {
+            let res = await GetCustomerByID(parseInt(id, 10));
+            if (res) {
+                setCustomer(res);
+            }
+        } else {
+            console.error("ID is not found in localStorage");
+        }
+    }
 
 	const Logout = () => {
 		localStorage.clear();

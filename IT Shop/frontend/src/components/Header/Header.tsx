@@ -3,13 +3,15 @@ import './Header.css'
 import { Link } from 'react-router-dom';
 import { Context } from '../../pages/Product';
 import { apiUrl, GetCustomerByID } from '../../services/http';
+import { AppContext } from '../../App';
+import { Flex } from 'antd';
 
 function Header(props: { page: any; }){
 
     const {page} = props
     const {searchText, setSearchText, setMode} = useContext(Context)
+    const {setLogoutPopup} = useContext(AppContext)
     const [isToggled, setIsToggled] = useState(true);
-    const [customer, setCustomer] =useState()
 
     function toggleMode(){
         setIsToggled(!isToggled);
@@ -20,24 +22,45 @@ function Header(props: { page: any; }){
             setMode("")
         }
     }
-    
-    async function getCustomer(){
-        const id = localStorage.getItem("id")
-        if (id !== null) {
-            let res = await GetCustomerByID(parseInt(id, 10));
-            if (res) {
-                setCustomer(res);
-            }
-        } else {
-            console.error("ID is not found in localStorage");
-        }
+
+    function showLogoutPopup(){
+        setLogoutPopup(
+            <div className='logout-container'>
+                <div className="popup-bg" onClick={()=>setLogoutPopup(null)}></div>
+                <div className="detail-box">
+                    
+                </div>
+            </div>
+        )
     }
 
-    // @ts-ignore
-    const profileUrl = customer!=null ? `${apiUrl}/${customer.ProfilePath}` : "/images/icon/account.png"
-    // @ts-ignore
-    const firstName = customer!=null ? (<div className="text-box">{customer.FirstName}</div>) 
-        : (<div className="text-box">Log-<span>In</span></div>)
+    const isLoggedIn = localStorage.getItem("isLogin") === "true";
+    const firstName = isLoggedIn ? (
+        <div className="text-box">
+            {localStorage.getItem("firstName")}
+        </div>
+    ) : (
+        <div className="text-box">
+            Log<span>in</span>
+        </div>
+    )
+    const profilePath = isLoggedIn ? (
+        `${apiUrl}/${localStorage.getItem("profilePath")}`
+    ) : (
+        "./images/icon/account.png"
+    )
+
+    const customerElement = isLoggedIn ? (
+        <div className="login-box" onClick={showLogoutPopup}>
+            <img src={profilePath} alt="" />
+            {firstName}
+        </div>
+    ) : (
+        <Link to='/Login' className="login-box">
+            <img src={profilePath} alt="" />
+            {firstName}
+        </Link>
+    )
 
     const modeElement = (page == "product") ? (
         <div className="option-box" onClick={toggleMode}>
@@ -58,7 +81,6 @@ function Header(props: { page: any; }){
         if (menu!=null){
             menu.setAttribute("class", "menu-selected")
         }
-        getCustomer()
     }, [])
 
     return (
@@ -93,10 +115,7 @@ function Header(props: { page: any; }){
                     <img src="/images/icon/cart.png" alt="" />
                 </Link>
                 <div className="line"></div>
-                <Link to='/Login' className="login-box">
-                    <img src={profileUrl} alt="" />
-                    {firstName}
-                </Link>
+                {customerElement}
             </nav>
             
         </div>
