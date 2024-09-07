@@ -1,8 +1,27 @@
 import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { ProductInterFace } from "../../Interfaces/IProduct";
+import { SignInInterface } from "../../Interfaces/ISignIn";
 
 export const apiUrl = "http://localhost:8000";
+
+async function SignIn(data: SignInInterface) {
+    const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+    };
+    
+    let res = await fetch(`${apiUrl}/signin`, requestOptions).then((res) => {
+        if (res.status == 200) {
+            return res.json();
+        } else {
+            return false;
+        }
+    });
+    
+    return res;
+}
 
 // Address
 async function GetAddresses() {
@@ -13,48 +32,49 @@ async function GetAddresses() {
     },
   };
 
-  let res = await fetch(`${apiUrl}/addresses`, requestOptions)
-    .then((res) => {
-      if (res.status == 200) {
-        return res.json();
-      } else {
-        return false;
-      }
-    });
+  let res = await fetch(`${apiUrl}/addresses`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
 
   return res;
 }
 
 async function GetAddressByID(id: Number | undefined) {
   const requestOptions = {
-    method: "GET"
+    method: "GET",
   };
 
-  let res = await fetch(`${apiUrl}/address/${id}`, requestOptions)
-    .then((res) => {
+  let res = await fetch(`${apiUrl}/address/${id}`, requestOptions).then(
+    (res) => {
       if (res.status == 200) {
         return res.json();
       } else {
         return false;
       }
-    });
+    }
+  );
 
   return res;
 }
 
 async function GetAddressByCustomerID(id: Number | undefined) {
   const requestOptions = {
-    method: "GET"
+    method: "GET",
   };
 
-  let res = await fetch(`${apiUrl}/addresses/${id}`, requestOptions)
-    .then((res) => {
+  let res = await fetch(`${apiUrl}/addresses/${id}`, requestOptions).then(
+    (res) => {
       if (res.status == 200) {
         return res.json();
       } else {
         return false;
       }
-    });
+    }
+  );
 
   return res;
 }
@@ -68,14 +88,13 @@ async function GetBrands() {
     },
   };
 
-  let res = await fetch(`${apiUrl}/brands`, requestOptions)
-    .then((res) => {
-      if (res.status == 200) {
-        return res.json();
-      } else {
-        return false;
-      }
-    });
+  let res = await fetch(`${apiUrl}/brands`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
 
   return res;
 }
@@ -89,15 +108,50 @@ async function GetCategories() {
     },
   };
 
-  let res = await fetch(`${apiUrl}/categories`, requestOptions)
-    .then((res) => {
+  let res = await fetch(`${apiUrl}/categories`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
+
+  return res;
+}
+
+// Customer
+async function GetCustomers() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/customers`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
+  return res;
+}
+
+async function GetCustomerByID(id: Number | undefined) {
+  const requestOptions = {
+    method: "GET",
+  };
+
+  let res = await fetch(`${apiUrl}/customer/${id}`, requestOptions).then(
+    (res) => {
       if (res.status == 200) {
         return res.json();
       } else {
         return false;
       }
-    });
-
+    }
+  );
   return res;
 }
 
@@ -110,52 +164,50 @@ async function GetOrders() {
     },
   };
 
-  let res = await fetch(`${apiUrl}/orders`, requestOptions)
-    .then((res) => {
-      if (res.status == 200) {
-        return res.json();
-      } else {
-        return false;
-      }
-    });
+  let res = await fetch(`${apiUrl}/orders`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
 
   return res;
 }
 
 async function GetOrderByID(id: Number | undefined) {
   const requestOptions = {
-    method: "GET"
+    method: "GET",
   };
 
-  let res = await fetch(`${apiUrl}/order/${id}`, requestOptions)
-    .then((res) => {
-      if (res.status == 200) {
-        return res.json();
-      } else {
-        return false;
-      }
-    });
+  let res = await fetch(`${apiUrl}/order/${id}`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
 
   return res;
 }
 
 async function GetOrderByCustomerID(id: Number | undefined) {
   const requestOptions = {
-    method: "GET"
+    method: "GET",
   };
 
-  let res = await fetch(`${apiUrl}/orders/${id}`, requestOptions)
-    .then((res) => {
+  let res = await fetch(`${apiUrl}/orders/${id}`, requestOptions).then(
+    (res) => {
       if (res.status == 200) {
         return res.json();
       } else {
         return false;
       }
-    });
+    }
+  );
 
   return res;
 }
-
 
 async function CreateOrder(data: OrderInterface) {
   const requestOptions = {
@@ -164,14 +216,13 @@ async function CreateOrder(data: OrderInterface) {
     body: JSON.stringify(data),
   };
 
-  let res = await fetch(`${apiUrl}/order`, requestOptions)
-    .then((res) => {
-      if (res.status == 201) {
-        return res.json();
-      } else {
-        return false;
-      }
-    });
+  let res = await fetch(`${apiUrl}/order`, requestOptions).then((res) => {
+    if (res.status == 201) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
 
   return res;
 }
@@ -183,14 +234,13 @@ async function UpdateOrder(data: OrderInterface) {
     body: JSON.stringify(data),
   };
 
-  let res = await fetch(`${apiUrl}/order`, requestOptions)
-    .then((res) => {
-      if (res.status == 200) {
-        return res.json();
-      } else {
-        return false;
-      }
-    });
+  let res = await fetch(`${apiUrl}/order`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
 
   return res;
 }
@@ -204,31 +254,31 @@ async function GetOrderItems() {
     },
   };
 
-  let res = await fetch(`${apiUrl}/orderItems`, requestOptions)
-    .then((res) => {
-      if (res.status == 200) {
-        return res.json();
-      } else {
-        return false;
-      }
-    });
+  let res = await fetch(`${apiUrl}/orderItems`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
 
   return res;
 }
 
 async function GetOrderItemByID(id: Number | undefined) {
   const requestOptions = {
-    method: "GET"
+    method: "GET",
   };
 
-  let res = await fetch(`${apiUrl}/orderItem/${id}`, requestOptions)
-    .then((res) => {
+  let res = await fetch(`${apiUrl}/orderItem/${id}`, requestOptions).then(
+    (res) => {
       if (res.status == 200) {
         return res.json();
       } else {
         return false;
       }
-    });
+    }
+  );
 
   return res;
 }
@@ -240,14 +290,13 @@ async function CreateOrderItem(data: OrderItemInterface) {
     body: JSON.stringify(data),
   };
 
-  let res = await fetch(`${apiUrl}/orderItem`, requestOptions)
-    .then((res) => {
-      if (res.status == 201) {
-        return res.json();
-      } else {
-        return false;
-      }
-    });
+  let res = await fetch(`${apiUrl}/orderItem`, requestOptions).then((res) => {
+    if (res.status == 201) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
 
   return res;
 }
@@ -259,14 +308,13 @@ async function UpdateOrderItem(data: OrderItemInterface) {
     body: JSON.stringify(data),
   };
 
-  let res = await fetch(`${apiUrl}/orderItem`, requestOptions)
-    .then((res) => {
-      if (res.status == 200) {
-        return res.json();
-      } else {
-        return false;
-      }
-    });
+  let res = await fetch(`${apiUrl}/orderItem`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
 
   return res;
 }
@@ -274,36 +322,38 @@ async function UpdateOrderItem(data: OrderItemInterface) {
 // Image
 async function GetImageByProductID(id: Number | undefined) {
   const requestOptions = {
-    method: "GET"
+    method: "GET",
   };
 
-  let res = await fetch(`${apiUrl}/product-images/${id}`, requestOptions)
-    .then((res) => {
+  let res = await fetch(`${apiUrl}/product-images/${id}`, requestOptions).then(
+    (res) => {
       if (res.status == 200) {
         return res.json();
       } else {
         return false;
       }
-    });
+    }
+  );
 
   return res;
 }
 
-async function CreateImage(formData:FormData) {
+async function CreateImage(formData: FormData) {
   const requestOptions = {
     method: "POST",
     // headers: { "Content-Type": "application/json" },
     body: formData,
   };
 
-  let res = await fetch(`${apiUrl}/product-image/1`, requestOptions)
-    .then((res) => {
+  let res = await fetch(`${apiUrl}/product-image/1`, requestOptions).then(
+    (res) => {
       if (res.status == 201) {
         return res.json();
       } else {
         return false;
       }
-    });
+    }
+  );
 
   return res;
 }
@@ -317,31 +367,31 @@ async function GetProduct() {
     },
   };
 
-  let res = await fetch(`${apiUrl}/products`, requestOptions)
-    .then((res) => {
-      if (res.status == 200) {
-        return res.json();
-      } else {
-        return false;
-      }
-    });
+  let res = await fetch(`${apiUrl}/products`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
 
   return res;
 }
 
 async function GetProductByID(id: Number | undefined) {
   const requestOptions = {
-    method: "GET"
+    method: "GET",
   };
 
-  let res = await fetch(`${apiUrl}/product/${id}`, requestOptions)
-    .then((res) => {
+  let res = await fetch(`${apiUrl}/product/${id}`, requestOptions).then(
+    (res) => {
       if (res.status == 200) {
         return res.json();
       } else {
         return false;
       }
-    });
+    }
+  );
 
   return res;
 }
@@ -353,21 +403,21 @@ async function UpdateProduct(data: ProductInterFace) {
     body: JSON.stringify(data),
   };
 
-  let res = await fetch(`${apiUrl}/product`, requestOptions)
-    .then((res) => {
-      if (res.status == 200) {
-        return res.json();
-      } else {
-        return false;
-      }
-    });
+  let res = await fetch(`${apiUrl}/product`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
 
   return res;
 }
 
 export {
-    
 
+    SignIn,
+    
     // Address  --------------------------
     GetAddresses,
     GetAddressByID,
@@ -378,6 +428,10 @@ export {
 
     // Category --------------------------
     GetCategories,
+
+    // Customer --------------------------
+    GetCustomers,
+    GetCustomerByID,
 
     // Order  ----------------------------
     GetOrders,
@@ -400,4 +454,4 @@ export {
     GetProduct,
     GetProductByID,
     UpdateProduct,
-}
+};

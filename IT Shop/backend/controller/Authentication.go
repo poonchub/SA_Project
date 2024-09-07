@@ -15,7 +15,7 @@ type Authen struct{
 	Password	string
 }
 
-
+// POST /signin
 func SignIn(c *gin.Context) {
 
 	var payload Authen
@@ -28,7 +28,7 @@ func SignIn(c *gin.Context) {
 	db := config.DB()
 
 	var customer entity.Customer
-	db.First(&customer, payload.Email)
+	db.First(&customer, "email=?", payload.Email)
 	if customer.ID == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"error": "customer not found"})
 		return
@@ -41,7 +41,7 @@ func SignIn(c *gin.Context) {
 	}
 
 	jwtWrapper := services.JwtWrapper{
-		SecretKey: "$2a$14$1cMG8zYAwHJkrr0D1DWZkOAatZDM3RFCqbnI3BYgcO7ASs16hxsyC",
+		SecretKey: "SvNQpBN8y3qlVrsGAYYWoJJk56LtzFHx",
 		Issuer: "AuthService",
 		ExpirationHours: 24,
 	}

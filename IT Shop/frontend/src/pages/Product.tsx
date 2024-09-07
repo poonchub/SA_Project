@@ -39,7 +39,7 @@ function Product(){
             categoryClick,
             setCategoryClick,
             brandClick,
-            setBrandClick
+            setBrandClick,
         }}>
             <Header page={"product"} />
             <Sidebar/>

@@ -157,19 +157,18 @@
             }
     
             & .login-box{
-                /* border: 1px solid red; */
                 min-width: 35px;
                 display: flex;
                 align-items: center;
+                font-weight: 700;
+                cursor: pointer;
     
                 & img{
-                    /* border: 1px solid red; */
                     width: 35px;
                     height: 35px;
                 }
                 
                 & .text-box{
-                    /* border: 1px solid red; */
                     margin-left: 10px;
                     & span{
                         color: var(--subtheme-color1);

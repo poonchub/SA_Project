@@ -18,8 +18,6 @@ function UploadPicture(){
         }
     }, [images])
 
-    console.log(images)
-
     const handleUpload = async (e:any) => {
         e.preventDefault()
         const formData = new FormData();

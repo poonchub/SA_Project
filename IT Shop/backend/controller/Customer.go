@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GET /customers
 func ListCustomers(c *gin.Context) {
 	var customers []entity.Customer
 
@@ -18,3 +19,20 @@ func ListCustomers(c *gin.Context) {
 	c.JSON(http.StatusOK, &customers)
 }
 
+// GET /customer/:id
+func GetCustomerByID(c *gin.Context) {
+	ID := c.Param("id")
+	var customer entity.Customer
+
+	db := config.DB()
+	results := db.First(&customer, ID)
+	if results.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
+		return
+	}
+	if customer.ID == 0 {
+		c.JSON(http.StatusNoContent, gin.H{})
+		return
+	}
+	c.JSON(http.StatusOK, customer)
+}

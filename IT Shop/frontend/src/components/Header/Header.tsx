@@ -2,12 +2,14 @@ import { useContext, useEffect, useState } from 'react';
 import './Header.css'
 import { Link } from 'react-router-dom';
 import { Context } from '../../pages/Product';
+import { apiUrl, GetCustomerByID } from '../../services/http';
 
 function Header(props: { page: any; }){
 
     const {page} = props
     const {searchText, setSearchText, setMode} = useContext(Context)
     const [isToggled, setIsToggled] = useState(true);
+    const [customer, setCustomer] =useState()
 
     function toggleMode(){
         setIsToggled(!isToggled);
@@ -18,39 +20,49 @@ function Header(props: { page: any; }){
             setMode("")
         }
     }
+    
+    async function getCustomer(){
+        const id = localStorage.getItem("id")
+        if (id !== null) {
+            let res = await GetCustomerByID(parseInt(id, 10));
+            if (res) {
+                setCustomer(res);
+            }
+        } else {
+            console.error("ID is not found in localStorage");
+        }
+    }
 
-    let modeElement = <></>
-    if (page == "product"){
-        modeElement = (
-            <div className="option-box" onClick={toggleMode}>
-                <div className="img-box">
-                    <img src={"images/icon/Hamburger.png"} alt="" />
-                </div>
+    // @ts-ignore
+    const profileUrl = customer!=null ? `${apiUrl}/${customer.ProfilePath}` : "/images/icon/account.png"
+    // @ts-ignore
+    const firstName = customer!=null ? (<div className="text-box">{customer.FirstName}</div>) 
+        : (<div className="text-box">Log-<span>In</span></div>)
+
+    const modeElement = (page == "product") ? (
+        <div className="option-box" onClick={toggleMode}>
+            <div className="img-box">
+                <img src={"images/icon/Hamburger.png"} alt="" />
             </div>
-        )
-    }
-    else if (page=="selected"){
-        modeElement = (
-            <Link to="/Product" className="option-box">
-                <div className="img-box">
-                    <img src={"images/icon/back.png"} alt="" />
-                </div>
-            </Link>
-        )
-    }
+        </div>
+    ) : (page=="selected") ? (
+        <Link to="/Product" className="option-box">
+            <div className="img-box">
+                <img src={"images/icon/back.png"} alt="" />
+            </div>
+        </Link>
+    ) : <></>
 
     useEffect(()=>{
         const menu = document.querySelector(`#${page}`)
         if (menu!=null){
             menu.setAttribute("class", "menu-selected")
         }
+        getCustomer()
     }, [])
 
     return (
-        <div className="container-head" style={{
-            backgroundColor: page=="home" ? "transparent" : "var(--subtheme-color3)",
-            boxShadow: page=="home" ? "none" : "0px 2px 5px var(--shadow-color1)"
-        }}>
+        <div className="container-head">
             <div className="left-side">
                 {modeElement}
                 <div className="logo-box">
@@ -82,10 +94,8 @@ function Header(props: { page: any; }){
                 </Link>
                 <div className="line"></div>
                 <Link to='/Login' className="login-box">
-                    <img src="/images/icon/account.png" alt="" />
-                    <div className="text-box">
-                        Log-<span>In</span>
-                    </div>
+                    <img src={profileUrl} alt="" />
+                    {firstName}
                 </Link>
             </nav>
             

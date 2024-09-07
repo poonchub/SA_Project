@@ -18,7 +18,7 @@ func main(){
 
 	r.Use(CORSMiddleware())
 
-	r.POST("/signup", controller.SignIn)
+	r.POST("/signin", controller.SignIn)
 
 	r.Static("/images", "./images")
 
@@ -38,6 +38,8 @@ func main(){
 		router.GET("/categories", controller.ListCategories)
 
 		// Customer
+		router.GET("/customers", controller.ListCustomers)
+		router.GET("/customer/:id", controller.GetCustomerByID)
 
 		// Order 
 		router.GET("/orders", controller.ListOrders)

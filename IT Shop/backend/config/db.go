@@ -58,18 +58,31 @@ func SetupDatabase() {
 
 	// Create Customer
 	BirthDay, _ := time.Parse("2006-01-02", "2003-06-02")
-	customer := &entity.Customer{
-		Prefix: "Mr.",
-		FirstName: "Poonchub",
-		LastName: "Nanawan",
-		Email: "poonchubnanawan320@gmail.com",
-		Password: hashedPassword,
-		Birthday: BirthDay,
-		ProfilePath: "images/profile/customer/customer_id01.jpg",
+	customers := []*entity.Customer{
+		{
+			Prefix: "Mr.",
+			FirstName: "Poonchub",
+			LastName: "Nanawan",
+			Email: "poonchubnanawan320@gmail.com",
+			Password: hashedPassword,
+			Birthday: BirthDay,
+			ProfilePath: "images/profile/customer/customer_id01.jpg",
+		},
+		{
+			Prefix: "Mr.",
+			FirstName: "Nanawan",
+			LastName: "Poonchub",
+			Email: "poonchubnanawan330@gmail.com",
+			Password: hashedPassword,
+			Birthday: BirthDay,
+			ProfilePath: "images/profile/customer/customer_id01.jpg",
+		},
 	}
-	db.FirstOrCreate(customer, &entity.Customer{
-		Email: customer.Email,
-	})
+	for _, customer := range customers{
+		db.FirstOrCreate(customer, &entity.Customer{
+			Email: customer.Email,
+		})
+	}
 
 	// Create Address
 	addresses := []*entity.Address{
