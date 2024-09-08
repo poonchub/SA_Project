@@ -100,7 +100,7 @@
             justify-content: space-evenly;
             width: 550px;
             height: 50px;
-            min-width: 370px;
+            min-width: 400px;
     
             & a{
                 font-weight: 700;
@@ -207,9 +207,8 @@
     }
 }
 
-@media only screen and (max-width:460px) {
+@media only screen and (max-width:500px) {
     .login-box{
-        /* border: 1px solid red; */
 
         & .text-box{
             display: none;

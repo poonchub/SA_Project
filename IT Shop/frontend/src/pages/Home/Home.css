@@ -29,17 +29,6 @@
             }
         }
     
-        & .main-image-box{
-            width: 50%;
-            min-width: 300px;
-            margin-top: 150px;
-    
-            & img{
-                width: 100%;
-                
-            }
-        }
-    
         & .text-box{
             width: 50%;
             min-width: 610px;
@@ -95,6 +84,12 @@
                 text-shadow: 0 0 3px var(--shadow-color1);
                 font-size: 18px;
             }
+        }
+
+        & .model-box{
+            width: 100%;
+            height: 65%;
+            margin-top: 30px;
         }
     }
     
