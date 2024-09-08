@@ -95,7 +95,6 @@
         }
     
         & nav{
-            /* border: 1px solid red; */
             display: flex;
             align-items: center;
             justify-content: space-evenly;
@@ -138,7 +137,6 @@
             }
     
             & .cart-box{
-                /* border: 1px solid red; */
                 width: 35px;
                 height: 35px;
                 display: block;

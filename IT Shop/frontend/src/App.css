@@ -10,83 +10,97 @@ body {
     background-color: #ffffff;
 }
 
-.logout-container{
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    z-index: 99;
-    display: flex;
-    justify-content: flex-end;
-
-    & .popup-bg{
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0
-    }
-
-    & .detail-box{
-        position: relative;
-        top: 70px;
-        left: -18px;
-        width: 10%;
-        min-width: 200px;
-        max-width: 320px;
-        height: 190px;
-        background-color: var(--subtheme-color3);
-        border-radius: 7px;
+@media only screen and (max-width:5000px){
+    .logout-container{
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        z-index: 99;
         display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        padding: 15px;
-
-        & .img-box{
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 2px 2px 5px 2px var(--shadow-color3);
-            overflow: hidden;
-
-            & .img-profile{
-                width: 100%;
-            }
+        justify-content: flex-end;
+    
+        & .popup-bg{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0
         }
-
-        & .name-box{
-            width: 100%;
-            text-align: center;
-            font-weight: 700;
-            margin-bottom: 20px;
-            
-            & span{
-                text-shadow: 2px 2px 2px var(--shadow-color3);
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                white-space: normal;
-                
-            }
-        }
-        
-        & .logout-btn{
-            border: 2px solid var(--subtheme-color1);
-            width: 80px;
-            height: 30px;
+    
+        & .detail-box{
+            position: relative;
+            top: 70px;
+            left: -18px;
+            width: 10%;
+            min-width: 200px;
+            max-width: 320px;
+            height: 190px;
+            background-color: var(--subtheme-color3);
             border-radius: 7px;
-            background-color: transparent;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 15px;
+    
+            & .img-box{
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                margin-bottom: 12px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                box-shadow: 2px 2px 5px 2px var(--shadow-color3);
+                overflow: hidden;
+    
+                & .img-profile{
+                    width: 100%;
+                }
+            }
+    
+            & .name-box{
+                width: 100%;
+                text-align: center;
+                font-weight: 700;
+                margin-bottom: 20px;
+                
+                & span{
+                    text-shadow: 2px 2px 2px var(--shadow-color3);
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
+                    white-space: normal;
+                    
+                }
+            }
+            
+            & .logout-btn{
+                border: 2px solid var(--subtheme-color1);
+                width: 80px;
+                height: 30px;
+                border-radius: 7px;
+                background-color: transparent;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+    
+            & .logout-btn:hover{
+                background-color: var(--subtheme-color1);
+                color: var(--subfont-color2);
+            }
         }
+    }
+}
 
-        & .logout-btn:hover{
-            background-color: var(--subtheme-color1);
-            color: var(--subfont-color2);
-        }
+@media only screen and (max-width:1100px){
+    .logout-container .detail-box{
+        top: 125px;
+    }
+}
+
+@media only screen and (max-width:870px){
+    .logout-container .detail-box{
+        top: 165px;
     }
 }
