@@ -45,7 +45,7 @@ function ShowDetail(){
     // @ts-ignore
     const productName = products.length > 0 ? products[selectedIndex].ProductName : '';
     // @ts-ignore
-    const brand = products.length > 0 ? products[selectedIndex].Brand.Name : '';
+    const brand = products.length > 0 ? products[selectedIndex].Brand.BrandName : '';
     // @ts-ignore
     const stock = products.length > 0 ? products[selectedIndex].Stock : '';
     // @ts-ignore

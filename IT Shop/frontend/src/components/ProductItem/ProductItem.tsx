@@ -38,7 +38,7 @@ function ProductItem(props: { product: any; searchText: any; category: any; minR
                             {product.ProductName}
                         </div>
                         <div className="brand">
-                            brand: {product.Brand.Name}
+                            brand: {product.Brand.BrandName}
                         </div>
                     </div>
                     <div className="price">
