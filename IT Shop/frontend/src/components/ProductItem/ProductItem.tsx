@@ -5,9 +5,9 @@ import { ImageInterface } from "../../Interfaces/IImage";
 import { apiUrl, GetImageByProductID } from "../../services/http";
 import { setSelectedIndex } from "../../data/selectedIndex";
 
-function ProductItem(props: { product: any; searchText: any; category: any}){
+function ProductItem(props: { product: any; searchText: any; category: any; minRange: any; maxRange: any; }){
 
-    const {product, searchText, category} = props;
+    const {product, searchText, category, minRange, maxRange} = props;
 
     const [images, setImages] = useState<ImageInterface[]>([]);
 
@@ -20,7 +20,7 @@ function ProductItem(props: { product: any; searchText: any; category: any}){
 
     useEffect(()=> {
         getImages()
-    }, [searchText, category])
+    }, [searchText, category, minRange, maxRange])
 
     const imageUrl = images.length > 0 ? `${apiUrl}/${images[0].FilePath}` : '';
 

@@ -1,16 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
 import './Header.css'
+import './Header-Home.css'
 import { Link } from 'react-router-dom';
 import { Context } from '../../pages/Product';
-import { apiUrl, GetCustomerByID } from '../../services/http';
+import { apiUrl } from '../../services/http';
 import { AppContext } from '../../App';
-import { Flex } from 'antd';
 
 function Header(props: { page: any; }){
 
     const {page} = props
     const {searchText, setSearchText, setMode} = useContext(Context)
-    const {setLogoutPopup} = useContext(AppContext)
+    const {setLogoutPopup, messageApiLogout, contextHolderLogout} = useContext(AppContext)
     const [isToggled, setIsToggled] = useState(true);
 
     function toggleMode(){
@@ -25,40 +25,64 @@ function Header(props: { page: any; }){
 
     function showLogoutPopup(){
         setLogoutPopup(
-            <div className='logout-container'>
+            <div className='logout-container' id='con-l'>
                 <div className="popup-bg" onClick={()=>setLogoutPopup(null)}></div>
-                <div className="detail-box">
-                    
+                <div className="detail-box" style={{
+                    boxShadow: page=="home" ? "0 0 5px 2px var(--subtheme-color1)" : "0 0 5px 2px var(--shadow-color1)"
+                }}>
+                    <div className="img-box">
+                        <img className='img-profile' src={profilePath} alt="" />
+                    </div>
+                    <div className="name-box">
+                        <span>{firstName} </span>
+                        <span>{lastName}</span>
+                    </div>
+                    <button className='logout-btn' onClick={Logout}>Logout</button>
                 </div>
             </div>
         )
     }
 
+    const Logout = () => {
+		localStorage.clear();
+		messageApiLogout.success("Logout successful");
+		setTimeout(() => {
+		  	location.href = "/";
+		}, 2000);
+	};
+
     const isLoggedIn = localStorage.getItem("isLogin") === "true";
-    const firstName = isLoggedIn ? (
+    const firstName = localStorage.getItem("firstName")
+    const lastName = localStorage.getItem("lastName")
+    const showName = isLoggedIn ? (
         <div className="text-box">
-            {localStorage.getItem("firstName")}
+            {firstName}
         </div>
     ) : (
         <div className="text-box">
-            Log<span>in</span>
+            Log<span>In</span>
         </div>
     )
+    
     const profilePath = isLoggedIn ? (
         `${apiUrl}/${localStorage.getItem("profilePath")}`
-    ) : (
-        "./images/icon/account.png"
+    ) : page=="home" ? "./images/icon/user-pink.png" :(
+        "./images/icon/user-black.png"
     )
 
     const customerElement = isLoggedIn ? (
         <div className="login-box" onClick={showLogoutPopup}>
-            <img src={profilePath} alt="" />
-            {firstName}
+            <div className="img-box">
+                <img src={profilePath} alt="" />
+            </div>
+            {showName}
         </div>
     ) : (
         <Link to='/Login' className="login-box">
-            <img src={profilePath} alt="" />
-            {firstName}
+            <div className="img-box">
+                <img src={profilePath} alt="" />
+            </div>
+            {showName}
         </Link>
     )
 
@@ -81,10 +105,17 @@ function Header(props: { page: any; }){
         if (menu!=null){
             menu.setAttribute("class", "menu-selected")
         }
+
+        const head_con = document.querySelector("#con-h")
+        if (page=="home" && head_con!=null){
+            head_con.setAttribute("class", "container-head-home")
+        }
+
     }, [])
 
     return (
-        <div className="container-head">
+        <div className="container-head" id="con-h">
+            {contextHolderLogout}
             <div className="left-side">
                 {modeElement}
                 <div className="logo-box">
@@ -112,7 +143,7 @@ function Header(props: { page: any; }){
                 <Link to='/Product' className='menu' id='product'>Product</Link>
                 <Link to='/Profile' className='menu' id='profile'>Profile</Link>
                 <Link to='/Cart' className="cart-box">
-                    <img src="/images/icon/cart.png" alt="" />
+                    <img src={page=="home" ? "/images/icon/cart-pink.png" : "/images/icon/cart-black.png"} alt="" />
                 </Link>
                 <div className="line"></div>
                 {customerElement}

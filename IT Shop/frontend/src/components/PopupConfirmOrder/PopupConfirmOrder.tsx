@@ -81,6 +81,10 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
                 content: "เกิดข้อผิดพลาดในการสร้างคำสั่งซื้อ",
             });
         }
+
+        setTimeout(() => {
+            location.href = "/Product";
+        }, 1800);
     }
 
     // @ts-ignore

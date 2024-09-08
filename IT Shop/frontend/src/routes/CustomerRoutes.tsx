@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import Home from "../pages/Home";
+import Home from "../pages/Home/Home";
 import Product from "../pages/Product";
 import Selected from "../pages/Selected";
 import Profile from "../pages/Profile";

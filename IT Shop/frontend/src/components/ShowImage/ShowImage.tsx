@@ -56,7 +56,7 @@ function ShowImage(){
     return (
         <div className="showimage-container">
             <div className="background-container">
-                <video className="video-background" src="./videos/video1.mp4" autoPlay loop muted></video>
+                <video className="video-background" src="./videos/bg-showimage.mp4" autoPlay loop muted></video>
             </div>
             <div className="main-container-img-box">
                 <img src={mainImg} alt="" />

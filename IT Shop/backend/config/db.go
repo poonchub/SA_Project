@@ -75,7 +75,7 @@ func SetupDatabase() {
 			Email: "poonchubnanawan330@gmail.com",
 			Password: hashedPassword,
 			Birthday: BirthDay,
-			ProfilePath: "images/profile/customer/customer_id01.jpg",
+			ProfilePath: "images/profile/customer/customer_id02.jpg",
 		},
 	}
 	for _, customer := range customers{
@@ -154,7 +154,7 @@ func SetupDatabase() {
 							Weight	2.20 kg
 							Warranty	2 Years`, 
 			PricePerPiece: 28990.00,
-			Stock: 20,
+			Stock: 50,
 			CategoryID: 1,
 			BrandID: 1,
 		},
@@ -183,7 +183,7 @@ func SetupDatabase() {
 							Color	BLACK
 							Warranty	3 Years`, 
 			PricePerPiece: 4390.00,
-			Stock: 15,
+			Stock: 35,
 			CategoryID: 2,
 			BrandID: 2,
 		},
@@ -199,7 +199,7 @@ func SetupDatabase() {
 							Memory Color	RED
 							Warranty	Lifetime`, 
 			PricePerPiece: 1190.00,
-			Stock: 20,
+			Stock: 67,
 			CategoryID: 3,
 			BrandID: 3,
 		},
@@ -226,7 +226,7 @@ func SetupDatabase() {
 							Dimension (W x H x D)	357.6 x 149.3 x 70.1 mm.
 							Warranty	3 Years`,
 			PricePerPiece: 93990.00,
-			Stock: 10,
+			Stock: 44,
 			CategoryID: 4,
 			BrandID: 1,
 		},
@@ -247,7 +247,7 @@ func SetupDatabase() {
 							Maximum Turbo Power	65 Watt
 							Warranty	3 Years`,
 			PricePerPiece: 4290.00,
-			Stock: 7,
+			Stock: 30,
 			CategoryID: 5,
 			BrandID: 7,
 		},
@@ -280,7 +280,7 @@ func SetupDatabase() {
 							Form Factor	E-ATX
 							Warranty	3 Years`,
 			PricePerPiece: 42900.00,
-			Stock: 11,
+			Stock: 50,
 			CategoryID: 6,
 			BrandID: 4,
 		},
@@ -296,7 +296,7 @@ func SetupDatabase() {
 							Cooling System	NZXT KRAKEN ELITE 360 RGB BLACK
 							Warranty	3 Years (ยกเว้น CASE ประกัน 1 ปี)`,
 			PricePerPiece: 96990.00,
-			Stock: 20,
+			Stock: 49,
 			CategoryID: 7,
 			BrandID: 7,
 		},

@@ -45,7 +45,7 @@ function ShowProduct(){
     })
 
     const productElements = filteredProduct.map((subProduct, index) => {
-        return <ProductItem key={index} product={subProduct} searchText={searchText} category={categoryClick}/>
+        return <ProductItem key={index} product={subProduct} searchText={searchText} category={categoryClick} minRange={minRange} maxRange={maxRange}/>
     })
 
     if (mode=="half"){
