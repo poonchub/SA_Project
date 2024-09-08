@@ -114,12 +114,13 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
                         <td className="detail" 
                             onClick={() => handleSelect(subAddress.ID)}
                             style={{ cursor: 'pointer', width:"auto" }}
-                        >
-                            จังหวัด: {subAddress.Province}{",\t"}
-                            อำเภอ/เขต: {subAddress.District}{",\t"}
+                        >   
+                            {subAddress.AddressDetail}{",\t"}
                             แขวง/ตำบล: {subAddress.Subdistrict}{",\t"}
-                            รหัสไปรษณีย์: {subAddress.ZipCode}{",\t"}
-                            {subAddress.AddressDetail}
+                            อำเภอ/เขต: {subAddress.District}{",\t"}
+                            จังหวัด: {subAddress.Province}{",\t"}
+                            รหัสไปรษณีย์: {subAddress.ZipCode}
+                            
                         </td>
                     </tr></tbody></table>
                 </td>  

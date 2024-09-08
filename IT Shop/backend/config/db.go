@@ -111,7 +111,7 @@ func SetupDatabase() {
 	}
 
 	// Create Category
-	categories := []string{"Notebook", "Monitor", "RAM", "Graphic Card", "CPU", "Mainboard", "Computer"}
+	categories := []string{"Notebook", "Monitor", "RAM", "Graphic Card", "CPU", "Mainboard", "Computer", "Keyboard"}
 	for _, category := range categories {
 		path := fmt.Sprintf("images/category/%s.png", category)
 			err := createCategory(category, path, 1)
@@ -121,7 +121,7 @@ func SetupDatabase() {
 	}
 
 	// Create Brand
-	brands := []string{"ASUS", "LENOVO", "T-FORCE", "MSI", "SAMSUNG", "NVIDIA", "INTEL"}
+	brands := []string{"ASUS", "LENOVO", "T-FORCE", "MSI", "SAMSUNG", "NVIDIA", "INTEL", "STEELSERIES"}
 	for _, brand := range brands {
 		path := fmt.Sprintf("images/brand/%s.png", brand)
 			err := createBrand(brand, path)
@@ -300,6 +300,99 @@ func SetupDatabase() {
 			CategoryID: 7,
 			BrandID: 7,
 		},
+		{
+			ProductName: "KEYBOARD (คีย์บอร์ด) ASUS ROG AZOTH (WHITE) (RED SWITCH) (TH) (2Y)",
+			Description: 	`Brand	ASUS
+							Switch Name	RED SWITCH
+							Connectivity	WIRELESS / BLUETOOTH / WIRED
+							Lighting	RGB
+							Localization	EN/TH
+							Material	Aluminum
+							Wireless Frequency	2.4Ghz
+							Dimensions	326 x 136 x 40 mm
+							Weight	1.2 kg
+							Color	WHITE
+							USB Port	USB Type C
+							Type	MECHANICAL KEYBOARD
+							WIRED/WIRELESS	WIRELESS
+							Warranty	2 Years`,
+			PricePerPiece: 6990.00,
+			Stock: 50,
+			CategoryID: 8,
+			BrandID: 1,
+		},
+		{
+			ProductName: "KEYBOARD (คีย์บอร์ด) STEELSERIES APEX 9 MINI FAZE CLAN EDITION (STEELSERIES LINEAR OPTIPOINT OPTICAL SWITCH) (EN) (2Y)",
+			Description: 	`Brand	STEELSERIES
+							Switch Name	STEELSERIES LINEAR OPTIPOINT OPTICAL SWITCH
+							Connectivity	USB Type C
+							Lighting	RGB
+							Localization	EN
+							Dimensions	293 x 103 x 40 mm
+							Weight	0.68 kg
+							Color	BLACK & RED
+							USB Port	USB Type C
+							Type	MECHANICAL KEYBOARD
+							WIRED/WIRELESS	WIRED
+							Warranty	2 Years`,
+			PricePerPiece: 6690.00,
+			Stock: 65,
+			CategoryID: 8,
+			BrandID: 8,
+		},
+		{
+			ProductName: "NOTEBOOK (โน้ตบุ๊ค) MSI SWORD 16 HX B14VEKG-431TH (COSMOS GRAY) (2Y)",
+			Description: 	`Brands	MSI
+							Model	SWORD 16 HX B14VEKG-431TH
+							Processors	Intel® Core™ i7-14650HX Processors (14th Gen)
+							Processor Speed	2.2GHz, up to 5.2GHz, 30MB Intel Smart Cach
+							Video Graphics	NVIDIA® GeForce RTX™ 4050 Laptop GPU 6GB GDDR6
+							Screen Size	16"
+							Display	QHD+ (2560x1600) , 240Hz , IPS-Level
+							Memory	16GB DDR5
+							Storage	1TB PCIe® 4.0 NVMe™ M.2 SSD
+							Operating System	Windows 11 Home + Microsoft Office Home&Student 2021
+							Camera	
+							HD type (30fps@720p)
+							3D Noise Reduction (3DNR)
+							Optical Drive	No
+							Connection port	3 x USB 3.2 Gen 1 Type-A ports, 1 x USB 3.2 Gen 2 Type C port, 1 x Mic-in/Headphone-out Combo Jack, 1 x RJ45 LAN port, 1 x Power connector, 1 x HDMI™ 2.1 ports
+							Wi-Fi/ Bluetooth	Wi-Fi 6E (802.11ax)+Bluetooth 5.3
+							Battery	4-Cell Battery, 65WHr
+							Color	Cosmos Gray
+							Dimensions	359 x 266.4 x 21.8 ~ 27.7 mm.
+							Weight	2.3 kg
+							Warranty	2 Years`,
+			PricePerPiece: 48990.00,
+			Stock: 25,
+			CategoryID: 1,
+			BrandID: 1,
+		},
+		{
+			ProductName: "VGA(การ์ดจอ) ASUS DUAL GEFORCE RTX 4070 SUPER EVO WHITE OC - 12GB GDDR6X (DUAL-RTX4070S-O12G-EVO-WHITE) (3Y)",
+			Description: 	`Brands	ASUS
+							GPU Series	GeForce RTX™ 40Series
+							GPU Model	GeForce RTX™ 4070 SUPER
+							Memory Size	12GB GDDR6X
+							Bus Standards	PCI Express 4.0
+							OpenGL	OpenGL® 4.6
+							CUDA® Cores	7168
+							Memory Interface	192-bit
+							Boost Clock	2550 MHz
+							Base Clock	1980 MHz
+							Memory Clock	21.0 Gbps
+							Max Digital Resolution	7680 x 4320
+							HDMI Port	1 x HDMI 2.1a
+							Display Port	3x DisplayPort™ 1.4a
+							Power Connector	1 x 16-pin
+							Power Requirement	750 Watt
+							Dimension (W x H x D)	227.2 x 123.24 x 49.6 mm
+							Warranty	3 Years`,
+			PricePerPiece: 25700.00,
+			Stock: 18,
+			CategoryID: 4,
+			BrandID: 1,
+		},
 	}
 	for _, product := range products{
 		db.FirstOrCreate(product, &entity.Product{
@@ -308,7 +401,7 @@ func SetupDatabase() {
 	}
 
 	// Create Image Product
-	for i:=uint(1); i<=7 ;i++{
+	for i:=uint(1); i<=11 ;i++{
 		dir := fmt.Sprintf("images/product/product%d", i)
 		count := countFilesInDir(dir)
 		for j:=1 ; j<=count ; j++ {
