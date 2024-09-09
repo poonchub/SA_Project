@@ -5,7 +5,7 @@ import Selected from "../pages/Selected";
 import Profile from "../pages/Profile";
 import Payment from "../pages/Payment";
 import MinimalLayout from "../layout/MinimalLayOut/MinimalLayOut";
-import Login from "../pages/authentication/Login/Login";
+import Login from "../pages/Authentication/Login/Login";
 
 const CustomerRoutes = (): RouteObject => {
 
