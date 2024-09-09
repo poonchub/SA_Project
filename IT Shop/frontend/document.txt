@@ -1,0 +1,2 @@
+npm install antd --save
+npm install three @react-three/fiber @react-three/drei
