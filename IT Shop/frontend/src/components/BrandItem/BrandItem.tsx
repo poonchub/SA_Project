@@ -10,16 +10,17 @@ function BrandItem(props: { brand: any; mode: any; brandClick: any; setBrandClic
 
     if(mode=="half"){
         const con_brand = document.querySelector(".container-brand-item")
-        con_brand?.setAttribute("class","container-brand-item-half")
+        con_brand?.setAttribute("class","container-brand-item-half _brand")
     }
     else{
         const con_brand = document.querySelector(".container-brand-item-half")
-        con_brand?.setAttribute("class","container-brand-item")
+        con_brand?.setAttribute("class","container-brand-item _brand")
     }
 
     // จัดการการแสดงผลของ element เมื่อ click
     const allElements = document.querySelectorAll("._brand")
     const clickNowElement = document.querySelector(`#b_${brandClick}`)
+    const allBrandBtn = document.querySelector("#allbrand-Btn")
 
     if(clickNowElement!=null && allElements!=null){
         allElements.forEach((item) => {
@@ -33,6 +34,10 @@ function BrandItem(props: { brand: any; mode: any; brandClick: any; setBrandClic
         allElements.forEach((item) => {
             // @ts-ignore
             item.style.borderColor = "transparent"
+            if (allBrandBtn){
+                // @ts-ignore
+                allBrandBtn.style.borderColor =  "var(--subtheme-color1)"
+            }
         })
     }
 

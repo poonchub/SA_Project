@@ -105,7 +105,7 @@ function Sidebar(){
             <div className="category-box">
                 <h4 className="head-ti">Category</h4>
                 <div className="element-cat-box">
-                    <div className="container-cat-item all-product" onClick={()=>setCategoryClick(null)}>
+                    <div className="container-cat-item all-product" id="allpro-Btn" onClick={()=>setCategoryClick(null)}>
                         <div className="img-box">
                             <img src="images/icon/all-product.png" alt="" />
                         </div>
@@ -119,7 +119,7 @@ function Sidebar(){
             <div className="brand-box">
                 <h4 className="head-ti">Brand</h4>
                 <div className="element-brand-box">
-                    <div className="container-brand-item all-brand" onClick={()=>setBrandClick(null)}>
+                    <div className="container-brand-item all-brand" id="allbrand-Btn" onClick={()=>setBrandClick(null)}>
                         <div className="img-box">
                             <img src="images/icon/all-brand.png" alt="" />
                         </div>
