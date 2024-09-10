@@ -1,3 +1,5 @@
+import { AddressInterface } from "../../Interfaces/IAddress";
+import { CustomerInterface } from "../../Interfaces/ICustomer";
 import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { ProductInterFace } from "../../Interfaces/IProduct";
@@ -80,6 +82,25 @@ async function GetAddressByCustomerID(id: Number | undefined) {
   return res;
 }
 
+async function UpdateAddress(data: AddressInterface) {
+  const requestOptions = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/address`, requestOptions)
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
 // Brand
 async function GetBrands() {
   const requestOptions = {
@@ -153,6 +174,25 @@ async function GetCustomerByID(id: Number | undefined) {
       }
     }
   );
+  return res;
+}
+
+async function UpdateCustomer(data: CustomerInterface) {
+  const requestOptions = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/customer`, requestOptions)
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
   return res;
 }
 
@@ -561,6 +601,7 @@ export {
     GetAddresses,
     GetAddressByID,
     GetAddressByCustomerID,
+    UpdateAddress,
 
     // Brand  ----------------------------
     GetBrands,
@@ -571,6 +612,7 @@ export {
     // Customer --------------------------
     GetCustomers,
     GetCustomerByID,
+    UpdateCustomer,
 
     // Order  ----------------------------
     GetOrders,
