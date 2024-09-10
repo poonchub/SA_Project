@@ -51,7 +51,7 @@ func GetAddressByCustomerID(c *gin.Context) {
 	c.JSON(http.StatusOK, addresses)
 }
 
-// PATCH /orderItem
+// PATCH /address
 func UpdateAddress(c *gin.Context) {
 	ID := c.Param("id")
 

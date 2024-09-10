@@ -21,10 +21,7 @@
         grid-template-areas: 
             "prefix fname fname lname lname birthday"
             "email email email password password password"
-<<<<<<< Updated upstream
-=======
             "sel-add sel-add sel-add sel-add sel-add sel-add"
->>>>>>> Stashed changes
             "address address address subdistrict subdistrict subdistrict"
             "district district district province province province"
             "zipcode - - - - -"
@@ -65,13 +62,9 @@
         }
         & .password-box{
             grid-area: password;
-<<<<<<< Updated upstream
-            column-span: 3;
-=======
         }
         & .select-address{
             grid-area: sel-add;
->>>>>>> Stashed changes
         }
         & .province-box{
             grid-area: province;

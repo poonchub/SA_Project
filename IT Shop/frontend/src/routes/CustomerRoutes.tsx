@@ -9,6 +9,7 @@ import MinimalLayout from "../layout/MinimalLayOut/MinimalLayOut";
 
 import Login from "../pages/Authentication/Login/Login";
 import Cart from "../pages/Cart";
+import Edit from "../pages/Edit";
 
 // import Login from "../pages/Authentication/Login/Login";
 
@@ -47,8 +48,8 @@ const CustomerRoutes = (): RouteObject => {
                 element: <Cart />
             },
             {
-                path: "/Profile",
-                element: <Profile />
+                path: "/Edit",
+                element: <Edit/>
             },
             {
                 path: "/Payment",

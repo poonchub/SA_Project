@@ -3,11 +3,15 @@ import { PlusOutlined } from '@ant-design/icons';
 import {
     Form,
     Upload,
+    //Select,
   } from 'antd';
 import { useEffect, useState } from "react";
 import { CustomerInterface } from "../../Interfaces/ICustomer";
 import { AddressInterface } from "../../Interfaces/IAddress";
 import { GetAddressByCustomerID, GetCustomerByID } from "../../services/http";
+//import { PrefixsInterface } from "../../Interfaces/IPrefix";
+
+// const { Option } = Select;
 
   const normFile = (e: any) => {
     if (Array.isArray(e)) {

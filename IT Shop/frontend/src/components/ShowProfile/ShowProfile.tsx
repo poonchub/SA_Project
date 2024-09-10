@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Image, Button } from 'antd';
-import { UserOutlined,CalendarOutlined,EyeInvisibleOutlined,MailOutlined,EnvironmentOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+import { UserOutlined,CalendarOutlined,MailOutlined,EnvironmentOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import './ShowProfile.css'; 
 import { CustomerInterface } from '../../Interfaces/ICustomer';
-import { GetAddressByCustomerID, GetCustomerByID } from '../../services/http';
+import { apiUrl, GetAddressByCustomerID, GetCustomerByID } from '../../services/http';
 import { AddressInterface } from '../../Interfaces/IAddress';
 
 const ShowProfile: React.FC = () => {
@@ -29,7 +29,13 @@ const ShowProfile: React.FC = () => {
 
   const addressElement = address.map((add,index) => {
     return (
-      <td key={index}>{`${add.AddressDetail} ${add.Subdistrict} ${add.District} ${add.Province} ${add.ZipCode}`}</td>
+      <tr key={index}>
+            <td>
+                <EnvironmentOutlined style={{ fontSize: '25px', color: '#FF2E63' }}/>
+            </td>
+            <td>{`${add.AddressDetail} ${add.Subdistrict} ${add.District} ${add.Province} ${add.ZipCode}`}</td>
+      </tr>
+      
     )
   })
 
@@ -50,12 +56,11 @@ const ShowProfile: React.FC = () => {
   return (
     <div className="container">
       <div className="image-container">
-        <Image
-          width={120}
-          src="/images/icon/user-black.png"
-          preview={false}
+        <img
+          src={`${apiUrl}/${localStorage.getItem("profilePath")}`}
           className="circular-image"
         />
+        <img src="" alt="" />
       </div>
       <table>
         <tbody>
@@ -77,14 +82,7 @@ const ShowProfile: React.FC = () => {
             </td>
             <td>{customer?.Email}</td>
           </tr>
-
-          <tr>
-            <td>
-                <EnvironmentOutlined style={{ fontSize: '25px', color: '#FF2E63' }}/>
-            </td>
-            {addressElement}
-            
-          </tr>
+          {addressElement}
         </tbody>
       </table>
       <Link to="/Edit">
