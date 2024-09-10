@@ -1,0 +1,7 @@
+/* image.css */
+.myimage {
+    position: relative; /* เปลี่ยนเป็น relative เพื่อให้ตารางเลื่อนในคอนเทนเนอร์นี้ */
+    background-color: white;
+    width: 50%;
+    border-radius: 5%;
+}

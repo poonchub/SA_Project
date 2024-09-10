@@ -1,0 +1,49 @@
+@import "../../stylesheet/ColorSheet.css";
+
+.card-containerO {
+    padding: 0px;
+    background-color: #f0f2f5; /* Ant Design's default background color */
+    
+}
+  
+.custom-cardO {
+    border: 1px solid #d9d9d9; /* Custom border */
+    border-radius: 8px; /* Rounded corners */
+    position: fixed;
+    margin-top: 85px;
+    border: 0px solid;
+    width: 50%;
+    box-shadow: 0px 2px 10px var(--shadow-color1);
+    font-size: 24px;
+    text-align: center;
+    margin-left: 80px;
+    
+}
+
+.color-id {
+    color: var(--orderid-color);
+    margin-left: 20%;
+}
+
+.custom-cardO .card-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.custom-cardO .location-icon {
+    margin-right: 30px; /* เพิ่มช่องว่างระหว่างไอคอนกับข้อความ */
+}
+
+.color-price {
+    color: var(--subfont-color3);
+    margin-left: 23.5%;
+    margin-right: 0%;
+}
+
+.img-pos {
+    position: fixed;
+    margin-top: auto;
+}
+
+  

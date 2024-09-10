@@ -1,0 +1,43 @@
+@import "../../stylesheet/ColorSheet.css";
+
+.card-containerA {
+    padding: 20px;
+    background-color: #ffff; /* Ant Design's default background color */
+    height: 30%;
+}
+  
+.custom-cardA {
+    border: 1px solid #d9d9d9; /* Custom border */
+    border-radius: 8px; /* Rounded corners */
+    position: fixed;
+    margin-top: 65px;
+    border: 0px solid;
+    width: 30%;
+    box-shadow: 0px 2px 10px var(--shadow-color1);
+    font-size: 24px;
+    margin-left: 60%;
+    height: 35%;
+}
+
+.custom-cardA .card-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.custom-cardA .location-icon {
+    margin-right: 8px; /* เพิ่มช่องว่างระหว่างไอคอนกับข้อความ */
+}
+
+.buttonAddr {
+    height: 50px;
+    background-color: var(--serface-color);
+    margin-top: 20px;
+    border: none; /* ลบเส้นขอบถ้าต้องการ */
+    transition: background-color 0.3s ease; /* เพิ่ม transition effect */
+}
+
+.buttonAddr:hover {
+    background-color: #fa3869; /* เปลี่ยนสีพื้นหลังเมื่อ hover */
+    color: white; /* เปลี่ยนสีข้อความเมื่อ hover */
+}

@@ -5,6 +5,7 @@ import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { ProductInterFace } from "../../Interfaces/IProduct";
 import { SignInInterface } from "../../Interfaces/ISignIn";
 import { CartInterface } from "../../Interfaces/ICart";
+import { PaymentInterface } from "../../Interfaces/IPayment";
 
 export const apiUrl = "http://localhost:8000";
 
@@ -584,8 +585,70 @@ export async function AddToCart(customerId: number, productId: number, quantity:
 }
 // หมดละของ cart
 
+//Payment
+//GetOrderItemByOrderID
+async function GetOrderItemByOrderID(id: Number | undefined) {
+  const requestOptions = {
+    method: "GET"
+  };
 
+  let res = await fetch(`${apiUrl}/orderItems/${id}`, requestOptions)
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
 
+  return res;
+}
+
+// GetAddressByOrderID
+async function GetAddressByOrderID(id: number): Promise<any> {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const response = await fetch(`${apiUrl}/addresseOrder/${id}`, requestOptions);
+
+    if (response.ok) {
+      return await response.json();
+    } else {
+      // Handle HTTP errors (e.g., 404, 500)
+      console.error(`Error: ${response.status} ${response.statusText}`);
+      return null;
+    }
+  } catch (error) {
+    // Handle network or other errors
+    console.error('Error fetching address:', error);
+    return null;
+  }
+}
+
+//CreatePayment
+async function CreatePayment(data: PaymentInterface) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/payment`, requestOptions)
+    .then((res) => {
+      if (res.status == 201) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
 
 
 
@@ -602,6 +665,7 @@ export {
     GetAddressByID,
     GetAddressByCustomerID,
     UpdateAddress,
+    GetAddressByOrderID,
 
     // Brand  ----------------------------
     GetBrands,
@@ -614,6 +678,9 @@ export {
     GetCustomerByID,
     UpdateCustomer,
 
+    // Payment  --------------------------
+    CreatePayment,
+    
     // Order  ----------------------------
     GetOrders,
     GetOrderByID,
@@ -626,6 +693,7 @@ export {
     GetOrderItemByID,
     CreateOrderItem,
     UpdateOrderItem,
+    GetOrderItemByOrderID,
 
     // Image  ----------------------------
     GetImageByProductID,
