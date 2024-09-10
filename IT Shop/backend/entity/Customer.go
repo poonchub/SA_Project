@@ -16,7 +16,7 @@ type Customer struct {
 	Birthday	time.Time
 	ProfilePath	string
 
-	Carts		[]Cart		`gorm:"foreignKey:CustomerID"`
+	Carts		[]Cart		`gorm:"foreignKey:CustomerID;references:ID"`
 	Address		[]Address	`gorm:"foreignKey:CustomerID"`
 	Orders		[]Order		`gorm:"foreignKey:CustomerID"`
 	Payments	[]Payment	`gorm:"foreignKey:CustomerID"`

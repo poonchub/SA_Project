@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Slab:wght@100..900&display=swap');
+* {
+    font-family: "Noto Sans Thai", sans-serif;
+    box-sizing: border-box;
+    text-decoration: none;
+  } 
+
+.Topic-Cart{
+    color: #FF2E63;
+    margin-top: 75px;
+    position: fixed;
+    width: 100vw;
+    /* border: red 1px solid; */
+    padding-left: 380px;
+}
