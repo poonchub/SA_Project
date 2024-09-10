@@ -45,7 +45,7 @@ function Login() {
 			{contextHolderLogin}
 			<div className="form-container">
 				<form onSubmit={onFinish} className="login-form">
-					<span className="title">Log<span>In</span></span>
+					<span className="title">Sign <span>In</span></span>
 					<div className="email-box input-box">
 						<label className="email-text text">Email</label>
 						<input
@@ -62,11 +62,11 @@ function Login() {
 							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</div>
-					<div className="btn-box input-box">
-						<input type="submit" className="submit-btn btn" value={"Submit"} />
-						<button className="register-btn btn">Register</button>
+					<div className="input-box">
+						<input type="submit" className="submit-btn" value={"Submit"} />
 					</div>
 				</form>
+				<button className="register-btn">Register</button>
                 <Link className="back" to='/'>Back To Home</Link>
 			</div>
 		</div>

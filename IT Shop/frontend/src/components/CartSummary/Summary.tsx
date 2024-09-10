@@ -3,6 +3,7 @@ import { CartInterface } from "../../Interfaces/ICart";
 import { DeleteCart } from "../../services/http"; // นำเข้า API สำหรับลบสินค้า
 import { formatNumber } from "../CartItem/Card";
 
+
 interface TotalPriceProps {
   cartItems: CartInterface[] | null;
   selectedItems: number[];
@@ -68,6 +69,8 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
           </div>
           <div className="data">
             <p>ยอดรวม</p>
+           
+            
             <p id="fill1">฿{formatNumber(Number(totalPrice.toFixed(2)))}</p>
           </div>
           <div className="data">
