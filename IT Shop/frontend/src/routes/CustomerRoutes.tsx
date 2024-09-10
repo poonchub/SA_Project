@@ -5,10 +5,16 @@ import Selected from "../pages/Selected";
 import Profile from "../pages/Profile";
 import Payment from "../pages/Payment";
 import MinimalLayout from "../layout/MinimalLayOut/MinimalLayOut";
+
+
 import Login from "../pages/Authentication/Login/Login";
+import Cart from "../pages/Cart";
+import Edit from "../pages/Edit";
+
+// import Login from "../pages/Authentication/Login/Login";
 
 const CustomerRoutes = (): RouteObject => {
-
+ 
     return {
 
         path: "/",
@@ -39,11 +45,11 @@ const CustomerRoutes = (): RouteObject => {
             },
             {
                 path: "/Cart",
-                element: <Profile />
+                element: <Cart />
             },
             {
-                path: "/Profile",
-                element: <Profile />
+                path: "/Edit",
+                element: <Edit/>
             },
             {
                 path: "/Payment",

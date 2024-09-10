@@ -1,18 +1,21 @@
-import { useContext } from "react";
 import Header from "../components/Header/Header";
+import EditProfile from "../components/EditProfile/EditProfile.tsx";
+import { useContext } from "react";
 import { AppContext } from "../App";
-import ShowProfile from "../components/ShowProfile/ShowProfile";
 
-function Profile(){
+function Edit(){
+    
     const {logoutPopup} = useContext(AppContext)
 
     return (
-        <>  
+        <>
+            
+            
             {logoutPopup}
             <Header page={"profile"}/>
-            <ShowProfile/>
+            <EditProfile/>
         </>
     )
 }
 
-export default Profile;
+export default Edit

@@ -1,7 +1,10 @@
+import { AddressInterface } from "../../Interfaces/IAddress";
+import { CustomerInterface } from "../../Interfaces/ICustomer";
 import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { ProductInterFace } from "../../Interfaces/IProduct";
 import { SignInInterface } from "../../Interfaces/ISignIn";
+import { CartInterface } from "../../Interfaces/ICart";
 
 export const apiUrl = "http://localhost:8000";
 
@@ -79,6 +82,25 @@ async function GetAddressByCustomerID(id: Number | undefined) {
   return res;
 }
 
+async function UpdateAddress(data: AddressInterface) {
+  const requestOptions = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/address`, requestOptions)
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
 // Brand
 async function GetBrands() {
   const requestOptions = {
@@ -152,6 +174,25 @@ async function GetCustomerByID(id: Number | undefined) {
       }
     }
   );
+  return res;
+}
+
+async function UpdateCustomer(data: CustomerInterface) {
+  const requestOptions = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/customer`, requestOptions)
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
   return res;
 }
 
@@ -414,6 +455,144 @@ async function UpdateProduct(data: ProductInterFace) {
   return res;
 }
 
+
+// Cart Thiradet
+export async function GetCart(id: number) {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/cart/${id}`, requestOptions)
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+export async function UpdateQuantity(p0: CartInterface[], id: number, newQuantity: number) {//id cart
+  try {
+    const response = await fetch(`${apiUrl}/updateCart/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ quantity: newQuantity }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to update quantity for item with ID: ${id}`);
+    }
+
+    // หลังจากอัปเดตสำเร็จ ให้เรียก GetCart เพื่อดึงข้อมูลตะกร้าล่าสุด
+    const updatedCart = await GetCart(1);
+    if (updatedCart) {
+      console.log(`Updated quantity for item with ID: ${id} to ${newQuantity}`);
+      return updatedCart; // อัปเดตข้อมูลตะกร้า
+    } else {
+      console.error('Failed to update cart');
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('Update Quantity Error:', error.message);
+    } else {
+      console.error('Unknown error:', error);
+    }
+  }
+  return false;
+}
+
+
+export async function DeleteCart(id: number | undefined) { // รับค่า id ที่จะลบcart
+  if (!id) {
+    console.error("Invalid ID");
+    return false;
+  }
+
+  const requestOptions = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const res = await fetch(`${apiUrl}/deleteCart/${id}`, requestOptions);
+    if (res.status === 200) {
+      return await res.json();
+    } else {
+      console.error(`Error: ${res.status} - ${res.statusText}`);
+      return false;
+    }
+  } catch (error) {
+    console.error("Network error:", error);
+    return false;
+  }
+}
+
+
+export async function GetAllProduct() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`http://localhost:8000/getAllProducts`, requestOptions)
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+  
+}
+
+export async function AddToCart(customerId: number, productId: number, quantity: number) {
+  
+  const apiUrl = "http://localhost:8000";
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ProductID: productId, CustomerID: customerId, Quantity: quantity }),
+  };
+
+  try {
+    const response = await fetch(`${apiUrl}/c/${customerId}`, requestOptions);
+    if (response.status === 200 || response.status === 201) {
+     
+      return await response.json();
+    } else {
+      console.error(`Error: ${response.status} - ${response.statusText}`);
+      return false;
+    }
+  } catch (error) {
+    console.error("Network error:", error);
+    return false;
+  }
+}
+// หมดละของ cart
+
+
+
+
+
+
+
+
+
+
 export {
 
     SignIn,
@@ -422,6 +601,7 @@ export {
     GetAddresses,
     GetAddressByID,
     GetAddressByCustomerID,
+    UpdateAddress,
 
     // Brand  ----------------------------
     GetBrands,
@@ -432,6 +612,7 @@ export {
     // Customer --------------------------
     GetCustomers,
     GetCustomerByID,
+    UpdateCustomer,
 
     // Order  ----------------------------
     GetOrders,

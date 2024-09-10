@@ -28,6 +28,7 @@ func main(){
 		router.GET("/addresses", controller.ListAddresses)
 		router.GET("/address/:id", controller.GetAddressByID)
 		router.GET("/addresses/:id", controller.GetAddressByCustomerID)
+		router.PATCH("/addresses", controller.UpdateAddress)
 
 		// Brand
 		router.GET("/brands", controller.ListBrands)
@@ -40,6 +41,7 @@ func main(){
 		// Customer
 		router.GET("/customers", controller.ListCustomers)
 		router.GET("/customer/:id", controller.GetCustomerByID)
+		router.PATCH("/customers", controller.UpdateCustomer)
 
 		// Order 
 		router.GET("/orders", controller.ListOrders)
@@ -66,6 +68,14 @@ func main(){
 		router.GET("/products", controller.ListProducts)
 		router.GET("/product/:id", controller.GetProductByID)
 		router.PATCH("/product", controller.UpdateProduct)
+
+
+
+		// cart 
+		router.PATCH("/updateCart/:id",controller.UpdateCart) //update quantity 
+		router.DELETE("/deleteCart/:id",controller.DelteProductCart)//delete cart by user id
+		router.POST("/c/:id", controller.CreateCartByChat) // create cart by user id
+		router.GET("/cart/:customerId", controller.GetCartByCustomer)// get cart by user id 
 
 	}
 

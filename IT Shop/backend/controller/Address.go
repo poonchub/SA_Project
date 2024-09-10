@@ -50,3 +50,30 @@ func GetAddressByCustomerID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, addresses)
 }
+
+// PATCH /address
+func UpdateAddress(c *gin.Context) {
+	ID := c.Param("id")
+
+	var address entity.Address
+
+	db := config.DB()
+	result := db.First(&address, ID)
+	if result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "id not found"})
+		return
+	}
+
+	if err := c.ShouldBindJSON(&address); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request, unable to map payload"})
+		return
+	}
+
+	result = db.Save(&address)
+	if result.Error != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Updated successful"})
+}
