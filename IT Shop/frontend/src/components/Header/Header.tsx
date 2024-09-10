@@ -110,6 +110,9 @@ function Header(props: { page: any; }){
         if (page=="home" && head_con!=null){
             head_con.setAttribute("class", "container-head-home")
         }
+        else if (page!="home" && head_con!=null){
+            head_con.setAttribute("class", "container-head")
+        }
 
     }, [])
 
@@ -126,7 +129,6 @@ function Header(props: { page: any; }){
                 </div>
             </div>
             <div className="search-bar" style={{
-                // visibility: page=="product" ? "visible" : "hidden"
                 display: page=="product" ? "flex" : "none"
             }}>
                 <input 

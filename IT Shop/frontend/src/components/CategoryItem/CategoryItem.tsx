@@ -11,16 +11,17 @@ function CategoryItem(props: { category: any; mode: any; categoryClick: any; set
     // จัดการการเปลี่ยนโหมด Sidebar
     if(mode=="half"){
         const con_cat = document.querySelector(".container-cat-item")
-        con_cat?.setAttribute("class", "container-cat-item-half")
+        con_cat?.setAttribute("class", "container-cat-item-half _cat")
     }
     else{
         const con_cat = document.querySelector(".container-cat-item-half")
-        con_cat?.setAttribute("class", "container-cat-item")
+        con_cat?.setAttribute("class", "container-cat-item _cat")
     }
 
     // จัดการการแสดงผลของ element เมื่อ click
     const allElements = document.querySelectorAll("._cat")
     const clickNowElement = document.querySelector(`#c_${categoryClick}`)
+    const allProBtn = document.querySelector("#allpro-Btn")
 
     if(clickNowElement!=null && allElements!=null){
         allElements.forEach((item) => {
@@ -34,6 +35,11 @@ function CategoryItem(props: { category: any; mode: any; categoryClick: any; set
         allElements.forEach((item) => {
             // @ts-ignore
             item.style.borderColor = "transparent"
+            if (allProBtn){
+                // @ts-ignore
+                allProBtn.style.borderColor =  "var(--subtheme-color1)"
+            }
+            
         })
     }
         

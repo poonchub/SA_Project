@@ -9,7 +9,7 @@ import Login from "../pages/Authentication/Login/Login";
 import Cart from "../pages/Cart";
 
 const CustomerRoutes = (): RouteObject => {
-
+ 
     return {
 
         path: "/",
