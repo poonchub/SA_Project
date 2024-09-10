@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import "./ShowDetail.css"
-import { GetProduct} from "../../services/http";
+import { AddToCart, GetProduct} from "../../services/http";
 import { ProductInterFace } from "../../Interfaces/IProduct";
 import { selectedIndex } from "../../data/selectedIndex";
 import { message } from "antd";
@@ -33,6 +33,8 @@ function ShowDetail(){
             setQuantity(quantity-1)
         }
     }
+
+    
 
     function showPopup(){
         setPopup(<PopupConfirmOrder setPopup={setPopup} productName={productName} price={price} quantity={quantity} products={products} messageApi={messageApi}/>)
@@ -74,6 +76,35 @@ function ShowDetail(){
         )
     })
 
+   // funtion  add to cart
+   const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'เพิ่มสินค้าเข้าตะกร้าสินค้าเรียบร้อยแล้ว',
+      duration: 2,
+    });
+  };
+   const handleAddToCart = async (pid: number, quantity: number) => {
+    const cid  = Number(localStorage.getItem("id")) 
+    try {
+      const result = await AddToCart(cid, pid, quantity);
+      if (result) {
+        console.log('Product added to cart successfully');
+        success()
+
+        // fetchCartData();
+      } else {
+        console.error('Failed to add product to cart');
+      }
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+    }
+  };  
+   
+
+
+
+
     return (
         <div className="showdetail-container">
             {contextHolder}
@@ -107,7 +138,7 @@ function ShowDetail(){
                     </div>
                 </div>
                 <div className="button-box">
-                    <div className="btn" id="cart-button">
+                    <div className="btn" id="cart-button" onClick={() => handleAddToCart(selectedIndex+1, quantity)}>
                         เพิ่มลงตะกร้า
                     </div>
                     <div className="btn" id="order-button" onClick={showPopup}>
