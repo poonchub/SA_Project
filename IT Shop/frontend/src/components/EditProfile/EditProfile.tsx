@@ -10,8 +10,6 @@ import { AddressInterface } from "../../Interfaces/IAddress";
 import { GetAddressByCustomerID, GetCustomerByID } from "../../services/http";
 // import { PrefixsInterface } from "../../Interfaces/IPrefix";
 
-// const { Option } = Select;
-
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
       return e;
