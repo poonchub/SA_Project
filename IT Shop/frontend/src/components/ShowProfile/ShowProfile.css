@@ -31,13 +31,18 @@ header {
 }
 
 .image-container {
-  margin-bottom: 10px; /* ระยะห่างระหว่างรูปภาพและปุ่ม */
+  margin-bottom: 10px;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 .circular-image {
-  border-radius: 50%; /* ทำให้รูปภาพเป็นวงกลม */
+  width: 100%;
 }
 
 .button {
-  margin-top: 10px; /* ระยะห่างระหว่างปุ่มและรูปภาพ */
+  margin-top: 10px;
+  
 }
