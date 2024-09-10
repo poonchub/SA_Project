@@ -631,26 +631,41 @@ async function GetAddressByOrderID(id: number): Promise<any> {
 }
 
 //CreatePayment
-async function CreatePayment(data: PaymentInterface) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  };
+async function CreatePayment(paymentData: PaymentInterface, file?: File): Promise<any> {
+  try {
+    // สร้าง FormData
+    const formData = new FormData();
 
-  let res = await fetch(`${apiUrl}/payment`, requestOptions)
-    .then((res) => {
-      if (res.status == 201) {
-        return res.json();
-      } else {
-        return false;
-      }
+    // เพิ่มข้อมูล JSON ไปยัง FormData
+    for (const [key, value] of Object.entries(paymentData)) {
+      formData.append(key, String(value));
+    }
+
+    // เพิ่มไฟล์ไปยัง FormData ถ้ามี
+    if (file) {
+      formData.append("SlipPath", file);
+    }
+
+    // ส่ง request ไปยัง API
+    const response = await fetch("/payment", {
+      method: "POST",
+      body: formData
     });
 
-  return res;
+    // ตรวจสอบสถานะของ response
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || "Unknown error");
+    }
+
+    // รับข้อมูลจาก response
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Failed to create payment:", (error as Error).message);
+    throw error;
+  }
 }
-
-
 
 
 

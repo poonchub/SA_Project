@@ -1,27 +1,48 @@
 import React, { useState } from 'react';
 import '../AmountPrice/AmountPrice.css';
-import edit from '../../assets/edit.svg'
+import edit from '../../assets/edit.svg';
 import '../OrderShow/OrderShow.css';
 import { Modal, Button, Upload, Card, message } from 'antd';
 import { CheckCircleOutlined, UploadOutlined } from '@ant-design/icons';
 import QRcode from '../../../../backend/images/payment/QR.jpg';
-import '../../stylesheet/image.css'
+import '../../stylesheet/image.css';
+import { CreatePayment } from '../../services/http';
 
-const AmountPrice: React.FC = () => {
+const AmountPrice: React.FC<{ customerId: number, orderId: number }> = ({ customerId, orderId }) => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [isPaymentSuccess, setIsPaymentSuccess] = useState<boolean>(false);
   const [fileList, setFileList] = useState<any[]>([]);
-  
+
   const showModal = () => {
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
+  const handleOk = async () => {
     if (fileList.length === 0) {
       message.error('กรุณาอัปโหลดสลิปก่อนยืนยันการชำระเงิน');
     } else {
-      setIsModalVisible(false);
-      setIsPaymentSuccess(true);
+      try {
+        // Get the first file from fileList
+        const file = fileList[0]?.originFileObj;
+
+        if (file) {
+          await CreatePayment(
+            {
+              CustomerID: customerId,
+              OrderID: orderId,
+              PaymentDate: new Date().toISOString(),
+              PaymentMethod: 'Bank Transfer', // Example value
+            },
+            file
+          );
+          setIsModalVisible(false);
+          setIsPaymentSuccess(true);
+        } else {
+          message.error('ไม่พบไฟล์สลิปที่อัปโหลด');
+        }
+      } catch (error) {
+        message.error('เกิดข้อผิดพลาดในการชำระเงิน');
+      }
     }
   };
 
@@ -40,27 +61,23 @@ const AmountPrice: React.FC = () => {
   return (
     <div className="card-containerAM">
       <Card className="custom-cardAM">
-      <p>
-        <center>
-          <img className='myimage' src={QRcode} alt="" />
-        </center>
-        
-      </p>
-        <Upload className='upload-center' onChange={handleUploadChange} fileList={fileList}>
+        <p>
+          <center>
+            <img className='myimage' src={QRcode} alt="" />
+          </center>
+        </p>
+        <Upload
+          className='upload-center'
+          onChange={handleUploadChange}
+          fileList={fileList}
+          beforeUpload={() => false} // Prevent automatic upload
+        >
           <Button icon={<UploadOutlined />}>อัปโหลดสลิป</Button>
         </Upload>
         <div className="flex" style={{ display: 'flex', flexDirection: 'column', gap: 'small', width: '100%' }}>
-          {/* <Button
-            className="buttonAM"
-            type="primary"
-            block
-            onClick={showModal}
-          >
-            <span style={{ fontSize: '20px' }}>ตรวจสอบการชำระเงิน</span>
-          </Button> */}
-            <div className="btn" id="Confirm-button" onClick={showModal}>
-                ตรวจสอบการชำระเงิน
-            </div>
+          <div className="btn" id="Confirm-button" onClick={showModal}>
+            ตรวจสอบการชำระเงิน
+          </div>
         </div>
       </Card>
 
@@ -91,20 +108,5 @@ const AmountPrice: React.FC = () => {
     </div>
   );
 };
-
-// const AmountPrice: React.FC = () => (
-//     {/* <Card className="custom-cardAM">
-//       <text><b>ยอดเงินทั้งหมดในบัญชี</b></text>
-//       <text className="color-price" style={{textAlign: 'right'}}>฿198,503.00</text><br/>
-//       <text><b>ยอดเงินคงเหลือในบัญชี</b></text>
-//       <text className="color-price" style={{textAlign: 'right'}}>฿126,505.00</text>
-      
-//       <Flex vertical gap="small" className="flex" style={{ width: '100%' }}>
-//             <Button className="buttonAM" type="primary" block>
-//                 <text style={{fontSize:'20'}}> ยืนยันการชำระเงิน</text>
-//             </Button>
-//       </Flex>
-//     </Card> */}
-// );
 
 export default AmountPrice;
