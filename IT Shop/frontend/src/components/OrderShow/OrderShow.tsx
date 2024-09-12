@@ -30,7 +30,7 @@ const OrderShow: React.FC<{ orderId: number }> = ({ orderId }) => {
         <div className="card-title">
           <img src={cart} alt="" className="location-icon" />
           <span>Order ID</span>
-          <b className="color-id">{Id}</b> {/* แสดง Order ID */}
+          <b className ="color-id">{Id}</b> {/* แสดง Order ID */}
           <b className="color-price">฿{tprice}</b> {/* แสดงราคาสุทธิ */}
         </div>
       </Card>
