@@ -33,7 +33,7 @@ const AddressShow: React.FC<{ orderId: number }> = ({ orderId }) => {
   }, [orderId]);
 
   return (
-    <div className="card-containerA">
+    <div>
       <Card
         title={
           <div className="card-title">

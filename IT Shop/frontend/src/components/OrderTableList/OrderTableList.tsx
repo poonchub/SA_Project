@@ -29,6 +29,7 @@ const columns: TableColumnsType<OrderItemInterface & { ProductName: string}> = [
   {
       title: 'ราคาต่อหน่วย',
       dataIndex: 'Price',
+      render: (price: number) => `฿${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, // Format price with comma and 2 decimal places
   },
 ];
   

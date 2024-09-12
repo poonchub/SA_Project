@@ -1,20 +1,12 @@
 @import "../../stylesheet/ColorSheet.css";
 /* styles.css */
 
-.card-containerT {
-    padding: 20px;
-    background-color: none; /* Ant Design's default background color */
-    width: 50%;
-    margin-left: 60px;
-    
-}
-  
 .custom-cardT {
     border: 1px solid #d9d9d9; /* Custom border */
     border-radius: 8px; /* Rounded corners */
     position: fixed;
-    /* margin-top: 150px; */
-    /* margin-top: 0px; */
+    margin-top: 100px;
+    margin-left: 80px;
     border: 0px solid;
     width: 50%;
     box-shadow: 0px 2px 10px var(--shadow-color1);

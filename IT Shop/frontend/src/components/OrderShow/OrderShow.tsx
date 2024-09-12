@@ -25,7 +25,7 @@ const OrderShow: React.FC<{ orderId: number }> = ({ orderId }) => {
   }, []);
 
   return (
-    <div className="card-containerO">
+    <div>
       <Card className="custom-cardO">
         <div className="card-title">
           <img src={cart} alt="" className="location-icon" />

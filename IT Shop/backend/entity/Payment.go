@@ -8,10 +8,9 @@ import (
 
 type Payment struct {
 	gorm.Model
-	PaymentDate   time.Time
-	PaymentMethod string
-	Amount        float64
-	SlipPath      string
+	PaymentDate time.Time
+	Amount      float32
+	SlipPath    string `gorm:"type:longtext"`
 
 	CustomerID uint
 	Customer   Customer `gorm:"foreignKey:CustomerID"`
