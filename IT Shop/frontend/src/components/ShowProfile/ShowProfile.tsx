@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
-<<<<<<< HEAD
-
 import { UserOutlined, CalendarOutlined, MailOutlined, EnvironmentOutlined } from '@ant-design/icons';
-
-=======
-import { UserOutlined,CalendarOutlined,MailOutlined,EnvironmentOutlined } from '@ant-design/icons';
->>>>>>> main
 import { Link, useNavigate } from 'react-router-dom';
 import './ShowProfile.css';
 import { CustomerInterface } from '../../Interfaces/ICustomer';
