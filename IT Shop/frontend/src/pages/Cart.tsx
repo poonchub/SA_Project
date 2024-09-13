@@ -40,7 +40,7 @@ function Cart(){
         <>
              <Header page={"cart"}/> 
             
-            <TopicCart />
+                     <TopicCart />
                       <Card onCartDataChange={setCartData} onSelectedItemsChange={setSelectedItems}/>
                      <Summary cartItems={cartData} selectedItems={selectedItems} 
                     onCartUpdate={handleCartUpdate}/>  

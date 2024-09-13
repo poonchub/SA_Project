@@ -9,7 +9,15 @@
     color: #FF2E63;
     margin-top: 75px;
     position: fixed;
-    width: 100vw;
-    /* border: red 1px solid; */
-    padding-left: 380px;
+    width: 58vw;
+  
+    padding-right: 10px;
+    display: flex;
+    justify-content: end; 
+}
+.shopping-cart-header{
+  width: 720px;
+    
+    margin-bottom: 20px;
+  
 }

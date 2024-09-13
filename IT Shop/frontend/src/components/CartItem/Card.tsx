@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 import { CartInterface } from "../../Interfaces/ICart";
 import { apiUrl, DeleteCart, GetCart, UpdateQuantity } from "../../services/http";
 import { message, Button } from 'antd';
+import TopicCart from "../CartTopic/Topic";
 
 
 export const formatNumber = (num: number): string => {
   return num.toLocaleString();
 };
 
-const url = "http://localhost:8000/";
+
 
 interface ShowlistProps {
   onCartDataChange: (data: CartInterface[] | null) => void;
@@ -45,11 +46,28 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
 
   const fetchCartData = async () => {
     try {
-      const cus_id = localStorage.getItem("id")
+      const cus_id = localStorage.getItem("id");
       const res = await GetCart(Number(cus_id));
       if (res && Array.isArray(res.data)) {
-        setData(res.data);
-        onCartDataChange(res.data);
+        // กำหนดประเภทของ item เป็น CartInterface
+        const itemsWithStock = res.data.filter((item: CartInterface) => item.Product.Stock !== 0);
+        const itemsToRemove = res.data.filter((item: CartInterface) => item.Product.Stock === 0);
+  
+        // ลบสินค้าที่ Stock เป็น 0
+        let noti = 0;
+        if (itemsToRemove.length > 0) {
+          await Promise.all(itemsToRemove.map((item: CartInterface) => DeleteCart(item.ID)));
+     
+           noti = 1;
+       
+        }
+        if (noti == 1){
+          message.warning("มีสินค้าถูกลบออกจากตะกร้าเนื่องจากสินค้าหมดแล้ว");
+          
+        }
+  
+        setData(itemsWithStock);
+        onCartDataChange(itemsWithStock);
       } else {
         console.error("Unexpected response type:", res);
       }
@@ -57,6 +75,9 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
       console.error("Error fetching cart data:", error);
     }
   };
+  
+  
+  
 
   useEffect(() => {
     fetchCartData();
@@ -75,7 +96,7 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
     if (data && data.length > 0) {
       try {
         const allIds = data.map(item => item.ID);
-        await Promise.all(allIds.map(id => DeleteCart(id)));
+        await Promise.all(allIds.map(id => DeleteCart(id || 0)));
         success();
         fetchCartData();
       } catch (error) {
@@ -124,17 +145,23 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
 
  
           {contextHolder}
-
+          
       {data && data.length > 0 ? (
         <>
+        
+         
           <div className="select-acction">
-                <Button type="primary" id="select-all" onClick={handleSelectAll}>เลือกทั้งหมด</Button>    
+            <Button type="primary" id="select-all" onClick={handleSelectAll}>เลือกทั้งหมด</Button>    
            <Button type="primary" id="delete-all" onClick={DeleteAllCart}>ลบทั้งหมด</Button> 
            
           </div>
+          <div className="card-container-item" id="all-item">
+
+            {/* <div id="scole-item"> */}
           {data.map((item, index) => (
             <div key={index}>
-              <div className="card">
+              
+              <div className="card" >
                 <div className="check-item-incart">
                   <label>
                     <input
@@ -156,10 +183,6 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
                   <div className="name">
                  {item.Product.ProductName}
                   </div>
-                  
-                  
-
-                  
                   <div className="mon">
                   ฿ {formatNumber(item.Product?.PricePerPiece || 0)}
                   </div>
@@ -186,13 +209,17 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
                     
                   </div>
                 <div className="delete">
-                  <button onClick={() => handleDeleteCart(item.ID ||0)} id="move">
+                  <button onClick={() => handleDeleteCart(item.ID || 0)} id="move">
                     <img src={Close} alt="" id='close'/>
                   </button>
                 </div>
               </div>
             </div>
           ))}
+
+              {/* </div> */}
+          {/* //card container */}
+          </div> 
         </>
       ) : (
         <Empty />

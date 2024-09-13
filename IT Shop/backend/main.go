@@ -76,7 +76,7 @@ func main(){
 		router.DELETE("/deleteCart/:id",controller.DelteProductCart)//delete cart by user id
 		router.POST("/c/:id", controller.CreateCartByChat) // create cart by user id
 		router.GET("/cart/:customerId", controller.GetCartByCustomer)// get cart by user id 
-
+		router.PATCH("/product/:productid",controller.UpdateProductFromCart)
 	}
 
 	r.GET("/", func(c *gin.Context) {
