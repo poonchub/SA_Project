@@ -6,11 +6,11 @@ import { useContext } from "react";
 function Edit(){
     
     const {logoutPopup} = useContext(AppContext)
-
+    
     return (
         <>
             {logoutPopup}
-            <Header page={"edit"}/>
+            <Header page={"profile"}/>
             <EditProfile/>
         </>
     )
