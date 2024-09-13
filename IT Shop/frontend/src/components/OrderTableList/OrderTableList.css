@@ -1,0 +1,38 @@
+@import "../../stylesheet/ColorSheet.css";
+/* styles.css */
+
+.custom-cardT {
+    border: 1px solid #d9d9d9; /* Custom border */
+    border-radius: 8px; /* Rounded corners */
+    position: fixed;
+    margin-top: 100px;
+    margin-left: 80px;
+    border: 0px solid;
+    width: 50%;
+    box-shadow: 0px 2px 10px var(--shadow-color1);
+    font-size: 24px;
+}
+
+.custom-table .ant-table-thead > tr > th {
+    background-color: #f0f0f0; /* เปลี่ยนสีพื้นหลังของ header */
+    text-align: center; /* จัดตำแหน่งของ header ให้อยู่กึ่งกลาง */
+}
+
+.custom-table .ant-table-tbody > tr > td{
+    text-align: center; /* จัดตำแหน่งของเนื้อหาในตารางให้อยู่กึ่งกลาง */
+    font-size: 14px; /* ปรับขนาดตัวอักษร */
+}
+
+.custom-table .ant-table {
+    border: 0px solid #d9d9d9; /* เพิ่ม border ให้กับตาราง */
+    width: 100%; /* ปรับขนาดตาราง */
+    /* margin-top: 100px;
+    margin-left: 100px;
+    box-shadow: 0px 2px 10px var(--shadow-color1); */
+}
+
+.custom-table {
+    max-height: 400px; /* กำหนดความสูงสูงสุดที่ต้องการ */
+    overflow-y: auto; /*ทำให้ตารางเลื่อนลงได้*/
+    width: 100%; /* ปรับขนาดตาราง */
+}

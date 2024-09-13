@@ -1,0 +1,83 @@
+@import "../../stylesheet/ColorSheet.css";
+
+.custom-cardA {
+    border: 1px solid #d9d9d9; /* Custom border */
+    border-radius: 8px; /* Rounded corners */
+    position: fixed;
+    margin-top: 85px;
+    border: 0px solid;
+    width: 30%;
+    box-shadow: 0px 2px 10px var(--shadow-color1);
+    font-size: 24px;
+    margin-left: 65%;
+    height: 36%;
+    padding: 20px;
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
+.custom-cardA .card-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.custom-cardA .location-icon {
+    margin-right: 8px; /* เพิ่มช่องว่างระหว่างไอคอนกับข้อความ */
+}
+
+.buttonAddr {
+    height: 50px;
+    background-color: var(--serface-color);
+    margin-top: 20px;
+    border: none; /* ลบเส้นขอบถ้าต้องการ */
+    transition: background-color 0.3s ease; /* เพิ่ม transition effect */
+}
+
+.buttonAddr:hover {
+    background-color: #fa3869; /* เปลี่ยนสีพื้นหลังเมื่อ hover */
+    color: white; /* เปลี่ยนสีข้อความเมื่อ hover */
+}
+
+
+/* Media Query สำหรับหน้าจอขนาดใหญ่หน่อย */
+@media (max-width: 1444px) {
+    .custom-cardA {
+        width: 30%;
+        margin-top: 140px;
+        margin-left: 60%;
+        height: 41%;
+        font-size: 20px;
+    }
+}
+
+/* Media Query สำหรับหน้าจอขนาดกลาง */
+@media (max-width: 1024px) {
+    .custom-cardA {
+        width: 40%;
+        margin-top: 140px;
+        margin-left: 50%;
+        height: 39%;
+        font-size: 20px;
+    }
+}
+
+/* Media Query สำหรับหน้าจอขนาดเล็ก */
+@media (max-width: 768px) {
+    .custom-cardA {
+        width: 30%;
+        margin-top: 180px;
+        margin-left: 65%;
+        height: auto;
+        font-size: 16px;
+    }
+}
+
+/* Media Query สำหรับหน้าจอขนาดที่เล็กที่สุด */
+@media (max-width: 480px) {
+    .custom-cardA {
+        width: 95%;
+        margin-left: 2.5%;
+        height: auto;
+        font-size: 14px;
+    }
+}
