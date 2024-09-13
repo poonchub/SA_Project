@@ -4,7 +4,6 @@ import "gorm.io/gorm"
 
 type Owner struct {
 	gorm.Model
-	Prefix		string
 	FirstName	string
 	LastName	string
 	AdminRole	string
@@ -13,4 +12,7 @@ type Owner struct {
 	ProfilePath	string
 
 	Categories	[]Category	`gorm:"foreignKey:OwnerID"`
+
+	GenderID 	uint
+	Gender   	Gender `gorm:"foriegnKey:GenderID"`
 }

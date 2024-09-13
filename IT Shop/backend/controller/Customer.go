@@ -14,7 +14,7 @@ func ListCustomers(c *gin.Context) {
 
 	db := config.DB()
 
-	db.Find(&customers)
+	db.Preload("Gender").Find(&customers)
 
 	c.JSON(http.StatusOK, &customers)
 }
@@ -25,7 +25,7 @@ func GetCustomerByID(c *gin.Context) {
 	var customer entity.Customer
 
 	db := config.DB()
-	results := db.First(&customer, ID)
+	results := db.Preload("Gender").First(&customer, ID)
 	if results.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
 		return
@@ -38,7 +38,7 @@ func GetCustomerByID(c *gin.Context) {
 }
 
 // PATCH /orderItem
-func UpdateCustomer(c *gin.Context) {
+func UpdateCustomerByID(c *gin.Context) {
 	ID := c.Param("id")
 
 	var customer entity.Customer

@@ -7,6 +7,7 @@ import Payment from "../pages/Payment";
 import MinimalLayout from "../layout/MinimalLayOut/MinimalLayOut";
 import Login from "../pages/Authentication/Login/Login";
 import Cart from "../pages/Cart";
+import Edit from "../pages/Edit";
 
 const CustomerRoutes = (): RouteObject => {
  
@@ -43,8 +44,8 @@ const CustomerRoutes = (): RouteObject => {
                 element: <Cart />
             },
             {
-                path: "/Profile",
-                element: <Profile />
+                path: "/EditProfile",
+                element: <Edit/>
             },
             {
                 path: "/Payment",
