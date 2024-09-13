@@ -63,12 +63,12 @@ func CreateOrderItem(c *gin.Context) {
 	}
 
 	odItem := entity.OrderItem{
-		Quantity: orderItem.Quantity,
-		Price: orderItem.Price,
-		OrderID: orderItem.OrderID,
-		Order: order,
+		Quantity:  orderItem.Quantity,
+		Price:     orderItem.Price,
+		OrderID:   orderItem.OrderID,
+		Order:     order,
 		ProductID: orderItem.ProductID,
-		Product: product,
+		Product:   product,
 	}
 
 	if err := db.Preload("Address.Customer").Create(&odItem).Error; err != nil {
@@ -104,4 +104,21 @@ func UpdateOrderItem(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Updated successful"})
+}
+
+// GetOrderItemByOrderID
+func GetOrderItemsByOrderID(c *gin.Context) {
+	orderID := c.Param("id")
+	var orderItems []entity.OrderItem
+
+	db := config.DB()
+
+	// ดึงข้อมูล OrderItem ทั้งหมดที่ตรงกับ OrderID
+	results := db.Preload("Product").Preload("Order").Find(&orderItems, "order_id = ?", orderID)
+	if results.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, orderItems)
 }

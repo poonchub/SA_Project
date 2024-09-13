@@ -21,6 +21,7 @@
     
     
     
+    
 }
 .name{
    width: 100%;
@@ -158,13 +159,14 @@
     height: calc(100vw - 75px);
     padding-right: px;
     position: fixed;
-    overflow: auto;
+    
     display: flex;
     flex-direction: column;
     align-items: end;
    
     padding: 15px 0px;
     padding-right:10px ;
+    overflow: auto;
    
     
     
@@ -263,4 +265,9 @@
     overflow: hidden;
     
     
+}
+#all-item{
+    overflow: auto;
+   
+    height: 70vh;
 }

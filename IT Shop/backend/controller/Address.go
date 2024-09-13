@@ -52,7 +52,11 @@ func GetAddressByCustomerID(c *gin.Context) {
 }
 
 // PATCH /address
+<<<<<<< HEAD
 func UpdateAddressByID(c *gin.Context) {
+=======
+func UpdateAddress(c *gin.Context) {
+>>>>>>> main
 	ID := c.Param("id")
 
 	var address entity.Address
@@ -76,4 +80,30 @@ func UpdateAddressByID(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Updated successful"})
+}
+
+// GET /addresseOrder/:id
+func GetAddressByOrderID(c *gin.Context) {
+	orderID := c.Param("id")
+	var order entity.Order
+
+	db := config.DB()
+
+	// ดึงข้อมูล Order โดยใช้ OrderID
+	if err := db.Preload("Address").First(&order, orderID).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Order not found"})
+		return
+	}
+
+	// ตรวจสอบว่า AddressID มีค่าและดึงข้อมูล Address
+	var address entity.Address
+	if order.AddressID != 0 {
+		if err := db.First(&address, order.AddressID).Error; err != nil {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Address not found"})
+			return
+		}
+		c.JSON(http.StatusOK, address)
+	} else {
+		c.JSON(http.StatusNotFound, gin.H{"error": "AddressID is empty in the order"})
+	}
 }

@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
+<<<<<<< HEAD
 
 import { UserOutlined, CalendarOutlined, MailOutlined, EnvironmentOutlined } from '@ant-design/icons';
 
+=======
+import { UserOutlined,CalendarOutlined,MailOutlined,EnvironmentOutlined } from '@ant-design/icons';
+>>>>>>> main
 import { Link, useNavigate } from 'react-router-dom';
 import './ShowProfile.css';
 import { CustomerInterface } from '../../Interfaces/ICustomer';
@@ -71,6 +75,7 @@ const ShowProfile: React.FC = () => {
     }
   }
 
+<<<<<<< HEAD
   async function getOrders() {
     try {
       const res = await GetOrders();
@@ -81,6 +86,27 @@ const ShowProfile: React.FC = () => {
       console.error('Error fetching orders:', error);
     }
   }
+=======
+  const addressElement = address.map((add,index) => {
+    return (
+      <tr key={index}>
+            <td>
+                <EnvironmentOutlined style={{ fontSize: '25px', color: '#FF2E63' }}/>
+            </td>
+            <td>{`${add.AddressDetail} ${add.Subdistrict} ${add.District} ${add.Province} ${add.ZipCode}`}</td>
+      </tr>
+      
+    )
+  })
+
+  console.log(address)
+
+  useEffect(()=>{
+    getCustomer()
+  }, [])
+
+  console.log(customer)
+>>>>>>> main
 
 
   const addressElement = address.length > 0 ? address.map((add, index) => (
@@ -109,9 +135,13 @@ const ShowProfile: React.FC = () => {
     <div className="container">
       <div className="image-container">
         <img
+<<<<<<< HEAD
           // @ts-ignore
           src={customer?.ProfilePath ? `${apiUrl}/${customer.ProfilePath}` : ''}
           alt="Profile"
+=======
+          src={`${apiUrl}/${localStorage.getItem("profilePath")}`}
+>>>>>>> main
           className="circular-image"
         />
         <img src="" alt="" />

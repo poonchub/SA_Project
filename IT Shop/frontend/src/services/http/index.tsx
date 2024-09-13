@@ -5,6 +5,7 @@ import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { ProductInterFace } from "../../Interfaces/IProduct";
 import { SignInInterface } from "../../Interfaces/ISignIn";
 import { CartInterface } from "../../Interfaces/ICart";
+import { PaymentInterface } from "../../Interfaces/IPayment";
 
 export const apiUrl = "http://localhost:8000";
 
@@ -605,10 +606,126 @@ export async function AddToCart(customerId: number, productId: number, quantity:
 }
 // หมดละของ cart
 
+//Payment
+//GetOrderItemByOrderID
+async function GetOrderItemByOrderID(id: Number | undefined) {
+  const requestOptions = {
+    method: "GET"
+  };
 
+  let res = await fetch(`${apiUrl}/orderItems/${id}`, requestOptions)
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
 
+  return res;
+}
 
+// GetAddressByOrderID
+async function GetAddressByOrderID(id: number): Promise<any> {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
 
+  try {
+    const response = await fetch(`${apiUrl}/addresseOrder/${id}`, requestOptions);
+
+    if (response.ok) {
+      return await response.json();
+    } else {
+      // Handle HTTP errors (e.g., 404, 500)
+      console.error(`Error: ${response.status} ${response.statusText}`);
+      return null;
+    }
+  } catch (error) {
+    // Handle network or other errors
+    console.error('Error fetching address:', error);
+    return null;
+  }
+}
+
+//CreatePayment
+// async function CreatePayment(formData: FormData, data: PaymentInterface) {
+//   const requestOptions = {
+//     method: "POST",
+//     // headers: { "Content-Type": "application/json" },
+//     body: formData, data,
+//   };
+
+//   let res = await fetch(`${apiUrl}/payment`, requestOptions).then(
+//     (res) => {
+//       if (res.status == 201) {
+//         return res.json();
+//       } else {
+//         return false;
+//       }
+//     }
+//   );
+
+//   return res;
+// }
+
+async function CreatePayment(formData: FormData) {
+  const requestOptions = {
+    method: "POST",
+    // headers: { "Content-Type": "application/json" },
+    body: formData
+  };
+
+  let res = await fetch(`${apiUrl}/payment`, requestOptions).then(
+    (res) => {
+      if (res.status == 201) {
+        return res.json();
+      } else {
+        return false;
+      }
+    }
+  );
+
+  return res;
+}
+// async function CreatePayment(paymentData: PaymentInterface, file?: File): Promise<any> {
+//   try {
+//     // สร้าง FormData
+//     const formData = new FormData();
+
+//     // เพิ่มข้อมูล JSON ไปยัง FormData
+//     for (const [key, value] of Object.entries(paymentData)) {
+//       formData.append(key, String(value));
+//     }
+
+//     // เพิ่มไฟล์ไปยัง FormData ถ้ามี
+//     if (file) {
+//       formData.append("SlipPath", file);
+//     }
+
+//     // ส่ง request ไปยัง API
+//     const response = await fetch("/payment", {
+//       method: "POST",
+//       body: formData
+//     });
+
+//     // ตรวจสอบสถานะของ response
+//     if (!response.ok) {
+//       const error = await response.json();
+//       throw new Error(error.error || "Unknown error");
+//     }
+
+//     // รับข้อมูลจาก response
+//     const result = await response.json();
+//     return result;
+//   } catch (error) {
+//     console.error("Failed to create payment:", (error as Error).message);
+//     throw error;
+//   }
+// }
 
 
 
@@ -625,7 +742,12 @@ export {
     GetAddresses,
     GetAddressByID,
     GetAddressByCustomerID,
+<<<<<<< HEAD
     UpdateAddressByID,
+=======
+    UpdateAddress,
+    GetAddressByOrderID,
+>>>>>>> main
 
     // Brand  ----------------------------
     GetBrands,
@@ -638,6 +760,9 @@ export {
     GetCustomerByID,
     UpdateCustomerByID,
 
+    // Payment  --------------------------
+    CreatePayment,
+    
     // Order  ----------------------------
     GetOrders,
     GetOrderByID,
@@ -650,6 +775,7 @@ export {
     GetOrderItemByID,
     CreateOrderItem,
     UpdateOrderItem,
+    GetOrderItemByOrderID,
 
     // Image  ----------------------------
     GetImageByProductID,

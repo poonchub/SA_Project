@@ -2,6 +2,8 @@ import "../CartSummary/Summary.css";
 import { CartInterface } from "../../Interfaces/ICart";
 import { DeleteCart } from "../../services/http"; // นำเข้า API สำหรับลบสินค้า
 import { formatNumber } from "../CartItem/Card";
+import CountUp from "react-countup";
+
 
 interface TotalPriceProps {
   cartItems: CartInterface[] | null;
@@ -68,15 +70,17 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
           </div>
           <div className="data">
             <p>ยอดรวม</p>
-            <p id="fill1">฿{formatNumber(Number(totalPrice.toFixed(2)))}</p>
+           
+            <p id="fill1">฿<CountUp start={0} end={totalPrice} duration={2} /></p>
+          
           </div>
           <div className="data">
             <p>ส่วนลด</p>
-            <p id="fill1">-฿{discount}</p>
+            <p id="fill1">฿<CountUp start={0} end={discount} duration={2} /></p>
           </div>
           <div className="data">
             <p>ยอดรวม</p>
-            <p id="fill1">฿{formatNumber(Number(finalPrice.toFixed(2)))}</p>
+            <p id="fill1">฿<CountUp start={0} end={finalPrice} duration={2} /></p>
           
           </div>
           <div className="submit">
