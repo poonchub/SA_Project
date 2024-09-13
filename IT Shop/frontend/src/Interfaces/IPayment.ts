@@ -3,7 +3,7 @@ export interface PaymentInterface {
     PaymentDate?:	string;
 	PaymentMethod?:	string
 	Amount?:		number;
-	// Slip?:          
+	// Slip?:       
 
     CustomerID?:    number;
     OrderID?:       number;

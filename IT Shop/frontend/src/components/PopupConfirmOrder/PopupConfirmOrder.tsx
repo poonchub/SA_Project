@@ -30,10 +30,12 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
 
     async function createOrder() {
         try {
+            const cutomerID = localStorage.getItem("id")
             const orderData: OrderInterface = {
                 TotalPrice: totalPrice,
                 Status: "not yet paid",
-                CustomerID: 1,  // ดึงจากที่ login
+                // @ts-ignore
+                CustomerID: parseInt(cutomerID),
                 AddressID: selectedAddress
             };
             const resultOrder = await CreateOrder(orderData);

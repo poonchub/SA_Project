@@ -1,14 +1,11 @@
 package entity
 
 import (
-	"time"
-
 	"gorm.io/gorm"
 )
 
 type Payment struct {
 	gorm.Model
-	PaymentDate time.Time
 	Amount      float32
 	SlipPath    string `gorm:"type:longtext"`
 

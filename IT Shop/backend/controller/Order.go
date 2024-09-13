@@ -77,7 +77,6 @@ func CreateOrder(c *gin.Context) {
 	}
 
 	od := entity.Order{
-		OrderDate: order.OrderDate,
 		TotalPrice: order.TotalPrice,
 		Status: order.Status,
 		CustomerID: order.CustomerID,
