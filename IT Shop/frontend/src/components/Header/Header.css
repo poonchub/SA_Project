@@ -11,6 +11,8 @@
         position: fixed;
         box-sizing: border-box;
         box-shadow: 0 0 4px 2px var(--shadow-color1);
+        background-color: white;
+        z-index: 9000;
     
         & .left-side{
             display: flex;

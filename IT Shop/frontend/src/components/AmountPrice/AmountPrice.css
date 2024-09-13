@@ -3,8 +3,9 @@
 .custom-cardAM {
     border: 1px solid #d9d9d9; /* Custom border */
     border-radius: 8px; /* Rounded corners */
-    position: fixed;
+    position: s;
     margin-top: 420px;
+    position: absolute;
     border: 0px solid;
     width: 30%;
     box-shadow: 0px 2px 10px var(--shadow-color1);
@@ -80,32 +81,33 @@
 
 
 .Upload-button {
-    width: 30px;
-    height: 20px;
+    border: 3px solid var(--subtheme-color1);
+    border-radius: 20px;
+    width: 100px;
+    height: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 5px;
+    padding: 10px 10px;
     justify-content: center;
     align-items: center;
-    font-size: var(--btn-font);
-    font-weight: 650;
     transition: all 0.5s;
     text-align: center;
-    min-width: 100px;
-    height: 50px;
-    margin-left: 420px;
+    margin-left: 348px;
+    margin-top: 25px;
 }
 
 .Upload-button:hover {
     text-shadow: var(--shadow-color2);
-    width: 65px;
-    height: 55px;
+    width: 105px;
+    height: 56px;
     cursor: pointer;
 }
 
 .preview{ 
-    display: flex; 
+    display: flex;
+    border: 3px solid #d9d9d9;
+    border-radius: 7px;
     gap: 5px;
     margin-top: -10px;
     margin-left: 30px;
@@ -121,31 +123,36 @@
     padding: 2px;
     border: none;
     transition: background-color 0.3s ease, transform 0.3s ease; /* การเปลี่ยนแปลงที่นุ่มนวล */
-  }
+}
   
-  .removePreview:hover {
+.removePreview:hover {
     background-color: darkred; /* เปลี่ยนสีเมื่อ hover */
     transform: scale(1.1); /* ขยายปุ่มเมื่อ hover */
-  }
-
-.removePreview:hover{
     stroke:var(--shadow-color2);
 }
-.upload-label {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    font-size: 11px;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+
+
+.myimage {
+    background-color: white;
+    width: 300px;
+    border: 3px solid #DDDBDB;
+    border-radius: 20px;
+    display: block; /* ปรับให้รูป QR เป็น block เพื่อจัดตำแหน่งได้ดี */
+    margin: 0 auto; /* จัดรูป QR ให้อยู่กลาง */
 }
-  
-.upload-label:hover {
-    box-shadow: 0px 0px 8px var(--shadow-color2);
-    font-size: 12px;
-    cursor: pointer;
+
+.upload-container {
+    display: flex;
+    margin-top: 20px;
+    flex-direction: column; /* วางปุ่มและ QR ให้อยู่ในแนวตั้ง */
+    align-items: center; /* จัดกึ่งกลาง */
+    gap: 20px; /* เพิ่มช่องว่างระหว่าง QR กับปุ่มอัปโหลด */
+}
+
+@media (max-width: 768px) {
+    .upload-container {
+        gap: 10px; /* ลดช่องว่างในหน้าจอขนาดเล็ก */
+    }
 }
 
 /* Media Query สำหรับหน้าจอขนาดเล็ก */

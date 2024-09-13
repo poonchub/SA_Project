@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../AmountPrice/AmountPrice.css';
-import uploadPhoto from '../../assets/add_photo_alternate_outlined.svg';
+import uploadPhoto from '../../assets/Upload_Button.svg';
 import '../OrderShow/OrderShow.css';
 import { Button, Card} from 'antd';
 import { CloseOutlined} from '@ant-design/icons';
-import QRcode from '../../../../backend/images/payment/QR.jpg';
-import '../../stylesheet/image.css';
+import QRcode from '../../../../backend/images/payment/QR.png';
 import { CreatePayment } from '../../services/http';
 
 function AmountPrice({ orderId, customerId }: { orderId: number, customerId: number }) {
@@ -93,11 +92,13 @@ function AmountPrice({ orderId, customerId }: { orderId: number, customerId: num
   return (
     <div>
       <Card className="custom-cardAM">
-        <p>
-          <center>
+        <div className='upload-container'>
+          <center style={{fontSize: '16px',}}>
             <img className='myimage' src={QRcode} alt="" />
+            <p></p>
+            <span>บริษัท ITShop จำกัด </span>
+            ธนาคารกสิกรไทย
           </center>
-        </p>
         <div style={{margin: -30}}>
           <input
             type="file"
@@ -108,7 +109,7 @@ function AmountPrice({ orderId, customerId }: { orderId: number, customerId: num
           <label htmlFor="fileInput" >
             <img src={uploadPhoto} className='Upload-button'/>
           </label>
-
+          
           {/* แสดงตัวอย่างรูปที่อัปโหลด */}
           {previews.length > 0 && (
             <div style={{ marginTop: '20px' }}>
@@ -135,8 +136,8 @@ function AmountPrice({ orderId, customerId }: { orderId: number, customerId: num
                         color: 'white',
                         stroke: 'red',
                         maskSize: '5px',
-                        padding: '2px', // ลด padding ของปุ่ม
-                        border: 'none', // ลบ border
+                        padding: '2px',
+                        border: 'none',
                       }}
                     />
                   </div>
@@ -144,6 +145,7 @@ function AmountPrice({ orderId, customerId }: { orderId: number, customerId: num
               </div>
             </div>
           )}
+          </div>
         </div>
             <button className="btn" id="Confirm-button" onClick={handleUpload}>
             ตรวจสอบการชำระเงิน
