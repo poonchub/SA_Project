@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
+
 import { UserOutlined, CalendarOutlined, MailOutlined, EnvironmentOutlined } from '@ant-design/icons';
+
 import { Link, useNavigate } from 'react-router-dom';
 import './ShowProfile.css';
 import { CustomerInterface } from '../../Interfaces/ICustomer';
@@ -80,6 +82,7 @@ const ShowProfile: React.FC = () => {
     }
   }
 
+
   const addressElement = address.length > 0 ? address.map((add, index) => (
     <tr key={index}>
       <td>
@@ -111,6 +114,7 @@ const ShowProfile: React.FC = () => {
           alt="Profile"
           className="circular-image"
         />
+        <img src="" alt="" />
       </div>
       <table>
         <tbody>
@@ -132,7 +136,7 @@ const ShowProfile: React.FC = () => {
             <td>
               <MailOutlined style={{ fontSize: '25px', color: '#FF2E63' }} />
             </td>
-            <td>{customer?.Email || 'Loading...'}</td>
+            <td>{customer?.Email}</td>
           </tr>
           {addressElement}
         </tbody>
