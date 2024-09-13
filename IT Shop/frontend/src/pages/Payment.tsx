@@ -30,7 +30,6 @@ function Payment() {
                 <OrderShow orderId={2} />
                 <AddressShow orderId={2} />
                 <AmountPrice customerId={1} orderId={2}/> 
-                {/* customerId={1} orderId={3} */}
                 <div /*className="mytable"*/>
                     <OrderTableList orderId={2} />
                 </div>
