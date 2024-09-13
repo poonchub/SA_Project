@@ -27,12 +27,12 @@ function Payment() {
         <>
             <div className="mylayout">
                 <Header page={"Payment"} />
-                <OrderShow orderId={2} />
-                <AddressShow orderId={2} />
-                <AmountPrice customerId={1} orderId={2}/> 
+                <OrderShow orderId={1} />
+                <AddressShow orderId={1} />
+                <AmountPrice customerId={1} orderId={1}/> 
                 {/* customerId={1} orderId={3} */}
                 <div className="mytable">
-                    <OrderTableList orderId={2} />
+                    <OrderTableList orderId={1} />
                 </div>
             </div>
         </>

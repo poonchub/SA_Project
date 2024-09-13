@@ -43,13 +43,15 @@ const AddressShow: React.FC<{ orderId: number }> = ({ orderId }) => {
         }
         className="custom-cardA"
       >
-        {error ? (
-          <Result
-            status="error"
-            title="เกิดข้อผิดพลาด"
-            subTitle={error}
-          />
-        ) : (
+        {
+        // error ? (
+        //   <Result
+        //     status="error"
+        //     title="เกิดข้อผิดพลาด"
+        //     subTitle={error}
+        //   />
+        // ) : 
+        (
           <Card className="custom-card-background">
             {address ? (
               <div>
