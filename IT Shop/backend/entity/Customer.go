@@ -8,7 +8,6 @@ import (
 
 type Customer struct {
 	gorm.Model
-	Prefix		string
 	FirstName	string
 	LastName	string
 	Email		string
@@ -21,4 +20,6 @@ type Customer struct {
 	Orders		[]Order		`gorm:"foreignKey:CustomerID"`
 	Payments	[]Payment	`gorm:"foreignKey:CustomerID"`
 
+	GenderID 	uint
+	Gender   	Gender `gorm:"foriegnKey:GenderID"`
 }

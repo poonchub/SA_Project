@@ -27,6 +27,27 @@ async function SignIn(data: SignInInterface) {
     return res;
 }
 
+// Gender
+async function GetGenders() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/genders`, requestOptions)
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
 // Address
 async function GetAddresses() {
   const requestOptions = {
@@ -83,14 +104,14 @@ async function GetAddressByCustomerID(id: Number | undefined) {
   return res;
 }
 
-async function UpdateAddress(data: AddressInterface) {
+async function UpdateAddressByID(data: AddressInterface, id: Number | undefined) {
   const requestOptions = {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   };
 
-  let res = await fetch(`${apiUrl}/address`, requestOptions)
+  let res = await fetch(`${apiUrl}/address/${id}`, requestOptions)
     .then((res) => {
       if (res.status == 200) {
         return res.json();
@@ -178,14 +199,14 @@ async function GetCustomerByID(id: Number | undefined) {
   return res;
 }
 
-async function UpdateCustomer(data: CustomerInterface) {
+async function UpdateCustomerByID(data: CustomerInterface, id: Number | undefined) {
   const requestOptions = {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   };
 
-  let res = await fetch(`${apiUrl}/customer`, requestOptions)
+  let res = await fetch(`${apiUrl}/customer/${id}`, requestOptions)
     .then((res) => {
       if (res.status == 200) {
         return res.json();
@@ -713,12 +734,15 @@ async function CreatePayment(formData: FormData) {
 export {
 
     SignIn,
+
+    // Gender
+    GetGenders,
     
     // Address  --------------------------
     GetAddresses,
     GetAddressByID,
     GetAddressByCustomerID,
-    UpdateAddress,
+    UpdateAddressByID,
     GetAddressByOrderID,
 
     // Brand  ----------------------------
@@ -730,7 +754,7 @@ export {
     // Customer --------------------------
     GetCustomers,
     GetCustomerByID,
-    UpdateCustomer,
+    UpdateCustomerByID,
 
     // Payment  --------------------------
     CreatePayment,
