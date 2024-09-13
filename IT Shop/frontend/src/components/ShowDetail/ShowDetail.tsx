@@ -34,8 +34,6 @@ function ShowDetail(){
         }
     }
 
-    
-
     function showPopup(){
         setPopup(<PopupConfirmOrder setPopup={setPopup} productName={productName} price={price} quantity={quantity} products={products} messageApi={messageApi}/>)
     }
@@ -76,7 +74,7 @@ function ShowDetail(){
         )
     })
 
-   // funtion  add to cart
+   // funtion add to cart
    const success = () => {
     messageApi.open({
       type: 'success',
@@ -92,7 +90,6 @@ function ShowDetail(){
         console.log('Product added to cart successfully');
         success()
 
-        // fetchCartData();
       } else {
         console.error('Failed to add product to cart');
       }
@@ -100,10 +97,6 @@ function ShowDetail(){
       console.error('Error adding product to cart:', error);
     }
   };  
-   
-
-
-
 
     return (
         <div className="showdetail-container">

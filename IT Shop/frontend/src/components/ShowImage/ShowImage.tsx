@@ -5,7 +5,6 @@ import { selectedIndex } from "../../data/selectedIndex";
 import { apiUrl, GetImageByProductID } from "../../services/http";
 import { ImageInterface } from "../../Interfaces/IImage";
 
-
 function ShowImage(){
 
     const scrollRef = useRef<HTMLDivElement>(null);
