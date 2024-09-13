@@ -742,12 +742,8 @@ export {
     GetAddresses,
     GetAddressByID,
     GetAddressByCustomerID,
-<<<<<<< HEAD
     UpdateAddressByID,
-=======
-    UpdateAddress,
     GetAddressByOrderID,
->>>>>>> main
 
     // Brand  ----------------------------
     GetBrands,

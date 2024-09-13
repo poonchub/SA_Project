@@ -1,7 +1,6 @@
 import "./EditProfile.css";
 import { useState, useEffect } from "react";
 import {
-<<<<<<< HEAD
   Space,
   Button,
   Col,
@@ -16,25 +15,11 @@ import {
 } from "antd";
 import dayjs from "dayjs";
 import { PlusOutlined } from "@ant-design/icons";
-=======
-    Form,
-    Upload,
-    //Select,
-  } from 'antd';
-import { useEffect, useState } from "react";
->>>>>>> main
 import { CustomerInterface } from "../../Interfaces/ICustomer";
 import { GendersInterface } from "../../Interfaces/IGender";
 import { GetAddressByCustomerID, GetCustomerByID, GetGenders, UpdateAddressByID, UpdateCustomerByID } from "../../services/http";
 import { useNavigate } from "react-router-dom";
 import { AddressInterface } from "../../Interfaces/IAddress";
-<<<<<<< HEAD
-=======
-import { GetAddressByCustomerID, GetCustomerByID } from "../../services/http";
-//import { PrefixsInterface } from "../../Interfaces/IPrefix";
-
-// const { Option } = Select;
->>>>>>> main
 
 const { Option } = Select;
 
@@ -84,7 +69,6 @@ function Edit() {
       Province: values.Province,
       ZipCode: values.ZipCode,
     };
-
 
     try {
       let resCustomer = await UpdateCustomerByID(payloadCustomer, parseInt(id));
