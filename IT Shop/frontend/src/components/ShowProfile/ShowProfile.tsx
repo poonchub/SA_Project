@@ -69,7 +69,6 @@ const ShowProfile: React.FC = () => {
     }
   }
 
-<<<<<<< HEAD
   async function getOrders() {
     try {
       const res = await GetOrders();
@@ -80,28 +79,6 @@ const ShowProfile: React.FC = () => {
       console.error('Error fetching orders:', error);
     }
   }
-=======
-  const addressElement = address.map((add,index) => {
-    return (
-      <tr key={index}>
-            <td>
-                <EnvironmentOutlined style={{ fontSize: '25px', color: '#FF2E63' }}/>
-            </td>
-            <td>{`${add.AddressDetail} ${add.Subdistrict} ${add.District} ${add.Province} ${add.ZipCode}`}</td>
-      </tr>
-      
-    )
-  })
-
-  console.log(address)
-
-  useEffect(()=>{
-    getCustomer()
-  }, [])
-
-  console.log(customer)
->>>>>>> main
-
 
   const addressElement = address.length > 0 ? address.map((add, index) => (
     <tr key={index}>
