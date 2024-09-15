@@ -29,7 +29,7 @@ function Payment() {
                 <Header page={"Payment"} />
                 <OrderShow orderId={2} />
                 <AddressShow orderId={2} />
-                <AmountPrice customerId={1} orderId={2}/> 
+                <AmountPrice customerId={2} orderId={2}/> 
                 <div /*className="mytable"*/>
                     <OrderTableList orderId={2} />
                 </div>

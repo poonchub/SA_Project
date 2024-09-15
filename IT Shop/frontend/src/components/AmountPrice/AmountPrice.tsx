@@ -2,16 +2,21 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../AmountPrice/AmountPrice.css';
 import uploadPhoto from '../../assets/Upload_Button.svg';
 import '../OrderShow/OrderShow.css';
-import { Button, Card} from 'antd';
-import { CloseOutlined} from '@ant-design/icons';
+import { Button, Card, message } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 import QRcode from '../../../../backend/images/payment/QR.png';
 import { CreatePayment } from '../../services/http';
+import PopupConfirmPayment from './PopupConfirmPayment';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-function AmountPrice({ orderId, customerId }: { orderId: number, customerId: number }) {
+const AmountPrice = ({ orderId, customerId }: { orderId: number, customerId: number }) => {
   const [slip, setSlip] = useState<File[]>([]);
-  const [uploadMessage, setUploadMessage] = useState('');
   const [previews, setPreviews] = useState<string[]>([]); // เก็บ URL ของรูป preview
+  const [showConfirmPopup, setShowConfirmPopup] = useState(false); // สถานะของ popup
+  const [showWarning, setShowWarning] = useState(false); // สถานะของจุดเตือน
   const fileInputRef = useRef<HTMLInputElement | null>(null); // ใช้ ref เพื่อเข้าถึง input ของไฟล์
+  const [api, contextHolder] = message.useMessage(); // ใช้ message API
+  const navigate = useNavigate(); // ใช้ useNavigate สำหรับการนำทาง
 
   useEffect(() => {
     // Clean up URLs when component unmounts or slip changes
@@ -38,6 +43,9 @@ function AmountPrice({ orderId, customerId }: { orderId: number, customerId: num
       if (fileInputRef.current) {
         fileInputRef.current.value = ''; // Reset file input to allow re-uploading the same file
       }
+
+      // ซ่อนจุดเตือนเมื่อมีการอัปโหลดไฟล์
+      setShowWarning(false);
     }
   };
 
@@ -64,94 +72,131 @@ function AmountPrice({ orderId, customerId }: { orderId: number, customerId: num
     }
   };
 
-  const handleUpload = async (e: React.FormEvent) => {
-      e.preventDefault();
+  const handleUpload = (e: React.FormEvent) => {
+    e.preventDefault();
 
-      const formData = new FormData();
-      slip.forEach((file) => {
-          formData.append('slip', file);
-      });
-      formData.append('customerID', customerId.toString());
-      formData.append('orderID', orderId.toString());
+    if (slip.length === 0) {
+      // ถ้ายังไม่ได้อัปโหลดไฟล์ ให้แสดงข้อความเตือนและจุดเตือน
+      api.error('กรุณาอัปโหลดสลิปก่อน');
+      setShowWarning(true); // แสดงจุดเตือน
+      return;
+    }
 
-      try {
-          const res = await CreatePayment(formData);
-          if (res) {
-              setUploadMessage(res.message);
-          } else {
-              setUploadMessage("Failed to upload images. Please try again.");
-          }
-      } catch (error) {
-          setUploadMessage("Error uploading images. Please try again.");
-      }
+    setShowConfirmPopup(true); // แสดง popup confirm
   };
 
+  const confirmUpload = async () => {
+    setShowConfirmPopup(false); // ซ่อน popup confirm
 
+    const formData = new FormData();
+    slip.forEach((file) => {
+      formData.append('slip', file);
+    });
+    formData.append('customerID', customerId.toString());
+    formData.append('orderID', orderId.toString());
 
+    try {
+      const res = await CreatePayment(formData);
+      if (res) {
+        api.success('ชำระเงินเสร็จสิ้น'); // แสดงข้อความสำเร็จ
+        setTimeout(() => {
+          navigate(-1); // กลับไปยังหน้าก่อนหน้า
+        }, 1000); // หน่วงเวลา 1 วินาที
+      } else {
+        api.error('Failed to upload images. Please try again.');
+      }
+    } catch (error) {
+      api.error('Error uploading images. Please try again.');
+    }
+  };
+
+  const cancelUpload = () => {
+    setShowConfirmPopup(false); // ซ่อน popup confirm
+  };
 
   return (
     <div>
+      {contextHolder} {/* ใช้ message API */}
+
       <Card className="custom-cardAM">
         <div className='upload-container'>
-          <center style={{fontSize: '16px',}}>
+          <center style={{ fontSize: '16px' }}>
             <img className='myimage' src={QRcode} alt="" />
             <p></p>
             <span>บริษัท ITShop จำกัด </span>
             ธนาคารกสิกรไทย
           </center>
-        <div style={{margin: -30}}>
-          <input
-            type="file"
-            id="fileInput"
-            onChange={handleSlipChange}
-            style={{ display: 'none' }} // ซ่อน input
-          />
-          <label htmlFor="fileInput" >
-            <img src={uploadPhoto} className='Upload-button'/>
-          </label>
-          
-          {/* แสดงตัวอย่างรูปที่อัปโหลด */}
-          {previews.length > 0 && (
-            <div style={{ marginTop: '20px' }}>
-              <div>
-                {previews.map((preview, index) => (
-                  <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
-                    <img className='preview'
-                      src={preview}
-                      alt={`Preview ${index + 1}`}
-                      style={{ maxWidth: '100px', maxHeight: '100px' }}
-                    />
-                    {/* ปุ่มลบ */}
-                    <Button
-                      icon={<CloseOutlined />}
-                      size="small"
-                      shape="circle"
-                      onClick={() => handleRemoveImage(index)}
-                      className='removePreview'
-                      style={{
-                        position: 'absolute',
-                        top: '-15px',
-                        right: '-10px',
-                        backgroundColor: 'red',
-                        color: 'white',
-                        stroke: 'red',
-                        maskSize: '5px',
-                        padding: '2px',
-                        border: 'none',
-                      }}
-                    />
-                  </div>
-                ))}
+          <div style={{ margin: -30 }}>
+            <input
+              type="file"
+              id="fileInput"
+              onChange={handleSlipChange}
+              style={{ display: 'none' }} // ซ่อน input
+            />
+            <label htmlFor="fileInput" style={{ position: 'relative', display: 'inline-block' }}>
+              <img src={uploadPhoto} className='Upload-button' />
+              {/* จุดเตือน */}
+              {showWarning && (
+                <div
+                  className='warningUpload'
+                  style={{
+                    position: 'absolute',
+                    top: '23px',
+                    left: '347px',
+                    backgroundColor: '#FF0000',
+                  }}
+                />
+              )}
+            </label>
+
+            {/* แสดงตัวอย่างรูปที่อัปโหลด */}
+            {previews.length > 0 && (
+              <div style={{ marginTop: '20px' }}>
+                <div>
+                  {previews.map((preview, index) => (
+                    <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
+                      <img className='preview'
+                        src={preview}
+                        alt={`Preview ${index + 1}`}
+                        style={{ maxWidth: '100px', maxHeight: '100px' }}
+                      />
+                      {/* ปุ่มลบ */}
+                      <Button
+                        icon={<CloseOutlined />}
+                        size="small"
+                        shape="circle"
+                        onClick={() => handleRemoveImage(index)}
+                        className='removePreview'
+                        style={{
+                          position: 'absolute',
+                          top: '-15px',
+                          right: '-10px',
+                          backgroundColor: 'red',
+                          color: 'white',
+                          stroke: 'red',
+                          maskSize: '5px',
+                          padding: '2px',
+                          border: 'none',
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
           </div>
         </div>
-            <button className="btn" id="Confirm-button" onClick={handleUpload}>
-            ตรวจสอบการชำระเงิน
-            </button>
-            {uploadMessage}
+        <button className="btn" id="Confirm-button" onClick={handleUpload}>
+          ตรวจสอบการชำระเงิน
+        </button>
       </Card>
+
+      {/* แสดง PopupConfirmPayment */}
+      <PopupConfirmPayment
+        visible={showConfirmPopup}
+        onConfirm={confirmUpload}
+        onCancel={cancelUpload}
+      />
     </div>
   );
 };
