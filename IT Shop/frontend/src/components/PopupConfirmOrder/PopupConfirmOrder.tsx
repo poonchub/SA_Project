@@ -15,15 +15,14 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
     const [selectedAddress, setSelectedAddress] = useState(1);
 
     const totalPrice = products[selectedIndex].PricePerPiece*quantity
-    const priceFormat = totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) 
+    const priceFormat = totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })   
 
     function closePopup(){
         setPopup(null)
     }
 
     async function getAddress(){
-        const cutomerID = localStorage.getItem("id")
-        let res = await GetAddressByCustomerID(cutomerID!=null ? parseInt(cutomerID): 0)
+        let res = await GetAddressByCustomerID(1)
         if (res) {
             setAddresses(res);
         }
@@ -31,11 +30,10 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
 
     async function createOrder() {
         try {
-            const cutomerID = localStorage.getItem("id")
             const orderData: OrderInterface = {
                 TotalPrice: totalPrice,
                 Status: "not yet paid",
-                CustomerID: cutomerID!=null ? parseInt(cutomerID): 0,
+                CustomerID: 1,  // ดึงจากที่ login
                 AddressID: selectedAddress
             };
             const resultOrder = await CreateOrder(orderData);
