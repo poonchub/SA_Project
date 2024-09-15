@@ -155,7 +155,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
                             <td className="sub-t">ที่อยู่</td>
                             <td>
                                 {addressElement}
-                            </td>
+                            </td> 
                         </tr>
                     </tbody>
                 </table>
