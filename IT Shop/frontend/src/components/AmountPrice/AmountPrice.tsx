@@ -17,6 +17,7 @@ const AmountPrice = ({ orderId, customerId }: { orderId: number, customerId: num
   const fileInputRef = useRef<HTMLInputElement | null>(null); // ใช้ ref เพื่อเข้าถึง input ของไฟล์
   const [api, contextHolder] = message.useMessage(); // ใช้ message API
   const navigate = useNavigate(); // ใช้ useNavigate สำหรับการนำทาง
+  
 
   useEffect(() => {
     // Clean up URLs when component unmounts or slip changes
