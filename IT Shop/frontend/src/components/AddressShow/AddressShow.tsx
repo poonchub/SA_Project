@@ -1,36 +1,69 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Result } from 'antd';
-import { GetAddressByOrderID } from '../../services/http';
+import React, { useContext, useEffect, useState } from 'react';
+import { Card, message } from 'antd';
+import { GetAddressByOrderID, GetOrderByID } from '../../services/http';
 import { AddressInterface } from '../../Interfaces/IAddress';
 import '../AddressShow/AddressShow.css';
 import edit from '../../assets/edit.svg';
 import location from '../../assets/location.svg';
-import { Button, Flex } from 'antd';
+import { PopupContext } from "../../pages/Selected";
+import PopupConfirmOrder from "./AddressChangePopup";
 
-const AddressShow: React.FC<{ orderId: number }> = ({ orderId }) => {
+const AddressShow: React.FC<{ orderId: number  }> = ({ orderId }) => {
   const [address, setAddress] = useState<AddressInterface | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isPopupVisible, setPopupVisible] = useState<boolean>(false); // State สำหรับจัดการ popup
+  const { setPopup } = useContext(PopupContext); // อาจไม่จำเป็นถ้าใช้ local state
+  const [customerId, setCustomerId] = useState<number | null>(null); // State สำหรับเก็บ customerId
+
+  async function fetchAddress() {
+    try {
+      const addressRes = await GetAddressByOrderID(orderId);
+      if (addressRes) {
+        setAddress(addressRes);
+      } else {
+        setError('ไม่พบข้อมูลที่อยู่');
+      }
+    } catch (err) {
+      setError('ไม่สามารถดึงข้อมูลได้');
+      console.error(err);
+    }
+  }
 
   
   useEffect(() => {
-    async function fetchAddress() {
+    fetchAddress();
+
+    // ดึง customerId จาก orderId
+    async function fetchOrderData() {
       try {
-        // Fetch Address by orderId
-        const addressRes = await GetAddressByOrderID(orderId);
-        console.log('Address Data:', addressRes); // ตรวจสอบข้อมูลที่ได้รับ
-        if (addressRes) {
-          setAddress(addressRes);
+        const orderData = await GetOrderByID(orderId);
+        if (orderData && orderData.CustomerID) {
+          setCustomerId(orderData.CustomerID); // เก็บ customerId ไว้ใน state
         } else {
-          setError('ไม่พบข้อมูลที่อยู่');
+          setError('ไม่พบข้อมูลลูกค้า');
         }
       } catch (err) {
-        setError('ไม่สามารถดึงข้อมูลได้');
+        setError('ไม่สามารถดึงข้อมูลลูกค้าได้');
         console.error(err);
       }
     }
-
-    fetchAddress();
+    fetchOrderData(); // เรียกใช้เพื่อดึง customerId
   }, [orderId]);
+
+
+  // ฟังก์ชันเปิด popup แก้ไขที่อยู่
+  const showPopup = () => {
+    if (customerId !== null) {  // ตรวจสอบให้แน่ใจว่า customerId ไม่เป็น null
+      setPopupVisible(true); // แสดง popup
+    } else {
+      message.error("ไม่พบข้อมูลลูกค้า");
+    }
+  };
+
+  // ฟังก์ชันปิด popup
+  const closePopup = () => {
+    setPopupVisible(false); // ปิด popup
+  };
 
   return (
     <div>
@@ -43,33 +76,35 @@ const AddressShow: React.FC<{ orderId: number }> = ({ orderId }) => {
         }
         className="custom-cardA"
       >
-        {error ? (
-          <Result
-            status="error"
-            title="เกิดข้อผิดพลาด"
-            subTitle={error}
-          />
-        ) : (
-          <Card className="custom-card-background">
-            {address ? (
+        {
+          address ? (
+            <Card className="custom-card-background">
               <div>
                 <p>{address.AddressDetail}</p>
                 <p>{address.Subdistrict}, {address.District}, {address.Province}, {address.ZipCode}</p>
               </div>
-            ) : (
-              <p>ไม่พบข้อมูลที่อยู่</p>
-            )}
-          </Card>
-        )}
-        <Flex vertical gap="small" className="flex" style={{ width: '100%' }}>
-          {/* <Button className="buttonAddr" type="primary" block>
-            <img src={edit} alt="Edit Icon" />
-          </Button> */}
-          <div className="btn">
+            </Card>
+          ) : (
+            <p>ไม่พบข้อมูลที่อยู่</p>
+          )
+        }
+
+        {/* ปุ่มแก้ไขที่อยู่ */}
+        <div className="btn" onClick={showPopup}>
           <img src={edit} alt="Edit Icon" />
-            </div>
-        </Flex>
+        </div>
       </Card>
+
+      {/* แสดง popup เมื่อ isPopupVisible เป็น true และ customerId ไม่เป็น null */}
+      {isPopupVisible && customerId !== null && (
+        <PopupConfirmOrder 
+          setPopup={closePopup} // ฟังก์ชันปิด popup
+          messageApi={message} // ส่ง message api ไปยัง popup
+          orderId={orderId} // ส่ง orderId ไปยัง popup
+          customerId={customerId}
+          onAddressUpdated={fetchAddress} // ฟังก์ชันรีเฟรชที่อยู่หลังการอัปเดต
+        />
+      )}
     </div>
   );
 };

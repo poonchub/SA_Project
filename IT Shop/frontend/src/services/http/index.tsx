@@ -651,27 +651,6 @@ async function GetAddressByOrderID(id: number): Promise<any> {
   }
 }
 
-//CreatePayment
-// async function CreatePayment(formData: FormData, data: PaymentInterface) {
-//   const requestOptions = {
-//     method: "POST",
-//     // headers: { "Content-Type": "application/json" },
-//     body: formData, data,
-//   };
-
-//   let res = await fetch(`${apiUrl}/payment`, requestOptions).then(
-//     (res) => {
-//       if (res.status == 201) {
-//         return res.json();
-//       } else {
-//         return false;
-//       }
-//     }
-//   );
-
-//   return res;
-// }
-
 async function CreatePayment(formData: FormData) {
   const requestOptions = {
     method: "POST",
@@ -691,42 +670,25 @@ async function CreatePayment(formData: FormData) {
 
   return res;
 }
-// async function CreatePayment(paymentData: PaymentInterface, file?: File): Promise<any> {
-//   try {
-//     // สร้าง FormData
-//     const formData = new FormData();
 
-//     // เพิ่มข้อมูล JSON ไปยัง FormData
-//     for (const [key, value] of Object.entries(paymentData)) {
-//       formData.append(key, String(value));
-//     }
+async function UpdateOrderAddressByOrderID(data: OrderInterface) {
+  const requestOptions = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ address_id: data.AddressID }),  // ส่ง AddressID ใหม่จาก OrderInterface
+  };
 
-//     // เพิ่มไฟล์ไปยัง FormData ถ้ามี
-//     if (file) {
-//       formData.append("SlipPath", file);
-//     }
+  // ส่ง PATCH request ไปยัง API เพื่ออัปเดต AddressID
+  let res = await fetch(`${apiUrl}/order/${data.ID}/address`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
 
-//     // ส่ง request ไปยัง API
-//     const response = await fetch("/payment", {
-//       method: "POST",
-//       body: formData
-//     });
-
-//     // ตรวจสอบสถานะของ response
-//     if (!response.ok) {
-//       const error = await response.json();
-//       throw new Error(error.error || "Unknown error");
-//     }
-
-//     // รับข้อมูลจาก response
-//     const result = await response.json();
-//     return result;
-//   } catch (error) {
-//     console.error("Failed to create payment:", (error as Error).message);
-//     throw error;
-//   }
-// }
-
+  return res;
+}
 
 
 
@@ -758,6 +720,8 @@ export {
 
     // Payment  --------------------------
     CreatePayment,
+    UpdateOrderAddressByOrderID,
+    GetOrderItemByOrderID,
     
     // Order  ----------------------------
     GetOrders,
@@ -771,7 +735,6 @@ export {
     GetOrderItemByID,
     CreateOrderItem,
     UpdateOrderItem,
-    GetOrderItemByOrderID,
 
     // Image  ----------------------------
     GetImageByProductID,

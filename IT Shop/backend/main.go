@@ -54,6 +54,7 @@ func main() {
 		router.GET("/orders/:id", controller.GetOrderByCustomerID)
 		router.POST("/order", controller.CreateOrder)
 		router.PATCH("/order", controller.UpdateOrder)
+		router.PATCH("/order/:id/address", controller.UpdateOrderAddressByOrderID)
 
 		// OrderItem
 		router.GET("/orderItems", controller.ListOrderItems)

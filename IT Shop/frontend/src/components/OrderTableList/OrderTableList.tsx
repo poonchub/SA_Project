@@ -89,7 +89,7 @@ const OrderTableList: React.FC<{ orderId: number }> = ({ orderId }) => {
 });
 
   return (
-      <div className="card-containerT">
+      <div>
           <Card className="custom-cardT">
               <Table
                   className="custom-table"

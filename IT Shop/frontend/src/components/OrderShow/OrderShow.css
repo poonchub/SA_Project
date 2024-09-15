@@ -3,7 +3,7 @@
 .custom-cardO {
     border: 1px solid #d9d9d9; /* Custom border */
     border-radius: 8px; /* Rounded corners */
-    position: fixed;
+    position: absolute;
     margin-top: 85px;
     margin-left: 80px;
     border: 0px solid;
@@ -11,11 +11,12 @@
     box-shadow: 0px 2px 10px var(--shadow-color1);
     font-size: 24px;
     text-align: center;
+    z-index: 0; /* Ensure it stays above other elements */
 }
 
 .color-id {
     color: var(--orderid-color);
-    margin-left: 20%;
+    margin-left: 10%;
 }
 
 .custom-cardO .card-title {
@@ -26,11 +27,12 @@
   
 .custom-cardO .location-icon {
     margin-right: 30px; /* เพิ่มช่องว่างระหว่างไอคอนกับข้อความ */
+    margin-left: -30px;
 }
 
 .color-price {
     color: var(--subfont-color3);
-    margin-left: 23.5%;
+    margin-left: 21%;
     margin-right: 0%;
 }
 

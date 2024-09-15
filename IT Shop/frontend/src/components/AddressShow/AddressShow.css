@@ -1,18 +1,19 @@
 @import "../../stylesheet/ColorSheet.css";
 
+@media (max-width: 5000px) {
 .custom-cardA {
     border: 1px solid #d9d9d9; /* Custom border */
     border-radius: 8px; /* Rounded corners */
-    position: fixed;
+    position: absolute;
     margin-top: 85px;
     border: 0px solid;
     width: 30%;
     box-shadow: 0px 2px 10px var(--shadow-color1);
     font-size: 24px;
     margin-left: 65%;
-    height: 36%;
+    height: 24.5%;
     padding: 20px;
-    z-index: 1000; /* Ensure it stays above other elements */
+    z-index: 0; /* Ensure it stays above other elements */
 }
 
 .custom-cardA .card-title {
@@ -37,47 +38,84 @@
     background-color: #fa3869; /* เปลี่ยนสีพื้นหลังเมื่อ hover */
     color: white; /* เปลี่ยนสีข้อความเมื่อ hover */
 }
-
+}
 
 /* Media Query สำหรับหน้าจอขนาดใหญ่หน่อย */
-@media (max-width: 1444px) {
+@media (max-width: 1500px) {
     .custom-cardA {
         width: 30%;
-        margin-top: 140px;
-        margin-left: 60%;
-        height: 41%;
-        font-size: 20px;
-    }
-}
-
-/* Media Query สำหรับหน้าจอขนาดกลาง */
-@media (max-width: 1024px) {
-    .custom-cardA {
-        width: 40%;
-        margin-top: 140px;
-        margin-left: 50%;
-        height: 39%;
-        font-size: 20px;
-    }
-}
-
-/* Media Query สำหรับหน้าจอขนาดเล็ก */
-@media (max-width: 768px) {
-    .custom-cardA {
-        width: 30%;
-        margin-top: 180px;
+        margin-top: 85px;
         margin-left: 65%;
-        height: auto;
-        font-size: 16px;
+        height: 38%;
+        font-size: 20px;
     }
 }
 
-/* Media Query สำหรับหน้าจอขนาดที่เล็กที่สุด */
-@media (max-width: 480px) {
+/* Media Query สำหรับหน้าจอขนาดใหญ่หน่อย */
+@media (max-width: 1100px) {
     .custom-cardA {
-        width: 95%;
-        margin-left: 2.5%;
-        height: auto;
-        font-size: 14px;
+        border: 1px solid #d9d9d9; /* Custom border */
+        border-radius: 8px; /* Rounded corners */
+        position: fixed;
+        margin-top: 140px;
+        border: 0px solid;
+        width: 30%;
+        box-shadow: 0px 2px 10px var(--shadow-color1);
+        font-size: 24px;
+        margin-left: 65%;
+        height: 37%;
+        padding: 10px;
     }
+
+}
+
+@media (max-width: 1035px) {
+    .custom-cardA {
+        border: 1px solid #d9d9d9; /* Custom border */
+        border-radius: 8px; /* Rounded corners */
+        position: fixed;
+        margin-top: 140px;
+        border: 0px solid;
+        width: 30%;
+        box-shadow: 0px 2px 10px var(--shadow-color1);
+        font-size: 24px;
+        margin-left: 65%;
+        height: 39%;
+        padding: 10px;
+    }
+
+}
+
+@media (max-width: 950px) {
+    .custom-cardA {
+        height: 42%;
+    }
+
+}
+
+@media only screen and (max-width:820px) {
+    .custom-cardA {
+        height: 44%;
+        
+    }
+}
+
+@media only screen and (max-width:870px) {
+    .custom-cardA {
+        border: 1px solid #d9d9d9; /* Custom border */
+        border-radius: 8px; /* Rounded corners */
+        position: fixed;
+        margin-top: 178px;
+        border: 0px solid;
+        width: 30%;
+        box-shadow: 0px 2px 10px var(--shadow-color1);
+        font-size: 24px;
+        margin-left: 65%;
+        height: 42%;
+        padding: 10px;
+    }
+}
+
+@media only screen and (max-width:790px) {
+    
 }
