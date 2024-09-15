@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 99;
+    z-index: 9;
     
     .custom-message {
         z-index: 9999; /* เปลี่ยนค่าตามต้องการ */

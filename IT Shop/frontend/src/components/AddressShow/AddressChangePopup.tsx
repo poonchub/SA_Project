@@ -61,6 +61,9 @@ function AddressChangePopup(props: { setPopup: any; messageApi: any; orderId: nu
           type: "success",
           content: "ที่อยู่ถูกอัปเดตเรียบร้อยแล้ว",
           duration: 3,
+          style: {
+            zIndex: 99999,
+          },
         });
         setPopup(null); // ปิด popup เมื่อการอัปเดตสำเร็จ
         onAddressUpdated(); // เรียกฟังก์ชันเพื่อรีเฟรชที่อยู่
@@ -159,7 +162,7 @@ function AddressChangePopup(props: { setPopup: any; messageApi: any; orderId: nu
             <>
                 <span className="title">แก้ไขที่อยู่ในการจัดส่ง</span>
                 {addressElement}
-                <div className="btn-box">
+                <div className="btn-box" style={{marginLeft: '15%'}}>
                     <button className="cancel-btn" onClick={closePopup}>ยกเลิก</button>
                     <button className="confirm-btn" onClick={handleUpdateOrder}>ยืนยันการแก้ไข</button>
                 </div>
