@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import "./ShowDetail.css"
 import { AddToCart, GetProduct} from "../../services/http";
 import { ProductInterFace } from "../../Interfaces/IProduct";
-import { selectedIndex } from "../../data/selectedIndex";
 import { message } from "antd";
 import { PopupContext } from "../../pages/Selected";
 import PopupConfirmOrder from "../PopupConfirmOrder/PopupConfirmOrder";
@@ -42,16 +41,19 @@ function ShowDetail(){
         getProducts()
     }, [])
 
+    const sltProductStr = localStorage.getItem("sltProduct")
+    const sltProduct = sltProductStr!=null ? parseInt(sltProductStr) : 0;
+
     // @ts-ignore
-    const productName = products.length > 0 ? products[selectedIndex].ProductName : '';
+    const productName = products.length > 0 ? products[sltProduct].ProductName : '';
     // @ts-ignore
-    const brand = products.length > 0 ? products[selectedIndex].Brand.BrandName : '';
+    const brand = products.length > 0 ? products[sltProduct].Brand.BrandName : '';
     // @ts-ignore
-    const stock = products.length > 0 ? products[selectedIndex].Stock : '';
+    const stock = products.length > 0 ? products[sltProduct].Stock : '';
     // @ts-ignore
-    const price = products.length > 0 ? products[selectedIndex].PricePerPiece.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00';
+    const price = products.length > 0 ? products[sltProduct].PricePerPiece.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00';
     // @ts-ignore
-    const description = products.length > 0 ? products[selectedIndex].Description : '';
+    const description = products.length > 0 ? products[sltProduct].Description : '';
     // @ts-ignore
     const wordsArray = description.split("\n");
 
@@ -131,7 +133,7 @@ function ShowDetail(){
                     </div>
                 </div>
                 <div className="button-box">
-                    <div className="btn" id="cart-button" onClick={() => handleAddToCart(selectedIndex+1, quantity)}>
+                    <div className="btn" id="cart-button" onClick={() => handleAddToCart(sltProduct+1, quantity)}>
                         เพิ่มลงตะกร้า
                     </div>
                     <div className="btn" id="order-button" onClick={showPopup}>

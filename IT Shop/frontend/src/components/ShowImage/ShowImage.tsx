@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import SmallImage from "../SmallImage/SmallImage";
 import "./ShowImage.css"
-import { selectedIndex } from "../../data/selectedIndex";
 import { apiUrl, GetImageByProductID } from "../../services/http";
 import { ImageInterface } from "../../Interfaces/IImage";
 
@@ -21,7 +20,9 @@ function ShowImage(){
     }
 
     async function getImages(){
-        let res = await GetImageByProductID(selectedIndex+1)
+        const sltProductStr = localStorage.getItem("sltProduct")
+        const sltProduct = sltProductStr!=null ? parseInt(sltProductStr) : 0;
+        let res = await GetImageByProductID(sltProduct+1)
         if (res) {
             setImages(res);
         }

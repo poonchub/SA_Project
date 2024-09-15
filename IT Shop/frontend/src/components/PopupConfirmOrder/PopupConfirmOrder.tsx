@@ -4,7 +4,6 @@ import "./PopupConfirmOrder.css"
 import { CreateOrder, CreateOrderItem, GetAddressByCustomerID, UpdateProduct } from "../../services/http";
 import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
-import { selectedIndex } from "../../data/selectedIndex";
 import { ProductInterFace } from "../../Interfaces/IProduct";
 
 function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any; quantity: any; products: any; messageApi: any; }){
@@ -14,15 +13,19 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
     const [addresses, setAddresses] = useState<AddressInterface[]>([]);
     const [selectedAddress, setSelectedAddress] = useState(1);
 
-    const totalPrice = products[selectedIndex].PricePerPiece*quantity
-    const priceFormat = totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })   
+    const sltProductStr = localStorage.getItem("sltProduct")
+    const sltProduct = sltProductStr!=null ? parseInt(sltProductStr) : 0;
+
+    const totalPrice = products[sltProduct].PricePerPiece*quantity
+    const priceFormat = totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) 
 
     function closePopup(){
         setPopup(null)
     }
 
     async function getAddress(){
-        let res = await GetAddressByCustomerID(1)
+        const cutomerID = localStorage.getItem("id")
+        let res = await GetAddressByCustomerID(cutomerID!=null ? parseInt(cutomerID): 0)
         if (res) {
             setAddresses(res);
         }
@@ -34,8 +37,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
             const orderData: OrderInterface = {
                 TotalPrice: totalPrice,
                 Status: "not yet paid",
-                // @ts-ignore
-                CustomerID: parseInt(cutomerID),
+                CustomerID: cutomerID!=null ? parseInt(cutomerID): 0,
                 AddressID: selectedAddress
             };
             const resultOrder = await CreateOrder(orderData);
@@ -47,14 +49,14 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
                     Quantity: quantity,
                     Price: totalPrice,
                     OrderID: newOrderID, 
-                    ProductID: products[selectedIndex].ID
+                    ProductID: products[sltProduct].ID
                 };
     
                 const resultOrderItem = await CreateOrderItem(orderItemData);
 
                 const updateProductData: ProductInterFace = {
-                    ID: products[selectedIndex].ID,
-                    Stock: (products[selectedIndex].Stock)-1
+                    ID: products[sltProduct].ID,
+                    Stock: (products[sltProduct].Stock)-1
                 }
                 const resultUpdateProduct = await UpdateProduct(updateProductData)
     
