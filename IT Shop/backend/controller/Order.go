@@ -77,13 +77,13 @@ func CreateOrder(c *gin.Context) {
 	}
 
 	od := entity.Order{
-		OrderDate: order.OrderDate,
+		OrderDate:  order.OrderDate,
 		TotalPrice: order.TotalPrice,
-		Status: order.Status,
+		Status:     order.Status,
 		CustomerID: order.CustomerID,
-		Customer: customer,
-		AddressID: order.AddressID,
-		Address: address,
+		Customer:   customer,
+		AddressID:  order.AddressID,
+		Address:    address,
 	}
 
 	if err := db.Preload("Address.Custome").Create(&od).Error; err != nil {
@@ -119,4 +119,45 @@ func UpdateOrder(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Updated successful"})
+}
+
+// PATCH /order/:id/address
+func UpdateOrderAddressByOrderID(c *gin.Context) {
+	orderID := c.Param("id")
+	var order entity.Order
+
+	db := config.DB()
+	// ค้นหา Order โดยใช้ OrderID
+	result := db.First(&order, orderID)
+	if result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Order not found"})
+		return
+	}
+
+	// ค่าที่จะรับจาก Body คือ AddressID
+	var input struct {
+		AddressID uint `json:"address_id"`
+	}
+
+	// ตรวจสอบความถูกต้องของข้อมูล
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+		return
+	}
+
+	var address entity.Address
+	// ตรวจสอบว่า AddressID ที่ส่งมามีอยู่ในระบบหรือไม่
+	if err := db.First(&address, input.AddressID).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Address not found"})
+		return
+	}
+
+	// อัปเดต AddressID ใน Order
+	order.AddressID = input.AddressID
+	if err := db.Save(&order).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to update address"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Address updated successfully", "order": order})
 }

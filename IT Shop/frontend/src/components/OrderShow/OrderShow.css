@@ -11,6 +11,7 @@
     box-shadow: 0px 2px 10px var(--shadow-color1);
     font-size: 24px;
     text-align: center;
+    z-index: 0; /* Ensure it stays above other elements */
 }
 
 .color-id {
