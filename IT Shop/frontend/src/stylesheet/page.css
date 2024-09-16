@@ -4,7 +4,8 @@
     background-color: rgba(255, 255, 255, 0);
     width: 100%;
     min-height: 100vh; /* ใช้ความสูงขั้นต่ำของหน้าจอ */
-    overflow-y: auto; /* ทำให้คอนเทนเนอร์หลักเลื่อนลงได้ */
+    /* overflow-y: auto; ทำให้คอนเทนเนอร์หลักเลื่อนลงได้ */
+    overflow-x: hidden;
     padding: 0px; /* เพิ่ม padding ตามต้องการ */
     box-sizing: border-box;
 }

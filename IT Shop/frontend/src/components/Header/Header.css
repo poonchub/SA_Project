@@ -143,6 +143,10 @@
                 width: 35px;
                 height: 35px;
                 display: block;
+
+
+               /* add */
+                position: relative;
     
                 & img{
                     width: 100%;
@@ -217,4 +221,22 @@
             display: none;
         }
     }
+}
+
+
+/* add */
+.count-cart1{
+    background-color: #FF2E63; 
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    position: absolute;
+    bottom: 20px; 
+    left: 23px;
 }

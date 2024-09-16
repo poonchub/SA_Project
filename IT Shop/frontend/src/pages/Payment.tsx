@@ -29,7 +29,7 @@ function Payment() {
 
     return (
         <>
-            <div /*className="mylayout"*/>
+            <div className="mylayout">
                 <Header page={"Payment"} />
                 <OrderShow orderId={2} />
                 <AddressShow orderId={2} />

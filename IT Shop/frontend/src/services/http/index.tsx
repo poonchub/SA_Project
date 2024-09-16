@@ -604,6 +604,24 @@ export async function AddToCart(customerId: number, productId: number, quantity:
     return false;
   }
 }
+
+export async function UpdateProductbyid(data: ProductInterFace,p_id:number) {
+  const requestOptions = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/product/${p_id}`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
+
+  return res;
+}
 // หมดละของ cart
 
 //Payment
