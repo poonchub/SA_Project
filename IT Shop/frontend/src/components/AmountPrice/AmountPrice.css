@@ -4,7 +4,7 @@
     border: 1px solid #d9d9d9; /* Custom border */
     border-radius: 8px; /* Rounded corners */
     position: s;
-    margin-top: 420px;
+    margin-top: 450px;
     position: absolute;
     border: 0px solid;
     width: 30%;
@@ -94,7 +94,7 @@
     align-items: center;
     transition: all 0.5s;
     text-align: center;
-    margin-left: 348px;
+    margin-left: 335px;
     margin-top: 25px;
 }
 
