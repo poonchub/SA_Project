@@ -7,29 +7,34 @@ import { OrderInterface } from '../../Interfaces/IOrder';
 
 const OrderShow: React.FC<{ orderId: number }> = ({ orderId }) => {
   const [order, setOrder] = useState<OrderInterface | null>(null);
-  console.log(order)
+
+  // Format ID and Total Price
   const Id = order?.ID !== undefined ? order.ID.toString().padStart(10, '0') : 'ไม่ทราบID';
-  const tprice = order?.TotalPrice?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || 'ไม่ทราบราคา'
-  
-  
-  // ฟังก์ชันเพื่อดึงข้อมูลออเดอร์ตาม ID
+  const tprice = order?.TotalPrice?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || 'ไม่ทราบราคา';
+
+  // Function to fetch order data by ID
   async function GetOrders() {
-    let res = await GetOrderByID(orderId); // ส่งค่า ID ที่ต้องการดึงมา เช่น 1
-    if (res) {
-      setOrder(res);
+    try {
+      const res = await GetOrderByID(orderId);
+      if (res) {
+        setOrder(res);
+      }
+    } catch (error) {
+      console.error('Error fetching order:', error);
     }
   }
 
+  // Fetch order when component mounts or when orderId changes
   useEffect(() => {
-    GetOrders(); // เรียกใช้ฟังก์ชันดึงข้อมูลเมื่อ component ถูก mount
-  }, []);
+    GetOrders();
+  }, [orderId]);
 
   return (
     <div>
       <Card className="custom-cardO">
         <div className="card-title">
           <img src={cart} alt="" className="location-icon" />
-          <span>Order ID</span>
+          <span>หมายเลขคำสั่งซื้อ</span>
           <b className="color-id">{Id}</b> {/* แสดง Order ID */}
           <b className="color-price">฿{tprice}</b> {/* แสดงราคาสุทธิ */}
         </div>

@@ -11,6 +11,10 @@ import { GetOrderByID } from "../services/http"; // เพิ่มการน�
 function Payment() {
     // const [icon, setIcon] = useState("/images/icon/back.png");
     const [orderId, setOrderId] = useState<number | null>(null); // สร้าง state สำหรับ orderId
+    const customerID = localStorage.getItem('id');
+    
+    const parsedCustomerID = customerID ? Number(customerID) : null; // แปลง customerID เป็น number หรือกำหนดค่า default เป็น 0 ถ้าเป็น null
+    console.log(parsedCustomerID);
 
     useEffect(() => {
         // ตัวอย่างการดึง orderId จาก API
@@ -25,13 +29,14 @@ function Payment() {
 
     return (
         <>
-            <div className="mylayout">
+            <div /*className="mylayout"*/>
                 <Header page={"Payment"} />
                 <OrderShow orderId={2} />
                 <AddressShow orderId={2} />
-                <AmountPrice customerId={1} orderId={2}/> 
-                {/* customerId={1} orderId={3} */}
-                <div className="mytable">
+                {parsedCustomerID !== null && (
+                    <AmountPrice customerId={parsedCustomerID} orderId={2} />
+                )}
+                <div /*className="mytable"*/>
                     <OrderTableList orderId={2} />
                 </div>
             </div>

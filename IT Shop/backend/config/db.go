@@ -28,15 +28,15 @@ func ConnectionDB() {
 func SetupDatabase() {
 
 	db.AutoMigrate(
-		&entity.Customer{}, 
-		&entity.Address{}, 
-		&entity.Order{}, 
-		&entity.Payment{}, 
-		&entity.OrderItem{}, 
-		&entity.Product{}, 
-		&entity.Brand{}, 
-		&entity.Category{}, 
-		&entity.Owner{}, 
+		&entity.Customer{},
+		&entity.Address{},
+		&entity.Order{},
+		&entity.Payment{},
+		&entity.OrderItem{},
+		&entity.Product{},
+		&entity.Brand{},
+		&entity.Category{},
+		&entity.Owner{},
 		&entity.Cart{},
 		&entity.Image{},
 	)
@@ -44,13 +44,13 @@ func SetupDatabase() {
 	// Create Owner
 	hashedPassword, _ := HashPassword("123456")
 	owner := &entity.Owner{
-		Prefix: "Mr.",
-		FirstName: "Poonchub",
-		LastName: "Nanawan",
-		AdminRole: "Owner",
-		Email: "poonchubnanawan310@gmail.com",
-		Password: hashedPassword,
-		ProfilePath: "images/profile/owner/owner_id01.jpg",
+		Prefix:      "Mr.",
+		FirstName:   "Pongsakorn",
+		LastName:    "NanawaIn-on",
+		AdminRole:   "Owner",
+		Email:       "jeng1@gmail.com",
+		Password:    hashedPassword,
+		ProfilePath: "images/profile/owner/Labubu.jpg",
 	}
 	db.FirstOrCreate(owner, &entity.Owner{
 		Email: owner.Email,
@@ -60,25 +60,25 @@ func SetupDatabase() {
 	BirthDay, _ := time.Parse("2006-01-02", "2003-06-02")
 	customers := []*entity.Customer{
 		{
-			Prefix: "Mr.",
-			FirstName: "Poonchub",
-			LastName: "Nanawan",
-			Email: "poonchubnanawan320@gmail.com",
-			Password: hashedPassword,
-			Birthday: BirthDay,
-			ProfilePath: "images/profile/customer/customer_id01.jpg",
+			Prefix:      "Mr.",
+			FirstName:   "Pongsakorn",
+			LastName:    "In-on",
+			Email:       "jeng@gmail.com",
+			Password:    hashedPassword,
+			Birthday:    BirthDay,
+			ProfilePath: "images/profile/customer/Labubu.jpg",
 		},
 		{
-			Prefix: "Mr.",
-			FirstName: "Nanawan",
-			LastName: "Poonchub",
-			Email: "poonchubnanawan330@gmail.com",
-			Password: hashedPassword,
-			Birthday: BirthDay,
+			Prefix:      "Mr.",
+			FirstName:   "Nanawan",
+			LastName:    "Poonchub",
+			Email:       "poonchubnanawan330@gmail.com",
+			Password:    hashedPassword,
+			Birthday:    BirthDay,
 			ProfilePath: "images/profile/customer/customer_id02.jpg",
 		},
 	}
-	for _, customer := range customers{
+	for _, customer := range customers {
 		db.FirstOrCreate(customer, &entity.Customer{
 			Email: customer.Email,
 		})
@@ -87,26 +87,42 @@ func SetupDatabase() {
 	// Create Address
 	addresses := []*entity.Address{
 		{
-			Province: "สกลนคร",
-			District: "เมือง",
-			Subdistrict: "เหล่าปอแดง",
-			ZipCode: "47000",
+			Province:      "สกลนคร",
+			District:      "เมือง",
+			Subdistrict:   "เหล่าปอแดง",
+			ZipCode:       "47000",
 			AddressDetail: "324/3 บ้านท่าวัด",
-			CustomerID: 1,
+			CustomerID:    1,
 		},
 		{
-			Province: "นครราชสีมา",
-			District: "เมือง",
-			Subdistrict: "สุรนารี",
-			ZipCode: "30000",
+			Province:      "นครราชสีมา",
+			District:      "เมือง",
+			Subdistrict:   "สุรนารี",
+			ZipCode:       "30000",
 			AddressDetail: "111 มหาวิทยาลัยเทคโนโลยีสุรนารี หอพักสุรนิเวศ 13 โซนล่าง",
-			CustomerID: 1,
+			CustomerID:    1,
+		},
+		{
+			Province:      "บุกมะขาม",
+			District:      "ขนมต้มสุก",
+			Subdistrict:   "หลามผัดเผ็ด",
+			ZipCode:       "74403",
+			AddressDetail: "311 บึงบรเพชร หลามผัดเผ็ด, บุกมะขาม, ขนมต้มสุก, 74403",
+			CustomerID:    1,
+		},
+		{
+			Province:      "บุกมะขาม",
+			District:      "ขนมต้มสุก",
+			Subdistrict:   "หลามผัดเผ็ด",
+			ZipCode:       "74403",
+			AddressDetail: "311 บึงบรเพชร หลามผัดเผ็ด, บุกมะขาม, ขนมต้มสุก, 74403",
+			CustomerID:    2,
 		},
 	}
-	for _, address := range addresses{
+	for _, address := range addresses {
 		db.FirstOrCreate(address, &entity.Address{
 			AddressDetail: address.AddressDetail,
-			CustomerID: address.CustomerID,
+			CustomerID:    address.CustomerID,
 		})
 	}
 
@@ -114,27 +130,27 @@ func SetupDatabase() {
 	categories := []string{"Notebook", "Monitor", "RAM", "Graphic Card", "CPU", "Mainboard", "Computer", "Keyboard"}
 	for _, category := range categories {
 		path := fmt.Sprintf("images/category/%s.png", category)
-			err := createCategory(category, path, 1)
-			if err != nil {
-				panic(err)
-			}
+		err := createCategory(category, path, 1)
+		if err != nil {
+			panic(err)
+		}
 	}
 
 	// Create Brand
 	brands := []string{"ASUS", "LENOVO", "T-FORCE", "MSI", "SAMSUNG", "NVIDIA", "INTEL", "STEELSERIES"}
 	for _, brand := range brands {
 		path := fmt.Sprintf("images/brand/%s.png", brand)
-			err := createBrand(brand, path)
-			if err != nil {
-				panic(err)
-			}
+		err := createBrand(brand, path)
+		if err != nil {
+			panic(err)
+		}
 	}
 
 	// Create Product
 	products := []*entity.Product{
 		{
-			ProductName: "NOTEBOOK (โน้ตบุ๊ค) ASUS TUF GAMING F15 FX507ZC4-HN087W", 
-			Description: 	`Brands	ASUS
+			ProductName: "NOTEBOOK (โน้ตบุ๊ค) ASUS TUF GAMING F15 FX507ZC4-HN087W",
+			Description: `Brands	ASUS
 							Model	F15 FX507ZC4-HN087W
 							Processors	Intel® Core™ i5-12500H Processors (12th Gen)
 							Processor Speed	2.5 GHz (18M Cache, up to 4.5 GHz, 12 cores: 4 P-cores and 8 E-cores)
@@ -152,15 +168,15 @@ func SetupDatabase() {
 							Color	BLACK
 							Dimensions	354 x 251 x 22.4 mm.
 							Weight	2.20 kg
-							Warranty	2 Years`, 
+							Warranty	2 Years`,
 			PricePerPiece: 28990.00,
-			Stock: 50,
-			CategoryID: 1,
-			BrandID: 1,
+			Stock:         50,
+			CategoryID:    1,
+			BrandID:       1,
 		},
 		{
-			ProductName: "MONITOR (จอมอนิเตอร์) LENOVO G24E-20 - 23.8 VA FHD 100Hz", 
-			Description: 	`Brands	LENOVO
+			ProductName: "MONITOR (จอมอนิเตอร์) LENOVO G24E-20 - 23.8 VA FHD 100Hz",
+			Description: `Brands	LENOVO
 							Display Size (in.)	24"
 							Panel Type	VA Technology
 							Resolution	1920 x 1080
@@ -181,15 +197,15 @@ func SetupDatabase() {
 							Adaptive Sync	AMD FreeSync™ Premium
 							Dimension (W x H x D)	52.50 x 323.15 x 539.75 mm
 							Color	BLACK
-							Warranty	3 Years`, 
+							Warranty	3 Years`,
 			PricePerPiece: 4390.00,
-			Stock: 35,
-			CategoryID: 2,
-			BrandID: 2,
+			Stock:         35,
+			CategoryID:    2,
+			BrandID:       2,
 		},
 		{
-			ProductName: "RAM (แรม) T-FORCE VULCAN 8GB (8x1) DDR5 5200MHz RED (FLBD58G5200HC40C01)", 
-			Description: 	`Brand	T-FORCE
+			ProductName: "RAM (แรม) T-FORCE VULCAN 8GB (8x1) DDR5 5200MHz RED (FLBD58G5200HC40C01)",
+			Description: `Brand	T-FORCE
 							Memory Series	T-FORCE VULCAN
 							Memory Capacity	8GB (8GBx1)
 							Cas Latency	CL40
@@ -197,15 +213,15 @@ func SetupDatabase() {
 							Tested Latency	40-40-40-76
 							SPD Voltage	1.25 V
 							Memory Color	RED
-							Warranty	Lifetime`, 
+							Warranty	Lifetime`,
 			PricePerPiece: 1190.00,
-			Stock: 67,
-			CategoryID: 3,
-			BrandID: 3,
+			Stock:         67,
+			CategoryID:    3,
+			BrandID:       3,
 		},
 		{
 			ProductName: "VGA(การ์ดจอ) ASUS ROG STRIX GEFORCE RTX 4090 O24G GAMING - 24GB GDDR6X",
-			Description: 	`Brands	ASUS
+			Description: `Brands	ASUS
 							GPU Series	NVIDIA GeForce RTX™ 40 Series
 							GPU Model	GeForce RTX™ 4090
 							Memory Size	24GB GDDR6X
@@ -226,13 +242,13 @@ func SetupDatabase() {
 							Dimension (W x H x D)	357.6 x 149.3 x 70.1 mm.
 							Warranty	3 Years`,
 			PricePerPiece: 93990.00,
-			Stock: 44,
-			CategoryID: 4,
-			BrandID: 1,
+			Stock:         44,
+			CategoryID:    4,
+			BrandID:       1,
 		},
 		{
 			ProductName: "CPU (ซีพียู) INTEL 1700 CORE I5-12400F 2.5GHz 6C 12T",
-			Description: 	`Brand	INTEL
+			Description: `Brand	INTEL
 							Series	12th Gen Intel® Core™
 							Processor Number	Core™ i5-12400F
 							Socket Type	Intel® LGA-1700
@@ -247,13 +263,13 @@ func SetupDatabase() {
 							Maximum Turbo Power	65 Watt
 							Warranty	3 Years`,
 			PricePerPiece: 4290.00,
-			Stock: 30,
-			CategoryID: 5,
-			BrandID: 7,
+			Stock:         30,
+			CategoryID:    5,
+			BrandID:       7,
 		},
 		{
 			ProductName: "MAINBOARD (เมนบอร์ด)(AM5) MSI MEG X670E GODLIKE",
-			Description: 	`Brands	MSI
+			Description: `Brands	MSI
 							CPU Support	
 							AMD Ryzen 7000 Series
 							AMD Ryzen 8000 Series
@@ -280,13 +296,13 @@ func SetupDatabase() {
 							Form Factor	E-ATX
 							Warranty	3 Years`,
 			PricePerPiece: 42900.00,
-			Stock: 50,
-			CategoryID: 6,
-			BrandID: 4,
+			Stock:         50,
+			CategoryID:    6,
+			BrandID:       4,
 		},
 		{
 			ProductName: "JBSINTD5-223 INTEL I9-14900KS 6.2GHz 24C/32T / Z790 / ONBOARD / 96GB DDR5 5600MHz / M.2 1TB / 1300W (80+PLATINUM) / CS360",
-			Description: 	`CPU	Intel® CORE I9-14900KS 6.2GHz 24C/32T
+			Description: `CPU	Intel® CORE I9-14900KS 6.2GHz 24C/32T
 							Mainboard	GIGABYTE Z790 AORUS MASTER DDR5 (REV.1.0)
 							Graphic card	ONBOARD Intel® UHD Graphics 770 (อัพเกรดการ์ดจอติดต่อ ADMIN)
 							Memory	G.SKILL TRIDENT Z5 NEO RGB 96GB (48x2) DDR5 5600MHz
@@ -296,13 +312,13 @@ func SetupDatabase() {
 							Cooling System	NZXT KRAKEN ELITE 360 RGB BLACK
 							Warranty	3 Years (ยกเว้น CASE ประกัน 1 ปี)`,
 			PricePerPiece: 96990.00,
-			Stock: 49,
-			CategoryID: 7,
-			BrandID: 7,
+			Stock:         49,
+			CategoryID:    7,
+			BrandID:       7,
 		},
 		{
 			ProductName: "KEYBOARD (คีย์บอร์ด) ASUS ROG AZOTH (WHITE) (RED SWITCH) (TH) (2Y)",
-			Description: 	`Brand	ASUS
+			Description: `Brand	ASUS
 							Switch Name	RED SWITCH
 							Connectivity	WIRELESS / BLUETOOTH / WIRED
 							Lighting	RGB
@@ -317,13 +333,13 @@ func SetupDatabase() {
 							WIRED/WIRELESS	WIRELESS
 							Warranty	2 Years`,
 			PricePerPiece: 6990.00,
-			Stock: 50,
-			CategoryID: 8,
-			BrandID: 1,
+			Stock:         50,
+			CategoryID:    8,
+			BrandID:       1,
 		},
 		{
 			ProductName: "KEYBOARD (คีย์บอร์ด) STEELSERIES APEX 9 MINI FAZE CLAN EDITION (STEELSERIES LINEAR OPTIPOINT OPTICAL SWITCH) (EN) (2Y)",
-			Description: 	`Brand	STEELSERIES
+			Description: `Brand	STEELSERIES
 							Switch Name	STEELSERIES LINEAR OPTIPOINT OPTICAL SWITCH
 							Connectivity	USB Type C
 							Lighting	RGB
@@ -336,13 +352,13 @@ func SetupDatabase() {
 							WIRED/WIRELESS	WIRED
 							Warranty	2 Years`,
 			PricePerPiece: 6690.00,
-			Stock: 65,
-			CategoryID: 8,
-			BrandID: 8,
+			Stock:         65,
+			CategoryID:    8,
+			BrandID:       8,
 		},
 		{
 			ProductName: "NOTEBOOK (โน้ตบุ๊ค) MSI SWORD 16 HX B14VEKG-431TH (COSMOS GRAY) (2Y)",
-			Description: 	`Brands	MSI
+			Description: `Brands	MSI
 							Model	SWORD 16 HX B14VEKG-431TH
 							Processors	Intel® Core™ i7-14650HX Processors (14th Gen)
 							Processor Speed	2.2GHz, up to 5.2GHz, 30MB Intel Smart Cach
@@ -364,13 +380,13 @@ func SetupDatabase() {
 							Weight	2.3 kg
 							Warranty	2 Years`,
 			PricePerPiece: 48990.00,
-			Stock: 25,
-			CategoryID: 1,
-			BrandID: 1,
+			Stock:         25,
+			CategoryID:    1,
+			BrandID:       1,
 		},
 		{
 			ProductName: "VGA(การ์ดจอ) ASUS DUAL GEFORCE RTX 4070 SUPER EVO WHITE OC - 12GB GDDR6X (DUAL-RTX4070S-O12G-EVO-WHITE) (3Y)",
-			Description: 	`Brands	ASUS
+			Description: `Brands	ASUS
 							GPU Series	GeForce RTX™ 40Series
 							GPU Model	GeForce RTX™ 4070 SUPER
 							Memory Size	12GB GDDR6X
@@ -389,22 +405,22 @@ func SetupDatabase() {
 							Dimension (W x H x D)	227.2 x 123.24 x 49.6 mm
 							Warranty	3 Years`,
 			PricePerPiece: 25700.00,
-			Stock: 18,
-			CategoryID: 4,
-			BrandID: 1,
+			Stock:         18,
+			CategoryID:    4,
+			BrandID:       1,
 		},
 	}
-	for _, product := range products{
+	for _, product := range products {
 		db.FirstOrCreate(product, &entity.Product{
 			ProductName: product.ProductName,
 		})
 	}
 
 	// Create Image Product
-	for i:=uint(1); i<=11 ;i++{
+	for i := uint(1); i <= 11; i++ {
 		dir := fmt.Sprintf("images/product/product%d", i)
 		count := countFilesInDir(dir)
-		for j:=1 ; j<=count ; j++ {
+		for j := 1; j <= count; j++ {
 			filePath := fmt.Sprintf("images/product/product%d/p0%d.jpg", i, j)
 			err := createImage(filePath, i)
 			if err != nil {
@@ -415,45 +431,45 @@ func SetupDatabase() {
 }
 
 func createCategory(name string, filePath string, id uint) error {
-    category := entity.Category{CategoryName: name, ImagePath: filePath, OwnerID: id}
+	category := entity.Category{CategoryName: name, ImagePath: filePath, OwnerID: id}
 
 	if err := db.Where("category_name = ?", &category.CategoryName).FirstOrCreate(&category).Error; err != nil {
-        return err
-    }
-    return nil
+		return err
+	}
+	return nil
 }
 
 func createBrand(name string, filePath string) error {
-    brand := entity.Brand{BrandName: name, ImagePath: filePath}
+	brand := entity.Brand{BrandName: name, ImagePath: filePath}
 
 	if err := db.Where("brand_name = ?", &brand.BrandName).FirstOrCreate(&brand).Error; err != nil {
-        return err
-    }
-    return nil
+		return err
+	}
+	return nil
 }
 
 func createImage(filePath string, id uint) error {
 
-    image := entity.Image{FilePath: filePath, ProductID: id}
+	image := entity.Image{FilePath: filePath, ProductID: id}
 
 	if err := db.Where("file_path = ?", &image.FilePath).FirstOrCreate(&image).Error; err != nil {
-        return err
-    }
-    return nil
+		return err
+	}
+	return nil
 }
 
-func countFilesInDir(dir string) (int) {
-    files, err := ioutil.ReadDir(dir)
-    if err != nil {
-        return 0
-    }
+func countFilesInDir(dir string) int {
+	files, err := ioutil.ReadDir(dir)
+	if err != nil {
+		return 0
+	}
 
-    fileCount := 0
-    for _, file := range files {
-        if !file.IsDir() {
-            fileCount++
-        }
-    }
+	fileCount := 0
+	for _, file := range files {
+		if !file.IsDir() {
+			fileCount++
+		}
+	}
 
-    return fileCount
+	return fileCount
 }

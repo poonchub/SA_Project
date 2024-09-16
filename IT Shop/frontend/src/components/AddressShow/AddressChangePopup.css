@@ -1,0 +1,100 @@
+@import "../../stylesheet/ColorSheet.css";
+
+.popup-container{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9;
+    
+    .custom-message {
+        z-index: 9999; /* เปลี่ยนค่าตามต้องการ */
+    }
+
+    & .popup-bg{
+        background-color: rgba(0, 0, 0, 0.801);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0
+    }
+
+    & .detail-box{
+        position: relative;
+        width: 37%;
+        height: auto;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0px 0px 4px 2px var(--shadow-color2);
+        padding: 35px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & .title{
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+            display: block;
+        }
+
+        & table{
+            font-size: 16px;
+            & tr{
+                & .sub-t{
+                    width: 100px;
+                    padding-right: 20px;
+                    display: flex;
+                    align-items: flex-start;
+                    font-weight: 600;
+                }
+            }
+        }
+    
+        & .btn-box{
+            width: 70%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin-top: 20px;
+            margin-left: 15%;
+
+            & button{
+                height: 100%;
+                width: 40%;
+                font-size: 16px;
+                border-radius: 5px;
+            }
+
+            & .confirm-btn {
+                background-color: var(--subtheme-color1);
+                border: 2px solid var(--subtheme-color1);
+                color: var(--subfont-color2);
+                transition: all 0.3s;
+            }
+            & .confirm-btn:hover {
+                box-shadow: 0 0 3px 1px var(--shadow-color2);
+                font-size: 17px;
+            }
+
+            & .cancel-btn {
+                background-color: transparent;
+                border: 2px solid var(--subtheme-color1);
+                color: var(--mainfont-color);
+                transition: all 0.3s;
+            }
+            & .cancel-btn:hover{
+                box-shadow: 0 0 3px 1px var(--shadow-color1);
+                font-size: 17px;
+            }
+        }
+    }
+    
+}
+
