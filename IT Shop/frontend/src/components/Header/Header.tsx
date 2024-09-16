@@ -6,12 +6,17 @@ import { Context } from '../../pages/Product';
 import { apiUrl } from '../../services/http';
 import { AppContext } from '../../App';
 
-function Header(props: { page: any; }){
+//for countCart
+
+
+function Header(props: { page: any;}){
 
     const {page} = props
     const {searchText, setSearchText, setMode} = useContext(Context)
     const {setLogoutPopup, messageApiLogout, contextHolderLogout} = useContext(AppContext)
     const [isToggled, setIsToggled] = useState(true);
+    //count cart
+    const { countCart } = useContext(AppContext); // ดึง countCart จาก AppContext
 
     function toggleMode(){
         setIsToggled(!isToggled);
@@ -107,8 +112,10 @@ function Header(props: { page: any; }){
         }
 
         const head_con = document.querySelector("#con-h")
+        const head_cart = document.querySelector("#cart-h")
         if (page=="home" && head_con!=null){
             head_con.setAttribute("class", "container-head-home")
+            head_cart?.setAttribute("class","count-cart2")
         }
         else if (page!="home" && head_con!=null){
             head_con.setAttribute("class", "container-head")
@@ -147,6 +154,10 @@ function Header(props: { page: any; }){
                 <Link to='/Profile' className='menu' id='profile'>Profile</Link>
                 <Link to='/Cart' className="cart-box">
                     <img src={page=="home" ? "/images/icon/cart-pink.png" : "/images/icon/cart-black.png"} alt="" />
+                    {/* add */}
+                    {countCart > 0 && (
+                       <div className="count-cart1" id='cart-h' >{countCart}</div>
+                     )}
                 </Link>
                 <div className="line"></div>
                 {customerElement}

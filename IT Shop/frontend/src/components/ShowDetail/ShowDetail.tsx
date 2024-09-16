@@ -1,18 +1,22 @@
 import { useContext, useEffect, useState } from "react";
 import "./ShowDetail.css"
-import { AddToCart, GetProduct} from "../../services/http";
+import { AddToCart, GetCart, GetProduct} from "../../services/http";
 import { ProductInterFace } from "../../Interfaces/IProduct";
 import { selectedIndex } from "../../data/selectedIndex";
 import { message } from "antd";
 import { PopupContext } from "../../pages/Selected";
 import PopupConfirmOrder from "../PopupConfirmOrder/PopupConfirmOrder";
-
+//for countCart
+import { AppContext } from '../../App';
 function ShowDetail(){
 
     const [products, setProducts] = useState<ProductInterFace[]>([]);
     const [quantity, setQuantity] = useState(1);
     const [messageApi, contextHolder] = message.useMessage();
     const {setPopup} = useContext(PopupContext)
+
+    //for countCart
+    const { setCountCart } = useContext(AppContext);
 
     async function getProducts(){
         let res = await GetProduct()
@@ -91,6 +95,7 @@ function ShowDetail(){
       if (result) {
         console.log('Product added to cart successfully');
         success()
+        fetchCartData();
 
         // fetchCartData();
       } else {
@@ -100,7 +105,18 @@ function ShowDetail(){
       console.error('Error adding product to cart:', error);
     }
   };  
-   
+  const fetchCartData = async () => {
+    const cus_id = Number(localStorage.getItem("id"));
+    const res = await GetCart(cus_id);
+    if (res && Array.isArray(res.data)) {
+      setCountCart(res.data.length); // อัพเดต countCart ใน AppContext
+    }
+  };
+
+  useEffect(() => {
+    fetchCartData(); // ดึงข้อมูลเมื่อหน้าโหลด
+  }, []);
+    //end for cart
 
 
 

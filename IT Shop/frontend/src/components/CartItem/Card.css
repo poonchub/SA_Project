@@ -273,12 +273,11 @@
      font-weight: bold;
      margin-bottom: 10px;
 }
-/* .card-container-item{
-    border: #FF2E63 1px solid;
-} */
+
 
 .card-container-item{
     /* border: #FF2E63 1px solid; */
-    height: 480px;
+    height: 500px;
     overflow: auto;
 }
+

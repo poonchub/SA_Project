@@ -9,6 +9,7 @@ import { ProductInterFace } from "../../Interfaces/IProduct";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { message } from "antd";
 import { formatNumber } from "../CartItem/Card";
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 interface TotalPriceProps {
   cartItems: CartInterface[] | null;
@@ -22,6 +23,7 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
   const [usepopup, setUsePopup] = useState(false);
   const [address, setAddress] = useState<AddressInterface[]>([]);
   const [messageApi, contextHolder] = message.useMessage();
+  const navigate = useNavigate(); // Initialize useNavigate
 
   // คำนวณยอดรวม
   const calculateTotalPrice = () => {
@@ -33,8 +35,14 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
       }, 0);
   };
 
-  const calculateDiscount = (total: number) => total >= 1000 ? 500 : 0;
-
+  const calculateDiscount = (totalPrice: number): number => {
+    // Calculate the discount here
+    if (totalPrice >= 1000) {
+      return totalPrice * 0.05;
+    } else {
+      return 0;
+    }
+  };
   // ฟังก์ชันสำหรับการกดปุ่มชำระเงิน
   const handleCheckout = async () => {
     if (!cartItems) return;
@@ -53,9 +61,21 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
     // แสดงผลใน console
     console.log("Selected Products:", JSON.stringify(selected, null, 2));
     console.log("Selected Address ID:", selectedAddress);
+    
+   if (selected.length === 0) {
+      messageApi.open({
+        type: "error",
+        content: "กรุณาเลือกสินค้าที่ต้องการสั่งซื้อ",
+        duration: 2,
+      });
+      return;
+    }
+    else{
+      setUsePopup(true);
+      setSelectedProducts(selected);
+    }
 
-    setUsePopup(true);
-    setSelectedProducts(selected);
+    
   };
 
   const ClearCartItemOnSelect = async () => {
@@ -91,6 +111,7 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
   useEffect(() => {
     getAddress();
   }, []);
+  console.log("Selected item in cart ID", selectedItems);
 
   const handleSelect = (id: number | undefined) => {
     setSelectedAddress(id as number);
@@ -145,8 +166,16 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
           messageApi.open({
             type: "success",
             content: "คำสั่งซื้อของคุณถูกสร้างเรียบร้อยแล้ว",
+            duration: 2,
           });
           await ClearCartItemOnSelect();
+           // delay ก่อนไป payment
+           setTimeout(() => {
+            navigate('/Payment');
+          }, 1000); // 1000 milliseconds = 1 seconds
+
+
+
         } else {
           messageApi.open({
             type: "error",
@@ -264,7 +293,13 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
                     </div>
                   ))}
                 </div>
+                <div className="totalprice">
+            
+                      <td>ส่วนลด : </td>
+                      {formatNumber(discount)}
+                  </div>
                       <div className="totalprice">
+            
                         <td>Totalprice : </td>
                         {formatNumber(finalPrice)}
                       </div>
@@ -279,6 +314,7 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
                         
               <div className="controll-button">
                  <button className="cancel-button" onClick={() => setUsePopup(false)}>ยกเลิก</button>
+                 
                 <button className="confirm-button" onClick={createOrderFromCart}>ยืนยันคำสั่งซื้อ</button>
               </div>
               </div>

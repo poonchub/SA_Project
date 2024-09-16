@@ -2,8 +2,7 @@ package controller
 
 
 import (
-	"fmt"
-	"log"
+	
 	"net/http"
 	
 
@@ -13,78 +12,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 	
-	"gorm.io/gorm"
+	
 )
 
-func CreateUser(db *gorm.DB, customer *entity.Customer) {
-	//create                       ตัวแทนdataใช้ address ข้อมูล
-
-	// how to use create
-	// 	birthday, _ := time.Parse("2006-01-02", "1990-01-01")
-	// 	customer :=&entity.Customer{
-
-	// 	Prefix :"mr",
-	// 	FirstName :"eight",
-	//     LastName: "six",
-	// 	Email :"2@gmail.com",
-	// 	Password :"1235",
-	//     BirtDay :birthday ,
-
-	// }
-
-	// 	controller.CreateUser(config.DB(),customer)
-
-	result := db.Create(customer)
-	if result.Error != nil {
-		log.Fatalf("Error creating book: %v", result.Error)
-	}
-	fmt.Println("Customer created successfully")
-
-}
-func GetUser(c *gin.Context) { //เหลือ ถ้าใส่เกินจำนวน
-	db := config.DB()
-	var customers []entity.Customer // ตัวแปรรับข้อมูล
-	results := db.Find(&customers)
-	if results.Error != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, customers)
-}
 
 
-// func UpdateCart(c *gin.Context){
 
-// 	var cart entity.Cart
-// 	db:=config.DB()
-// 	CartID := c.Param("id")
-// 	result := db.First(&cart, CartID)
-
-// 	if result.Error != nil {
-// 		c.JSON(http.StatusNotFound, gin.H{"error": "id not found"})
-// 		return
-// 	}
-
-// 	if err := c.ShouldBindJSON(&cart); err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request, unable to map payload"})
-// 		return
-// 	}
-// 	//เช็ก stock
-// 	// var product entity.Product
-// 	// if cart.Quantity > product.Stock {
-// 	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Over stock"})
-// 	// 	return
-// 	// }
-
-// 	if result.Error != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request"})
-// 		return
-// 	}
-// 	c.JSON(http.StatusOK, gin.H{"message": "Updated successful"})
-// }
-
-// สร้างฟังก์ชัน uplate cart ตาม id
-// สร้างฟังก์ชัน update cart ตาม id
 func UpdateCart(c *gin.Context) {
 	var cart entity.Cart
 	db := config.DB()
@@ -222,50 +155,7 @@ func GetCartByCustomer(c *gin.Context) {
 }
 
 
-// func GetAllImages(c *gin.Context) {
-// 	db := config.DB()
-// 	var images []entity.Picture
-// 	result := db.Preload("Product").Find(&images)
-// 	if result.Error != nil {
-// 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
-// 		return
-// 	}
 
-// 	for i := range images {
-// 		images[i].File = fmt.Sprintf("http://localhost:8000/uploads/%s", images[i].File)
-// 	}
-
-// 	c.JSON(http.StatusOK, images)
-// }
-// func GetImage(c *gin.Context) {
-// 	db := config.DB()
-// 	id := c.Param("id")
-// 	var image entity.Picture
-// 	result := db.First(&image, id)
-// 	if result.Error != nil {
-// 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
-// 		return
-// 	}
-// 	if err := db.Preload("Customer").Preload("Product").Where("customer_id = ?", c.Param("customerId")).Find(&image).Error; err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 		return
-// 	}
-
-// 	image.File = fmt.Sprintf("http://localhost:8000/uploads/%s", image.File)
-// 	c.JSON(http.StatusOK, image)
-// }
-
-
-// func GetProducts(c *gin.Context) {
-// 	db := config.DB()
-// 	var products []entity.Product
-// 	result := db.Preload("Pictures").Find(&products)
-// 	if result.Error != nil {
-// 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
-// 		return
-// 	}
-// 	c.JSON(http.StatusOK, products)
-// }
 func UpdateProductFromCart(c *gin.Context) {
 	ID := c.Param("productid")
 
