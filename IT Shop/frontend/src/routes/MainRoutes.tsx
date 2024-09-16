@@ -4,6 +4,7 @@ import MinimalLayout from "../layout/MinimalLayOut/MinimalLayOut";
 import Login from "../pages/Authentication/Login/Login";
 
 
+
 const MainRoutes = (): RouteObject => {
     return {
         path: "/",
