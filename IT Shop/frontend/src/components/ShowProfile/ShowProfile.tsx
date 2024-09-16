@@ -81,7 +81,7 @@ const ShowProfile: React.FC = () => {
       render: (record: OrderInterface) => (
         <Link to="/Payment">
           <Space size="middle">
-              <Button style={{backgroundColor: "var(--subtheme-color1)"}} type="primary" onClick={()=>localStorage.setItem("orderid", `${record.ID}`)}>ตรวจสอบ</Button>
+              <Button style={{backgroundColor: "var(--subtheme-color1)"}} type="primary" onClick={()=>localStorage.setItem("orderId", `${record.ID}`)}>ชำระเงิน</Button>
           </Space>
         </Link>   
       )

@@ -6,39 +6,42 @@ import AmountPrice from "../components/AmountPrice/AmountPrice";
 import OrderTableList from "../components/OrderTableList/OrderTableList";
 import "../stylesheet/page.css";
 import "../stylesheet/table.css";
-import { GetOrderByID } from "../services/http"; // เพิ่มการนำเข้า API
+import { GetOrderByID } from "../services/http";
 
 function Payment() {
-    // const [icon, setIcon] = useState("/images/icon/back.png");
-    const [orderId, setOrderId] = useState<number | null>(null); // สร้าง state สำหรับ orderId
     const customerID = localStorage.getItem('id');
-    
-    const parsedCustomerID = customerID ? Number(customerID) : null; // แปลง customerID เป็น number หรือกำหนดค่า default เป็น 0 ถ้าเป็น null
-    console.log(parsedCustomerID);
+    const orderId = localStorage.getItem('orderId');
 
-    useEffect(() => {
-        // ตัวอย่างการดึง orderId จาก API
-        async function fetchOrder() {
-            let orderRes = await GetOrderByID(3); // 1 คือตัวอย่าง orderId คุณสามารถเปลี่ยนตามจริง
-            if (orderRes) {
-                setOrderId(orderRes.id); // สมมติว่า API คืนค่า orderRes.id
-            }
-        }
-        fetchOrder();
-    }, []);
+    // Parse customerID and orderId to numbers
+    const parsedCustomerID = customerID ? Number(customerID) : null;
+    const parsedOrderId = orderId ? Number(orderId) : null;
+
+    console.log("Customer ID:", parsedCustomerID);
+    console.log("Order ID:", parsedOrderId);
 
     return (
         <>
             <div className="mylayout">
                 <Header page={"Payment"} />
-                <OrderShow orderId={2} />
-                <AddressShow orderId={2} />
-                {parsedCustomerID !== null && (
-                    <AmountPrice customerId={parsedCustomerID} orderId={2} />
+                
+                {parsedOrderId !== null && (
+                    <>
+                        <OrderShow orderId={parsedOrderId} />
+                        <AddressShow orderId={parsedOrderId} />
+                    </>
                 )}
-                <div /*className="mytable"*/>
-                    <OrderTableList orderId={2} />
-                </div>
+                
+                {/* Ensure orderId is passed only if it is a number */}
+                {parsedCustomerID !== null && parsedOrderId !== null && (
+                    <AmountPrice customerId={parsedCustomerID} orderId={parsedOrderId} />
+                )}
+                
+                {/* Conditionally render OrderTableList only if parsedOrderId is not null */}
+                {parsedOrderId !== null && (
+                    <div>
+                        <OrderTableList orderId={parsedOrderId} />
+                    </div>
+                )}
             </div>
         </>
     );

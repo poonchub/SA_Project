@@ -10,6 +10,8 @@ import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { message } from "antd";
 import { formatNumber } from "../CartItem/Card";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import '../../pages/Payment'
+import Payment from "../../pages/Payment";
 
 interface TotalPriceProps {
   cartItems: CartInterface[] | null;
@@ -161,8 +163,11 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
           await UpdateProductbyid(updateProductData,item.productID);
           count++;
         }
-
+          
         if (resultOrder && count === selected.length) {
+           // Store the orderId in localStorage
+           localStorage.setItem("orderId", resultOrder.data.ID);
+
           messageApi.open({
             type: "success",
             content: "คำสั่งซื้อของคุณถูกสร้างเรียบร้อยแล้ว",
