@@ -32,8 +32,8 @@ const OrderShow: React.FC<{ orderId: number }> = ({ orderId }) => {
 
   // Function to animate the price
   const startPriceAnimation = (finalPrice: number) => {
-    const duration = 2000; // ระยะเวลาในการเพิ่ม (2 วินาที)
-    const frameDuration = 1000 / 60; // 60 เฟรมต่อวินาที
+    const duration = 1000; // ระยะเวลาในการเพิ่ม (2 วินาที)
+    const frameDuration = 1000 / 240; // 60 เฟรมต่อวินาที
     const totalFrames = Math.round(duration / frameDuration);
     let frame = 0;
 
