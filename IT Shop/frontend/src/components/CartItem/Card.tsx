@@ -6,12 +6,18 @@ import { CartInterface } from "../../Interfaces/ICart";
 import { apiUrl, DeleteCart, GetCart, UpdateQuantity } from "../../services/http";
 import { message, Button } from 'antd';
 
+import { useNavigate } from 'react-router-dom';
 
-export const formatNumber = (num: number): string => {
-  return num.toLocaleString();
+export const formatNumber = (value: number): string => {
+  // ปัดเป็นจำนวนเต็ม
+  const roundedValue = Math.round(value);
+  
+  // ใช้ Intl.NumberFormat เพื่อคั่นหลักพันด้วย comma
+  return new Intl.NumberFormat().format(roundedValue);
 };
 
-const url = "http://localhost:8000/";
+
+
 
 interface ShowlistProps {
   onCartDataChange: (data: CartInterface[] | null) => void;
@@ -21,10 +27,10 @@ interface ShowlistProps {
 function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
   const [data, setData] = useState<CartInterface[] | null>(null);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
-
+  
   // แจ้งข้อความ
   const [messageApi, contextHolder] = message.useMessage();
-
+  const [hasNotified, setHasNotified] = useState(false);
   const success = () => {
     messageApi.open({
       type: 'success',
@@ -42,14 +48,33 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
       duration: 2,
     });
   };
-
   const fetchCartData = async () => {
     try {
-      const cus_id = localStorage.getItem("id")
+      const cus_id = localStorage.getItem("id");
       const res = await GetCart(Number(cus_id));
       if (res && Array.isArray(res.data)) {
-        setData(res.data);
-        onCartDataChange(res.data);
+        // กำหนดประเภทของ item เป็น CartInterface
+        const itemsWithStock = res.data.filter((item: CartInterface) => item.Product.Stock !== 0);
+        const itemsToRemove = res.data.filter((item: CartInterface) => item.Product.Stock === 0);
+        
+        setData(itemsWithStock);
+        onCartDataChange(itemsWithStock);
+  
+        // ลบสินค้าที่ Stock เป็น 0
+        if (itemsToRemove.length > 0) {
+          await Promise.all(itemsToRemove.map((item: CartInterface) => DeleteCart(item.ID)));
+          console.log("Items removed successfully.");
+  
+          if (!hasNotified) {
+            message.warning("มีสินค้าถูกลบออกจากตะกร้าเนื่องจากสินค้าหมดแล้ว");
+            setHasNotified(true);
+           
+            
+          }
+        } else {
+          setHasNotified(false);
+        }
+        
       } else {
         console.error("Unexpected response type:", res);
       }
@@ -75,7 +100,7 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
     if (data && data.length > 0) {
       try {
         const allIds = data.map(item => item.ID);
-        await Promise.all(allIds.map(id => DeleteCart(id)));
+        await Promise.all(allIds.map(id => DeleteCart(id || 0)));
         success();
         fetchCartData();
       } catch (error) {
@@ -124,15 +149,20 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
 
  
           {contextHolder}
-
+          
       {data && data.length > 0 ? (
         <>
+        
+         
           <div className="select-acction">
-                <Button type="primary" id="select-all" onClick={handleSelectAll}>เลือกทั้งหมด</Button>    
+            <Button type="primary" id="select-all" onClick={handleSelectAll}>เลือกทั้งหมด</Button>    
            <Button type="primary" id="delete-all" onClick={DeleteAllCart}>ลบทั้งหมด</Button> 
+       
            
           </div>
           <div className="card-container-item" id="all-item">
+
+            {/* <div id="scole-item"> */}
           {data.map((item, index) => (
             <div key={index}>
               
@@ -158,10 +188,6 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
                   <div className="name">
                  {item.Product.ProductName}
                   </div>
-                  
-                  
-
-                  
                   <div className="mon">
                   ฿ {formatNumber(item.Product?.PricePerPiece || 0)}
                   </div>
@@ -188,13 +214,15 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
                     
                   </div>
                 <div className="delete">
-                  <button onClick={() => handleDeleteCart(item.ID ||0)} id="move">
+                  <button onClick={() => handleDeleteCart(item.ID || 0)} id="move">
                     <img src={Close} alt="" id='close'/>
                   </button>
                 </div>
               </div>
             </div>
           ))}
+
+              {/* </div> */}
           {/* //card container */}
           </div> 
         </>

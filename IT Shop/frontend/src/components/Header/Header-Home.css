@@ -139,6 +139,7 @@
                 width: 35px;
                 height: 35px;
                 display: block;
+                position: relative;
     
                 & img{
                     width: 100%;
@@ -216,4 +217,21 @@
             display: none;
         }
     }
+}
+.count-cart2{
+    background-color: aliceblue;
+    color: black;
+    width: 20px;
+    height: 20px;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    border-radius: 50%;
+    font-size: 12px;
+    position: absolute;
+    bottom: 20px; 
+    left: 23px;
+
 }
