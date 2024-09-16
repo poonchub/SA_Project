@@ -134,8 +134,12 @@ func SetupDatabase() {
 		path := fmt.Sprintf("images/brand/%s.png", brand)
 		err := createBrand(brand, path)
 		if err != nil {
+			panic(err)
+		}
+	}
 
 	// Create Product
+	products := []*entity.Product{
 		{
 			ProductName: "NOTEBOOK (โน้ตบุ๊ค) ASUS TUF GAMING F15 FX507ZC4-HN087W",
 			Description: `Brands	ASUS
@@ -389,6 +393,7 @@ func SetupDatabase() {
 			BrandID:       1,
 		},
 	}
+		
 	for _, product := range products {
 		db.FirstOrCreate(product, &entity.Product{
 			ProductName: product.ProductName,
