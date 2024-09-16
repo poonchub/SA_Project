@@ -1,0 +1,61 @@
+.SelectCate, .SelectBrand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px; /* Space between components */
+    flex-wrap: wrap; /* Flexibility when screen size reduces */
+}
+
+/* Make the form items flexible */
+.SelectCate .ant-form-item, .SelectBrand .ant-form-item {
+    width: 100%;
+    max-width: 300px; 
+}
+
+/* Label Styling */
+.SelectCate .ant-form-item-label, .SelectBrand .ant-form-item-label {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* Select dropdown styling */
+.SelectCate .ant-select, .SelectBrand .ant-select {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.SelectCate .ant-select-selector, .SelectBrand .ant-select-selector {
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Customize the dropdown arrow color */
+.SelectCate .ant-select-arrow, .SelectBrand .ant-select-arrow {
+    color: #FF2E63; /* Highlight color */
+}
+
+/* Responsive Design for medium screens */
+@media (max-width: 768px) {
+    .SelectCate, .SelectBrand {
+        flex-direction: column; /* Vertical layout on smaller screens */
+        align-items: flex-start; /* Align items to start */
+    }
+    
+    .SelectCate .ant-form-item, .SelectBrand .ant-form-item {
+        max-width: 100%; /* Full width on small screens */
+    }
+}
+
+/* Further adjustments for very small screens */
+@media (max-width: 480px) {
+    .SelectCate .ant-form-item-label, .SelectBrand .ant-form-item-label {
+        font-size: 16px; /* Smaller font size */
+    }
+    
+    .SelectCate .ant-select, .SelectBrand .ant-select {
+        font-size: 14px; /* Smaller font size for select dropdown */
+    }
+}

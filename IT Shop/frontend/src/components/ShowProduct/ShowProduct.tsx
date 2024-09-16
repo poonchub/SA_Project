@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { GetProduct } from "../../services/http";
+import { ListProducts } from "../../services/http";
 import "./ShowProduct.css"
 import "./ShowProduct-half.css"
 import { ProductInterFace } from "../../Interfaces/IProduct";
@@ -13,7 +13,7 @@ function ShowProduct(){
     const {searchText, mode, minRange, maxRange, categoryClick, brandClick} = useContext(Context)
 
     async function getProducts(){
-        let res = await GetProduct()
+        let res = await ListProducts()
         if (res) {
             setProducts(res);
         }
