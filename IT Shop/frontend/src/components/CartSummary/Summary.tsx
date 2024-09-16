@@ -5,7 +5,7 @@ import CountUp from "react-countup";
 import { SetStateAction, useEffect, useState } from "react";
 import { AddressInterface } from "../../Interfaces/IAddress";
 import { OrderInterface } from "../../Interfaces/IOrder";
-import { ProductInterFace } from "../../Interfaces/IProduct";
+import { ProductInterface } from "../../Interfaces/IProduct";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { message } from "antd";
 import { formatNumber } from "../CartItem/Card";
@@ -155,7 +155,7 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
           };
          
           await CreateOrderItem(orderItemData);
-          const updateProductData: ProductInterFace = {
+          const updateProductData: ProductInterface = {
             // ID: item.productID,
             Stock: item.stock - Number(item.quantity),
           };
