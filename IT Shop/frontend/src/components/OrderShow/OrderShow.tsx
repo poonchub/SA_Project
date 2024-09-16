@@ -7,10 +7,14 @@ import { OrderInterface } from '../../Interfaces/IOrder';
 
 const OrderShow: React.FC<{ orderId: number }> = ({ orderId }) => {
   const [order, setOrder] = useState<OrderInterface | null>(null);
-
-  // Format ID and Total Price
+  const [displayPrice, setDisplayPrice] = useState<number>(0); // State สำหรับราคาที่แสดงผล
+  
+  // Format ID
   const Id = order?.ID !== undefined ? order.ID.toString().padStart(10, '0') : 'ไม่ทราบID';
-  const tprice = order?.TotalPrice?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || 'ไม่ทราบราคา';
+  
+  // Format price to 2 decimal places
+  const tprice = order?.TotalPrice || 0;
+  const formattedPrice = displayPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   // Function to fetch order data by ID
   async function GetOrders() {
@@ -18,11 +22,33 @@ const OrderShow: React.FC<{ orderId: number }> = ({ orderId }) => {
       const res = await GetOrderByID(orderId);
       if (res) {
         setOrder(res);
+        // Start the price animation
+        startPriceAnimation(res.TotalPrice);
       }
     } catch (error) {
       console.error('Error fetching order:', error);
     }
   }
+
+  // Function to animate the price
+  const startPriceAnimation = (finalPrice: number) => {
+    const duration = 2000; // ระยะเวลาในการเพิ่ม (2 วินาที)
+    const frameDuration = 1000 / 60; // 60 เฟรมต่อวินาที
+    const totalFrames = Math.round(duration / frameDuration);
+    let frame = 0;
+
+    const counter = setInterval(() => {
+      frame++;
+      const progress = frame / totalFrames;
+      const currentPrice = finalPrice * progress;
+
+      setDisplayPrice(currentPrice);
+
+      if (frame >= totalFrames) {
+        clearInterval(counter);
+      }
+    }, frameDuration);
+  };
 
   // Fetch order when component mounts or when orderId changes
   useEffect(() => {
@@ -36,7 +62,7 @@ const OrderShow: React.FC<{ orderId: number }> = ({ orderId }) => {
           <img src={cart} alt="" className="location-icon" />
           <span>หมายเลขคำสั่งซื้อ</span>
           <b className="color-id">{Id}</b> {/* แสดง Order ID */}
-          <b className="color-price">฿{tprice}</b> {/* แสดงราคาสุทธิ */}
+          <b className="color-price">฿{formattedPrice}</b> {/* แสดงราคาสุทธิที่กำลังนับขึ้น */}
         </div>
       </Card>
     </div>
