@@ -11,7 +11,7 @@
     box-shadow: 0px 2px 10px var(--shadow-color1);
     font-size: 24px;
     margin-left: 65%;
-    height: 24.5%;
+    height: 36.5%;
     padding: 20px;
     z-index: 0; /* Ensure it stays above other elements */
 }
