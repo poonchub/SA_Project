@@ -201,16 +201,20 @@ function Edit() {
                   },
                 ]}
               >
-                <DatePicker style={{ width: "100%" }} format="YYYY-MM-DD" />
+                <DatePicker style={{ width: "100%" }} format="YYYY-MM-DD" 
+                  onFocus={(e) => e.target.style.borderColor = '#ED2939'}
+                  onBlur={(e) => e.target.style.borderColor = '#ED2939'}
+                />
               </Form.Item>
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
+                
                 label="Gender"
                 name="GenderID"
                 rules={[{ required: true }]}
               >
-                <Select allowClear >
+                <Select allowClear style={{borderColor: 'red'}}>
                   {genders.map((item) => (
                     <Option value={item.ID} key={item.Name}>
                       {item.Name}
