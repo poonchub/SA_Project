@@ -7,8 +7,6 @@ import { apiUrl } from '../../services/http';
 import { AppContext } from '../../App';
 
 //for countCart
-
-
 function Header(props: { page: any;}){
 
     const {page} = props
