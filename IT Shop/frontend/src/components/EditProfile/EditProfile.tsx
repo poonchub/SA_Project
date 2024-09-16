@@ -14,7 +14,6 @@ import {
   Select,
 } from "antd";
 import dayjs from "dayjs";
-import { PlusOutlined } from "@ant-design/icons";
 import { CustomerInterface } from "../../Interfaces/ICustomer";
 import { GendersInterface } from "../../Interfaces/IGender";
 import { GetAddressByCustomerID, GetCustomerByID, GetGenders, UpdateAddressByID, UpdateCustomerByID } from "../../services/http";
@@ -198,8 +197,7 @@ function Edit() {
                 name="Birthday"
                 rules={[
                   {
-                    required: true,
-                    message: "กรุณาเลือกวันเกิด !",
+                    required: true
                   },
                 ]}
               >
@@ -212,7 +210,7 @@ function Edit() {
                 name="GenderID"
                 rules={[{ required: true }]}
               >
-                <Select allowClear>
+                <Select allowClear >
                   {genders.map((item) => (
                     <Option value={item.ID} key={item.Name}>
                       {item.Name}
@@ -283,19 +281,17 @@ function Edit() {
             </Col>
           </Row>
 
-          <Row justify="end">
+          <Row justify="start">
             <Col style={{ marginTop: "40px" }}>
               <Form.Item>
                 <Space>
-                  <Button htmlType="button" style={{ marginRight: "10px" }}>
-                    ยกเลิก
-                  </Button>
                   <Button
                     type="primary"
                     htmlType="submit"
-                    icon={<PlusOutlined />}
+                    className="submit-btn"
+                    
                   >
-                    ยืนยัน
+                    Update
                   </Button>
                 </Space>
               </Form.Item>

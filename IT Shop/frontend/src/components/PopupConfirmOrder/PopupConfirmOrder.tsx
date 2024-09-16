@@ -17,12 +17,14 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
     const totalPrice = products[selectedIndex].PricePerPiece*quantity
     const priceFormat = totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })   
 
+    const id = localStorage.getItem("id") || "";
+
     function closePopup(){
         setPopup(null)
     }
 
     async function getAddress(){
-        let res = await GetAddressByCustomerID(1)
+        let res = await GetAddressByCustomerID(parseInt(id))
         if (res) {
             setAddresses(res);
         }
