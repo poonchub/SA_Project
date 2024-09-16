@@ -12,8 +12,8 @@
         box-sizing: border-box;
         box-shadow: 0 0 4px 2px var(--shadow-color1);
         background-color: white;
-        z-index: 2;
-
+        z-index: 1;
+    
         & .left-side{
             display: flex;
             width: 300px;
