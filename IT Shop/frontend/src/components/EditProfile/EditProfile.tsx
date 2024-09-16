@@ -14,7 +14,6 @@ import {
   Select,
 } from "antd";
 import dayjs from "dayjs";
-import { PlusOutlined } from "@ant-design/icons";
 import { CustomerInterface } from "../../Interfaces/ICustomer";
 import { GendersInterface } from "../../Interfaces/IGender";
 import { GetAddressByCustomerID, GetCustomerByID, GetGenders, UpdateAddressByID, UpdateCustomerByID } from "../../services/http";
@@ -198,21 +197,24 @@ function Edit() {
                 name="Birthday"
                 rules={[
                   {
-                    required: true,
-                    message: "กรุณาเลือกวันเกิด !",
+                    required: true
                   },
                 ]}
               >
-                <DatePicker style={{ width: "100%" }} format="YYYY-MM-DD" />
+                <DatePicker style={{ width: "100%" }} format="YYYY-MM-DD" 
+                  onFocus={(e) => e.target.style.borderColor = '#ED2939'}
+                  onBlur={(e) => e.target.style.borderColor = '#ED2939'}
+                />
               </Form.Item>
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
+                
                 label="Gender"
                 name="GenderID"
                 rules={[{ required: true }]}
               >
-                <Select allowClear>
+                <Select allowClear style={{borderColor: 'red'}}>
                   {genders.map((item) => (
                     <Option value={item.ID} key={item.Name}>
                       {item.Name}
@@ -283,19 +285,17 @@ function Edit() {
             </Col>
           </Row>
 
-          <Row justify="end">
+          <Row justify="start">
             <Col style={{ marginTop: "40px" }}>
               <Form.Item>
                 <Space>
-                  <Button htmlType="button" style={{ marginRight: "10px" }}>
-                    ยกเลิก
-                  </Button>
                   <Button
                     type="primary"
                     htmlType="submit"
-                    icon={<PlusOutlined />}
+                    className="submit-btn"
+                    
                   >
-                    ยืนยัน
+                    Update
                   </Button>
                 </Space>
               </Form.Item>
