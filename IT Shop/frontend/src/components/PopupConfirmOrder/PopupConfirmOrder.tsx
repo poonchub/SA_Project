@@ -19,6 +19,8 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
     const totalPrice = products[sltProduct].PricePerPiece*quantity
     const priceFormat = totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) 
 
+    const id = localStorage.getItem("id") || "";
+
     function closePopup(){
         setPopup(null)
     }
