@@ -14,6 +14,7 @@ const AddressShow: React.FC<{ orderId: number  }> = ({ orderId }) => {
   const [isPopupVisible, setPopupVisible] = useState<boolean>(false); // State สำหรับจัดการ popup
   const { setPopup } = useContext(PopupContext); // อาจไม่จำเป็นถ้าใช้ local state
   const [customerId, setCustomerId] = useState<number | null>(null); // State สำหรับเก็บ customerId
+  const [messageApi, contextHolder] = message.useMessage(); // ใช้ messageApi
 
   async function fetchAddress() {
     try {
@@ -29,7 +30,7 @@ const AddressShow: React.FC<{ orderId: number  }> = ({ orderId }) => {
     }
   }
 
-  
+
   useEffect(() => {
     fetchAddress();
 
@@ -67,6 +68,7 @@ const AddressShow: React.FC<{ orderId: number  }> = ({ orderId }) => {
 
   return (
     <div>
+      {contextHolder}
       <Card
         title={
           <div className="card-title">
@@ -99,9 +101,8 @@ const AddressShow: React.FC<{ orderId: number  }> = ({ orderId }) => {
       {isPopupVisible && customerId !== null && (
         <PopupConfirmOrder 
           setPopup={closePopup} // ฟังก์ชันปิด popup
-          messageApi={message} // ส่ง message api ไปยัง popup
+          messageApi={messageApi} // ส่ง message api ไปยัง popup
           orderId={orderId} // ส่ง orderId ไปยัง popup
-          customerId={customerId}
           onAddressUpdated={fetchAddress} // ฟังก์ชันรีเฟรชที่อยู่หลังการอัปเดต
         />
       )}

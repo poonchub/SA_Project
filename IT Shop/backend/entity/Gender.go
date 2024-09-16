@@ -7,5 +7,5 @@ type Gender struct {
 	Name string
 
 	Customers []Customer `gorm:"foreignKey:GenderID"`
-	Owners []Owner `gorm:"foreignKey:GenderID"`
+	Owners    []Owner    `gorm:"foreignKey:GenderID"`
 }
