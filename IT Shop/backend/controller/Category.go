@@ -18,5 +18,3 @@ func ListCategories(c *gin.Context) {
 
 	c.JSON(http.StatusOK, &categories)
 }
-
-

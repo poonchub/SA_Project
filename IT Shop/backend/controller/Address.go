@@ -52,7 +52,7 @@ func GetAddressByCustomerID(c *gin.Context) {
 }
 
 // PATCH /address
-func UpdateAddress(c *gin.Context) {
+func UpdateAddressByID(c *gin.Context) {
 	ID := c.Param("id")
 
 	var address entity.Address

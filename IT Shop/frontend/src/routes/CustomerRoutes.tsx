@@ -44,7 +44,7 @@ const CustomerRoutes = (): RouteObject => {
                 element: <Cart />
             },
             {
-                path: "/Edit",
+                path: "/EditProfile",
                 element: <Edit/>
             },
             {
