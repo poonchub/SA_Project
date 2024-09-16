@@ -257,7 +257,7 @@ func SetupDatabase() {
 		},
 		{
 			ProductName: "MAINBOARD (เมนบอร์ด)(AM5) MSI MEG X670E GODLIKE",
-			Description: `Brands	MSI
+			Description: 	`Brands	MSI
 							CPU Support	AMD Ryzen 7000 Series, AMD Ryzen 8000 Series, AMD Ryzen 9000 Series
 							CPU Socket	AMD AM5
 							Chipset	AMD X670
