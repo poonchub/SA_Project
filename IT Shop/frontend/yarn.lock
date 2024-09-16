@@ -515,10 +515,10 @@
     classnames "^2.3.2"
     rc-util "^5.24.4"
 
-"@rc-component/trigger@^2.0.0", "@rc-component/trigger@^2.1.1", "@rc-component/trigger@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/@rc-component/trigger/-/trigger-2.2.1.tgz"
-  integrity sha512-fuU11J8pOt6+U/tU6/CAv8wjCwGaNeRk9f5k8HQth7JBbJ6MMH62WhGycVW75VnXfBZgL/7kO+wbiO2Xc9U9sQ==
+"@rc-component/trigger@^2.0.0", "@rc-component/trigger@^2.1.1", "@rc-component/trigger@^2.2.2":
+  version "2.2.3"
+  resolved "https://registry.npmjs.org/@rc-component/trigger/-/trigger-2.2.3.tgz"
+  integrity sha512-X1oFIpKoXAMXNDYCviOmTfuNuYxE4h5laBsyCqVAVMjNHxoF3/uiyA7XdegK1XbCvBbCZ6P6byWrEoDRpKL8+A==
   dependencies:
     "@babel/runtime" "^7.23.2"
     "@rc-component/portal" "^1.1.0"
@@ -930,10 +930,10 @@ ansi-styles@^6.1.0:
   resolved "https://registry.npmjs.org/ansi-styles/-/ansi-styles-6.2.1.tgz"
   integrity sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==
 
-antd@^5.20.3:
-  version "5.20.3"
-  resolved "https://registry.npmjs.org/antd/-/antd-5.20.3.tgz"
-  integrity sha512-v2s5LJlhuccIKLT17ESXQDkiQJdPK4jXg4x2pmSSRlrKXAxfftn8Zhd/7pdF3qR3OkwheQpSRjynrNZKp9Tgkg==
+antd@^5.20.6:
+  version "5.20.6"
+  resolved "https://registry.npmjs.org/antd/-/antd-5.20.6.tgz"
+  integrity sha512-TZFmNenHlh26DelHCJbkB+x1OVulIKsN1f/CnAd2NxZLysXqRvSuLUeHcgccqAnxTy7B03GZ6i1tocGxPCNjgA==
   dependencies:
     "@ant-design/colors" "^7.1.0"
     "@ant-design/cssinjs" "^1.21.0"
@@ -1224,7 +1224,7 @@ csstype@^3.0.2, csstype@^3.1.3:
   resolved "https://registry.npmjs.org/csstype/-/csstype-3.1.3.tgz"
   integrity sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==
 
-dayjs@^1.11.11, "dayjs@>= 1.x":
+dayjs@^1.11.11, dayjs@^1.11.13, "dayjs@>= 1.x":
   version "1.11.13"
   resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.11.13.tgz"
   integrity sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==
@@ -1291,11 +1291,6 @@ electron-to-chromium@^1.4.820:
   version "1.4.832"
   resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.832.tgz"
   integrity sha512-cTen3SB0H2SGU7x467NRe1eVcQgcuS6jckKfWJHia2eo0cHIGOqHoAxevIYZD4eRHcWjkvFzo93bi3vJ9W+1lA==
-
-emoji-regex@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.npmjs.org/emoji-regex/-/emoji-regex-8.0.0.tgz"
-  integrity sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
 
 emoji-regex@^9.2.2:
   version "9.2.2"
@@ -2167,10 +2162,10 @@ queue-microtask@^1.2.2:
   resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
-rc-cascader@~3.27.0:
-  version "3.27.0"
-  resolved "https://registry.npmjs.org/rc-cascader/-/rc-cascader-3.27.0.tgz"
-  integrity sha512-z5uq8VvQadFUBiuZJ7YF5UAUGNkZtdEtcEYiIA94N/Kc2MIKr6lEbN5HyVddvYSgwWlKqnL6pH5bFXFuIK3MNg==
+rc-cascader@~3.28.1:
+  version "3.28.1"
+  resolved "https://registry.npmjs.org/rc-cascader/-/rc-cascader-3.28.1.tgz"
+  integrity sha512-9+8oHIMWVLHxuaapDiqFNmD9KSyKN/P4bo9x/MBuDbyTqP8f2/POmmZxdXWBO3yq/uE3pKyQCXYNUxrNfHRv2A==
   dependencies:
     "@babel/runtime" "^7.12.5"
     array-tree-filter "^2.1.0"
@@ -2384,10 +2379,10 @@ rc-segmented@~2.3.0:
     rc-motion "^2.4.4"
     rc-util "^5.17.0"
 
-rc-select@~14.15.0, rc-select@~14.15.1:
-  version "14.15.1"
-  resolved "https://registry.npmjs.org/rc-select/-/rc-select-14.15.1.tgz"
-  integrity sha512-mGvuwW1RMm1NCSI8ZUoRoLRK51R2Nb+QJnmiAvbDRcjh2//ulCkxeV6ZRFTECPpE1t2DPfyqZMPw90SVJzQ7wQ==
+rc-select@~14.15.0, rc-select@~14.15.2:
+  version "14.15.2"
+  resolved "https://registry.npmjs.org/rc-select/-/rc-select-14.15.2.tgz"
+  integrity sha512-oNoXlaFmpqXYcQDzcPVLrEqS2J9c+/+oJuGrlXeVVX/gVgrbHa5YcyiRUXRydFjyuA7GP3elRuLF7Y3Tfwltlw==
   dependencies:
     "@babel/runtime" "^7.10.1"
     "@rc-component/trigger" "^2.1.1"
@@ -2469,10 +2464,10 @@ rc-tooltip@~6.2.0:
     "@rc-component/trigger" "^2.0.0"
     classnames "^2.3.1"
 
-rc-tree-select@~5.22.1:
-  version "5.22.2"
-  resolved "https://registry.npmjs.org/rc-tree-select/-/rc-tree-select-5.22.2.tgz"
-  integrity sha512-WHmWCck4+8mf4/KFTjw70AlnoNPkX4C1TOIzzwxfZ7w8hcNO4bzggoeO2Q3fAedjZteN5I3t2dT0BCZAnHedlQ==
+rc-tree-select@~5.23.0:
+  version "5.23.0"
+  resolved "https://registry.npmjs.org/rc-tree-select/-/rc-tree-select-5.23.0.tgz"
+  integrity sha512-aQGi2tFSRw1WbXv0UVXPzHm09E0cSvUVZMLxQtMv3rnZZpNmdRXWrnd9QkLNlVH31F+X5rgghmdSFF3yZW0N9A==
   dependencies:
     "@babel/runtime" "^7.10.1"
     classnames "2.x"
@@ -2480,10 +2475,10 @@ rc-tree-select@~5.22.1:
     rc-tree "~5.8.1"
     rc-util "^5.16.1"
 
-rc-tree@~5.8.1, rc-tree@~5.8.8:
-  version "5.8.8"
-  resolved "https://registry.npmjs.org/rc-tree/-/rc-tree-5.8.8.tgz"
-  integrity sha512-S+mCMWo91m5AJqjz3PdzKilGgbFm7fFJRFiTDOcoRbD7UfMOPnerXwMworiga0O2XIo383UoWuEfeHs1WOltag==
+rc-tree@~5.9.0:
+  version "5.9.0"
+  resolved "https://registry.npmjs.org/rc-tree/-/rc-tree-5.9.0.tgz"
+  integrity sha512-CPrgOvm9d/9E+izTONKSngNzQdIEjMox2PBufWjS1wf7vxtvmCWzK1SlpHbRY6IaBfJIeZ+88RkcIevf729cRg==
   dependencies:
     "@babel/runtime" "^7.10.1"
     classnames "2.x"

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ImageInterface } from "../../Interfaces/IImage";
 import { apiUrl, GetImageByProductID } from "../../services/http";
-import { setSelectedIndex } from "../../data/selectedIndex";
 
 function ProductItem(props: { product: any; searchText: any; category: any; minRange: any; maxRange: any; }){
 
@@ -27,7 +26,7 @@ function ProductItem(props: { product: any; searchText: any; category: any; minR
     const num = product.PricePerPiece.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
     
     return (
-        <Link to="/Selected" onClick={()=> setSelectedIndex(product.ID-1)}> 
+        <Link to="/Selected" onClick={()=> localStorage.setItem("sltProduct", `${product.ID-1}`)}> 
             <div className="container-product-item">
                 <div className="img-box">
                     <img src={imageUrl} alt="" />

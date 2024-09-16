@@ -132,9 +132,11 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
            <Button type="primary" id="delete-all" onClick={DeleteAllCart}>ลบทั้งหมด</Button> 
            
           </div>
+          <div className="card-container-item" id="all-item">
           {data.map((item, index) => (
             <div key={index}>
-              <div className="card">
+              
+              <div className="card" >
                 <div className="check-item-incart">
                   <label>
                     <input
@@ -193,6 +195,8 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
               </div>
             </div>
           ))}
+          {/* //card container */}
+          </div> 
         </>
       ) : (
         <Empty />

@@ -39,18 +39,25 @@ func SetupDatabase() {
 		&entity.Owner{},
 		&entity.Cart{},
 		&entity.Image{},
+		&entity.Gender{},
 	)
+
+	GenderMale := entity.Gender{Name: "Male"}
+	GenderFemale := entity.Gender{Name: "Female"}
+
+	db.FirstOrCreate(&GenderMale, &entity.Gender{Name: "Male"})
+	db.FirstOrCreate(&GenderFemale, &entity.Gender{Name: "Female"})
 
 	// Create Owner
 	hashedPassword, _ := HashPassword("123456")
 	owner := &entity.Owner{
-		Prefix:      "Mr.",
-		FirstName:   "Pongsakorn",
-		LastName:    "NanawaIn-on",
-		AdminRole:   "Owner",
-		Email:       "jeng1@gmail.com",
-		Password:    hashedPassword,
-		ProfilePath: "images/profile/owner/Labubu.jpg",
+		FirstName: "Poonchub",
+		LastName: "Nanawan",
+		AdminRole: "Owner",
+		Email: "poonchubnanawan310@gmail.com",
+		Password: hashedPassword,
+		ProfilePath: "images/profile/owner/owner_id01.jpg",
+		GenderID:  1,
 	}
 	db.FirstOrCreate(owner, &entity.Owner{
 		Email: owner.Email,
@@ -60,22 +67,22 @@ func SetupDatabase() {
 	BirthDay, _ := time.Parse("2006-01-02", "2003-06-02")
 	customers := []*entity.Customer{
 		{
-			Prefix:      "Mr.",
-			FirstName:   "Pongsakorn",
-			LastName:    "In-on",
-			Email:       "jeng@gmail.com",
-			Password:    hashedPassword,
-			Birthday:    BirthDay,
-			ProfilePath: "images/profile/customer/Labubu.jpg",
+			FirstName: "Poonchub",
+			LastName: "Nanawan",
+			Email: "poonchubnanawan320@gmail.com",
+			Password: hashedPassword,
+			Birthday: BirthDay,
+			ProfilePath: "images/profile/customer/customer_id01.jpg",
+			GenderID:  1,
 		},
 		{
-			Prefix:      "Mr.",
-			FirstName:   "Nanawan",
-			LastName:    "Poonchub",
-			Email:       "poonchubnanawan330@gmail.com",
-			Password:    hashedPassword,
-			Birthday:    BirthDay,
+			FirstName: "Nanawan",
+			LastName: "Poonchub",
+			Email: "poonchubnanawan330@gmail.com",
+			Password: hashedPassword,
+			Birthday: BirthDay,
 			ProfilePath: "images/profile/customer/customer_id02.jpg",
+			GenderID:  1,
 		},
 	}
 	for _, customer := range customers {
@@ -119,7 +126,8 @@ func SetupDatabase() {
 			CustomerID:    2,
 		},
 	}
-	for _, address := range addresses {
+
+	for _, address := range addresses{
 		db.FirstOrCreate(address, &entity.Address{
 			AddressDetail: address.AddressDetail,
 			CustomerID:    address.CustomerID,
@@ -142,12 +150,8 @@ func SetupDatabase() {
 		path := fmt.Sprintf("images/brand/%s.png", brand)
 		err := createBrand(brand, path)
 		if err != nil {
-			panic(err)
-		}
-	}
 
 	// Create Product
-	products := []*entity.Product{
 		{
 			ProductName: "NOTEBOOK (โน้ตบุ๊ค) ASUS TUF GAMING F15 FX507ZC4-HN087W",
 			Description: `Brands	ASUS

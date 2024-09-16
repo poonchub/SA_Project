@@ -23,12 +23,16 @@ func main() {
 	r.Static("/images", "./images")
 
 	router := r.Group("/")
-	{
+
+	{	
+		// Gender
+		router.GET("/genders", controller.ListGenders)
+
 		// Adderss
 		router.GET("/addresses", controller.ListAddresses)
 		router.GET("/address/:id", controller.GetAddressByID)
 		router.GET("/addresses/:id", controller.GetAddressByCustomerID)
-		router.PATCH("/addresses", controller.UpdateAddress)
+		router.PATCH("/address/:id", controller.UpdateAddressByID)
 		router.GET("/addresseOrder/:id", controller.GetAddressByOrderID)
 
 		// Brand
@@ -42,7 +46,7 @@ func main() {
 		// Customer
 		router.GET("/customers", controller.ListCustomers)
 		router.GET("/customer/:id", controller.GetCustomerByID)
-		router.PATCH("/customers", controller.UpdateCustomer)
+		router.PATCH("/customer/:id", controller.UpdateCustomerByID)
 
 		// Order
 		router.GET("/orders", controller.ListOrders)

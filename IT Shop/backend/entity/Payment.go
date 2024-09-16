@@ -6,8 +6,8 @@ import (
 
 type Payment struct {
 	gorm.Model
-	Amount   float32
-	SlipPath string `gorm:"type:longtext"`
+	Amount      float32
+	SlipPath    string `gorm:"type:longtext"`
 
 	CustomerID uint
 	Customer   Customer `gorm:"foreignKey:CustomerID"`
