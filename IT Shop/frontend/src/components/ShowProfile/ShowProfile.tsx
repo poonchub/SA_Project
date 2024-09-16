@@ -4,7 +4,7 @@ import { UserOutlined, CalendarOutlined, MailOutlined, EnvironmentOutlined } fro
 import { Link, useNavigate } from 'react-router-dom';
 import './ShowProfile.css';
 import { CustomerInterface } from '../../Interfaces/ICustomer';
-import { apiUrl, GetAddressByCustomerID, GetCustomerByID, GetOrders, GetOrderByCustomerID } from '../../services/http';
+import { apiUrl, GetAddressByCustomerID, GetCustomerByID, GetOrderByCustomerID } from '../../services/http';
 import { AddressInterface } from '../../Interfaces/IAddress';
 import { OrderInterface } from '../../Interfaces/IOrder';
 import { Col, Row } from "antd";
@@ -99,7 +99,7 @@ const ShowProfile: React.FC = () => {
   };
 
   return (
-    <div className="container">
+    <div className="profile-container">
       <div className="image-container">
         <img
           src={`${apiUrl}/${localStorage.getItem("profilePath")}`}
@@ -147,16 +147,16 @@ const ShowProfile: React.FC = () => {
           </tbody>
         </table>
         <div className="button-container">
-        <Link to="/EditProfile">
-            <Button
-              className="button"
-              type="primary"
-              style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63' }}
-              onClick={handleClick}
-            >
-              Edit profile
-            </Button>
-        </Link>
+          <Link to="/EditProfile">
+              <Button
+                className="button"
+                type="primary"
+                style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63' }}
+                onClick={handleClick}
+              >
+                Edit profile
+              </Button>
+          </Link>
         </div>
         <Row gutter={[16, 16]}>
           <h3>Order List</h3>
