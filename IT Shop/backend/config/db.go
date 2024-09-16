@@ -39,18 +39,25 @@ func SetupDatabase() {
 		&entity.Owner{},
 		&entity.Cart{},
 		&entity.Image{},
+		&entity.Gender{},
 	)
+
+	GenderMale := entity.Gender{Name: "Male"}
+	GenderFemale := entity.Gender{Name: "Female"}
+
+	db.FirstOrCreate(&GenderMale, &entity.Gender{Name: "Male"})
+	db.FirstOrCreate(&GenderFemale, &entity.Gender{Name: "Female"})
 
 	// Create Owner
 	hashedPassword, _ := HashPassword("123456")
 	owner := &entity.Owner{
-		Prefix:      "Mr.",
-		FirstName:   "Pongsakorn",
-		LastName:    "NanawaIn-on",
+		FirstName:   "Poonchub",
+		LastName:    "Nanawan",
 		AdminRole:   "Owner",
-		Email:       "jeng1@gmail.com",
+		Email:       "poonchubnanawan310@gmail.com",
 		Password:    hashedPassword,
-		ProfilePath: "images/profile/owner/Labubu.jpg",
+		ProfilePath: "images/profile/owner/owner_id01.jpg",
+		GenderID:    1,
 	}
 	db.FirstOrCreate(owner, &entity.Owner{
 		Email: owner.Email,
@@ -60,22 +67,22 @@ func SetupDatabase() {
 	BirthDay, _ := time.Parse("2006-01-02", "2003-06-02")
 	customers := []*entity.Customer{
 		{
-			Prefix:      "Mr.",
-			FirstName:   "Pongsakorn",
-			LastName:    "In-on",
-			Email:       "jeng@gmail.com",
+			FirstName:   "Poonchub",
+			LastName:    "Nanawan",
+			Email:       "poonchubnanawan320@gmail.com",
 			Password:    hashedPassword,
 			Birthday:    BirthDay,
-			ProfilePath: "images/profile/customer/Labubu.jpg",
+			ProfilePath: "images/profile/customer/customer_id01.jpg",
+			GenderID:    1,
 		},
 		{
-			Prefix:      "Mr.",
 			FirstName:   "Nanawan",
 			LastName:    "Poonchub",
 			Email:       "poonchubnanawan330@gmail.com",
 			Password:    hashedPassword,
 			Birthday:    BirthDay,
 			ProfilePath: "images/profile/customer/customer_id02.jpg",
+			GenderID:    1,
 		},
 	}
 	for _, customer := range customers {
@@ -102,23 +109,8 @@ func SetupDatabase() {
 			AddressDetail: "111 มหาวิทยาลัยเทคโนโลยีสุรนารี หอพักสุรนิเวศ 13 โซนล่าง",
 			CustomerID:    1,
 		},
-		{
-			Province:      "บุกมะขาม",
-			District:      "ขนมต้มสุก",
-			Subdistrict:   "หลามผัดเผ็ด",
-			ZipCode:       "74403",
-			AddressDetail: "311 บึงบรเพชร หลามผัดเผ็ด, บุกมะขาม, ขนมต้มสุก, 74403",
-			CustomerID:    1,
-		},
-		{
-			Province:      "บุกมะขาม",
-			District:      "ขนมต้มสุก",
-			Subdistrict:   "หลามผัดเผ็ด",
-			ZipCode:       "74403",
-			AddressDetail: "311 บึงบรเพชร หลามผัดเผ็ด, บุกมะขาม, ขนมต้มสุก, 74403",
-			CustomerID:    2,
-		},
 	}
+
 	for _, address := range addresses {
 		db.FirstOrCreate(address, &entity.Address{
 			AddressDetail: address.AddressDetail,
@@ -270,26 +262,19 @@ func SetupDatabase() {
 		{
 			ProductName: "MAINBOARD (เมนบอร์ด)(AM5) MSI MEG X670E GODLIKE",
 			Description: `Brands	MSI
-							CPU Support	
-							AMD Ryzen 7000 Series
-							AMD Ryzen 8000 Series
-							AMD Ryzen 9000 Series
+							CPU Support	AMD Ryzen 7000 Series, AMD Ryzen 8000 Series, AMD Ryzen 9000 Series
 							CPU Socket	AMD AM5
 							Chipset	AMD X670
 							Memory Slots	4 x DIMM
 							Memory Type	DDR5
 							Max Memory	256GB
-							Onboard Audio Chipset	
-							Realtek ALC4082 Codec
-							ESS ES9280AQ Combo DAC/HPA
+							Onboard Audio Chipset	Realtek ALC4082 Codec
+							ESS	ES9280AQ Combo DAC/HPA
 							Audio Channels	8-Channel 7.1-Channel USB High Performance Audio
 							Expansion Slots	1 x PCIe 5.0 x16 Slot
-							Storage	
-							4 x M.2 Socket
-							8 x SATA3 6Gb/s port(s)
+							Storage	4 x M.2 Socket, 8 x SATA3 6Gb/s port(s)
 							Rear Panel I/O	1 x Wi-Fi/Bluetooth, 1 x Clear CMOS button, 1 x Optical S/PDIF out, 1 x Flash BIOS button, 1 x Smart button, 1 x 2.5G LAN, 5 x Audio jacks, 1 x 10G SUPER LAN, 7 x USB 10Gbps Type-A, 2 x USB 3.2 Gen 2x2 20Gbps Type-C
-							LAN Chipset	Marvell AQC113CS-B1-C 10Gbps LAN
-							Intel I225V 2.5Gbps LAN
+							LAN Chipset	Marvell AQC113CS-B1-C 10Gbps LAN, Intel I225V 2.5Gbps LAN
 							LAN Speed	100/1000/2500 Mbps, 100/1000/2500/5000/10000 Mbps
 							Dimensions	28.8 x 30.4 cm
 							Power Pin	24+8+8 Pin
@@ -368,9 +353,7 @@ func SetupDatabase() {
 							Memory	16GB DDR5
 							Storage	1TB PCIe® 4.0 NVMe™ M.2 SSD
 							Operating System	Windows 11 Home + Microsoft Office Home&Student 2021
-							Camera	
-							HD type (30fps@720p)
-							3D Noise Reduction (3DNR)
+							Camera	HD type (30fps@720p), 3D Noise Reduction (3DNR)
 							Optical Drive	No
 							Connection port	3 x USB 3.2 Gen 1 Type-A ports, 1 x USB 3.2 Gen 2 Type C port, 1 x Mic-in/Headphone-out Combo Jack, 1 x RJ45 LAN port, 1 x Power connector, 1 x HDMI™ 2.1 ports
 							Wi-Fi/ Bluetooth	Wi-Fi 6E (802.11ax)+Bluetooth 5.3
