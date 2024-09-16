@@ -2,7 +2,7 @@ import { AddressInterface } from "../../Interfaces/IAddress";
 import { CustomerInterface } from "../../Interfaces/ICustomer";
 import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
-import { ProductInterFace } from "../../Interfaces/IProduct";
+import { ProductInterface } from "../../Interfaces/IProduct";
 import { SignInInterface } from "../../Interfaces/ISignIn";
 import { CartInterface } from "../../Interfaces/ICart";
 
@@ -361,6 +361,27 @@ async function UpdateOrderItem(data: OrderItemInterface) {
 }
 
 // Image
+async function ListImages() {
+  try {
+      const response = await fetch(`${apiUrl}/images`, {
+          method: "GET",
+          headers: {
+              "Content-Type": "application/json",
+          },
+      });
+
+      if (response.ok) {
+          return await response.json();
+      } else {
+          console.error("Failed to fetch images:", response.status, response.statusText);
+          return false;
+      }
+  } catch (error) {
+      console.error("Error fetching images:", error);
+      return false;
+  }
+}
+
 async function GetImageByProductID(id: Number | undefined) {
   const requestOptions = {
     method: "GET",
@@ -379,14 +400,14 @@ async function GetImageByProductID(id: Number | undefined) {
   return res;
 }
 
-async function CreateImage(formData: FormData) {
+async function CreateImage(formData: FormData,id: Number | undefined) {
   const requestOptions = {
     method: "POST",
     // headers: { "Content-Type": "application/json" },
     body: formData,
   };
 
-  let res = await fetch(`${apiUrl}/product-image/1`, requestOptions).then(
+  let res = await fetch(`${apiUrl}/product-image/${id}`, requestOptions).then(
     (res) => {
       if (res.status == 201) {
         return res.json();
@@ -399,22 +420,61 @@ async function CreateImage(formData: FormData) {
   return res;
 }
 
-// Product
-async function GetProduct() {
-  const requestOptions = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
+const UpdateImage = async (formData: FormData, id: number) => {
+  try {
+    const response = await fetch(`${apiUrl}/product-image/${id}`, {
+      method: 'PUT',
+      body: formData,
+    });
 
-  let res = await fetch(`${apiUrl}/products`, requestOptions).then((res) => {
-    if (res.status == 200) {
-      return res.json();
-    } else {
+    if (!response.ok) {
+      const errorText = await response.text(); // Or use response.json() if the error is in JSON format
+      console.error('Error response from server:', errorText);
       return false;
     }
-  });
+
+    return await response.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return false;
+  }
+};
+
+async function CreateProduct(data: ProductInterface) {
+  const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/products`, requestOptions)
+      .then((res) => {
+          if (res.status == 201) {
+              return res.json();
+          } else {
+              return false;
+          }
+      });
+
+  return res;
+}
+
+async function ListProducts() {
+  const requestOptions = {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+      },
+  };
+
+  let res = await fetch(`${apiUrl}/products`, requestOptions)
+      .then((res) => {
+          if (res.status == 200) {
+              return res.json();
+          } else {
+              return false;
+          }
+      });
 
   return res;
 }
@@ -437,20 +497,87 @@ async function GetProductByID(id: Number | undefined) {
   return res;
 }
 
-async function UpdateProduct(data: ProductInterFace) {
+async function UpdateProduct(id: number, data: ProductInterface) {
+  if (id === undefined) {
+      throw new Error("Product ID is undefined");
+  }
+
   const requestOptions = {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
   };
 
-  let res = await fetch(`${apiUrl}/product`, requestOptions).then((res) => {
-    if (res.status == 200) {
-      return res.json();
-    } else {
+  let res = await fetch(`${apiUrl}/products/${id}`, requestOptions)
+      .then((res) => {
+          if (res.status === 200) {
+              return res.json();
+          } else {
+              console.error("Failed to update product:", res.status, res.statusText);
+              return false;
+          }
+      });
+
+  console.log("Product update response:", res);
+  return res;
+}
+
+
+
+
+async function DeleteProductByID(id: number) {
+  if (!id) {
+      console.error('Product ID is required to delete');
       return false;
-    }
-  });
+  }
+
+  const requestOptions = {
+      method: "DELETE"
+  };
+
+  try {
+      const res = await fetch(`${apiUrl}/products/${id}`, requestOptions);
+      return res.status === 200;
+  } catch (error) {
+      console.error('Error occurred while deleting product:', error);
+      return false;
+  }
+}
+
+// Owner
+async function GetOwner() {
+  const requestOptions = {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+      },
+  };
+
+  let res = await fetch(`${apiUrl}/owners`, requestOptions)
+      .then((res) => {
+          if (res.status == 200) {
+              return res.json();
+          } else {
+              return false;
+          }
+      });     
+
+  return res; 
+}   
+
+async function GetOwnerById(id: Number | undefined) {
+  const requestOptions = {
+      method: "GET"
+  };
+
+  let res = await fetch(`${apiUrl}/owners/${id}`, requestOptions)
+      .then((res) => {
+          if (res.status == 200) {
+              return res.json();
+          } else {
+              return false;
+          }
+      });
 
   return res;
 }
@@ -628,11 +755,19 @@ export {
     UpdateOrderItem,
 
     // Image  ----------------------------
+    ListImages,
     GetImageByProductID,
     CreateImage,
+    UpdateImage,
 
     // Product  --------------------------
-    GetProduct,
+    CreateProduct,
+    ListProducts,
     GetProductByID,
     UpdateProduct,
+    DeleteProductByID,
+
+    // Owner  ----------------------------
+    GetOwner,
+    GetOwnerById,
 };

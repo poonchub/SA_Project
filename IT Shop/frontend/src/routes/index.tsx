@@ -2,6 +2,7 @@ import { useRoutes, RouteObject } from "react-router-dom";
 
 import MainRoutes from "./MainRoutes";
 import CustomerRoutes from "./CustomerRoutes";
+import OwnerRoutes from "./OwnerRoutes";
 
 
 function ConfigRoutes() {
@@ -14,7 +15,7 @@ function ConfigRoutes() {
         routes = [CustomerRoutes()];
     } 
     else {
-        routes = [MainRoutes()];
+        routes = [OwnerRoutes()];
     }
 
     return useRoutes(routes);

@@ -1,0 +1,141 @@
+.my-layout1 {
+  position: fixed;
+  width: 100vw;
+  margin-top: 75px;
+  height: calc(100vh - 75px);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  background-color: #F6F9FC;
+}
+
+.form-container {
+  max-width: 800px;
+  padding: 50px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 10%;
+ 
+}
+
+input,
+.ant-input-number,
+.ant-select-selector,
+.ant-input-affix-wrapper {
+  width: 48%;
+  height: 32px; 
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+#cancel-bt {
+  margin-top: 0px;
+  margin-right: 5px;
+  height: 32px;
+  width: 100px;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #FF2E63;
+  border: 1px solid #FF2E63;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.75s;
+}
+
+#cancel-bt:hover {
+  background-color: #FF2E63;
+  color: #fff;
+}
+
+/* Submit Button */
+#submit-bt {
+  margin-left: 5px;
+  margin-top: 0px;
+  height: 32px;
+  width: 100px;
+  border-radius: 5px;
+  background-color: #FF2E63;
+  color: white;
+  border: 1px solid #FF2E63;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.75s;
+}
+
+#submit-bt:hover {
+  background-color: #fff;
+  border-color: #FF2E63;
+  color: #FF2E63;
+}
+
+/* File Upload Button */
+input::file-selector-button {
+  margin-top: 2px;
+  margin-right: 5px;
+  background-color: #FF2E63;
+  font-weight: bold;
+  color: white;
+  border: 2px solid #FF2E63;
+  border-radius: 8px;
+  font-size: 16px; 
+  cursor: pointer; 
+}
+
+/* Image Preview and Close Icon */
+.image-preview-container {
+  position: relative;
+  display: flex; /* Flexbox สำหรับการจัดวางภาพ */
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.close-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    max-width: 90%; /* ขยายให้เต็มหน้าจอเมื่อขนาดจอเล็ก */
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  #cancel-bt, #submit-bt {
+    width: 100%; /* ปรับปุ่มให้กว้างเต็มหน้าจอ */
+    margin: 5px 0; /* เพิ่ม margin ระหว่างปุ่ม */
+  }
+}
+
+@media (max-width: 480px) {
+  .image-preview-container {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .image-preview-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  input,
+  .ant-input-number,
+  .ant-select-selector,
+  .ant-input-affix-wrapper {
+    width: 100%; /* ขยาย input ให้เต็มหน้าจอในมือถือ */
+  }
+}

@@ -1,0 +1,174 @@
+/* Layout */
+.my-layout1 {
+    position: fixed;
+    width: 100vw;
+    margin-top: 75px;
+    height: calc(100vh - 75px);
+    overflow: auto;
+    display: flex;
+    padding-bottom: 20px;
+    background-color: #F6F9FC;
+}
+
+/* Antd Table */
+.product-table .ant-table-thead > tr > th {
+    background-color: #FF2E63; /* สีพื้นหลังของ header */
+    color: #fff; /* สีตัวอักษรของ header */
+    font-size: 18px; /* ขนาดตัวอักษรของ header */
+    font-weight: bolder;
+    border: none !important;
+}
+
+.product-table .ant-table-cell {
+    border: none !important; /* ซ่อนขอบของเซลล์ */
+}
+
+/* แสดงเฉพาะขอบด้านล่างของเซลล์ */
+.product-table .ant-table-cell {
+    border-bottom: 1px solid #e8e8e8 !important; /* สีและขนาดของขอบด้านล่าง */
+}
+
+
+
+.product-table .ant-table-cell {
+    padding: 20px !important; /* การเว้นระยะภายในเซลล์ */
+}
+
+
+.product-table .ant-table-thead td {
+    font-weight: bold !important; /* ตัวหนาของข้อความใน header */
+    text-align: center !important; /* จัดข้อความให้ตรงกลางใน header */
+}
+
+
+
+
+/* Image in Table */
+.product-table img {
+    max-width: 100px;
+    height: auto;
+}
+
+/* Action buttons */
+.product-table .ant-btn {
+    font-size: 14px;
+    padding: 4px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.product-table .ant-btn-primary {
+    background-color: #1890ff;
+    border-color: #1890ff;
+    color: white;
+}
+
+.product-table .ant-btn-default {
+    background-color: #fff;
+    border-color: #d9d9d9;
+    color: #000;
+}
+
+.product-table .ant-btn-primary:hover,
+.product-table .ant-btn-default:hover {
+    background-color: #40a9ff;
+    color: white;
+}
+
+
+/* Modal */
+.ant-modal-title {
+    font-size: 18px;
+    color: #333;
+}
+
+.ant-modal-body {
+    font-size: 16px;
+    color: #555;
+}
+
+.product-table-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10000px;
+}
+
+/* Antd Modal ค้นหา */
+.custom-modal .ant-modal-body {
+    padding: 10px !important; /* การเว้นระยะภายใน body */
+}
+
+.custom-modal .ant-modal-footer {
+    display: flex !important;
+    justify-content: center !important; /* จัดปุ่มให้อยู่ตรงกลาง */
+    border-top: none !important; /* ซ่อนเส้นขอบด้านบนของ footer */
+}
+
+.custom-modal .ant-btn {
+    background-color: #FF2E63 !important; /* สีพื้นหลังปุ่มปกติ */
+    color: #fff !important; /* สีตัวอักษรของปุ่ม */
+    border-radius: 5px !important; /* ขอบโค้งของปุ่ม */
+    border: none !important; /* ลบเส้นขอบ */
+    font-weight: bold !important;
+    transition: background-color 0.45s ease !important; /* ความนุ่มนวลของการเปลี่ยนสี */
+}
+
+.custom-modal .ant-btn:hover {
+    background-color: whitesmoke !important; /* สีพื้นหลังของปุ่มเมื่อ hover */
+    color: #05183F !important; /* สีตัวอักษรของปุ่มเมื่อ hover */
+    border: 1px solid #05183F !important; /* เส้นขอบของปุ่มเมื่อ hover */
+    font-weight: bold !important; /* ตัวหนาของปุ่มเมื่อ hover */
+}
+
+
+
+
+/* Antd Modal ลบ */
+.custom-modal2 .ant-modal-footer {
+    display: flex;
+    justify-content: flex-end; /* จัดปุ่มให้อยู่ตรงกลาง */
+}
+
+.custom-modal2 .ant-modal-footer .custom-ok-button {
+    background-color: #FF2E63 !important; /* สีพื้นหลังของปุ่ม OK */
+    color: #fff !important; /* สีตัวอักษรของปุ่ม OK */
+    border: none !important; /* ลบเส้นขอบ */
+    border-radius: 5px !important; /* ขอบโค้งของปุ่ม */
+    transition: background-color 0.3s ease !important; /* การเปลี่ยนสีที่นุ่มนวล */
+}
+
+.custom-modal2 .ant-modal-footer .custom-ok-button:hover {
+    background-color: #eb0c43 !important; /* สีพื้นหลังของปุ่ม OK เมื่อ hover */
+    color: #fff !important; /* สีตัวอักษรของปุ่ม OK เมื่อ hover */
+}
+
+.custom-modal2 .ant-modal-footer .custom-cancel-button {
+    background-color: #f0f0f0 !important; /* สีพื้นหลังของปุ่ม Cancel */
+    color: #000 !important; /* สีตัวอักษรของปุ่ม Cancel */
+    border: none !important; /* ลบเส้นขอบ */
+    border-radius: 5px !important; /* ขอบโค้งของปุ่ม */
+    transition: background-color 0.3s ease !important; /* การเปลี่ยนสีที่นุ่มนวล */
+}
+
+.custom-modal2 .ant-modal-footer .custom-cancel-button:hover {
+    background-color: #d9d9d9 !important; /* สีพื้นหลังของปุ่ม Cancel เมื่อ hover */
+    color: #000 !important; /* สีตัวอักษรของปุ่ม Cancel เมื่อ hover */
+}
+
+/* filter grop */
+.brand-category-filter{
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+
+/* Responsive Design for table container */
+@media (max-width: 768px) {
+    .product-table-container {
+        margin-bottom: 40px;
+        /* เพิ่ม margin สำหรับหน้าจอขนาดเล็ก */
+    }
+}
