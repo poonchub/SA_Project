@@ -2,21 +2,20 @@ import { AddressInterface } from "../../Interfaces/IAddress";
 import { CustomerInterface } from "../../Interfaces/ICustomer";
 import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
-import { ProductInterFace } from "../../Interfaces/IProduct";
 import { SignInInterface } from "../../Interfaces/ISignIn";
 import { CartInterface } from "../../Interfaces/ICart";
-import { PaymentInterface } from "../../Interfaces/IPayment";
+import { ProductInterface } from "../../Interfaces/IProduct";
 
 export const apiUrl = "http://localhost:8000";
 
-async function SignIn(data: SignInInterface) {
+async function SignInForCustomer(data: SignInInterface) {
     const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
     };
     
-    let res = await fetch(`${apiUrl}/signin`, requestOptions).then((res) => {
+    let res = await fetch(`${apiUrl}/signin-customer`, requestOptions).then((res) => {
         if (res.status == 200) {
             return res.json();
         } else {
@@ -25,6 +24,24 @@ async function SignIn(data: SignInInterface) {
     });
     
     return res;
+}
+
+async function SignInForOwner(data: SignInInterface) {
+  const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+  };
+  
+  let res = await fetch(`${apiUrl}/signin-owner`, requestOptions).then((res) => {
+      if (res.status == 200) {
+          return res.json();
+      } else {
+          return false;
+      }
+  });
+  
+  return res;
 }
 
 // Gender
@@ -382,6 +399,42 @@ async function UpdateOrderItem(data: OrderItemInterface) {
   return res;
 }
 
+// Owner
+async function GetOwners() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/owners`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
+  return res;
+}
+
+async function GetOwnerByID(id: Number | undefined) {
+  const requestOptions = {
+    method: "GET",
+  };
+
+  let res = await fetch(`${apiUrl}/owner/${id}`, requestOptions).then(
+    (res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    }
+  );
+  return res;
+}
+
 // Image
 async function ListImages() {
   try {
@@ -466,7 +519,7 @@ const UpdateImage = async (formData: FormData, id: number) => {
 };
 
 // Product
-async function CreateProduct(data: ProductInterFace) {
+async function CreateProduct(data: ProductInterface) {
   const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -505,7 +558,7 @@ async function ListProducts() {
   return res;
 }
 
-async function GetProductByID(productID: number): Promise<ProductInterFace | false> {
+async function GetProductByID(productID: number): Promise<ProductInterface | false> {
   const requestOptions = {
       method: "GET",
       headers: {
@@ -517,7 +570,7 @@ async function GetProductByID(productID: number): Promise<ProductInterFace | fal
       const response = await fetch(`${apiUrl}/products/${productID}`, requestOptions);
       
       if (response.status === 200) {
-          const productData: ProductInterFace = await response.json();
+          const productData: ProductInterface = await response.json();
           return productData;
       } else {
           console.error(`Failed to fetch product. Status: ${response.status}`);
@@ -529,8 +582,7 @@ async function GetProductByID(productID: number): Promise<ProductInterFace | fal
   }
 }
 
-
-async function UpdateProduct(id: number, data: ProductInterFace) {
+async function UpdateProduct(id: number, data: ProductInterface) {
   if (id === undefined) {
       throw new Error("Product ID is undefined");
   }
@@ -555,9 +607,6 @@ async function UpdateProduct(id: number, data: ProductInterFace) {
   return res;
 }
 
-
-
-
 async function DeleteProductByID(id: number) {
   if (!id) {
       console.error('Product ID is required to delete');
@@ -576,7 +625,6 @@ async function DeleteProductByID(id: number) {
       return false;
   }
 }
-
 
 // Cart Thiradet
 export async function GetCart(id: number) {
@@ -705,7 +753,7 @@ export async function AddToCart(customerId: number, productId: number, quantity:
   }
 }
 
-export async function UpdateProductbyid(data: ProductInterFace,p_id:number) {
+export async function UpdateProductbyid(data: ProductInterface,p_id:number) {
   const requestOptions = {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -813,7 +861,8 @@ async function UpdateOrderAddressByOrderID(data: OrderInterface) {
 
 export {
 
-    SignIn,
+    SignInForCustomer,
+    SignInForOwner,
 
     // Gender
     GetGenders,
@@ -853,6 +902,10 @@ export {
     GetOrderItemByID,
     CreateOrderItem,
     UpdateOrderItem,
+
+    // Owner  ----------------------------
+    GetOwners,
+    GetOwnerByID,
 
     // Image  ----------------------------
     ListImages,

@@ -109,6 +109,30 @@ func SetupDatabase() {
 			AddressDetail: "111 มหาวิทยาลัยเทคโนโลยีสุรนารี หอพักสุรนิเวศ 13 โซนล่าง",
 			CustomerID:    1,
 		},
+		{
+			Province:      "กรุงเทพมหานคร",
+			District:      "จตุจักร",
+			Subdistrict:   "จตุจักร",
+			ZipCode:       "10900",
+			AddressDetail: "123 หมู่บ้านสุขสบาย ถนนพหลโยธิน",
+			CustomerID:    2,
+		},
+		{
+			Province:      "กรุงเทพมหานคร",
+			District:      "วัฒนา",
+			Subdistrict:   "คลองตันเหนือ",
+			ZipCode:       "10110",
+			AddressDetail: "45/3 ซอยสุขุมวิท 55 ถนนสุขุมวิท",
+			CustomerID:    2,
+		},
+		{
+			Province:      "เชียงใหม่",
+			District:      "เมือง",
+			Subdistrict:   "ฟ้าฮ่าม",
+			ZipCode:       "50000",
+			AddressDetail: "789 ถนนเชียงใหม่-ลำปาง",
+			CustomerID:    2,
+		},
 	}
 
 	for _, address := range addresses {

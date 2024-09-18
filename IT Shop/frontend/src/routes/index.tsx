@@ -8,12 +8,16 @@ import OwnerRoutes from "./OwnerRoutes";
 function ConfigRoutes() {
 
     const isLoggedIn = localStorage.getItem("isLogin") === "true";
+    const loggedinByOwner = localStorage.getItem("loginByOwner") == "true";
 
     let routes: RouteObject[] = [];
 
-    if (isLoggedIn) {
+    if (isLoggedIn && loggedinByOwner) {
         routes = [OwnerRoutes()];
     } 
+    else if (isLoggedIn){
+        routes = [CustomerRoutes()]
+    }
     else {
         routes = [MainRoutes()];
     }

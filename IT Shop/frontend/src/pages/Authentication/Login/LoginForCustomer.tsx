@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { message } from "antd";
 import { SignInInterface } from "../../../Interfaces/ISignIn";
-import { GetCustomerByID, SignIn } from "../../../services/http";
+import { GetCustomerByID, SignInForCustomer } from "../../../services/http";
 import "./Login.css"
 import { Link } from "react-router-dom";
 
-function Login() {
+function LoginForCustomer() {
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -17,7 +17,7 @@ function Login() {
 			Email: email,
 			Password: password
 		}
-		let resSignin = await SignIn(data);
+		let resSignin = await SignInForCustomer(data);
 		if (resSignin) {
 			messageApiLogin.success("Sign-in successful");
 			localStorage.setItem("isLogin", "true");
@@ -43,7 +43,7 @@ function Login() {
 	return (
 		<div className="login-container">
 			{contextHolderLogin}
-			<div className="form-container">
+			<div className="form-login-container">
 				<form onSubmit={onFinish} className="login-form">
 					<span className="title">Sign <span>In</span></span>
 					<div className="email-box input-box">
@@ -73,4 +73,4 @@ function Login() {
 	);
 }
 
-export default Login;
+export default LoginForCustomer;

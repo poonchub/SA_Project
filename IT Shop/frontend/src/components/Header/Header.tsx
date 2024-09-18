@@ -81,7 +81,7 @@ function Header(props: { page: any;}){
             {showName}
         </div>
     ) : (
-        <Link to='/Login' className="login-box">
+        <Link to='/Login-Customer' className="login-box">
             <div className="img-box">
                 <img src={profilePath} alt="" />
             </div>

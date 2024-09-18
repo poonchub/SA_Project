@@ -5,9 +5,9 @@ import Selected from "../pages/Selected";
 import Profile from "../pages/Profile";
 import Payment from "../pages/Payment";
 import MinimalLayout from "../layout/MinimalLayOut/MinimalLayOut";
-import Login from "../pages/Authentication/Login/Login";
 import Cart from "../pages/Cart";
 import Edit from "../pages/Edit";
+import LoginForCustomer from "../pages/Authentication/Login/LoginForCustomer";
 
 const CustomerRoutes = (): RouteObject => {
  
@@ -23,9 +23,8 @@ const CustomerRoutes = (): RouteObject => {
                 element: <Home />
             },
             {
-                path: "/Login",
-
-                element: <Login />,
+                path: "/Login-Customer",
+                element: <LoginForCustomer/>,
             },
             {
                 path: "/product",

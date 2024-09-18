@@ -18,7 +18,8 @@ func main() {
 
 	r.Use(CORSMiddleware())
 
-	r.POST("/signin", controller.SignIn)
+	r.POST("/signin-customer", controller.SignInForCustomer)
+	r.POST("/signin-owner", controller.SignInForOwner)
 
 	r.Static("/images", "./images")
 
@@ -39,6 +40,11 @@ func main() {
 		router.GET("/brands", controller.ListBrands)
 
 		// Cart
+		router.PATCH("/updateCart/:id",controller.UpdateCart) //update quantity 
+		router.DELETE("/deleteCart/:id",controller.DelteProductCart)//delete cart by user id
+		router.POST("/c/:id", controller.CreateCartByChat) // create cart by user id
+		router.GET("/cart/:customerId", controller.GetCartByCustomer)// get cart by user id 
+		router.PATCH("/product/:productid",controller.UpdateProductFromCart)
 
 		// Category
 		router.GET("/categories", controller.ListCategories)
@@ -64,14 +70,12 @@ func main() {
 		router.GET("/orderItems/:id", controller.GetOrderItemsByOrderID)
 
 		// Owner
-
+		router.GET("/owners", controller.ListOwner)
+		router.GET("/owner/:id", controller.GetOwnerByID)
+		
 		// Payment
 		router.GET("/payments", controller.ListPayment)
 		router.POST("/payment", controller.CreatePayment)
-
-		// Owner Routes
-		router.GET("/owners", controller.ListOwner)
-		router.GET("/owners/:id", controller.GetOwnerByID)
 
 		// Image Routes
 		router.GET("/product-images", controller.ListImages)
@@ -86,12 +90,6 @@ func main() {
 		router.PATCH("/products/:id", controller.UpdateProduct)
 		router.DELETE("/products/:id", controller.DeleteProduct)
 
-		// cart 
-		router.PATCH("/updateCart/:id",controller.UpdateCart) //update quantity 
-		router.DELETE("/deleteCart/:id",controller.DelteProductCart)//delete cart by user id
-		router.POST("/c/:id", controller.CreateCartByChat) // create cart by user id
-		router.GET("/cart/:customerId", controller.GetCartByCustomer)// get cart by user id 
-		router.PATCH("/product/:productid",controller.UpdateProductFromCart)
 	}
 
 	r.GET("/", func(c *gin.Context) {
