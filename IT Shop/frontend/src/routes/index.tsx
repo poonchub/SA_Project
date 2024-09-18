@@ -2,6 +2,7 @@ import { useRoutes, RouteObject } from "react-router-dom";
 
 import MainRoutes from "./MainRoutes";
 import CustomerRoutes from "./CustomerRoutes";
+import OwnerRoutes from "./OwnerRoutes";
 
 
 function ConfigRoutes() {
@@ -11,7 +12,7 @@ function ConfigRoutes() {
     let routes: RouteObject[] = [];
 
     if (isLoggedIn) {
-        routes = [CustomerRoutes()];
+        routes = [OwnerRoutes()];
     } 
     else {
         routes = [MainRoutes()];

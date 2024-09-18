@@ -69,16 +69,22 @@ func main() {
 		router.GET("/payments", controller.ListPayment)
 		router.POST("/payment", controller.CreatePayment)
 
-		// Image
+		// Owner Routes
+		router.GET("/owners", controller.ListOwner)
+		router.GET("/owners/:id", controller.GetOwnerByID)
+
+		// Image Routes
+		router.GET("/product-images", controller.ListImages)
 		router.GET("/product-images/:productId", controller.GetImageByProductByID)
 		router.POST("/product-image/:productId", controller.CreateImage)
+		router.PUT("/product-image/:productId", controller.UpdateImage)
 
 		// Product
 		router.GET("/products", controller.ListProducts)
-		router.GET("/product/:id", controller.GetProductByID)
-		router.PATCH("/product", controller.UpdateProduct)
-
-
+		router.GET("/products/:id", controller.GetProductByID)
+		router.POST("/products", controller.CreateProduct)
+		router.PATCH("/products/:id", controller.UpdateProduct)
+		router.DELETE("/products/:id", controller.DeleteProduct)
 
 		// cart 
 		router.PATCH("/updateCart/:id",controller.UpdateCart) //update quantity 
