@@ -67,7 +67,7 @@ function Header(props: { page: any;}){
         </div>
     )
     
-    const profilePath = isLoggedIn ? (
+    const profilePath = (isLoggedIn && localStorage.getItem("profilePath")!="") ? (
         `${apiUrl}/${localStorage.getItem("profilePath")}`
     ) : page=="home" ? "./images/icon/user-pink.png" :(
         "./images/icon/user-black.png"

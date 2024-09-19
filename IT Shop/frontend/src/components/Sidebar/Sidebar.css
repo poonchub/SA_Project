@@ -12,6 +12,7 @@
         padding-left: 20px;
         background-color: var(--subtheme-color3);
         color: var(--mainfont-color);
+        transition: all 0.5s;
 
         & .range-box {
             display: flex;

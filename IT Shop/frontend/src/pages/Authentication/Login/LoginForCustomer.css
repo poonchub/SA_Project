@@ -1,5 +1,5 @@
 @import "../../../stylesheet/ColorSheet.css";
-.login-container{
+.login-customer-container{
     width: 100vw;
     height: 100vh;
     background: linear-gradient(45deg, #4583ff, #ff507c);

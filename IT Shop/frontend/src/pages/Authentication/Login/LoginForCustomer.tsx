@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { message } from "antd";
 import { SignInInterface } from "../../../Interfaces/ISignIn";
 import { CreateCustomer, GetCustomerByID, GetGenders, SignInForCustomer } from "../../../services/http";
-import "./Login.css";
+import "./LoginForCustomer.css";
 import { Link } from "react-router-dom";
 import { CustomerInterface } from "../../../Interfaces/ICustomer";
 import { GendersInterface } from "../../../Interfaces/IGender";
@@ -104,7 +104,7 @@ function LoginForCustomer() {
 	}, [isSignupActive]);
 
 	return (
-		<div className="login-container">
+		<div className="login-customer-container">
 			{contextHolderLogin}
 			<div className="form-login-container">
 				<div className="bg-color-box"></div>

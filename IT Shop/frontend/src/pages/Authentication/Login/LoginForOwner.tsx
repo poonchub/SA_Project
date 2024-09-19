@@ -2,7 +2,7 @@ import { useState } from "react";
 import { message } from "antd";
 import { SignInInterface } from "../../../Interfaces/ISignIn";
 import { GetOwnerByID, SignInForOwner } from "../../../services/http";
-import "./Login.css"
+import "./LoginForOwner.css"
 import { Link } from "react-router-dom";
 
 function LoginForOwner() {
@@ -42,32 +42,31 @@ function LoginForOwner() {
 	}
 
 	return (
-		<div className="login-container">
+		<div className="login-owner-container">
 			{contextHolderLogin}
 			<div className="form-login-container">
 				<form onSubmit={onFinish} className="login-form">
 					<span className="title">Sign <span>In</span></span>
 					<div className="email-box input-box">
-						<label className="email-text text">Email</label>
 						<input
 							type="email"
 							className="email-input in-box"
+							placeholder="Email"
 							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</div>
 					<div className="password-box input-box">
-						<label className="password-text text">Password</label>
 						<input
 							type="password"
 							className="password-input in-box"
+							placeholder="Password"
 							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</div>
 					<div className="input-box">
-						<input type="submit" className="submit-btn" value={"Submit"} />
+						<input type="submit" className="submit-btn" value={"SIGN IN"} />
 					</div>
 				</form>
-				<button className="register-btn">Register</button>
                 <Link className="back" to='/'>Back To Home</Link>
 			</div>
 		</div>
