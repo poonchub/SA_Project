@@ -53,6 +53,7 @@ func main() {
 		router.GET("/customers", controller.ListCustomers)
 		router.GET("/customer/:id", controller.GetCustomerByID)
 		router.PATCH("/customer/:id", controller.UpdateCustomerByID)
+		router.POST("/customer", controller.CreateCustomer)
 
 		// Order
 		router.GET("/orders", controller.ListOrders)

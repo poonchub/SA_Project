@@ -45,7 +45,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
 
             if (resultOrder) {
                 const newOrderID = resultOrder.data.ID;
-                localStorage.setItem("orderid", `${newOrderID}`)
+                localStorage.setItem("orderId", `${newOrderID}`)
                 const orderItemData: OrderItemInterface = {
                     Quantity: quantity,
                     Price: totalPrice,
@@ -56,10 +56,9 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
                 const resultOrderItem = await CreateOrderItem(orderItemData);
 
                 const updateProductData: ProductInterface = {
-                    ID: products[sltProduct].ID,
                     Stock: (products[sltProduct].Stock)-1
                 }
-                const resultUpdateProduct = await UpdateProduct(updateProductData)
+                const resultUpdateProduct = await UpdateProduct(products[sltProduct].ID,updateProductData)
     
                 if (resultOrderItem && resultUpdateProduct) {
                     messageApi.open({

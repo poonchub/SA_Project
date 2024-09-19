@@ -235,6 +235,24 @@ async function UpdateCustomerByID(data: CustomerInterface, id: Number | undefine
   return res;
 }
 
+async function CreateCustomer(data: CustomerInterface) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/customer`, requestOptions).then((res) => {
+    if (res.status == 201) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
+
+  return res;
+}
+
 // Order
 async function GetOrders() {
   const requestOptions = {
@@ -856,9 +874,6 @@ async function UpdateOrderAddressByOrderID(data: OrderInterface) {
   return res;
 }
 
-
-
-
 export {
 
     SignInForCustomer,
@@ -884,6 +899,7 @@ export {
     GetCustomers,
     GetCustomerByID,
     UpdateCustomerByID,
+    CreateCustomer,
 
     // Payment  --------------------------
     CreatePayment,
