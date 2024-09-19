@@ -103,17 +103,9 @@ function Header(props: { page: any; }) {
             </div>
             <nav>
                 <Link to='/Product/Create' className='menu' id='new-product'>New Product</Link>
-                <Link to='/Profile' className='menu' id='profile'>Profile</Link>
+                <Link to='/OwnerProfile' className='menu' id='profile'>Profile</Link>
                 <div className="line"></div>
                 {OwnerElement}
-                {/* <div className='logout-boxed'>
-                    <Link to="/Login" className="logout-box">
-                        <img src="/images/icon/account.png" alt="User account" />
-                        <div className="text-box">
-                            Log-<span>Out</span>
-                        </div>
-                    </Link>
-                </div> */}
             </nav>
           
         </div>

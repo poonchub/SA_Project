@@ -1,80 +1,68 @@
-.profile-container {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 400px;
-    margin: 20px auto;
-    border: 1px solid #ccc;
-    border-radius: 10px;
     padding: 20px;
-    background-color: white;
-    position: relative;
+    height: 100vh;
+    background-color: #f5f5f5; 
 }
 
-.profile-header {
+.image-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 100%;
     margin-bottom: 20px;
-    position: relative;
 }
 
-.profile-pic {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
+.circular-image {
+    width: 120px; 
+    height: 120px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 3px solid #FF2E63; 
 }
 
-.edit-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #007bff;
+
+table {
+    width: 100%;
+    max-width: 600px; 
     border: none;
-    color: white;
-    font-size: 16px;
-    border-radius: 50%;
-    padding: 8px;
-    cursor: pointer;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-.profile-info {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+td {
+    padding: 10px;
+    vertical-align: middle;
 }
 
-.profile-info p, .profile-info input {
-    margin: 10px 0;
-    width: 100%;
+td:first-child {
+    width: 50px;
     text-align: center;
 }
 
-input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+td:first-child svg {
+    font-size: 28px;
+    color: #FF2E63;
 }
 
-.save-button {
-    background-color: #28a745;
-    border: none;
-    color: white;
-    padding: 10px;
-    margin-top: 10px;
-    width: 100%;
-    border-radius: 5px;
-    cursor: pointer;
+.img-custom img{
+    width: 50px;
 }
 
-@media (min-width: 600px) {
-    .profile-container {
-        max-width: 600px;
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
     }
 
-    .profile-header {
-        justify-content: space-between;
+    .circular-image {
+        width: 100px; 
+        height: 100px; 
+    }
+
+    table {
+        font-size: 14px; 
     }
 }

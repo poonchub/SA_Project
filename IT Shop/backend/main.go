@@ -63,13 +63,12 @@ func main() {
 		router.PATCH("/orderItem", controller.UpdateOrderItem)
 		router.GET("/orderItems/:id", controller.GetOrderItemsByOrderID)
 
-		// Owner
-
 		// Payment
 		router.GET("/payments", controller.ListPayment)
 		router.POST("/payment", controller.CreatePayment)
 
-		// Owner Routes
+
+		// Owner
 		router.GET("/owners", controller.ListOwner)
 		router.GET("/owners/:id", controller.GetOwnerByID)
 

@@ -4,6 +4,7 @@ import "gorm.io/gorm"
 
 type Owner struct {
 	gorm.Model
+	Prefix      string
 	FirstName   string
 	LastName    string
 	AdminRole   string

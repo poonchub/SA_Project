@@ -184,6 +184,8 @@ function ProductCreate() {
                     placeholder="Enter Product Price"
                     style={{ width: '100%' }}
                     min={0}
+                    step={0.01} 
+                    precision={2} 
                   />
                 </Form.Item>
 
@@ -214,6 +216,7 @@ function ProductCreate() {
                       message: 'Please select the Brand!',
                     },
                   ]}
+                  className="custom-select-brand"
                   style={{ flex: '0 0 48%' }}
                 >
                   <Select allowClear placeholder="Select Product Brand">
@@ -235,6 +238,7 @@ function ProductCreate() {
                     },
                   ]}
                   style={{ flex: '0 0 48%' }}
+                  className="custom-select-category"
                 >
                   <Select allowClear placeholder="Select Category">
                     {categories.map((item) => (
@@ -282,12 +286,10 @@ function ProductCreate() {
 
 
                 </Form.Item>
-
-
                 <Form.Item
                   style={{ width: '100%', textAlign: 'center' }}
                 >
-                  <CancelButton to="/" />
+                  <CancelButton to="/ProductManagement" />
                  <SubmitButton loading={loading} />
                 </Form.Item>
               </Form>

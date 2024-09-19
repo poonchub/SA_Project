@@ -6,6 +6,7 @@ import { ProductInterFace } from "../../Interfaces/IProduct";
 import { SignInInterface } from "../../Interfaces/ISignIn";
 import { CartInterface } from "../../Interfaces/ICart";
 import { PaymentInterface } from "../../Interfaces/IPayment";
+import { OwnerInterface } from "../../Interfaces/IOwner";
 
 export const apiUrl = "http://localhost:8000";
 
@@ -808,6 +809,23 @@ async function UpdateOrderAddressByOrderID(data: OrderInterface) {
   return res;
 }
 
+//Owner
+async function GetOwnerByID(id: number): Promise<OwnerInterface> {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const response = await fetch(`${apiUrl}/owners/${id}`, requestOptions);
+  if (response.status == 200) {
+    return response.json();
+  } else {
+    throw new Error("Failed to fetch owner");
+  }
+}
+
 
 
 
@@ -866,4 +884,7 @@ export {
     GetProductByID,
     UpdateProduct,
     DeleteProductByID,
+
+    // Owner
+    GetOwnerByID,
 };

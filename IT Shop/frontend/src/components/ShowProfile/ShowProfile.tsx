@@ -4,7 +4,7 @@ import { UserOutlined, CalendarOutlined, MailOutlined, EnvironmentOutlined } fro
 import { Link, useNavigate } from 'react-router-dom';
 import './ShowProfile.css';
 import { CustomerInterface } from '../../Interfaces/ICustomer';
-import { apiUrl, GetAddressByCustomerID, GetCustomerByID, GetOrders, GetOrderByCustomerID } from '../../services/http';
+import { apiUrl, GetAddressByCustomerID, GetCustomerByID, GetOrderByCustomerID } from '../../services/http';
 import { AddressInterface } from '../../Interfaces/IAddress';
 import { OrderInterface } from '../../Interfaces/IOrder';
 import { Col, Row } from "antd";
