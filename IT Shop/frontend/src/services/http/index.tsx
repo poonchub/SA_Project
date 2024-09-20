@@ -479,7 +479,7 @@ async function UpdateProduct(data: ProductInterFace) {
 
 
 // Cart Thiradet
-export async function GetCart(id: number) {
+export async function GetCart(id: number) {// id customer
   const requestOptions = {
     method: "GET",
     headers: {
@@ -514,7 +514,8 @@ export async function UpdateQuantity(p0: CartInterface[], id: number, newQuantit
     }
 
     // หลังจากอัปเดตสำเร็จ ให้เรียก GetCart เพื่อดึงข้อมูลตะกร้าล่าสุด
-    const updatedCart = await GetCart(1);
+    const cus_id = Number(localStorage.getItem("id"));
+    const updatedCart = await GetCart(cus_id);
     if (updatedCart) {
       console.log(`Updated quantity for item with ID: ${id} to ${newQuantity}`);
       return updatedCart; // อัปเดตข้อมูลตะกร้า
@@ -532,7 +533,7 @@ export async function UpdateQuantity(p0: CartInterface[], id: number, newQuantit
 }
 
 
-export async function DeleteCart(id: number | undefined) { // รับค่า id ที่จะลบcart
+export async function DeleteCart(id: number | undefined) { // รับค่า id ที่จะลบcart  // *******************************************************
   if (!id) {
     console.error("Invalid ID");
     return false;
@@ -553,6 +554,7 @@ export async function DeleteCart(id: number | undefined) { // รับค่า
       console.error(`Error: ${res.status} - ${res.statusText}`);
       return false;
     }
+    
   } catch (error) {
     console.error("Network error:", error);
     return false;
@@ -605,7 +607,7 @@ export async function AddToCart(customerId: number, productId: number, quantity:
   }
 }
 
-export async function UpdateProductbyid(data: ProductInterFace,p_id:number) {
+export async function UpdateProductbyid(data: ProductInterFace,p_id:number) { // product ที่ถูกสั่ง
   const requestOptions = {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },

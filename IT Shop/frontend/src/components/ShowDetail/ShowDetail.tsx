@@ -98,9 +98,20 @@ function ShowDetail(){
         fetchCartData();
 
       } else {
+        
+        messageApi.open({
+          type: 'error',
+          content: 'เกิดข้อผิดพลาดในการเพิ่มสินค้าในตะกร้า',
+          duration: 2,
+        })
         console.error('Failed to add product to cart');
       }
     } catch (error) {
+    messageApi.open({
+      type: 'error',
+      content: 'เกิดข้อผิดพลาดในการเพิ่มสินค้าในตะกร้า',
+      duration: 2,
+    })
       console.error('Error adding product to cart:', error);
     }
   };  

@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.web-cart-layout{
+
+
+    background-color: rgb(255, 255, 255);
+    height: 100vh;
+    width: 100vw;
+    /* position: fixed; */
+    display: flex;
+    justify-content: center;
+    
+}
