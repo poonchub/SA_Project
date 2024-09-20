@@ -37,8 +37,11 @@
 }
 #model{
     width: 129px; 
-    height:126px;
-    border-radius: 8px
+    height:118px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #close {
     width: 27px;
@@ -48,7 +51,6 @@
 }
 .delete{
     margin-left: 2.5;
-   
     width: 80px;
     height: 80%;
     display: flex;
@@ -95,6 +97,8 @@
         padding-top:0.2rem ;
         align-items: center;
         justify-content: center;
+        padding-bottom: 2px;
+        padding-left: 1px;
   
     }
 }
@@ -122,6 +126,7 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    padding-bottom: 6px;
 }
 
 
@@ -135,7 +140,7 @@
 } 
 .mon{
     
-    color: #FF3C00;
+    color: var(--subfont-color3);
     font-size: 18px;
     font-weight: bold;
     &p {
@@ -150,15 +155,15 @@
 .container-showcartitem{
    
     
-    position: fixed;
+    /* position: fixed; */
 
-    margin-top: 155px;
+    margin-top: 100px;
    
           /* border: 1px solid red;       */
-    width: 58vw;
-    height: calc(100vw - 75px);
-    padding-right: px;
-    position: fixed;
+    /* width: 58vw; */
+    /* height: calc(100vw - 75px); */
+    /* padding-right: px; */
+    /* position: fixed; */
     
     display: flex;
     flex-direction: column;
@@ -166,7 +171,6 @@
    
     padding: 0px 0px;
     padding-right:10px ;
-    overflow: auto;
    
     
     
@@ -246,6 +250,7 @@
 .select-acction{
     width: 720px;
     /* border: #FF2E63 1px solid;  */
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
@@ -253,9 +258,19 @@
 #select-all{
     background-color: #FF2E63;
     color: white;
+    transition: all 0.5s;
 }
 #delete-all{
     background-color: black;
+    transition: all 0.5s;
+}
+#delete-all:hover{
+    box-shadow: 0 0 3px 1px #545353;
+    font-size: 15px;
+}
+#select-all:hover{
+    box-shadow: 0 0 3px 1px #FF2E63;
+    font-size: 15px;
 }
 .name{
     /* border: #FF2E63 1px solid; */
@@ -277,7 +292,15 @@
 
 .card-container-item{
     /* border: #FF2E63 1px solid; */
-    height: 500px;
+    height: 720px;
     overflow: auto;
 }
 
+.topic-cart-header{
+   
+    width: 720px;
+    color: #FF2E63;
+}
+#check-point{
+    cursor: pointer;
+}

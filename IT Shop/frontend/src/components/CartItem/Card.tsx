@@ -1,23 +1,16 @@
 import "../CartItem/Card.css";
-import Close from "./image/close.png"
+import Close from "./image/close.png";
 import Empty from "../Empty/Empty";
 import { useEffect, useState } from "react";
 import { CartInterface } from "../../Interfaces/ICart";
 import { apiUrl, DeleteCart, GetCart, UpdateQuantity } from "../../services/http";
 import { message, Button } from 'antd';
-
-import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from "framer-motion";
 
 export const formatNumber = (value: number): string => {
-  // ปัดเป็นจำนวนเต็ม
   const roundedValue = Math.round(value);
-  
-  // ใช้ Intl.NumberFormat เพื่อคั่นหลักพันด้วย comma
   return new Intl.NumberFormat().format(roundedValue);
 };
-
-
-
 
 interface ShowlistProps {
   onCartDataChange: (data: CartInterface[] | null) => void;
@@ -28,19 +21,18 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
   const [data, setData] = useState<CartInterface[] | null>(null);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   
-  // แจ้งข้อความ
   const [messageApi, contextHolder] = message.useMessage();
   const [hasNotified, setHasNotified] = useState(false);
+
   const success = () => {
     messageApi.open({
       type: 'success',
       content: 'ล้างตะกร้าสินค้าเรียบร้อยแล้ว',
       className: 'custom-class',
-      style: {
-        marginTop: '10px', // แก้ไขจาก '10h' เป็น '10px'
-      },
+      style: { marginTop: '10px' },
     });
   };
+
   const success1 = () => {
     messageApi.open({
       type: 'success',
@@ -48,33 +40,27 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
       duration: 2,
     });
   };
+
   const fetchCartData = async () => {
     try {
       const cus_id = localStorage.getItem("id");
       const res = await GetCart(Number(cus_id));
       if (res && Array.isArray(res.data)) {
-        // กำหนดประเภทของ item เป็น CartInterface
         const itemsWithStock = res.data.filter((item: CartInterface) => item.Product.Stock !== 0);
         const itemsToRemove = res.data.filter((item: CartInterface) => item.Product.Stock === 0);
         
         setData(itemsWithStock);
         onCartDataChange(itemsWithStock);
   
-        // ลบสินค้าที่ Stock เป็น 0
         if (itemsToRemove.length > 0) {
           await Promise.all(itemsToRemove.map((item: CartInterface) => DeleteCart(item.ID)));
-          console.log("Items removed successfully.");
-  
           if (!hasNotified) {
             message.warning("มีสินค้าถูกลบออกจากตะกร้าเนื่องจากสินค้าหมดแล้ว");
             setHasNotified(true);
-           
-            
           }
         } else {
           setHasNotified(false);
         }
-        
       } else {
         console.error("Unexpected response type:", res);
       }
@@ -85,8 +71,14 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
 
   useEffect(() => {
     fetchCartData();
+    const interval = setInterval(() => {
+      fetchCartData();
+    }, 5000);
+  
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
-
    
   const handleSelectAll = () => {
     if (data) {
@@ -108,8 +100,6 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
       }
     }
   };
-
-
 
   const handleCheckboxChange = (id: number) => {
     setSelectedItems((prevSelectedItems) => {
@@ -133,102 +123,97 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
 
   const handleDeleteCart = async (id: number) => {
     try {
-      await DeleteCart(id);
-      success1();
-      fetchCartData();
+      setData((prevData) => prevData?.filter(item => item.ID !== id) || []); // ทำการลบจาก state ก่อนเพื่อให้อนิเมชั่นทำงาน
+      setTimeout(async () => {
+        await DeleteCart(id);
+        success1();
+        fetchCartData();
+      }, 500); // รอให้อนิเมชั่นเสร็จ
     } catch (error) {
       console.error("Error deleting cart item:", error);
     }
   };
 
-
-
   return (
     <div className="container-showcartitem">
-
-
- 
-          {contextHolder}
-          
+   
+      {contextHolder}
       {data && data.length > 0 ? (
         <>
-        
-         
+          <div className="topic-cart-header">
+            <h1>Shopping Cart</h1>
+          </div>
           <div className="select-acction">
             <Button type="primary" id="select-all" onClick={handleSelectAll}>เลือกทั้งหมด</Button>    
-           <Button type="primary" id="delete-all" onClick={DeleteAllCart}>ลบทั้งหมด</Button> 
-       
-           
+            <Button type="primary" id="delete-all" onClick={DeleteAllCart}>ลบทั้งหมด</Button> 
           </div>
           <div className="card-container-item" id="all-item">
-
-            {/* <div id="scole-item"> */}
-          {data.map((item, index) => (
-            <div key={index}>
-              
-              <div className="card" >
-                <div className="check-item-incart">
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={selectedItems.includes(item.ID || 0)}
-                      onChange={() => handleCheckboxChange(item.ID || 0)}
-                    />
-                    <span className="checkbox"></span>
-                  </label>
-                </div>
-                <div className="image">
-                  <img
-                    src={apiUrl + "/"+item.Product.Images[0].FilePath || ""}
-                    alt=""
-                    id='model'
-                  />
-                </div>
-                <div className="description">
-                  <div className="name">
-                 {item.Product.ProductName}
-                  </div>
-                  <div className="mon">
-                  ฿ {formatNumber(item.Product?.PricePerPiece || 0)}
-                  </div>
-
-                </div>
-                <div className="quantity">
-                  <div id="box-crop">
-                    <div className="minus">
-                      <button
-                          onClick={() => handleUpdateQuantity(item.ID || 0, Number(item.Quantity || 1) - 1)}
-                          disabled={Number(item.Quantity || 1) <= 1}
-                      >-</button>
+            <AnimatePresence>
+              {data.map((item) => (
+                <motion.div
+                  key={item.ID}
+                  initial={{ opacity: 0, y: -100 }}
+                  animate={{ opacity: 1,y: 0 }}
+                  exit={{ opacity: 0, y: 100 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="card">
+                    <div className="check-item-incart">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedItems.includes(item.ID || 0)}
+                          onChange={() => handleCheckboxChange(item.ID || 0)}
+                          id="check-point"
+                        />
+                        <span className="checkbox"></span>
+                      </label>
                     </div>
-                    <div className="value">
-                      <p>{item.Quantity}</p>
+                    <div className="image">
+                      <img
+                        src={apiUrl + "/" + item.Product.Images[0].FilePath || ""}
+                        alt=""
+                        id='model'
+                      />
                     </div>
-                    <div className="plus">
-                      <button
-                        onClick={() => handleUpdateQuantity(item.ID || 0, Number(item.Quantity||1) + 1)}
-                        disabled={(item.Product.Stock || 0) < (Number(item.Quantity||1) + 1)}
-                      >+</button>
+                    <div className="description">
+                      <div className="name">{item.Product.ProductName}</div>
+                      <div className="mon">฿ {formatNumber(item.Product?.PricePerPiece || 0)}</div>
+                    </div>
+                    <div className="quantity">
+                      <div id="box-crop">
+                        <div className="minus">
+                          <button
+                            onClick={() => handleUpdateQuantity(item.ID || 0, Number(item.Quantity || 1) - 1)}
+                            disabled={Number(item.Quantity || 1) <= 1}
+                          >-</button>
+                        </div>
+                        <div className="value">
+                          <p>{item.Quantity}</p>
+                        </div>
+                        <div className="plus">
+                          <button
+                            onClick={() => handleUpdateQuantity(item.ID || 0, Number(item.Quantity || 1) + 1)}
+                            disabled={(item.Product.Stock || 0) < (Number(item.Quantity || 1) + 1)}
+                          >+</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="delete">
+                      <button onClick={() => handleDeleteCart(item.ID || 0)} id="move">
+                        <img src={Close} alt="" id='close'/>
+                      </button>
                     </div>
                   </div>
-                    
-                  </div>
-                <div className="delete">
-                  <button onClick={() => handleDeleteCart(item.ID || 0)} id="move">
-                    <img src={Close} alt="" id='close'/>
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-
-              {/* </div> */}
-          {/* //card container */}
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div> 
         </>
       ) : (
         <Empty />
       )}     
+    
     </div>
   );
 }

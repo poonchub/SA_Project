@@ -5,7 +5,7 @@ import { GetCart } from "../services/http";
 import TopicCart from "../components/CartTopic/Topic";
 import Card from "../components/CartItem/Card";
 import Summary from "../components/CartSummary/Summary";
-
+import  "../stylesheet/Cartlayout.css";
 //for Countcart
 import { AppContext } from '../App'; // ดึง AppContext มาใช้
 
@@ -54,10 +54,18 @@ function Cart(){
         <>
              <Header page={"cart" } /> 
             
-                     <TopicCart />
-                      <Card onCartDataChange={setCartData} onSelectedItemsChange={setSelectedItems}/>
+                     {/* <TopicCart /> */}
+                     <div className="web-cart-layout">
+                      <div className="itemincart">
+                        <Card onCartDataChange={setCartData} onSelectedItemsChange={setSelectedItems}/>
+                      </div>
+                      <div className="summary-web-con">
                      <Summary cartItems={cartData} selectedItems={selectedItems} 
-                    onCartUpdate={handleCartUpdate}/>  
+                    onCartUpdate={handleCartUpdate}/>      
+                      </div>
+                   
+                     </div>
+                     
         </>
     )
 }

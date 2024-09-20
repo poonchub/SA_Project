@@ -12,6 +12,7 @@ import { formatNumber } from "../CartItem/Card";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../../pages/Payment'
 import Payment from "../../pages/Payment";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface TotalPriceProps {
   cartItems: CartInterface[] | null;
@@ -112,6 +113,7 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
 
   useEffect(() => {
     getAddress();
+   
   }, []);
   console.log("Selected item in cart ID", selectedItems);
 
@@ -123,14 +125,14 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
   const createOrderFromCart = async () => {
     try {
       const cus_id = Number(localStorage.getItem("id"));
-
-      const orderData: OrderInterface = {
-        TotalPrice: finalPrice,
+      if (totalPrice > 0) {
+         const orderData: OrderInterface = {
+        TotalPrice: Math.round(finalPrice),
         Status: "not yet paid",
         CustomerID: cus_id,
         AddressID: Number(selectedAddress),
       };
-
+      console.log("Order Data:", orderData);
       const resultOrder = await CreateOrder(orderData);
       let count = 0;
 
@@ -153,21 +155,20 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
             OrderID: resultOrder.data.ID,
             ProductID: item.productID,
           };
+          console.log("Order Item Data:", orderItemData);
          
           await CreateOrderItem(orderItemData);
           const updateProductData: ProductInterface = {
             // ID: item.productID,
             Stock: item.stock - Number(item.quantity),
           };
-
+        
           await UpdateProductbyid(updateProductData,item.productID);
           count++;
         }
           
-        if (resultOrder && count === selected.length) {
-           // Store the orderId in localStorage
-           localStorage.setItem("orderId", resultOrder.data.ID);
-
+        if (resultOrder && count == selected.length && totalPrice > 0) {
+          localStorage.setItem("orderId", resultOrder.data.ID);
           messageApi.open({
             type: "success",
             content: "คำสั่งซื้อของคุณถูกสร้างเรียบร้อยแล้ว",
@@ -190,6 +191,14 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
       }
 
       setUsePopup(false);
+      }else{
+        messageApi.open({
+          type: "error",
+          content: "เกิดข้อผิดพลาดในการสร้างคำสั่งซื้อ",
+          duration: 2,
+        });
+      }
+     
 
     } catch (error) {
       console.error("Error creating order:", error);
@@ -236,8 +245,17 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
   return (
     <div className="summary-container">
       {contextHolder}
-      {cartItems && cartItems.length > 0 ? (
+      {cartItems && selectedItems.length && cartItems.length > 0 ? (
         <>
+            <AnimatePresence>
+           <motion.div
+                
+                  initial={{ opacity: 0, y: -100 }}
+                  animate={{ opacity: 1,y: 0 }}
+                  exit={{ opacity: 0, y: 100 }}
+                  transition={{ duration: 0.5 }}
+              
+            >
           <div className="Summary">
             <div className="sum-topic">
               <p>Summary</p>
@@ -259,11 +277,14 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
             </div>
             <div className="submit">
               <button id="checkout" onClick={handleCheckout}>
-                ชำระเงิน
+                สั่งซื้อ
               </button>
             </div>
+             
+             
           </div>
-
+                </motion.div>
+           </AnimatePresence>
           {/* for popup */}
           {usepopup && (
             <div className="overlay">

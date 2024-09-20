@@ -87,7 +87,11 @@ func CreateCartByChat(c *gin.Context) {
 	result = db.Where("customer_id = ? AND product_id = ?", id, cart.ProductID).First(&existingCart)
 	if result.RowsAffected > 0 {
 		// ถ้ามี cart เดียวกันอยู่แล้ว เพิ่มจำนวน Quantity
-		existingCart.Quantity += cart.Quantity
+		if existingCart.Quantity == product.Stock{
+			cart.Quantity = 0
+			c.JSON(http.StatusOK, gin.H{"message": "Cart equare successfully", "data": existingCart})
+		}else{
+			existingCart.Quantity += cart.Quantity
 		if existingCart.Quantity > product.Stock {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Over stock after adding to cart"})
 			return
@@ -97,6 +101,8 @@ func CreateCartByChat(c *gin.Context) {
 			return
 		}
 		c.JSON(http.StatusOK, gin.H{"message": "Cart updated successfully", "data": existingCart})
+		}
+		
 	} else {
 		// ถ้าไม่มี cart เดียวกัน สร้าง cart ใหม่
 		newCart := entity.Cart{
