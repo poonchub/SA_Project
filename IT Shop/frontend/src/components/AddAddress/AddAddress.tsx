@@ -215,6 +215,10 @@ const Add = () => {
         <h2> เพิ่มที่อยู่ </h2>
         <Divider />
         <Form
+          style={{
+            flexDirection: "column",
+            alignItems: "flex-start"
+          }}
           name="basic"
           form={form}
           layout="vertical"
@@ -233,7 +237,7 @@ const Add = () => {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="SubDistrict"
+                label="Subdistrict"
                 name="Subdistrict"
                 rules={[{ required: true }]}
               >

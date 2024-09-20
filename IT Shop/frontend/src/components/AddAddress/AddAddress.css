@@ -23,13 +23,12 @@
     box-shadow: 0 0 6px var(--subtheme-color1);
 }
 
-.ant-form {
-    flex-direction: column;
-    align-items: flex-start;
-}
-
 .ant-card{
     width: 100%;
     display: flex;
     justify-content: center;
+}
+
+.ant-btn{
+    margin-right: 15px;
 }

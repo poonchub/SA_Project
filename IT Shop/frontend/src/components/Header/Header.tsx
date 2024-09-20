@@ -101,6 +101,18 @@ function Header(props: { page: any;}){
                 <img src={"images/icon/back.png"} alt="" />
             </div>
         </Link>
+    ) : (page=="edit-profile") ? (
+        <Link to="/Profile" className="option-box">
+            <div className="img-box">
+                <img src={"images/icon/back.png"} alt="" />
+            </div>
+        </Link>
+    ) : (page=="add-address") ? (
+        <Link to="/Profile" className="option-box">
+            <div className="img-box">
+                <img src={"images/icon/back.png"} alt="" />
+            </div>
+        </Link>
     ) : <></>
 
     useEffect(()=>{

@@ -10,7 +10,7 @@ function Edit(){
     return (
         <>
             {logoutPopup}
-            <Header page={"profile"}/>
+            <Header page={"edit-profile"}/>
             <EditProfile/>
         </>
     )

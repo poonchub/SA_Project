@@ -153,7 +153,7 @@ function Edit() {
   return (
     <div className="edit-container">
       {contextHolder}
-      <Card>
+      <Card style={{border: "0px"}}>
         <h2> แก้ไขข้อมูลส่วนตัว</h2>
         <Divider />
         <Form
@@ -162,6 +162,10 @@ function Edit() {
           layout="vertical"
           onFinish={onFinish}
           autoComplete="off"
+          style={{
+            flexDirection: "column",
+            alignItems: "flex-start"
+          }}
         >
           <Row gutter={[16, 16]}>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
@@ -249,7 +253,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="SubDistrict"
+                label="Subdistrict"
                 name="Subdistrict"
                 rules={[{ required: true }]}
               >
