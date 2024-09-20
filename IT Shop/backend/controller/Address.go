@@ -51,7 +51,7 @@ func GetAddressByCustomerID(c *gin.Context) {
 	c.JSON(http.StatusOK, addresses)
 }
 
-// PATCH /address
+// PATCH /address/:id
 func UpdateAddressByID(c *gin.Context) {
 	ID := c.Param("id")
 
@@ -102,4 +102,50 @@ func GetAddressByOrderID(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusNotFound, gin.H{"error": "AddressID is empty in the order"})
 	}
+}
+
+// POST /Address
+func AddAddress(c *gin.Context) {
+	var address entity.Address
+
+	// Bind เข้าตัวแปร address
+	if err := c.ShouldBindJSON(&address); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// ตรวจสอบว่า CustomerID มีค่าหรือไม่
+	if address.CustomerID <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "CustomerID is required"})
+		return
+	}
+
+	db := config.DB()
+
+	// ค้นหา customer ด้วย ID
+	var customer entity.Customer
+	result := db.First(&customer, address.CustomerID)
+	if result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Customer not found"})
+		return
+	}
+
+	// สร้าง Address
+	a := entity.Address{
+		Province:      address.Province,
+		District:      address.District,
+		Subdistrict:   address.Subdistrict,
+		ZipCode:       address.ZipCode,
+		AddressDetail: address.AddressDetail,
+		CustomerID:    address.CustomerID,
+		Customer:      customer, // โยงความสัมพันธ์กับ Entity Customer
+	}
+
+	// บันทึกที่อยู่ใหม่
+	if err := db.Create(&a).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusCreated, gin.H{"message": "Created success", "data": a})
 }
