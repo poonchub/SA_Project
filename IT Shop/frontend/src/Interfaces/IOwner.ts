@@ -6,4 +6,5 @@ export interface OwnerInterface {
 	AdminRole?:	string
 	Email?:		string
 	Password?:	string
+	ProfilePath?:	string
 }

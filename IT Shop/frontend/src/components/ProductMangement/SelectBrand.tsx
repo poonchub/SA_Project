@@ -33,7 +33,7 @@ function SelectBrand({ onBrandChange }: SelectBrandProps) {
             <Form layout="inline">
                 <Form.Item name="brand" label="Brand">
                     <Select 
-                        placeholder="Select Product Brand"
+                        placeholder="เลือกแบรนด์"
                         onChange={value => onBrandChange(value)}
                     >
                         {brands.length > 0 ? (

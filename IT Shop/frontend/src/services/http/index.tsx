@@ -5,6 +5,8 @@ import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { SignInInterface } from "../../Interfaces/ISignIn";
 import { CartInterface } from "../../Interfaces/ICart";
 import { ProductInterface } from "../../Interfaces/IProduct";
+import { PaymentInterface } from "../../Interfaces/IPayment";
+import { OwnerInterface } from "../../Interfaces/IOwner";
 
 export const apiUrl = "http://localhost:8000";
 

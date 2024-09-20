@@ -12,14 +12,14 @@ import SearchBox from '../../components/ProductMangement/SearchBox';
 import '../../components/ProductMangement/ProductListPage.css'
 
 function ProductList() {
-    const {logoutPopup} = useContext(AppContext)
+    const { logoutPopup } = useContext(AppContext)
 
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [products, setProducts] = useState<ProductInterFace[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<ProductInterFace[]>([]);
-    const [selectedBrand,setSelectedBrand] = useState<string | undefined>(undefined);
-    const [selectedCategory,setSelectedCategory] = useState<string | undefined>(undefined);
+    const [selectedBrand, setSelectedBrand] = useState<string | undefined>(undefined);
+    const [selectedCategory, setSelectedCategory] = useState<string | undefined>(undefined);
     const [modalVisible, setModalVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [modalText, setModalText] = useState<string>("");
@@ -29,7 +29,7 @@ function ProductList() {
         const resProduct = await ListProducts();
         if (resProduct) {
             setProducts(resProduct);
-            setFilteredProducts(resProduct);  // Initially, all products are displayed
+            setFilteredProducts(resProduct);
         }
     };
 
@@ -97,12 +97,12 @@ function ProductList() {
 
     const handleCategoryChange = (category: string) => {
         setSelectedCategory(category);
-        applyFilters(filteredProducts);
+        applyFilters();
     };
-    
+
     const handleBrandChange = (brand: string) => {
         setSelectedBrand(brand);
-        applyFilters(filteredProducts);
+        applyFilters();
     };
 
     const applyFilters = (productList: ProductInterFace[] = products) => {
@@ -119,7 +119,7 @@ function ProductList() {
         if (filtered.length === 0) {
             Modal.warning({
                 title: 'ไม่พบสินค้า',
-                content: 'ไม่พบสินค้าที่คุณค้นหา โปรดลองใหม่อีกครั้ง',
+                content: `ไม่พบสินค้าที่ตรงกับค่าที่ค้นหา โปรดลองใหม่อีกครั้ง`,
                 className: 'custom-modal',
                 onOk: () => {
                     setLoading(true);
@@ -133,9 +133,6 @@ function ProductList() {
             setFilteredProducts(filtered);
         }
     };
-
-
-
 
 
     const columns: ColumnsType<ProductInterFace> = [
@@ -168,6 +165,9 @@ function ProductList() {
             dataIndex: 'Description',
             key: 'Description',
             align: 'center',
+            render: (description: string) => (
+                description.length > 50 ? `${description.substring(0, 50)}...` : description
+            ),
         },
         {
             title: 'Price',
@@ -202,8 +202,8 @@ function ProductList() {
             align: 'center',
             render: (record: ProductInterFace) => (
                 <Space size="middle">
-                    <Button onClick={() => handleEdit(record?.ID ?? 0)} type="primary">Edit</Button>
-                    <Button onClick={() => handleDelete(record?.ID ?? 0)} danger>Delete</Button>
+                    <Button onClick={() => handleEdit(record?.ID ?? 0)} type="primary">จัดการ</Button>
+                    <Button onClick={() => handleDelete(record?.ID ?? 0)} danger>ลบสินค้า</Button>
                 </Space>
             )
         },
@@ -214,12 +214,13 @@ function ProductList() {
             {logoutPopup}
             <Header page={"ProductList"} />
             <Layout className="my-layout1">
-                <Content style={{ padding: '0 20px', marginTop: '20px' }}>
-                    <SearchBox
+            <SearchBox
                         onSearch={handleSearch}
                         onCategoryChange={handleCategoryChange}
                         onBrandChange={handleBrandChange}
                     />
+                <Content style={{ padding: '0 20px', marginTop: '20px' }}>
+                    
                     {loading ? (
                         <Spin size="large" style={{ display: 'block', margin: '20px auto' }} />
                     ) : (
@@ -252,6 +253,8 @@ function ProductList() {
             >
                 <p>{modalText}</p>
             </Modal>
+            
+
         </>
     );
 }

@@ -5,6 +5,7 @@ import ProductList from "../pages/ProductMangement/ProductList";
 import ProductEdit from "../pages/ProductMangement/edit/ProductEdit";
 import ProductCreate from "../pages/ProductMangement/create/ProductCreate";
 import LoginForOwner from "../pages/Authentication/Login/LoginForOwner";
+import ShowOwnerProfile from "../pages/ProductMangement/OwnerPofile";
 
 const OwnerRoutes = (): RouteObject => {
  
@@ -26,6 +27,10 @@ const OwnerRoutes = (): RouteObject => {
             {
                 path: "/ProductManagement",
                 element: <ProductList />
+            },
+            {
+                path: "/OwnerProfile",
+                element: <ShowOwnerProfile />
             },
             {
                 path: "/Product/Edit/:id",

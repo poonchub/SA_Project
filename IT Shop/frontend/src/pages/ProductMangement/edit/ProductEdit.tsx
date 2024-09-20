@@ -179,12 +179,6 @@ function ProductEdit() {
                 <Form.Item
                   name="ProductName"
                   label="Product Name"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please input the Product Name!',
-                    },
-                  ]}
                   style={{ flex: '0 0 48%' }}
                 >
                   <Input placeholder="Enter Product Name" />
@@ -193,12 +187,6 @@ function ProductEdit() {
                 <Form.Item
                   name="Description"
                   label="Description"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please input the Description!',
-                    },
-                  ]}
                   style={{ flex: '0 0 100%' }}
                 >
                   <Input.TextArea placeholder="Enter Product Description" />
@@ -207,30 +195,20 @@ function ProductEdit() {
                 <Form.Item
                   name="PricePerPiece"
                   label="Price"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please input the Price!',
-                    },
-                  ]}
                   style={{ flex: '0 0 48%' }}
                 >
                   <InputNumber
                     placeholder="Enter Product Price"
                     style={{ width: '100%' }}
                     min={0}
+                    step={0.01} 
+                    precision={2} 
                   />
                 </Form.Item>
 
                 <Form.Item
                   name="Stock"
                   label="Quantity"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please input the Quantity!',
-                    },
-                  ]}
                   style={{ flex: '0 0 48%' }}
                 >
                   <InputNumber
@@ -243,12 +221,6 @@ function ProductEdit() {
                 <Form.Item
                   name="BrandID"
                   label="Brand"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please select the Brand!',
-                    },
-                  ]}
                   style={{ flex: '0 0 48%' }}
                 >
                   <Select allowClear placeholder="Select Product Brand">
@@ -263,12 +235,6 @@ function ProductEdit() {
                 <Form.Item
                   name="CategoryID"
                   label="Category"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please select the Category!',
-                    },
-                  ]}
                   style={{ flex: '0 0 48%' }}
                 >
                   <Select allowClear placeholder="Select Category">
@@ -283,12 +249,6 @@ function ProductEdit() {
                 <Form.Item
                   name="Picture"
                   label="Images"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please upload the product images!',
-                    },
-                  ]}
                   style={{ flex: '0 0 100%' }}
                 >
                   <div>
@@ -328,7 +288,7 @@ function ProductEdit() {
                 <Form.Item
                   style={{ width: '100%', textAlign: 'center' }}
                 >
-                  <Link to="/">
+                  <Link to="/ProductManagement">
                     <Button id="cancel-bt" type="default">
                       Cancel
                     </Button>

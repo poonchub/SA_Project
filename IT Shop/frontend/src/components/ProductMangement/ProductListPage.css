@@ -1,5 +1,5 @@
 /* Layout */
-.my-layout1 {
+.ant-layout my-layout1 {
     position: fixed;
     width: 100vw;
     margin-top: 75px;
@@ -7,50 +7,52 @@
     overflow: auto;
     display: flex;
     padding-bottom: 20px;
-    background-color: #F6F9FC;
 }
 
 /* Antd Table */
 .product-table .ant-table-thead > tr > th {
-    background-color: #FF2E63; /* สีพื้นหลังของ header */
-    color: #fff; /* สีตัวอักษรของ header */
-    font-size: 18px; /* ขนาดตัวอักษรของ header */
+    background-color: #FF2E63; 
+    color: #fff; 
+    font-size: 18px; 
     font-weight: bolder;
     border: none !important;
 }
 
 .product-table .ant-table-cell {
-    border: none !important; /* ซ่อนขอบของเซลล์ */
+    border: none !important; 
 }
 
-/* แสดงเฉพาะขอบด้านล่างของเซลล์ */
 .product-table .ant-table-cell {
-    border-bottom: 1px solid #e8e8e8 !important; /* สีและขนาดของขอบด้านล่าง */
+    border-bottom: 1px solid #e8e8e8 !important; 
 }
 
-
-
 .product-table .ant-table-cell {
-    padding: 20px !important; /* การเว้นระยะภายในเซลล์ */
+    padding: 20px !important; 
 }
 
 
 .product-table .ant-table-thead td {
-    font-weight: bold !important; /* ตัวหนาของข้อความใน header */
-    text-align: center !important; /* จัดข้อความให้ตรงกลางใน header */
+    font-weight: bold !important; 
+    text-align: center !important; 
 }
 
+.ant-table-content{
+    /* border:1px solid red; */
+    margin-bottom: 20px;
+
+}
 
 
 
 /* Image in Table */
 .product-table img {
-    max-width: 100px;
+    max-width: 1000px;
     height: auto;
 }
 
 /* Action buttons */
 .product-table .ant-btn {
+    background-color: rgb(71, 209, 71);
     font-size: 14px;
     padding: 4px 12px;
     border-radius: 5px;
@@ -58,11 +60,6 @@
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.product-table .ant-btn-primary {
-    background-color: #1890ff;
-    border-color: #1890ff;
-    color: white;
-}
 
 .product-table .ant-btn-default {
     background-color: #fff;
@@ -72,7 +69,6 @@
 
 .product-table .ant-btn-primary:hover,
 .product-table .ant-btn-default:hover {
-    background-color: #40a9ff;
     color: white;
 }
 
@@ -123,8 +119,6 @@
 }
 
 
-
-
 /* Antd Modal ลบ */
 .custom-modal2 .ant-modal-footer {
     display: flex;
@@ -163,6 +157,15 @@
     justify-content: flex-end;
 }
 
+.ant-btn-primary {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* กำหนดการเปลี่ยนแปลงที่สมูท */
+}
+
+.ant-btn-primary:hover {
+    background-color: #FF2E63 !important;
+    border-color: #FF2E63 !important; /* เปลี่ยนสี border ให้เข้ากับสีพื้นหลัง */
+    color: #fff; /* เปลี่ยนสีตัวอักษร */
+}
 
 
 /* Responsive Design for table container */
