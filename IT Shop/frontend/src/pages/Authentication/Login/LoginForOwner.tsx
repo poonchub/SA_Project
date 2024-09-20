@@ -26,11 +26,11 @@ function LoginForOwner() {
 			localStorage.setItem("token", resSignin.token);
 			localStorage.setItem("owner_id", resSignin.id);
 
-            let resGetCustomer = await GetOwnerByID(resSignin.id)
+            let resGetOwner = await GetOwnerByID(resSignin.id)
 
-            localStorage.setItem("firstName", resGetCustomer.FirstName);
-			localStorage.setItem("lastName", resGetCustomer.LastName);
-            localStorage.setItem("profilePath", resGetCustomer.ProfilePath);
+            localStorage.setItem("firstName", resGetOwner.FirstName);
+			localStorage.setItem("lastName", resGetOwner.LastName);
+            localStorage.setItem("profilePath", resGetOwner.ProfilePath);
 
 			setTimeout(() => {
 				location.href = "/";

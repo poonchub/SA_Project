@@ -4,20 +4,20 @@ import { ColumnsType } from 'antd/es/table';
 import { useNavigate } from 'react-router-dom';
 import Layout, { Content } from 'antd/es/layout/layout';
 import { AppContext } from '../../App';
-import { ProductInterFace } from '../../Interfaces/IProduct';
 import { apiUrl, DeleteProductByID, ListProducts } from '../../services/http';
 import { ImageInterface } from '../../Interfaces/IImage';
 import Header from '../../components/ProductMangement/Header';
 import SearchBox from '../../components/ProductMangement/SearchBox';
 import '../../components/ProductMangement/ProductListPage.css'
+import { ProductInterface } from '../../Interfaces/IProduct';
 
 function ProductList() {
     const { logoutPopup } = useContext(AppContext)
 
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [products, setProducts] = useState<ProductInterFace[]>([]);
-    const [filteredProducts, setFilteredProducts] = useState<ProductInterFace[]>([]);
+    const [products, setProducts] = useState<ProductInterface[]>([]);
+    const [filteredProducts, setFilteredProducts] = useState<ProductInterface[]>([]);
     const [selectedBrand, setSelectedBrand] = useState<string | undefined>(undefined);
     const [selectedCategory, setSelectedCategory] = useState<string | undefined>(undefined);
     const [modalVisible, setModalVisible] = useState(false);
@@ -105,7 +105,7 @@ function ProductList() {
         applyFilters();
     };
 
-    const applyFilters = (productList: ProductInterFace[] = products) => {
+    const applyFilters = (productList: ProductInterface[] = products) => {
         let filtered = [...productList];
 
         if (selectedBrand) {
@@ -135,7 +135,7 @@ function ProductList() {
     };
 
 
-    const columns: ColumnsType<ProductInterFace> = [
+    const columns: ColumnsType<ProductInterface> = [
         {
             title: 'ID',
             dataIndex: 'ID',
@@ -200,7 +200,7 @@ function ProductList() {
             title: 'Action',
             key: 'action',
             align: 'center',
-            render: (record: ProductInterFace) => (
+            render: (record: ProductInterface) => (
                 <Space size="middle">
                     <Button onClick={() => handleEdit(record?.ID ?? 0)} type="primary">จัดการ</Button>
                     <Button onClick={() => handleDelete(record?.ID ?? 0)} danger>ลบสินค้า</Button>

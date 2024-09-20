@@ -25,8 +25,10 @@ const OwnerProfile: React.FC = () => {
     getOwner();
   }, []);
 
+  
+
   const profileImageUrl = useMemo(() => {
-    return `${apiUrl}/${localStorage.getItem("profilePath") || owner?.ProfilePath || '/images/default-profile.png'}`;
+    return localStorage.getItem("profilePath")!="" ? `${apiUrl}/${localStorage.getItem("profilePath")}` : '/images/account-black.png'
   }, [owner]);
 
   if (loading) return <div>Loading...</div>;
@@ -50,7 +52,7 @@ const OwnerProfile: React.FC = () => {
                 <UserOutlined style={{ fontSize: '30px', color: '#FF2E63' }} />
               </td>
               <td valign='bottom'>
-                {owner?.Prefix} {owner?.FirstName} {owner?.LastName}
+                {owner?.FirstName} {owner?.LastName}
               </td>
             </tr>
             <tr>
