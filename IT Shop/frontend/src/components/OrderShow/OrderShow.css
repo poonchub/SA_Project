@@ -4,12 +4,12 @@
     border: 1px solid #d9d9d9; /* Custom border */
     border-radius: 8px; /* Rounded corners */
     position: absolute;
-    margin-top: 85px;
-    margin-left: 80px;
+    margin-top: 90px;
+    margin-left: 80px; /* Adjust for responsiveness */
     border: 0px solid;
-    width: 50%;
+    width: 50%; /* Use percentage for flexible width */
     box-shadow: 0px 2px 10px var(--shadow-color1);
-    font-size: 24px;
+    font-size: 1.5rem; /* Use rem for responsive font size */
     text-align: center;
     z-index: 0; /* Ensure it stays above other elements */
 }
@@ -24,16 +24,16 @@
     align-items: center;
     justify-content: center;
 }
-  
+
 .custom-cardO .location-icon {
-    margin-right: 30px; /* เพิ่มช่องว่างระหว่างไอคอนกับข้อความ */
-    margin-left: -30px;
+    margin-right: 1rem; /* Use rem for consistent spacing */
+    margin-left: 0.5rem;
 }
 
 .color-price {
     color: var(--subfont-color3);
-    margin-left: 21%;
-    margin-right: 0%;
+    margin-left: 20%;
+    margin-right: 2%;
 }
 
 .img-pos {
@@ -41,4 +41,38 @@
     margin-top: auto;
 }
 
-  
+@media (max-width: 1100px) {
+    .custom-cardO {
+        margin-top: 145px;
+    }
+
+    .custom-cardO .location-icon {
+        margin-right: 1rem; /* Adjust spacing for smaller screens */
+        margin-left: -1rem;
+    }
+
+    .color-price {
+        display: block; /* บังคับให้ขึ้นบรรทัดใหม่ */
+        margin-left: 5%; /* ปรับตำแหน่งเมื่อขึ้นบรรทัดใหม่ */
+        margin-top: 10px; /* เพิ่มช่องว่างด้านบนเพื่อให้ดูสวยงาม */
+    }
+}
+
+@media (max-width: 870px) {
+    .custom-cardO {
+        margin-top: 185px;
+    }
+
+    .custom-cardO .location-icon {
+        margin-right: 1rem;
+        margin-left: -1rem;
+    }
+
+    /* ถ้าใช้งาน float */
+    .color-price {
+        display: flex;
+        flex-direction: column;
+        margin-left: 5%;
+        margin-top: 10px;
+    }
+}
