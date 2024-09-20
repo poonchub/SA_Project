@@ -142,6 +142,25 @@ async function UpdateAddressByID(data: AddressInterface, id: Number | undefined)
   return res;
 }
 
+async function AddAddress(data: AddressInterface) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/address`, requestOptions)
+    .then((res) => {
+      if (res.status == 201) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
 // Brand
 async function GetBrands() {
   const requestOptions = {
@@ -251,6 +270,40 @@ async function CreateCustomer(data: CustomerInterface) {
       return false;
     }
   });
+}
+// async function UpdateProfilePicture(formData: FormData) {
+//   const requestOptions = {
+//     method: "PATCH",
+//     body: formData
+//   };
+
+//   let res = await fetch(`${apiUrl}/customer/profilepath`, requestOptions).then(
+//     (res) => {
+//       if (res.status === 200) {
+//         return res.json();
+//       } else {
+//         return false;
+//       }
+//     }
+//   );
+
+//   return res;
+// }
+async function UpdateProfilePicture(id: Number | undefined, formData: FormData) {
+  const requestOptions = {
+    method: "PATCH",
+    body: formData
+  };
+
+  let res = await fetch(`${apiUrl}/customer/${id}/profilepicture`, requestOptions).then(
+    (res) => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    }
+  )
 
   return res;
 }
@@ -890,6 +943,7 @@ export {
     GetAddressByCustomerID,
     UpdateAddressByID,
     GetAddressByOrderID,
+    AddAddress,
 
     // Brand  ----------------------------
     GetBrands,
@@ -902,6 +956,7 @@ export {
     GetCustomerByID,
     UpdateCustomerByID,
     CreateCustomer,
+    UpdateProfilePicture,
 
     // Payment  --------------------------
     CreatePayment,

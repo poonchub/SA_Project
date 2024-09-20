@@ -72,7 +72,7 @@ const ShowProfile: React.FC = () => {
       key: 'CreatedAt',
       render: (text: string) => formatDate(text)
     },
-    { title: 'Total Price', dataIndex: 'TotalPrice', key: 'TotalPrice' },
+    { title: 'Total Price', dataIndex: 'TotalPrice', key: 'TotalPrice', render: (text: number) => text.toLocaleString('th-TH', { minimumFractionDigits: 2 })},
     { title: 'Status', dataIndex: 'Status', key: 'Status' },
     {
       title: '',
@@ -149,16 +149,25 @@ const ShowProfile: React.FC = () => {
           </tbody>
         </table>
         <div className="button-container">
-          <Link to="/EditProfile">
-              <Button
-                className="button"
-                type="primary"
-                style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63' }}
-                onClick={handleClick}
-              >
-                Edit profile
-              </Button>
-          </Link>
+        <Link to="/EditProfile">
+            <Button
+              className="button-edit"
+              type="primary"
+              style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63' }}
+              onClick={handleClick}
+            >
+              Edit profile
+            </Button>
+        </Link>
+        <Link to={"/AddAddress"}>
+            <Button
+              className="button-add"
+              type="primary"
+              style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63' }}
+              onClick={handleClick}
+            >
+                Add Address</Button>
+        </Link>
         </div>
         <Row gutter={[16, 16]}>
           <h3>Order List</h3>

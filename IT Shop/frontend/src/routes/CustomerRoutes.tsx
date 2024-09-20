@@ -8,6 +8,7 @@ import MinimalLayout from "../layout/MinimalLayOut/MinimalLayOut";
 import Cart from "../pages/Cart";
 import Edit from "../pages/Edit";
 import LoginForCustomer from "../pages/Authentication/Login/LoginForCustomer";
+import Add from "../pages/AddAddress";
 
 const CustomerRoutes = (): RouteObject => {
  
@@ -49,6 +50,10 @@ const CustomerRoutes = (): RouteObject => {
             {
                 path: "/Payment",
                 element: <Payment />
+            },
+            {
+                path: "/AddAddress",
+                element: <Add />
             },
 
         ],
