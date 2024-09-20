@@ -34,6 +34,7 @@ func main() {
 		router.GET("/addresses/:id", controller.GetAddressByCustomerID)
 		router.PATCH("/address/:id", controller.UpdateAddressByID)
 		router.GET("/addresseOrder/:id", controller.GetAddressByOrderID)
+		router.POST("/address",controller.AddAddress)
 
 		// Brand
 		router.GET("/brands", controller.ListBrands)
@@ -47,6 +48,7 @@ func main() {
 		router.GET("/customers", controller.ListCustomers)
 		router.GET("/customer/:id", controller.GetCustomerByID)
 		router.PATCH("/customer/:id", controller.UpdateCustomerByID)
+		router.PATCH("/customer/:id/profilepicture", controller.UpdateProfilePicture)
 
 		// Order
 		router.GET("/orders", controller.ListOrders)

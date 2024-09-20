@@ -25,10 +25,11 @@
   width: 100%;
 }
 
-.button {
+.button-edit, .button-add {
   margin-top: 20px;
   margin-bottom: 20px;
   text-align: center;
+  margin-right: 15px;
 }
 
 .button-container{

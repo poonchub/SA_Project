@@ -2,7 +2,7 @@ import { AddressInterface } from "../../Interfaces/IAddress";
 import { CustomerInterface } from "../../Interfaces/ICustomer";
 import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
-import { ProductInterFace } from "../../Interfaces/IProduct";
+import { ProductInterface } from "../../Interfaces/IProduct";
 import { SignInInterface } from "../../Interfaces/ISignIn";
 import { CartInterface } from "../../Interfaces/ICart";
 import { PaymentInterface } from "../../Interfaces/IPayment";
@@ -123,6 +123,25 @@ async function UpdateAddressByID(data: AddressInterface, id: Number | undefined)
   return res;
 }
 
+async function AddAddress(data: AddressInterface) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/address`, requestOptions)
+    .then((res) => {
+      if (res.status == 201) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
 // Brand
 async function GetBrands() {
   const requestOptions = {
@@ -217,6 +236,44 @@ async function UpdateCustomerByID(data: CustomerInterface, id: Number | undefine
 
   return res;
 }
+
+// async function UpdateProfilePicture(formData: FormData) {
+//   const requestOptions = {
+//     method: "PATCH",
+//     body: formData
+//   };
+
+//   let res = await fetch(`${apiUrl}/customer/profilepath`, requestOptions).then(
+//     (res) => {
+//       if (res.status === 200) {
+//         return res.json();
+//       } else {
+//         return false;
+//       }
+//     }
+//   );
+
+//   return res;
+// }
+async function UpdateProfilePicture(id: Number | undefined, formData: FormData) {
+  const requestOptions = {
+    method: "PATCH",
+    body: formData
+  };
+
+  let res = await fetch(`${apiUrl}/customer/${id}/profilepicture`, requestOptions).then(
+    (res) => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    }
+  );
+
+  return res;
+}
+
 
 // Order
 async function GetOrders() {
@@ -459,7 +516,7 @@ async function GetProductByID(id: Number | undefined) {
   return res;
 }
 
-async function UpdateProduct(data: ProductInterFace) {
+async function UpdateProduct(data: ProductInterface) {
   const requestOptions = {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -605,7 +662,7 @@ export async function AddToCart(customerId: number, productId: number, quantity:
   }
 }
 
-export async function UpdateProductbyid(data: ProductInterFace,p_id:number) {
+export async function UpdateProductbyid(data: ProductInterface,p_id:number) {
   const requestOptions = {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -724,6 +781,7 @@ export {
     GetAddressByCustomerID,
     UpdateAddressByID,
     GetAddressByOrderID,
+    AddAddress,
 
     // Brand  ----------------------------
     GetBrands,
@@ -735,6 +793,7 @@ export {
     GetCustomers,
     GetCustomerByID,
     UpdateCustomerByID,
+    UpdateProfilePicture,
 
     // Payment  --------------------------
     CreatePayment,
