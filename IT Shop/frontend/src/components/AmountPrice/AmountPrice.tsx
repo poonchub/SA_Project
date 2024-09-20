@@ -141,9 +141,6 @@ const AmountPrice = ({ orderId, customerId }: { orderId: number, customerId: num
                 <div
                   className='warningUpload'
                   style={{
-                    position: 'absolute',
-                    top: '23px',
-                    left: '347px',
                     backgroundColor: '#FF0000',
                   }}
                 />
