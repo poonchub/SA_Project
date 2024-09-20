@@ -37,7 +37,7 @@ const OwnerProfile: React.FC = () => {
   return (
     <>
       <Header page={"profile"} />
-      <div className="container">
+      <div className="profile-container">
         <div className="image-container">
           <img
             src={profileImageUrl}
