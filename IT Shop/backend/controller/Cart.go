@@ -1,22 +1,14 @@
 package controller
 
-
 import (
-	
 	"net/http"
-	
 
 	// "thiradet/config"
 	"main/config"
 	"main/entity"
 
 	"github.com/gin-gonic/gin"
-	
-	
 )
-
-
-
 
 func UpdateCart(c *gin.Context) {
 	var cart entity.Cart
@@ -59,7 +51,7 @@ type ProductStock struct {
 
 func CreateCartByChat(c *gin.Context) {
 	var cart entity.Cart
-    id := c.Param("id")
+	id := c.Param("id")
 	// Bind JSON เข้าตัวแปร cart
 	if err := c.ShouldBindJSON(&cart); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -144,7 +136,7 @@ func GetCartByCustomer(c *gin.Context) {
 	// ใช้ Preload เพื่อดึงข้อมูล Customer, Product และ Picture ที่เกี่ยวข้อง
 	if err := db.Preload("Customer").
 		Preload("Product").
-		Preload("Product.Image"). // ดึงข้อมูล Picture ที่เกี่ยวข้องกับ Product
+		Preload("Product.Images"). // ดึงข้อมูล Picture ที่เกี่ยวข้องกับ Product
 		Where("customer_id = ?", c.Param("customerId")).
 		Find(&cart).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -153,8 +145,6 @@ func GetCartByCustomer(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"data": cart})
 }
-
-
 
 func UpdateProductFromCart(c *gin.Context) {
 	ID := c.Param("productid")

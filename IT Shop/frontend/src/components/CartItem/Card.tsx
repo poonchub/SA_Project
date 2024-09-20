@@ -179,7 +179,7 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
                 </div>
                 <div className="image">
                   <img
-                    src={apiUrl + "/"+item.Product.Image[0].FilePath || ""}
+                    src={apiUrl + "/"+item.Product.Images[0].FilePath || ""}
                     alt=""
                     id='model'
                   />

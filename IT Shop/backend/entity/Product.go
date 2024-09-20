@@ -4,18 +4,18 @@ import "gorm.io/gorm"
 
 type Product struct {
 	gorm.Model
-	ProductName	 	string
-	Description		string
-	PricePerPiece	float32
-	Stock			int8
-	
-	Carts			[]Cart		`gorm:"foreignKey:ProductID"`
-	OrderItems		[]OrderItem	`gorm:"foreignKey:ProductID"`
-	Images			[]Image		`gorm:"foreignKey:ProductID"`
+	ProductName   string
+	Description   string
+	PricePerPiece float32
+	Stock         int8
 
-	CategoryID		uint
-	Category		Category	`gorm:"foreignKey:CategoryID"`
+	Carts      []Cart      `gorm:"foreignKey:ProductID"`
+	OrderItems []OrderItem `gorm:"foreignKey:ProductID"`
+	Images     []Image     `gorm:"foreignKey:ProductID"`
 
-	BrandID			uint
-	Brand			Brand		`gorm:"foreignKey:BrandID"`
+	CategoryID uint
+	Category   Category `gorm:"foreignKey:CategoryID"`
+
+	BrandID uint
+	Brand   Brand `gorm:"foreignKey:BrandID"`
 }
