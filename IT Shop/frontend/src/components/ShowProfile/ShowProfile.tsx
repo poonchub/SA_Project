@@ -4,7 +4,7 @@ import { UserOutlined, CalendarOutlined, MailOutlined, EnvironmentOutlined } fro
 import { Link, useNavigate } from 'react-router-dom';
 import './ShowProfile.css';
 import { CustomerInterface } from '../../Interfaces/ICustomer';
-import { apiUrl, GetAddressByCustomerID, GetCustomerByID, GetOrders, GetOrderByCustomerID } from '../../services/http';
+import { apiUrl, GetAddressByCustomerID, GetCustomerByID, GetOrderByCustomerID } from '../../services/http';
 import { AddressInterface } from '../../Interfaces/IAddress';
 import { OrderInterface } from '../../Interfaces/IOrder';
 import { Col, Row } from "antd";
@@ -72,7 +72,7 @@ const ShowProfile: React.FC = () => {
       key: 'CreatedAt',
       render: (text: string) => formatDate(text)
     },
-    { title: 'Total Price', dataIndex: 'TotalPrice', key: 'TotalPrice' },
+    { title: 'Total Price', dataIndex: 'TotalPrice', key: 'TotalPrice', render: (text: number) => text.toLocaleString('th-TH', { minimumFractionDigits: 2 })},
     { title: 'Status', dataIndex: 'Status', key: 'Status' },
     {
       title: '',
@@ -99,10 +99,12 @@ const ShowProfile: React.FC = () => {
   };
 
   return (
-    <div className="container">
+    <div className="profile-container">
       <div className="image-container">
         <img
-          src={`${apiUrl}/${localStorage.getItem("profilePath")}`}
+          src={
+            localStorage.getItem("profilePath")!="" ? `${apiUrl}/${localStorage.getItem("profilePath")}` : "./images/icon/user-black.png"
+          }
           className="circular-image"
         />
       </div>
@@ -149,13 +151,22 @@ const ShowProfile: React.FC = () => {
         <div className="button-container">
         <Link to="/EditProfile">
             <Button
-              className="button"
+              className="button-edit"
               type="primary"
               style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63' }}
               onClick={handleClick}
             >
               Edit profile
             </Button>
+        </Link>
+        <Link to={"/AddAddress"}>
+            <Button
+              className="button-add"
+              type="primary"
+              style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63' }}
+              onClick={handleClick}
+            >
+                Add Address</Button>
         </Link>
         </div>
         <Row gutter={[16, 16]}>

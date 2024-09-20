@@ -11,8 +11,23 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func ListImages(c *gin.Context) {
+	var images []entity.Image
+
+	db := config.DB()
+	if err := db.Find(&images).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, images)
+}
+
+
+
+
+
 // GET /images/:productId
-func GetImageByProductByID(c *gin.Context) {
+func GetImageByProductByID(c *gin.Context){
 	productID := c.Param("productId")
 	var image []entity.Image
 
@@ -26,7 +41,7 @@ func GetImageByProductByID(c *gin.Context) {
 }
 
 // POST /image/:productId
-func CreateImage(c *gin.Context) {
+func CreateImage(c *gin.Context){
 	productID, err := strconv.ParseUint(c.Param("productId"), 10, 64)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product ID"})
@@ -43,10 +58,10 @@ func CreateImage(c *gin.Context) {
 
 	files := form.File["image"]
 
-	for _, file := range files {
-		subfolder := "product1"
+	for _, file := range files{
+		subfolder := "product"+strconv.Itoa(int(productID))
 		fileName := filepath.Base(file.Filename)
-		filePath := filepath.Join("images", "product", subfolder, fileName)
+		filePath := filepath.Join("images", "product", subfolder, fileName)	
 
 		// สร้างตำแหน่งโฟลเดอร์ที่จะเก็บถ้ายังไม่มี
 		err = os.MkdirAll(filepath.Join("images", "product", subfolder), os.ModePerm)
@@ -71,7 +86,8 @@ func CreateImage(c *gin.Context) {
 			ProductID: uint(productID),
 			Product:   product,
 		}
-		if err := db.Create(&image).Error; err != nil {
+		if err := db.Create(&image).Error; 
+		err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
@@ -80,85 +96,73 @@ func CreateImage(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"message": "Files uploaded successfully"})
 }
 
-// POST Slip
-func CreateImageSlip(c *gin.Context) {
-	paymentID, err := strconv.ParseUint(c.Param("paymentId"), 10, 64)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid payment ID"})
-		return
-	}
+func UpdateImage(c *gin.Context) {
+    productID, err := strconv.ParseUint(c.Param("productId"), 10, 64)
+    if err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product ID"})
+        return
+    }
 
-	db := config.DB()
+    db := config.DB()
 
-	// ตรวจสอบการรับไฟล์จากฟอร์ม
-	form, err := c.MultipartForm()
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "No file is received"})
-		return
-	}
+    form, err := c.MultipartForm()
+    if err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "No files received"})
+        return
+    }
 
-	files := form.File["image"]
+    files := form.File["image"]
 
-	// ตรวจสอบค่า CustomerID และ OrderID
-	customerID, err := strconv.ParseUint(c.PostForm("customerId"), 10, 64)
-	if err != nil || customerID == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid customer ID"})
-		return
-	}
+    if len(files) == 0 {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "No image files provided"})
+        return
+    }
 
-	orderID, err := strconv.ParseUint(c.PostForm("orderId"), 10, 64)
-	if err != nil || orderID == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid order ID"})
-		return
-	}
+    // Find existing images to delete
+    var existingImages []entity.Image
+    if err := db.Where("product_id = ?", productID).Find(&existingImages).Error; err != nil {
+        c.JSON(http.StatusNotFound, gin.H{"error": "Product not found"})
+        return
+    }
 
-	// ค้นหา customer และ order ตาม ID
-	var customer entity.Customer
-	if err := db.First(&customer, customerID).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Customer not found"})
-		return
-	}
+    // Delete old images
+    for _, img := range existingImages {
+        if err := os.Remove(img.FilePath); err != nil {
+            c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete old image"})
+            return
+        }
+        if err := db.Delete(&img).Error; err != nil {
+            c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete image record"})
+            return
+        }
+    }
 
-	var order entity.Order
-	if err := db.First(&order, orderID).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Order not found"})
-		return
-	}
+    // Save new images
+    for _, file := range files {
+        subfolder := "product" + strconv.Itoa(int(productID))
+        fileName := filepath.Base(file.Filename)
+        filePath := filepath.Join("images", "product", subfolder, fileName)
 
-	for _, file := range files {
-		subfolder := "slip"
-		fileName := filepath.Base(file.Filename)
-		filePath := filepath.Join("images", "payment", subfolder, fileName)
+        err = os.MkdirAll(filepath.Join("images", "product", subfolder), os.ModePerm)
+        if err != nil {
+            c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create directory"})
+            return
+        }
 
-		// สร้างตำแหน่งโฟลเดอร์ที่จะเก็บถ้ายังไม่มี
-		err = os.MkdirAll(filepath.Join("images", "payment", subfolder), os.ModePerm)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create directory"})
-			return
-		}
+        if err := c.SaveUploadedFile(file, filePath); err != nil {
+            c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save file"})
+            return
+        }
 
-		// บันทึกไฟล์
-		if err := c.SaveUploadedFile(file, filePath); err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save file"})
-			return
-		}
+        image := entity.Image{
+            FilePath:  filePath,
+            ProductID: uint(productID),
+        }
+        if err := db.Create(&image).Error; err != nil {
+            c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+            return
+        }
+    }
 
-		// หา payment ตาม paymentID
-		var payment entity.Payment
-		if err := db.First(&payment, paymentID).Error; err != nil {
-			c.JSON(http.StatusNotFound, gin.H{"error": "Payment not found"})
-			return
-		}
-
-		// อัปเดตข้อมูล SlipPath, CustomerID และ OrderID ใน Payment table
-		payment.SlipPath = filePath
-		payment.CustomerID = uint(customerID)
-		payment.OrderID = uint(orderID)
-		if err := db.Save(&payment).Error; err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update payment"})
-			return
-		}
-	}
-
-	c.JSON(http.StatusCreated, gin.H{"message": "Slip uploaded and payment updated successfully"})
+    c.JSON(http.StatusOK, gin.H{"message": "Files updated successfully"})
 }

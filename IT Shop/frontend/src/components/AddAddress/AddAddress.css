@@ -1,0 +1,24 @@
+@import "../../stylesheet/ColorSheet.css";
+
+.add-container{
+    margin-top: 75px;
+    position: fixed;
+    display: flex;
+    overflow: auto;
+    height: calc(100vh - 75px);
+    width: 100%;
+}
+
+.submit-btn{
+    background-color: var(--subtheme-color1) !important;
+}
+
+.ant-input:focus {
+        border-color: var(--subtheme-color1);
+        box-shadow: var(--subtheme-color1);
+}
+
+.ant-input:hover {
+    border-color: var(--subtheme-color1);
+    box-shadow: 0 0 6px var(--subtheme-color1);
+}

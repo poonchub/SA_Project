@@ -1,13 +1,14 @@
 @import "../../../stylesheet/ColorSheet.css";
-.login-container{
+
+.login-owner-container{
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(45deg, #1b48a0, #FF2E63);
+    background: linear-gradient(45deg, #4583ff, #ff507c);
     display: flex;
     justify-content: center;
     align-items: center;
 
-    & .form-container{
+    & .form-login-container{
         min-width: 300px;
         max-width: 500px;
         width: 25%;
@@ -75,25 +76,6 @@
                     background-color: var(--maintheme-color);
                 }
             }  
-        } 
-
-        & .register-btn{
-            width: 70%;
-            height: 35px;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 5px;
-            border: 2px solid var(--subtheme-color1);
-            font-size: 15px;
-            background-color: var(--subtheme-color3);
-            color: var(--mainfont-color);
-            transition: all 0.3s;
-            text-transform: uppercase;
-        }
-
-        & .register-btn:hover{
-            font-size: 14.5px;
-            background-color: #fafafa;
         }
 
         & .back{

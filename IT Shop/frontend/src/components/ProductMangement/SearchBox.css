@@ -1,0 +1,99 @@
+@import "../../stylesheet/ColorSheet.css";
+
+.serch-contrainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 30px;
+}
+.selected-but{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
+.search-bar {
+    display: flex;
+    border: red 1px solid;
+    margin-bottom: 5px;
+    background-color: white;
+    width: 100%; 
+    max-width: 550px; 
+    height: 40px;
+    border: 2px solid var(--subtheme-color2);
+    border-radius: 40px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    min-width: 550px; 
+    box-sizing: border-box; 
+}
+
+.search-bar input {
+    flex: 1; 
+    border: none;
+    font-size: 19px;
+    height: 100%;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.search-select{
+    margin-left: 10px;
+    width: 250px;
+}
+
+.search-bar input:focus-visible {
+    outline: none; 
+}
+
+.search-bar .img-box {
+    width: 40px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--subtheme-color3); 
+}
+
+.img-box{
+    cursor: pointer;
+}
+
+.search-input{
+    cursor: text;
+}
+
+.search-bar .img-box img {
+    width: 20px;
+    height: auto; 
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .search-bar {
+        width: 100%; 
+        max-width: 100%;
+        margin-left: 0; 
+    }
+}
+
+@media (max-width: 480px) {
+    .search-bar {
+        height: 35px; 
+    }
+
+    .search-bar input {
+        font-size: 16px; 
+        padding-left: 8px; 
+    }
+
+    .search-bar .img-box {
+        width: 35px;
+    }
+
+    .search-bar .img-box img {
+        width: 18px; 
+    }
+}

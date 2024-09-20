@@ -4,7 +4,7 @@ import "./PopupConfirmOrder.css"
 import { CreateOrder, CreateOrderItem, GetAddressByCustomerID, UpdateProduct } from "../../services/http";
 import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
-import { ProductInterFace } from "../../Interfaces/IProduct";
+import { ProductInterface } from "../../Interfaces/IProduct";
 
 function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any; quantity: any; products: any; messageApi: any; }){
 
@@ -18,8 +18,6 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
 
     const totalPrice = products[sltProduct].PricePerPiece*quantity
     const priceFormat = totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) 
-
-    const id = localStorage.getItem("id") || "";
 
     function closePopup(){
         setPopup(null)
@@ -35,6 +33,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
 
     async function createOrder() {
         try {
+            
             const cutomerID = localStorage.getItem("id")
             const orderData: OrderInterface = {
                 TotalPrice: totalPrice,
@@ -46,7 +45,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
 
             if (resultOrder) {
                 const newOrderID = resultOrder.data.ID;
-
+                localStorage.setItem("orderId", `${newOrderID}`)
                 const orderItemData: OrderItemInterface = {
                     Quantity: quantity,
                     Price: totalPrice,
@@ -56,11 +55,10 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
     
                 const resultOrderItem = await CreateOrderItem(orderItemData);
 
-                const updateProductData: ProductInterFace = {
-                    ID: products[sltProduct].ID,
+                const updateProductData: ProductInterface = {
                     Stock: (products[sltProduct].Stock)-1
                 }
-                const resultUpdateProduct = await UpdateProduct(updateProductData)
+                const resultUpdateProduct = await UpdateProduct(products[sltProduct].ID,updateProductData)
     
                 if (resultOrderItem && resultUpdateProduct) {
                     messageApi.open({
@@ -89,7 +87,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
         }
 
         setTimeout(() => {
-            location.href = "/Product";
+            location.href = "/Payment";
         }, 1800);
     }
 

@@ -47,7 +47,7 @@
                 & span{
                     color: var(--subtheme-color1);
                     text-shadow: 0px 0px 5px var(--shadow-color2);
-                    animation: blink-animation 5s infinite;
+                    animation: blink-animation 4s infinite;
                 }
             }
     
@@ -80,7 +80,6 @@
             }
     
             & .shopnow-btn:hover{
-                /* box-shadow: 0 0 3px 1px var(--shadow-color2); */
                 text-shadow: 0 0 3px var(--shadow-color1);
                 font-size: 16px;
                 background-color: #eb3462;
@@ -98,7 +97,7 @@
         0%, 100% {
             visibility: visible;
         }
-        75%, 76%{
+        75%, 78%{
             visibility: hidden;
         }
     }

@@ -1,0 +1,77 @@
+
+/* filter brand and category */
+.ant-select-focused .ant-select-selector,
+.ant-select-selector:focus,
+.ant-select-selector:active,
+.ant-select-selector:hover,
+.ant-select-open .ant-select-selector {
+  border-color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.ant-select-selector:hover{
+  border-color: #FF2E63 !important;
+  box-shadow: 0 0 5px rgba(255, 46, 99, 0.5);
+}
+
+.ant-select-selector::backdrop{
+  border-color: #FF2E63 !important;
+  box-shadow: 0 0 5px rgba(255, 46, 99, 0.5);
+}
+
+
+.SelectCate, .SelectBrand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px; 
+    flex-wrap: wrap; 
+}
+
+.SelectCate .ant-form-item, .SelectBrand .ant-form-item {
+    width: 100%;
+    max-width: 300px; 
+}
+
+.SelectCate .ant-form-item-label, .SelectBrand .ant-form-item-label {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.SelectCate .ant-select, .SelectBrand .ant-select {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+}
+
+.SelectCate .ant-select-selector, .SelectBrand .ant-select-selector {
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.SelectCate .ant-select-arrow, .SelectBrand .ant-select-arrow {
+    color: #FF2E63; 
+}
+
+@media (max-width: 768px) {
+    .SelectCate, .SelectBrand {
+        flex-direction: column; 
+        align-items: flex-start;
+    }
+    
+    .SelectCate .ant-form-item, .SelectBrand .ant-form-item {
+        max-width: 100%; 
+    }
+}
+
+
+@media (max-width: 480px) {
+    .SelectCate .ant-form-item-label, .SelectBrand .ant-form-item-label {
+        font-size: 16px; 
+    }
+    
+    .SelectCate .ant-select, .SelectBrand .ant-select {
+        font-size: 14px; 
+    }
+}

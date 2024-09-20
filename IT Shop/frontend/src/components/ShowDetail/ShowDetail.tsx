@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import "./ShowDetail.css"
-import { AddToCart, GetCart, GetProduct} from "../../services/http";
+import { AddToCart, GetCart, ListProducts} from "../../services/http";
 import { ProductInterFace } from "../../Interfaces/IProduct";
 import { message } from "antd";
 import { PopupContext } from "../../pages/Selected";
@@ -18,7 +18,7 @@ function ShowDetail(){
     const { setCountCart } = useContext(AppContext);
 
     async function getProducts(){
-        let res = await GetProduct()
+        let res = await ListProducts()
         if (res) {
             setProducts(res);
         }

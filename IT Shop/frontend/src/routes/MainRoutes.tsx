@@ -1,7 +1,8 @@
 import { RouteObject } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import MinimalLayout from "../layout/MinimalLayOut/MinimalLayOut";
-import Login from "../pages/Authentication/Login/Login";
+import LoginForCustomer from "../pages/Authentication/Login/LoginForCustomer";
+import LoginForOwner from "../pages/Authentication/Login/LoginForOwner";
 
 
 const MainRoutes = (): RouteObject => {
@@ -13,18 +14,19 @@ const MainRoutes = (): RouteObject => {
         children: [
             {
                 path: "/",
-
                 element: <Home />,
             },
             {
-                path: "/Login",
-
-                element: <Login />,
+                path: "/Login-Customer",
+                element: <LoginForCustomer/>,
+            },
+            {
+                path: "/Login-Owner",
+                element: <LoginForOwner/>,
             },
             {
                 path: "*",
-
-                element: <Login />,
+                element: <LoginForCustomer />,
             },
         ],
     };
