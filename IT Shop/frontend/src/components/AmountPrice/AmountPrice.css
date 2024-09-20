@@ -1,198 +1,239 @@
 @import "../../stylesheet/ColorSheet.css";
 
-.custom-cardAM {
-    border: 1px solid #d9d9d9; /* Custom border */
-    border-radius: 8px; /* Rounded corners */
-    position: s;
-    margin-top: 450px;
-    position: absolute;
-    border: 0px solid;
-    width: 30%;
-    box-shadow: 0px 2px 10px var(--shadow-color1);
-    font-size: 20px;
-    margin-left: 65%;
-    z-index: 0; /* Ensure it stays above other elements */
-}
 
-.upload-center{
-    margin-left: 37%;
-    text-align: center;
-}
-
-.boxsize {
-    box-sizing: border-box;
-    padding: 20px;
-    position: fixed;
-    left: 0%;
-    right: 0%;
-    top: 100%;
-    bottom: -100%;
-}
-.buttonAM{
-    background-color: var(--subtheme-color1);
-    height: 50px;
-    margin-top: 20px;
-    text-align: center;
-    /* border-radius: 10%; */
-}
-
-.ant-btn-primary:hover{
-    background-color: #fa3869;
-}
-
-
-/* AmountPrice.css */
-.custom-modal .ant-modal-header {
-    background-color: var(--subtheme-color1); /* เปลี่ยนสีพื้นหลังของ header */
-    color: white; /* เปลี่ยนสีตัวอักษร */
-  }
-  
-  .custom-modal .ant-modal-footer {
-    display: flex;
-    justify-content: center; /* จัดตำแหน่งปุ่มที่กึ่งกลาง */
-  }
-
-.btn {
-        border: 3px solid var(--subtheme-color1);
-        border-radius: 10px;
-        width: 100%;
+@media (max-width: 5000px) {
+    .custom-cardAM {
+        border: 1px solid #d9d9d9; /* Custom border */
+        border-radius: 8px; /* Rounded corners */
+        position: s;
+        margin-top: 15px;
+        position: absolute;
+        border: 0px solid;
+        width: 30%;
+        box-shadow: 0px 2px 10px var(--shadow-color1);
+        font-size: 20px;
+        margin-left: 65%;
+        z-index: 0; /* Ensure it stays above other elements */
+    }
+    
+    .upload-center{
+        margin-left: 37%;
+        text-align: center;
+    }
+    
+    .boxsize {
+        box-sizing: border-box;
+        padding: 20px;
+        position: fixed;
+        left: 0%;
+        right: 0%;
+        top: 100%;
+        bottom: -100%;
+    }
+    .buttonAM{
+        background-color: var(--subtheme-color1);
         height: 50px;
+        margin-top: 20px;
+        text-align: center;
+        /* border-radius: 10%; */
+    }
+    
+    .ant-btn-primary:hover{
+        background-color: #fa3869;
+    }
+    
+    .btn {
+            border: 3px solid var(--subtheme-color1);
+            border-radius: 10px;
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: var(--btn-font);
+            font-weight: 650;
+            transition: all 0.5s;
+            text-align: center;
+            min-width: 100px;
+            margin-top: 20px;
+    }
+    
+    #Confirm-button {
+            margin-top: 40px;
+            background-color: var(--subtheme-color1);
+            color: var(--subfont-color2);
+    }
+    
+    .btn:hover {
+        box-shadow: 0px 0px 8px var(--shadow-color2);
+        font-size: 21px;
+        cursor: pointer;
+    }
+    
+    
+    .Upload-button {
+        border: 3px solid var(--subtheme-color1);
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: var(--btn-font);
-        font-weight: 650;
+        padding: 10px 10px;
+        justify-content: center;
+        align-items: center;
         transition: all 0.5s;
         text-align: center;
-        min-width: 100px;
+        margin-left: 300px;
+        margin-top: 25px;
+    }
+    
+    .Upload-button:hover {
+        text-shadow: var(--shadow-color2);
+        width: 105px;
+        height: 56px;
+        cursor: pointer;
+    }
+    
+    
+    .preview{ 
+        display: flex;
+        border: 3px solid #d9d9d9;
+        border-radius: 7px;
+        gap: 5px;
+        margin-top: -10px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+    
+    .warningUpload{
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 4px solid #FF5A5A;
+        position: absolute;
+        top: 23px;
+        left: 300px;
+    }
+    
+    .removePreview {
+        position: absolute;
+        top: -15px;
+        right: -10px;
+        background-color: red;
+        color: white;
+        padding: 2px;
+        border: none;
+        transition: background-color 0.3s ease, transform 0.3s ease; /* การเปลี่ยนแปลงที่นุ่มนวล */
+    }
+      
+    .removePreview:hover {
+        background-color: darkred; /* เปลี่ยนสีเมื่อ hover */
+        transform: scale(1.1); /* ขยายปุ่มเมื่อ hover */
+        stroke:var(--shadow-color2);
+    }
+    
+    
+    .myimage {
+        background-color: white;
+        width: 300px;
+        border: 3px solid #DDDBDB;
+        border-radius: 20px;
+        display: block; /* ปรับให้รูป QR เป็น block เพื่อจัดตำแหน่งได้ดี */
+        margin: 0 auto; /* จัดรูป QR ให้อยู่กลาง */
+    }
+    
+    .upload-container {
+        display: flex;
         margin-top: 20px;
-}
-
-#Confirm-button {
-        margin-top: 40px;
-        background-color: var(--subtheme-color1);
-        color: var(--subfont-color2);
-}
-
-.btn:hover {
-    box-shadow: 0px 0px 8px var(--shadow-color2);
-    font-size: 21px;
-    cursor: pointer;
+        flex-direction: column; /* วางปุ่มและ QR ให้อยู่ในแนวตั้ง */
+        align-items: center; /* จัดกึ่งกลาง */
+        gap: 20px; /* เพิ่มช่องว่างระหว่าง QR กับปุ่มอัปโหลด */
+    }
 }
 
 
-.Upload-button {
-    border: 3px solid var(--subtheme-color1);
-    border-radius: 20px;
-    width: 100px;
-    height: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 10px;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.5s;
-    text-align: center;
-    margin-left: 335px;
-    margin-top: 25px;
-}
-
-.Upload-button:hover {
-    text-shadow: var(--shadow-color2);
-    width: 105px;
-    height: 56px;
-    cursor: pointer;
-}
-
-
-.preview{ 
-    display: flex;
-    border: 3px solid #d9d9d9;
-    border-radius: 7px;
-    gap: 5px;
-    margin-top: -10px;
-    margin-left: 30px;
-    margin-bottom: 10px;
-}
-
-.warningUpload{
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    border: 4px solid #FF5A5A;
-}
-
-.removePreview {
-    position: absolute;
-    top: -15px;
-    right: -10px;
-    background-color: red;
-    color: white;
-    padding: 2px;
-    border: none;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* การเปลี่ยนแปลงที่นุ่มนวล */
-}
-  
-.removePreview:hover {
-    background-color: darkred; /* เปลี่ยนสีเมื่อ hover */
-    transform: scale(1.1); /* ขยายปุ่มเมื่อ hover */
-    stroke:var(--shadow-color2);
-}
-
-
-.myimage {
-    background-color: white;
-    width: 300px;
-    border: 3px solid #DDDBDB;
-    border-radius: 20px;
-    display: block; /* ปรับให้รูป QR เป็น block เพื่อจัดตำแหน่งได้ดี */
-    margin: 0 auto; /* จัดรูป QR ให้อยู่กลาง */
-}
-
-.upload-container {
-    display: flex;
-    margin-top: 20px;
-    flex-direction: column; /* วางปุ่มและ QR ให้อยู่ในแนวตั้ง */
-    align-items: center; /* จัดกึ่งกลาง */
-    gap: 20px; /* เพิ่มช่องว่างระหว่าง QR กับปุ่มอัปโหลด */
-}
-
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
     .upload-container {
         gap: 10px; /* ลดช่องว่างในหน้าจอขนาดเล็ก */
     }
-}
-
-/* Media Query สำหรับหน้าจอขนาดเล็ก */
-@media (max-width: 768px) {
+    .myimage {
+        background-color: white;
+        width: 240px;
+        border: 3px solid #DDDBDB;
+        border-radius: 20px;
+        display: block; /* ปรับให้รูป QR เป็น block เพื่อจัดตำแหน่งได้ดี */
+        margin: 0 auto; /* จัดรูป QR ให้อยู่กลาง */
+    }
     .Upload-button {
-        width: 40px;
-        height: 30px;
-        font-size: 16px;
+        border: 3px solid var(--subtheme-color1);
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 10px;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.5s;
+        text-align: center;
         margin-left: 0px;
+        margin-top: 25px;
+    }
+    .warningUpload{
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 4px solid #FF5A5A;
+        position: absolute;
+        top: 23px;
+        left: 3px;
+    }
+    
+}
+
+
+@media (max-width: 870px) {
+    .upload-container {
+        gap: 10px; /* ลดช่องว่างในหน้าจอขนาดเล็ก */
+    }
+    .myimage {
+        background-color: white;
+        width: 200px;
+        border: 3px solid #DDDBDB;
+        border-radius: 20px;
+        display: block; /* ปรับให้รูป QR เป็น block เพื่อจัดตำแหน่งได้ดี */
+        margin: 0 auto; /* จัดรูป QR ให้อยู่กลาง */
+    }
+    .Upload-button {
+        border: 3px solid var(--subtheme-color1);
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 10px;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.5s;
+        text-align: center;
+        margin-left: 0px;
+        margin-top: 25px;
+    }
+    
+    
+    .preview{ 
+        display: flex;
+        border: 3px solid #d9d9d9;
+        border-radius: 7px;
+        gap: 5px;
+        margin-top: -10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
     }
 }
 
-/* Media Query สำหรับหน้าจอขนาดกลาง */
-@media (max-width: 768px) {
-    .boxsize {
-        position: relative; /* ปรับตำแหน่ง */
-        margin-top: 10px;
-    }
-}
 
-.buttonAM {
-    background-color: var(--subtheme-color1);
-    height: 50px;
-    margin-top: 20px;
-    text-align: center;
-}
 
-/* ปรับปุ่มในหน้าจอขนาดเล็ก */
-@media (max-width: 768px) {
-    .buttonAM {
-        height: 40px;
-        font-size: 14px;
-    }
-}
