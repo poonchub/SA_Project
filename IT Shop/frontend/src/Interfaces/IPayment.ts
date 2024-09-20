@@ -1,10 +1,7 @@
 export interface PaymentInterface {
     ID?:            number;
-    PaymentDate?:	string;
-	PaymentMethod?:	string
 	Amount?:		number;
-	// Slip?:       
-
+	SlipPath?:      string;  
     CustomerID?:    number;
     OrderID?:       number;
 }
