@@ -25,7 +25,7 @@ func main() {
 
 	router := r.Group("/")
 
-	{	
+	{
 		// Gender
 		router.GET("/genders", controller.ListGenders)
 
@@ -35,17 +35,17 @@ func main() {
 		router.GET("/addresses/:id", controller.GetAddressByCustomerID)
 		router.PATCH("/address/:id", controller.UpdateAddressByID)
 		router.GET("/addresseOrder/:id", controller.GetAddressByOrderID)
-		router.POST("/address",controller.AddAddress)
+		router.POST("/address", controller.AddAddress)
 
 		// Brand
 		router.GET("/brands", controller.ListBrands)
 
 		// Cart
-		router.PATCH("/updateCart/:id",controller.UpdateCart) //update quantity 
-		router.DELETE("/deleteCart/:id",controller.DelteProductCart)//delete cart by user id
-		router.POST("/c/:id", controller.CreateCartByChat) // create cart by user id
-		router.GET("/cart/:customerId", controller.GetCartByCustomer)// get cart by user id 
-		router.PATCH("/product/:productid",controller.UpdateProductFromCart)
+		router.PATCH("/updateCart/:id", controller.UpdateCart)        //update quantity
+		router.DELETE("/deleteCart/:id", controller.DelteProductCart) //delete cart by user id
+		router.POST("/c/:id", controller.CreateCartByChat)            // create cart by user id
+		router.GET("/cart/:customerId", controller.GetCartByCustomer) // get cart by user id
+		router.PATCH("/product/:productid", controller.UpdateProductFromCart)
 
 		// Category
 		router.GET("/categories", controller.ListCategories)
@@ -54,6 +54,7 @@ func main() {
 		router.GET("/customers", controller.ListCustomers)
 		router.GET("/customer/:id", controller.GetCustomerByID)
 		router.PATCH("/customer/:id", controller.UpdateCustomerByID)
+		router.PATCH("/customer-upload-profile/", controller.UploadProfilePicture)
 
 		router.POST("/customer", controller.CreateCustomer)
 		// router.PATCH("/customer/:id/profilepicture", controller.UpdateProfilePicture)
@@ -76,7 +77,7 @@ func main() {
 		// Owner
 		router.GET("/owners", controller.ListOwner)
 		router.GET("/owner/:id", controller.GetOwnerByID)
-		
+
 		// Payment
 		router.GET("/payments", controller.ListPayment)
 		router.POST("/payment", controller.CreatePayment)

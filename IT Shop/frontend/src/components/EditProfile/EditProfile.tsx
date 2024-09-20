@@ -20,6 +20,9 @@ import { GetAddressByCustomerID, GetCustomerByID, GetGenders, UpdateAddressByID,
 import { useNavigate } from "react-router-dom";
 import { AddressInterface } from "../../Interfaces/IAddress";
 
+  // เพิ่ม import สำหรับ UploadProfilePicture
+import { UploadProfilePicture } from "../../services/http";
+
 const { Option } = Select;
 
 interface DataInterface {
@@ -48,6 +51,48 @@ function Edit() {
   const [form] = Form.useForm();
 
   const id = localStorage.getItem("id") || "";
+
+
+
+// เพิ่ม state และฟังก์ชัน
+const [profileFile, setProfileFile] = useState<File | null>(null);
+const [uploadMessage, setUploadMessage] = useState('');
+const [uploadError, setUploadError] = useState('');
+
+const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  if (event.target.files && event.target.files.length > 0) {
+    setProfileFile(event.target.files[0]);
+  }
+};
+
+const handleUploadProfilePicture = async () => {
+  if (profileFile) {
+    const formData = new FormData();
+    formData.append('profile', profileFile);
+    formData.append('customerID', id); // ส่ง customerID ด้วย
+
+    try {
+      const result = await UploadProfilePicture(formData);
+      console.log(result);
+      if (result) {
+        setUploadMessage(result.message); // แสดงข้อความจาก API
+        setUploadError('');
+      } else {
+        setUploadError('เกิดข้อผิดพลาดในการอัพโหลดรูปโปรไฟล์');
+        setUploadMessage('');
+      }
+    } catch (err: unknown) {
+  if (err instanceof Error) {
+    setUploadError('เกิดข้อผิดพลาด: ' + err.message);
+  } else {
+    setUploadError('เกิดข้อผิดพลาดที่ไม่รู้จัก');
+  }
+  setUploadMessage('');
+}
+  } else {
+    setUploadError('กรุณาเลือกไฟล์รูปโปรไฟล์');
+  }
+};
 
   const onFinish = async (values: DataInterface) => {
 
@@ -156,6 +201,29 @@ function Edit() {
       <Card>
         <h2> แก้ไขข้อมูลส่วนตัว</h2>
         <Divider />
+         {/* ส่วนที่เพิ่มเข้ามา */}
+      <Row gutter={[16, 16]} style={{ marginTop: "20px" }}>
+        <Col xs={24}>
+          <Form.Item label="Upload Profile Picture">
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+            <Button type="primary" onClick={handleUploadProfilePicture} style={{ marginLeft: "10px" }}>
+              Upload
+            </Button>
+            {uploadMessage && <p style={{ color: 'green' }}>{uploadMessage}</p>}
+            {uploadError && <p style={{ color: 'red' }}>{uploadError}</p>}
+          </Form.Item>
+        </Col>
+      </Row>
+
+      <Form
+        name="basic"
+        form={form}
+        layout="vertical"
+        onFinish={onFinish}
+        autoComplete="off"
+      >
+
+      </Form>
         <Form
           name="basic"
           form={form}

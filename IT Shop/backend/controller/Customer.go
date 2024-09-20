@@ -1,12 +1,15 @@
 package controller
 
 import (
+	"fmt"
 	"main/config"
 	"main/entity"
 	"net/http"
+	"os"
+	"path/filepath"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
-
 )
 
 // GET /customers
@@ -86,12 +89,12 @@ func CreateCustomer(c *gin.Context) {
 	hashedPassword, _ := config.HashPassword(customer.Password)
 	cus := entity.Customer{
 		FirstName: customer.FirstName,
-		LastName: customer.LastName,
-		Email: customer.Email,
-		Password: hashedPassword,
-		Birthday: customer.Birthday,
-		GenderID: customer.GenderID,
-		Gender: gender,
+		LastName:  customer.LastName,
+		Email:     customer.Email,
+		Password:  hashedPassword,
+		Birthday:  customer.Birthday,
+		GenderID:  customer.GenderID,
+		Gender:    gender,
 	}
 
 	if err := db.Preload("Address.Custome").FirstOrCreate(&cus, &entity.Customer{Email: cus.Email}).Error; err != nil {
@@ -100,4 +103,64 @@ func CreateCustomer(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, gin.H{"message": "Created success", "data": cus})
+}
+
+func UploadProfilePicture(c *gin.Context) {
+	db := config.DB()
+
+	// รับ customer ID จากข้อมูลในฟอร์ม
+	customerID, err := strconv.ParseUint(c.PostForm("customerID"), 10, 32)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid customer ID"})
+		return
+	}
+
+	// รับไฟล์จากฟอร์ม
+	file, err := c.FormFile("profile")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No file is received"})
+		return
+	}
+
+	// สร้างโฟลเดอร์ย่อยสำหรับภาพโปรไฟล์
+	subfolder := "profile"
+	fileName := fmt.Sprintf("customer_id%02d.jpg", customerID) // ปรับชื่อไฟล์ให้เหมาะสม
+	filePath := filepath.Join("images", subfolder, "customer", fileName)
+
+	// สร้างไดเรกทอรีหากยังไม่มี
+	err = os.MkdirAll(filepath.Join("images", subfolder, "customer"), os.ModePerm)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create directory"})
+		return
+	}
+
+	// อัพเดตเส้นทางโปรไฟล์ของลูกค้าในฐานข้อมูล
+	var customer entity.Customer
+	if err := db.First(&customer, customerID).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Customer not found"})
+		return
+	}
+
+	// ลบรูปโปรไฟล์เดิมถ้ามี
+	if customer.ProfilePath != "" {
+		if err := os.Remove(customer.ProfilePath); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete old profile picture"})
+			return
+		}
+	}
+
+	// บันทึกไฟล์ที่อัพโหลด
+	if err := c.SaveUploadedFile(file, filePath); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save file"})
+		return
+	}
+
+	// อัปเดตเส้นทางโปรไฟล์ใหม่ในฐานข้อมูล
+	customer.ProfilePath = filePath
+	if err := db.Save(&customer).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update customer profile path"})
+		return
+	}
+
+	c.JSON(http.StatusCreated, gin.H{"message": "Profile picture uploaded successfully", "data": customer})
 }

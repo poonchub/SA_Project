@@ -931,6 +931,26 @@ async function UpdateOrderAddressByOrderID(data: OrderInterface) {
   return res;
 }
 
+async function UploadProfilePicture(formData: FormData) {
+  const requestOptions = {
+      method: "PATCH",
+      // headers: { "Content-Type": "application/json" }, // ไม่ต้องตั้งค่า Content-Type สำหรับ FormData
+      body: formData,
+  };
+
+  let res = await fetch(`${apiUrl}/customer-upload-profile/`, requestOptions).then(
+      (res) => {
+          if (res.status === 201) {
+              return res.json(); // ส่งคืนข้อมูลที่ได้รับจาก API
+          } else {
+              return false; // หรือสามารถจัดการกับข้อผิดพลาดที่เกิดขึ้นได้
+          }
+      }
+  );
+
+  return res;
+}
+
 export {
 
     SignInForCustomer,
@@ -959,6 +979,7 @@ export {
     UpdateCustomerByID,
     CreateCustomer,
     UpdateProfilePicture,
+    UploadProfilePicture,
 
     // Payment  --------------------------
     CreatePayment,
