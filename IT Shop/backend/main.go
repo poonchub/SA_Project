@@ -77,9 +77,13 @@ func main() {
 		// Owner
 		router.GET("/owners", controller.ListOwner)
 		router.GET("/owner/:id", controller.GetOwnerByID)
+		router.GET("/AllOrders", controller.GetAllOrderforOwner)
+		router.PATCH("/confirm/:orderId", controller.ConfirmOrder)
+		router.GET("/getslip/:id", controller.GetPaymentbyID)
 
 		// Payment
 		router.GET("/payments", controller.ListPayment)
+
 		router.POST("/payment", controller.CreatePayment)
 
 		// Image Routes

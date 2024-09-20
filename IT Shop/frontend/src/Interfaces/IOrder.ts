@@ -1,6 +1,6 @@
 export interface OrderInterface {
     ID?:        number;
-    TotalPrice: number;
+    TotalPrice?: number;
     Status?:     string;
 
     CustomerID?:    number;

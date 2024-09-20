@@ -2,17 +2,20 @@
 
 @media only screen and (max-width:5000px){
 	.profile-container {
-		position: fixed;
+		/* position: fixed; */
 		margin-top: 75px;
 		width: 100vw;
-		height: calc(100vh - 75px);
+		height: 100vh;
+		/* height: calc(100vh - 75px); */
 		overflow-y: auto;
 		overflow-x: hidden;
 		display: flex;
-		flex-direction: column;
-		align-items: center;
+		/* justify-content: center; */
+		
+		
 	
 		& .image-container{
+			/* border: red 1px solid; */
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -26,7 +29,7 @@
 			overflow: hidden;
 	
 			& img{
-				width: 100%;
+				width: 100px
 			}
 		}
 	
@@ -44,6 +47,163 @@
 	}
 }
 
+#img-cup{
+	width: 30px;
+	height: 30px;
+}
+.content-left-for-owner{
+   
+	
+	/* width: 40vw; */
+	display: block;
+	justify-content: center;
+	align-items: center;
+	
+	border-radius: 10px;
+	padding: 20px;
+	background-color: rgba(255, 255, 255, 0.801);
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 6px, rgba(0, 0, 0, 0.16) 0px 0px 6px;
+	backdrop-filter: blur(5px); 
+	margin-right: 10px;
+	
+}
+
+.table-for-show-order 	{
+	width: 60vw;
+	display: block;
+	justify-content: center;
+	align-items: center;
+	/* border: red 1px solid; */
+	padding: 10px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 6px, rgba(0, 0, 0, 0.16) 0px 0px 6px;
+	border-radius: 10px;
+}
+
+
+.table-for-show-order .ant-table-thead > tr > th{	
+	background-color: #FF2E63; 
+	text-align: center;
+	color: white;
+    
+	/* border: rgb(0, 0, 0) 1px solid; */
+	
+
+}
+.all-content-for-admin{
+	display: flex;
+	margin-top: 30px;
+	align-items: start;
+}
+.image-cover{
+	width: 100%;
+	height: 150px;
+	display: flex;
+	justify-content: center;
+	align-items: end;
+}
+.cover-table{
+	width: 100%;
+	/* border: #FF2E63 solid 1px; */
+	display: flex;
+	justify-content: center;
+}
+
+#but-detail{
+	background-color: #FF2E63;
+	border: none;
+	font-size: 16px;
+	padding: 2px 10px;
+	color: white;
+	border-radius: 6px;
+	cursor: pointer;
+	
+}
+#but-confirm-order{
+	background-color: rgb(71, 209, 71);
+	border: none;
+	border-radius: 6px;
+	font-size: 16px;
+	padding: 2px 10px;
+	color: white;
+	cursor: pointer;
+	transition: all 0.5s;
+}
+#but-confirm-order:hover{
+	background-color: rgb(55, 241, 55);
+}
+
+.ant-table-cell{
+	text-align: center;
+	
+}
+#order-head{
+	font-size: 30px;
+
+}
+.comtroll-but{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding: 5px 0px;
+}
+.btn-logout{
+	background-color: #FF2E63;
+	padding: 5px 10px;
+	color: white;
+	font-size: 16px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.5s;
+}
+
+.ant-table-wrapper .ant-table-pagination-right{
+	justify-content: center;
+}
+.ant-pagination .ant-pagination-item-active a{
+	color:black;
+
+}
+.ant-pagination .ant-pagination-item-active {
+	border-color: #FF2E63;
+}
+
+
+
+
+/* popup */
+
+.back-slip{
+	position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.801);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+ 
+ backdrop-filter: blur(5px); 
+}
+#slip-image{
+   width: 500px;
+   height: 500px;
+   
+}
+#but-preview-slip{
+	color: rgb(0, 0, 0);
+	background-color: rgb(255, 255, 255);
+	
+	border-radius: 6px;
+	padding: 2px 10px;
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+	
+
+}
 @media only screen and (max-width:1100px){
 	.profile-container{
 		margin-top: 130px;

@@ -7,6 +7,7 @@ import { CartInterface } from "../../Interfaces/ICart";
 import { ProductInterface } from "../../Interfaces/IProduct";
 import { PaymentInterface } from "../../Interfaces/IPayment";
 import { OwnerInterface } from "../../Interfaces/IOwner";
+import { header } from "framer-motion/client";
 
 export const apiUrl = "http://localhost:8000";
 
@@ -394,6 +395,39 @@ async function UpdateOrder(data: OrderInterface) {
       return false;
     }
   });
+
+  return res;
+}
+export async function UpdatestatusOrderbyID(data:OrderInterface,id:number) {
+  const requestOptions = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/confirm/${id}`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
+
+  return res;
+}
+export async function GetslipByOrderID(id:number) {
+  const requestOptions = {
+    method : "GET",
+
+  }
+  let res = await fetch(`${apiUrl}/getslip/${id}`, requestOptions)
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
 
   return res;
 }
