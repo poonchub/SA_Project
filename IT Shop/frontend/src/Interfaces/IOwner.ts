@@ -7,4 +7,6 @@ export interface OwnerInterface {
 	Email?:		string
 	Password?:	string
 	ProfilePath?:	string
+	GenderID?:  number;
+
 }

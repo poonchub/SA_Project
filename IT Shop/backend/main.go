@@ -71,6 +71,11 @@ func main() {
 		// Owner
 		router.GET("/owners", controller.ListOwner)
 		router.GET("/owners/:id", controller.GetOwnerByID)
+		router.POST("/owners", controller.CreateOwner)
+		router.PATCH("/owners/:id", controller.UpdateOwner)
+		router.DELETE("/owners/:id", controller.DeleteOwner)
+		router.POST("/owners/:id/profile-image", controller.CreateOwnerImage)
+		router.PUT("/owners/:id", controller.UpdateOwnerImage)
 
 		// Image Routes
 		router.GET("/product-images", controller.ListImages)

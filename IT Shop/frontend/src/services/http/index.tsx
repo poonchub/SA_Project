@@ -5,27 +5,26 @@ import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { ProductInterFace } from "../../Interfaces/IProduct";
 import { SignInInterface } from "../../Interfaces/ISignIn";
 import { CartInterface } from "../../Interfaces/ICart";
-import { PaymentInterface } from "../../Interfaces/IPayment";
 import { OwnerInterface } from "../../Interfaces/IOwner";
 
 export const apiUrl = "http://localhost:8000";
 
 async function SignIn(data: SignInInterface) {
-    const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-    };
-    
-    let res = await fetch(`${apiUrl}/signin`, requestOptions).then((res) => {
-        if (res.status == 200) {
-            return res.json();
-        } else {
-            return false;
-        }
-    });
-    
-    return res;
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/signin`, requestOptions).then((res) => {
+    if (res.status == 200) {
+      return res.json();
+    } else {
+      return false;
+    }
+  });
+
+  return res;
 }
 
 // Gender
@@ -386,47 +385,47 @@ async function UpdateOrderItem(data: OrderItemInterface) {
 // Image
 async function ListImages() {
   try {
-      const response = await fetch(`${apiUrl}/images`, {
-          method: "GET",
-          headers: {
-              "Content-Type": "application/json",
-          },
-      });
+    const response = await fetch(`${apiUrl}/images`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-      if (response.ok) {
-          return await response.json();
-      } else {
-          console.error("Failed to fetch images:", response.status, response.statusText);
-          return false;
-      }
-  } catch (error) {
-      console.error("Error fetching images:", error);
+    if (response.ok) {
+      return await response.json();
+    } else {
+      console.error("Failed to fetch images:", response.status, response.statusText);
       return false;
+    }
+  } catch (error) {
+    console.error("Error fetching images:", error);
+    return false;
   }
 }
 
 
 async function GetImageByProductID(id: Number | undefined) {
   const requestOptions = {
-      method: "GET",
-      headers: {
-          "Content-Type": "application/json",
-      },
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   };
 
   let res = await fetch(`${apiUrl}/product-images/${id}`, requestOptions)
-      .then((res) => {
-          if (res.status == 200) {
-              return res.json();
-          } else {
-              return false;
-          }
-      });
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
 
   return res;
 }
 
-async function CreateImage(formData: FormData,id: Number | undefined) {
+async function CreateImage(formData: FormData, id: Number | undefined) {
   const requestOptions = {
     method: "POST",
     // headers: { "Content-Type": "application/json" },
@@ -469,88 +468,88 @@ const UpdateImage = async (formData: FormData, id: number) => {
 // Product
 async function CreateProduct(data: ProductInterFace) {
   const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
   };
 
   let res = await fetch(`${apiUrl}/products`, requestOptions)
-      .then((res) => {
-          if (res.status == 201) {
-              return res.json();
-          } else {
-              return false;
-          }
-      });
+    .then((res) => {
+      if (res.status == 201) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
 
   return res;
 }
 
 async function ListProducts() {
   const requestOptions = {
-      method: "GET",
-      headers: {
-          "Content-Type": "application/json",
-      },
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   };
 
   let res = await fetch(`${apiUrl}/products`, requestOptions)
-      .then((res) => {
-          if (res.status == 200) {
-              return res.json();
-          } else {
-              return false;
-          }
-      });
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
 
   return res;
 }
 
 async function GetProductByID(productID: number): Promise<ProductInterFace | false> {
   const requestOptions = {
-      method: "GET",
-      headers: {
-          "Content-Type": "application/json",
-      },
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   };
 
   try {
-      const response = await fetch(`${apiUrl}/products/${productID}`, requestOptions);
-      
-      if (response.status === 200) {
-          const productData: ProductInterFace = await response.json();
-          return productData;
-      } else {
-          console.error(`Failed to fetch product. Status: ${response.status}`);
-          return false;
-      }
-  } catch (error) {
-      console.error('An error occurred while fetching the product:', error);
+    const response = await fetch(`${apiUrl}/products/${productID}`, requestOptions);
+
+    if (response.status === 200) {
+      const productData: ProductInterFace = await response.json();
+      return productData;
+    } else {
+      console.error(`Failed to fetch product. Status: ${response.status}`);
       return false;
+    }
+  } catch (error) {
+    console.error('An error occurred while fetching the product:', error);
+    return false;
   }
 }
 
 
 async function UpdateProduct(id: number, data: ProductInterFace) {
   if (id === undefined) {
-      throw new Error("Product ID is undefined");
+    throw new Error("Product ID is undefined");
   }
 
   const requestOptions = {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
   };
 
   let res = await fetch(`${apiUrl}/products/${id}`, requestOptions)
-      .then((res) => {
-          if (res.status === 200) {
-              return res.json();
-          } else {
-              console.error("Failed to update product:", res.status, res.statusText);
-              return false;
-          }
-      });
+    .then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        console.error("Failed to update product:", res.status, res.statusText);
+        return false;
+      }
+    });
 
   console.log("Product update response:", res);
   return res;
@@ -561,20 +560,20 @@ async function UpdateProduct(id: number, data: ProductInterFace) {
 
 async function DeleteProductByID(id: number) {
   if (!id) {
-      console.error('Product ID is required to delete');
-      return false;
+    console.error('Product ID is required to delete');
+    return false;
   }
 
   const requestOptions = {
-      method: "DELETE"
+    method: "DELETE"
   };
 
   try {
-      const res = await fetch(`${apiUrl}/products/${id}`, requestOptions);
-      return res.status === 200;
+    const res = await fetch(`${apiUrl}/products/${id}`, requestOptions);
+    return res.status === 200;
   } catch (error) {
-      console.error('Error occurred while deleting product:', error);
-      return false;
+    console.error('Error occurred while deleting product:', error);
+    return false;
   }
 }
 
@@ -679,11 +678,11 @@ export async function GetAllProduct() {
     });
 
   return res;
-  
+
 }
 
 export async function AddToCart(customerId: number, productId: number, quantity: number) {
-  
+
   const apiUrl = "http://localhost:8000";
   const requestOptions = {
     method: "POST",
@@ -694,7 +693,7 @@ export async function AddToCart(customerId: number, productId: number, quantity:
   try {
     const response = await fetch(`${apiUrl}/c/${customerId}`, requestOptions);
     if (response.status === 200 || response.status === 201) {
-     
+
       return await response.json();
     } else {
       console.error(`Error: ${response.status} - ${response.statusText}`);
@@ -706,7 +705,7 @@ export async function AddToCart(customerId: number, productId: number, quantity:
   }
 }
 
-export async function UpdateProductbyid(data: ProductInterFace,p_id:number) {
+export async function UpdateProductbyid(data: ProductInterFace, p_id: number) {
   const requestOptions = {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -810,6 +809,67 @@ async function UpdateOrderAddressByOrderID(data: OrderInterface) {
 }
 
 //Owner
+async function CreateOwner(data: OwnerInterface) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/owners`, requestOptions)
+    .then((res) => {
+      if (res.status == 201) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+async function ListOwners() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/owners`, requestOptions)
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+async function UpdateOwner(id: number, data: OwnerInterface) {
+  if (id === undefined) {
+    throw new Error("Owner ID is undefined");
+  }
+
+  const requestOptions = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/owners/${id}`, requestOptions)
+    .then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        console.error("Failed to update owner:", res.status, res.statusText);
+        return false;
+      }
+    });
+  return res;
+}
+
 async function GetOwnerByID(id: number): Promise<OwnerInterface> {
   const requestOptions = {
     method: "GET",
@@ -826,65 +886,160 @@ async function GetOwnerByID(id: number): Promise<OwnerInterface> {
   }
 }
 
+async function DeleteOwnerByID(id: number) {
+  if (!id) {
+    console.error('Owner ID is required to delete');
+    return false;
+  }
+
+  const requestOptions = {
+    method: "DELETE"
+  };
+
+  try {
+    const res = await fetch(`${apiUrl}/owners/${id}`, requestOptions);
+    return res.status === 200;
+  } catch (error) {
+    console.error('Error occurred while deleting owner:', error);
+    return false;
+  }
+}
+
+async function CreateOwnerImage(formData: FormData, id: number | undefined) {
+  const requestOptions = {
+    method: "POST",
+    body: formData,
+  };
+
+  try {
+    const response = await fetch(`${apiUrl}/owners/${id}/profile-image`, requestOptions);
+    if (response.status === 201) {
+      return await response.json();
+    } else {
+      console.error('Failed to create owner image:', await response.text());
+      return false;
+    }
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return false;
+  }
+};
+
+async function UpdateOwnerImage(formData: FormData, id: number) {
+  try {
+    const response = await fetch(`${apiUrl}/owners/${id}`, {
+      method: 'PUT',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      console.error('Failed to update owner image:', await response.text());
+      return false;
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return false;
+  }
+
+};
+
+async function CreateOwnerWithImage(ownerData: OwnerInterface, imageFile: File | null) {
+  try {
+      // Create owner
+      const createOwnerRes = await CreateOwner(ownerData);
+      if (!createOwnerRes) {
+          throw new Error('Failed to create owner');
+      }
+
+      // If image is provided, upload it
+      if (imageFile && createOwnerRes.data.ID) {
+          const formData = new FormData();
+          formData.append('profile_image', imageFile);
+          
+          const imageUploadRes = await CreateOwnerImage(formData, createOwnerRes.data.ID);
+          if (!imageUploadRes) {
+              throw new Error('Failed to upload owner image');
+          }
+
+          return { owner: createOwnerRes.data, image: imageUploadRes.data };
+      }
+
+      return { owner: createOwnerRes.data };
+  } catch (error) {
+      console.error('Error in CreateOwnerWithImage:', error);
+      return null;
+  }
+}
+
 
 
 
 export {
 
-    SignIn,
+  SignIn,
 
-    // Gender
-    GetGenders,
-    
-    // Address  --------------------------
-    GetAddresses,
-    GetAddressByID,
-    GetAddressByCustomerID,
-    UpdateAddressByID,
-    GetAddressByOrderID,
+  // Gender
+  GetGenders,
 
-    // Brand  ----------------------------
-    GetBrands,
+  // Address  --------------------------
+  GetAddresses,
+  GetAddressByID,
+  GetAddressByCustomerID,
+  UpdateAddressByID,
+  GetAddressByOrderID,
 
-    // Category --------------------------
-    GetCategories,
+  // Brand  ----------------------------
+  GetBrands,
 
-    // Customer --------------------------
-    GetCustomers,
-    GetCustomerByID,
-    UpdateCustomerByID,
+  // Category --------------------------
+  GetCategories,
 
-    // Payment  --------------------------
-    CreatePayment,
-    UpdateOrderAddressByOrderID,
-    GetOrderItemByOrderID,
-    
-    // Order  ----------------------------
-    GetOrders,
-    GetOrderByID,
-    GetOrderByCustomerID,
-    CreateOrder,
-    UpdateOrder,
+  // Customer --------------------------
+  GetCustomers,
+  GetCustomerByID,
+  UpdateCustomerByID,
 
-    // OrderItem  ------------------------
-    GetOrderItems,
-    GetOrderItemByID,
-    CreateOrderItem,
-    UpdateOrderItem,
+  // Payment  --------------------------
+  CreatePayment,
+  UpdateOrderAddressByOrderID,
+  GetOrderItemByOrderID,
 
-    // Image  ----------------------------
-    ListImages,
-    GetImageByProductID,   
-    CreateImage,
-    UpdateImage,
+  // Order  ----------------------------
+  GetOrders,
+  GetOrderByID,
+  GetOrderByCustomerID,
+  CreateOrder,
+  UpdateOrder,
 
-    // Product  --------------------------
-    CreateProduct,
-    ListProducts,
-    GetProductByID,
-    UpdateProduct,
-    DeleteProductByID,
+  // OrderItem  ------------------------
+  GetOrderItems,
+  GetOrderItemByID,
+  CreateOrderItem,
+  UpdateOrderItem,
 
-    // Owner
-    GetOwnerByID,
+  // Image  ----------------------------
+  ListImages,
+  GetImageByProductID,
+  CreateImage,
+  UpdateImage,
+
+  // Product  --------------------------
+  CreateProduct,
+  ListProducts,
+  GetProductByID,
+  UpdateProduct,
+  DeleteProductByID,
+
+  // Owner
+  CreateOwner,
+  UpdateOwner,
+  GetOwnerByID,
+  ListOwners,
+  DeleteOwnerByID,
+  CreateOwnerImage,
+  UpdateOwnerImage,
+  CreateOwnerWithImage
+
 };

@@ -71,6 +71,7 @@ function ProductEdit() {
 
       const res = await UpdateProduct(Number(id), updatedProduct);
 
+
       if (res) {
         if (images.length > 0) {
           const formData = new FormData();
