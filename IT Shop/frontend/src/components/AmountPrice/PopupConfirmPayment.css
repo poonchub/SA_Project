@@ -8,6 +8,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
+  margin-top: -385px;
 
   .popup-bg {
     background-color: rgba(0, 0, 0, 0.801);
