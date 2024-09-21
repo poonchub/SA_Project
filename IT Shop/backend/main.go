@@ -6,6 +6,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	"github.com/gin-contrib/cors"
 )
 
 const PORT = "8000"
@@ -26,6 +28,13 @@ func main() {
 	router := r.Group("/")
 
 	{
+		// ตั้งค่า CORS
+		router.Use(cors.New(cors.Config{
+			AllowOrigins: []string{"http://localhost:5173"}, // พอร์ตของ Vite
+			AllowMethods: []string{"POST", "GET", "OPTIONS", "PATCH"},
+			AllowHeaders: []string{"Content-Type", "Authorization"},
+		}))
+
 		// Gender
 		router.GET("/genders", controller.ListGenders)
 
