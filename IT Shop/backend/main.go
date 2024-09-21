@@ -6,6 +6,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	"github.com/gin-contrib/cors"
 )
 
 const PORT = "8000"
@@ -26,6 +28,13 @@ func main() {
 	router := r.Group("/")
 
 	{
+		// ตั้งค่า CORS
+		router.Use(cors.New(cors.Config{
+			AllowOrigins: []string{"http://localhost:5173"}, // พอร์ตของ Vite
+			AllowMethods: []string{"POST", "GET", "OPTIONS", "PATCH"},
+			AllowHeaders: []string{"Content-Type", "Authorization"},
+		}))
+
 		// Gender
 		router.GET("/genders", controller.ListGenders)
 
@@ -74,17 +83,16 @@ func main() {
 		router.PATCH("/orderItem", controller.UpdateOrderItem)
 		router.GET("/orderItems/:id", controller.GetOrderItemsByOrderID)
 
-
 		// Owner
 		router.GET("/owners", controller.ListOwner)
 		router.GET("/owner/:id", controller.GetOwnerByID)
 		router.GET("/AllOrders", controller.GetAllOrderforOwner)
-		router.PATCH("/confirm/:orderId",controller.ConfirmOrder)
-		router.GET("/getslip/:id",controller.GetPaymentbyID)
-		
+		router.PATCH("/confirm/:orderId", controller.ConfirmOrder)
+		router.GET("/getslip/:id", controller.GetPaymentbyID)
+
 		// Payment
 		router.GET("/payments", controller.ListPayment)
-	
+
 		router.POST("/payment", controller.CreatePayment)
 
 		// Image Routes

@@ -113,17 +113,11 @@ console.log(profilePath)
   return (
     <div className="profile-container">
       <div className="image-container">
-        {/* <img
+        <img
           src={
             localStorage.getItem("profilePath")!="" ? `${apiUrl}/${localStorage.getItem("profilePath")}` : "./images/icon/user-black.png"
           }
           className="circular-image"
-        /> */}
-        {/* ใช้ profilePath ที่อัปเดตใหม่แสดงผล */}
-        <img 
-          src={profilePath && profilePath !== "" ? "../../../../backend/" + profilePath : "./images/icon/user-black.png"} 
-          alt="Profile" 
-          className="circular-image" 
         />
       </div>
       <div className="profile-detail">

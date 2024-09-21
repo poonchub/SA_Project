@@ -77,6 +77,12 @@ const handleUploadProfilePicture = async () => {
       if (result) {
         setUploadMessage(result.message); // แสดงข้อความจาก API
         setUploadError('');
+
+        // เก็บรูปโปรไฟล์ใหม่ใน localStorage
+        localStorage.setItem('profilePath', result.newProfilePath);
+
+        // บังคับให้รีเฟรชรูปโปรไฟล์ใน frontend
+        window.location.reload();
       } else {
         setUploadError('เกิดข้อผิดพลาดในการอัพโหลดรูปโปรไฟล์');
         setUploadMessage('');
