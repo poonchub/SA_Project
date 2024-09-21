@@ -41,70 +41,54 @@ func GetCustomerByID(c *gin.Context) {
 	c.JSON(http.StatusOK, customer)
 }
 
-// PATCH /orderItem
+// PUT /customer/:id
 func UpdateCustomerByID(c *gin.Context) {
-	ID := c.Param("id")
-
 	var customer entity.Customer
-
+	id := c.Param("id")
 	db := config.DB()
-	result := db.First(&customer, ID)
-	if result.Error != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "id not found"})
+
+	// ตรวจสอบว่า customer มีอยู่จริง
+	if err := db.First(&customer, id).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Customer not found"})
 		return
 	}
 
+	// Binding ข้อมูลที่ต้องการอัปเดตจาก form
 	if err := c.ShouldBindJSON(&customer); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request, unable to map payload"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	result = db.Save(&customer)
-	if result.Error != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request"})
+	// บันทึกการอัปเดต
+	if err := db.Save(&customer).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update customer"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Updated successful"})
+	c.JSON(http.StatusOK, customer)
 }
 
 // POST /customer
 func CreateCustomer(c *gin.Context) {
 	var customer entity.Customer
+	db := config.DB()
 
+	// Binding ข้อมูลที่ต้องการสร้างจาก form
 	if err := c.ShouldBindJSON(&customer); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	db := config.DB()
-
-	var gender entity.Gender
-	db.First(&gender, customer.GenderID)
-	if gender.ID == 0 {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Gender not found"})
+	// บันทึกข้อมูลลูกค้าใหม่
+	if err := db.Create(&customer).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create customer"})
 		return
 	}
 
-	hashedPassword, _ := config.HashPassword(customer.Password)
-	cus := entity.Customer{
-		FirstName: customer.FirstName,
-		LastName:  customer.LastName,
-		Email:     customer.Email,
-		Password:  hashedPassword,
-		Birthday:  customer.Birthday,
-		GenderID:  customer.GenderID,
-		Gender:    gender,
-	}
-
-	if err := db.Preload("Address.Custome").FirstOrCreate(&cus, &entity.Customer{Email: cus.Email}).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusCreated, gin.H{"message": "Created success", "data": cus})
+	c.JSON(http.StatusCreated, customer)
 }
 
+// PATCH /orderItem
 func UploadProfilePicture(c *gin.Context) {
 	db := config.DB()
 
@@ -122,9 +106,37 @@ func UploadProfilePicture(c *gin.Context) {
 		return
 	}
 
+	// เปิดไฟล์เพื่อตรวจสอบ MIME type
+	openedFile, err := file.Open()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to open file"})
+		return
+	}
+	defer openedFile.Close()
+
+	// ตรวจสอบ MIME type
+	buffer := make([]byte, 512)
+	_, err = openedFile.Read(buffer)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read file"})
+		return
+	}
+
+	mimeType := http.DetectContentType(buffer)
+	if mimeType != "image/jpeg" && mimeType != "image/png" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Only JPEG and PNG images are allowed"})
+		return
+	}
+
+	// รับนามสกุลไฟล์จากไฟล์ที่อัพโหลด
+	ext := filepath.Ext(file.Filename)
+	if ext == "" {
+		ext = ".png" // ตั้งค่าเริ่มต้นเป็น .png หากไม่มีนามสกุลไฟล์
+	}
+
 	// สร้างโฟลเดอร์ย่อยสำหรับภาพโปรไฟล์
 	subfolder := "profile"
-	fileName := fmt.Sprintf("customer_id%02d.jpg", customerID) // ปรับชื่อไฟล์ให้เหมาะสม
+	fileName := fmt.Sprintf("customer_id%02d%s", customerID, ext) // ปรับชื่อไฟล์ให้เหมาะสม
 	filePath := filepath.Join("images", subfolder, "customer", fileName)
 
 	// สร้างไดเรกทอรีหากยังไม่มี
