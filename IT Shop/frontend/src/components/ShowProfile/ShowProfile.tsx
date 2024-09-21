@@ -18,6 +18,18 @@ const ShowProfile: React.FC = () => {
 
   const id = localStorage.getItem("id") || "";
 
+  const [profilePath, setProfilePath] = useState<string | null>(null);
+
+useEffect(() => {
+  // ดึง URL รูปโปรไฟล์จาก localStorage
+  const storedProfilePath = localStorage.getItem('profilePath');
+  if (storedProfilePath) {
+    setProfilePath(storedProfilePath);
+  }
+}, []);
+
+console.log(profilePath)
+
   async function getCustomer() {
     try {
       let res = await GetCustomerByID(parseInt(id));
@@ -101,11 +113,17 @@ const ShowProfile: React.FC = () => {
   return (
     <div className="profile-container">
       <div className="image-container">
-        <img
+        {/* <img
           src={
             localStorage.getItem("profilePath")!="" ? `${apiUrl}/${localStorage.getItem("profilePath")}` : "./images/icon/user-black.png"
           }
           className="circular-image"
+        /> */}
+        {/* ใช้ profilePath ที่อัปเดตใหม่แสดงผล */}
+        <img 
+          src={profilePath && profilePath !== "" ? "../../../../backend/" + profilePath : "./images/icon/user-black.png"} 
+          alt="Profile" 
+          className="circular-image" 
         />
       </div>
       <div className="profile-detail">
