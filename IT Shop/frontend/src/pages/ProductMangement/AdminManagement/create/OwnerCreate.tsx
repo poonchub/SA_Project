@@ -32,7 +32,6 @@ function OwnerCreate() {
             const dataOwner: OwnerInterface = {
                 FirstName: values.FirstName,
                 LastName: values.LastName,
-                AdminRole: values.AdminRole,
                 Email: values.Email,
                 Password: values.Password,
                 GenderID: values.GenderID,
@@ -137,15 +136,6 @@ function OwnerCreate() {
                                     style={{ flex: '0 0 48%' }}
                                 >
                                     <Input placeholder="Enter Last Name" />
-                                </Form.Item>
-
-                                <Form.Item
-                                    name="AdminRole"
-                                    label="AdminRole"
-                                    rules={[{ required: true, message: 'Please input the AdminRole!' }]}
-                                    style={{ flex: '0 0 48%' }}
-                                >
-                                    <Input placeholder="Enter Owner or Admin" />
                                 </Form.Item>
 
                                 <Form.Item

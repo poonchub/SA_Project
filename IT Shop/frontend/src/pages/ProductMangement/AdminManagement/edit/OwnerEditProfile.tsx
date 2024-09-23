@@ -120,17 +120,6 @@ function OwnerEditProfile() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className="form-group">
-                            <StarOutlined style={{ fontSize: '25px', color: '#FF2E63' }} />
-                            <input
-                                type="text"
-                                name="AdminRole"
-                                className="input-field"
-                                placeholder="Admin Role"
-                                value={formData?.AdminRole || ''}
-                                onChange={handleChange}
-                            />
-                        </div>
                     </div>
                     <Button type="primary" onClick={handleUpdate} className="save-button">
                         บันทึกการเปลี่ยนแปลง
