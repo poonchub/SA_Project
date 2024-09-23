@@ -1,5 +1,5 @@
 /* page.css */
-.mylayout {
+.mylayoutP {
     position: relative; /* ให้คอนเทนเนอร์หลักอยู่ในตำแหน่ง relative */
     background-color: rgba(255, 255, 255, 0);
     width: 100%;

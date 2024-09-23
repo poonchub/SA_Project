@@ -4,7 +4,7 @@ import type { TableColumnsType } from 'antd';
 import { Card } from 'antd';
 import '../OrderTableList/OrderTableList.css';
 import { OrderItemInterface } from '../../Interfaces/IOrderItem';
-import { ProductInterFace } from '../../Interfaces/IProduct';
+import { ProductInterface } from '../../Interfaces/IProduct';
 import { GetProductByID } from '../../services/http';
 import { GetOrderItemByOrderID } from '../../services/http';
 // interface DataType {
@@ -45,7 +45,7 @@ const columns: TableColumnsType<OrderItemInterface & { ProductName: string}> = [
 
 const OrderTableList: React.FC<{ orderId: number }> = ({ orderId }) => {
   const [orderItems, setOrderItems] = useState<OrderItemInterface[]>([]);
-  const [products, setProducts] = useState<{ [key: number]: ProductInterFace }>({});
+  const [products, setProducts] = useState<{ [key: number]: ProductInterface }>({});
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const OrderTableList: React.FC<{ orderId: number }> = ({ orderId }) => {
               setOrderItems(fetchedOrderItems);
 
               // Fetch product details for each product in the order items
-              const productData: { [key: number]: ProductInterFace } = {};
+              const productData: { [key: number]: ProductInterface } = {};
               await Promise.all(
                   fetchedOrderItems.map(async (item: OrderItemInterface) => {
                       if (item.ProductID) { // Check if ProductID is defined

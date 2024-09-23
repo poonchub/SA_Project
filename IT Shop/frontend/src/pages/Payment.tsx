@@ -4,7 +4,7 @@ import OrderShow from "../components/OrderShow/OrderShow";
 import AddressShow from "../components/AddressShow/AddressShow";
 import AmountPrice from "../components/AmountPrice/AmountPrice";
 import OrderTableList from "../components/OrderTableList/OrderTableList";
-import "../stylesheet/page.css";
+import "../stylesheet/pagePayment.css";
 import "../stylesheet/table.css";
 import { AppContext } from "../App";
 
@@ -22,7 +22,7 @@ function Payment() {
 
     return (
         <>
-            <div className="mylayout">
+            <div className="mylayoutP">
                 {logoutPopup}
                 <Header page={"payment"} />
                 
