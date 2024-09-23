@@ -11,6 +11,7 @@
 		overflow-x: hidden;
 		display: flex;
 		/* justify-content: center; */
+
 		
 		
 	
@@ -71,7 +72,7 @@
 	
 	border-radius: 10px;
 	padding: 20px;
-	background-color: rgba(255, 255, 255, 0.801);
+	background-color: #ffffff;
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 6px, rgba(0, 0, 0, 0.16) 0px 0px 6px;
 	backdrop-filter: blur(5px); 
 	margin-right: 10px;
@@ -87,6 +88,7 @@
 	padding: 10px;
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 6px, rgba(0, 0, 0, 0.16) 0px 0px 6px;
 	border-radius: 10px;
+	background-color: #ffffff;
 }
 
 
@@ -214,6 +216,36 @@
 	
 
 }
+.disabled-button {
+	background-color: #ccc !important; /* สีพื้นหลังของปุ่มที่ปิดการใช้งาน */
+	color: #666 !important;           /* สีข้อความของปุ่มที่ปิดการใช้งาน */
+	border-color: #999 !important;    /* สีของขอบปุ่ม */
+	cursor: not-allowed;              /* เปลี่ยนเคอร์เซอร์เมื่อ hover */
+  }
+#reuplode-slip{
+	background-color: #FF2E63;
+	border: none;
+	font-size: 16px;
+	padding: 2px 10px;
+	color: white;
+	border-radius: 6px;
+	cursor: pointer;
+	
+	transition: all 0.5s;
+}
+#reuplode-slip:hover{
+	background-color: #df355f;
+}
+.group-order-but{
+  display: flex;
+  flex-direction: column; /* จัดปุ่มในแนวตั้ง */
+  gap: 10px; /* ช่องว่างระหว่างปุ่ม */
+  
+}
+
+
+
+
 @media only screen and (max-width:1100px){
 	.profile-container{
 		margin-top: 130px;
