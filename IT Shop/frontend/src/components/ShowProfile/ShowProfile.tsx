@@ -18,17 +18,17 @@ const ShowProfile: React.FC = () => {
 
   const id = localStorage.getItem("id") || "";
 
-  const [profilePath, setProfilePath] = useState<string | null>(null);
+//   const [profilePath, setProfilePath] = useState<string | null>(null);
 
-useEffect(() => {
-  // ดึง URL รูปโปรไฟล์จาก localStorage
-  const storedProfilePath = localStorage.getItem('profilePath');
-  if (storedProfilePath) {
-    setProfilePath(storedProfilePath);
-  }
-}, []);
+// useEffect(() => {
+//   // ดึง URL รูปโปรไฟล์จาก localStorage
+//   const storedProfilePath = localStorage.getItem('profilePath');
+//   if (storedProfilePath) {
+//     setProfilePath(storedProfilePath);
+//   }
+// }, []);
 
-console.log(profilePath)
+// console.log(profilePath)
 
   async function getCustomer() {
     try {
@@ -167,7 +167,7 @@ console.log(profilePath)
             <Button
               className="button-edit"
               type="primary"
-              style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63' }}
+              style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63', marginRight: "15px" }}
               onClick={handleClick}
             >
               Edit profile

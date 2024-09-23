@@ -133,7 +133,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
     })
 
     return (
-        <div className="popup-container">
+        <div className="popup-con-container">
             <div className="popup-bg"></div>
             <div className="detail-box">
                 <span className="title">ยืนยันคำสั่งซื้อ</span>
