@@ -4,7 +4,7 @@ import { CloseCircleOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 import { CategoryInterface } from '../../../Interfaces/ICategory';
 import { BrandInterface } from '../../../Interfaces/IBrand';
-import { ProductInterFace } from '../../../Interfaces/IProduct';
+import { ProductInterface } from '../../../Interfaces/IProduct';
 import { CreateImage, CreateProduct, GetBrands, GetCategories } from '../../../services/http';
 import Header from '../../../components/ProductMangement/Header';
 import CancelButton from '../../../components/ProductMangement/CancelButton';
@@ -36,7 +36,7 @@ function ProductCreate() {
     try {
       setLoading(true);
 
-      const dataProduct: ProductInterFace = {
+      const dataProduct: ProductInterface = {
         ProductName: values.ProductName,
         Description: values.Description,
         PricePerPiece: values.PricePerPiece,
@@ -59,6 +59,8 @@ function ProductCreate() {
           type: 'success',
           content: 'บันทึกข้อมูลสินค้าสำเร็จ',
         });
+        form.resetFields();
+        setImages([]);
       } else {
         messageApi.open({
           type: 'error',

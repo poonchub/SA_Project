@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Form, Input, Button, Select, Layout, InputNumber, message } from 'antd';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Content } from 'antd/es/layout/layout';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import '../../../components/ProductMangement/ProductFormPage.css'
@@ -9,6 +9,7 @@ import { BrandInterface } from '../../../Interfaces/IBrand';
 import { ProductInterface } from '../../../Interfaces/IProduct';
 import { GetBrands, GetCategories, GetProductByID, UpdateImage, UpdateProduct } from '../../../services/http';
 import Header from '../../../components/ProductMangement/Header';
+
 
 
 const { Option } = Select;
@@ -22,11 +23,13 @@ interface ImageFile {
 function ProductEdit() {
   const [images, setImages] = useState<ImageFile[]>([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const [categories, setCategories] = useState<CategoryInterface[]>([]);
   const [brands, setBrands] = useState<BrandInterface[]>([]);
   const [product, setProduct] = useState<ProductInterface | null>(null);
   const [form] = Form.useForm();
+  
 
   let { id } = useParams();
 
@@ -36,7 +39,7 @@ function ProductEdit() {
     const res = await GetProductByID(Number(id));
     if (res) {
       setProduct(res);
-      form.setFieldsValue(res); 
+      form.setFieldsValue(res);
     }
   };
 
@@ -78,7 +81,6 @@ function ProductEdit() {
             formData.append('image', image.file);
           }
 
-          // Update the image
           const imageRes = await UpdateImage(formData, Number(id));
           if (!imageRes) {
             messageApi.open({
@@ -95,6 +97,10 @@ function ProductEdit() {
           type: 'success',
           content: 'สินค้าอัปเดตสำเร็จ',
         });
+        setTimeout(() => {
+          setLoading(false);
+          navigate('/ProductManagement');
+        },1000)
       } else {
         messageApi.open({
           type: 'error',
@@ -201,8 +207,8 @@ function ProductEdit() {
                     placeholder="Enter Product Price"
                     style={{ width: '100%' }}
                     min={0}
-                    step={0.01} 
-                    precision={2} 
+                    step={0.01}
+                    precision={2}
                   />
                 </Form.Item>
 

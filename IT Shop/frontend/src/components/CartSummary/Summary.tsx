@@ -1,8 +1,8 @@
 import "../CartSummary/Summary.css";
 import { CartInterface } from "../../Interfaces/ICart";
-import { CreateOrder, CreateOrderItem, DeleteCart, GetAddressByCustomerID, UpdateProduct, UpdateProductbyid } from "../../services/http";
+import { CreateOrder, CreateOrderItem, DeleteCart, GetAddressByCustomerID, UpdateProductbyid } from "../../services/http";
 import CountUp from "react-countup";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AddressInterface } from "../../Interfaces/IAddress";
 import { OrderInterface } from "../../Interfaces/IOrder";
 import { ProductInterface } from "../../Interfaces/IProduct";
@@ -11,7 +11,6 @@ import { message } from "antd";
 import { formatNumber } from "../CartItem/Card";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../../pages/Payment'
-import Payment from "../../pages/Payment";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface TotalPriceProps {
@@ -128,7 +127,7 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
       if (totalPrice > 0) {
          const orderData: OrderInterface = {
         TotalPrice: Math.round(finalPrice),
-        Status: "not yet paid",
+        Status: "รอการชำระเงิน",
         CustomerID: cus_id,
         AddressID: Number(selectedAddress),
       };
