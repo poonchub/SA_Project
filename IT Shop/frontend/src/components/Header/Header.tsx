@@ -241,6 +241,7 @@ function Header(props: { page: any;}){
                         id="notify-h" 
                         style={{ 
                             fontSize: '20px',
+                            alignContent: 'center',
                         }} 
                     /> 
                     </Badge>
