@@ -106,7 +106,7 @@ function Orderdetail() {
             dataSource={itemdetail}
             rowKey="ID"
           />
-          
+          <button id='but-back' onClick={() => window.history.back()}>ย้อนกลับ</button>
         </div>
       </div>
     </>
