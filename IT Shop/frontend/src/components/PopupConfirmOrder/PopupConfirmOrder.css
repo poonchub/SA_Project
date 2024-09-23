@@ -1,6 +1,6 @@
 @import "../../stylesheet/ColorSheet.css";
 
-.popup-container{
+.popup-con-container{
     width: 100vw;
     height: 100vh;
     position: fixed;
