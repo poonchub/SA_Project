@@ -37,7 +37,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
             const cutomerID = localStorage.getItem("id")
             const orderData: OrderInterface = {
                 TotalPrice: totalPrice,
-                Status: "not yet paid",
+                Status: "รอการชำระเงิน",
                 CustomerID: cutomerID!=null ? parseInt(cutomerID): 0,
                 AddressID: selectedAddress
             };
