@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 import { Context } from '../../pages/Product';
 import { apiUrl } from '../../services/http';
 import { AppContext } from '../../App';
+import { Badge, Popover, List, Dropdown, Menu } from 'antd';
+import { BellOutlined } from '@ant-design/icons';
+import { Notification } from '../../Interfaces/INotification';
+import { getNotifications } from '../NotificationContext/NotificationContext';
 
 //for countCart
 function Header(props: { page: any;}){
@@ -13,9 +17,53 @@ function Header(props: { page: any;}){
     const {searchText, setSearchText, setMode} = useContext(Context)
     const {setLogoutPopup, messageApiLogout, contextHolderLogout} = useContext(AppContext)
     const [isToggled, setIsToggled] = useState(true);
-    //count cart
+
+    
+    // const [notifications, setNotifications] = useState<string[]>(['New order received', 'Payment confirmed', 'Shipment out for delivery']);
+    // const [notifications, setNotifications] = useState<Notification[]>([]);
+    const [notifications, setNotifications] = useState<Notification[]>(getNotifications());
+    const [unreadCount, setUnreadCount] = useState(notifications.length);
+    
+ 
     const { countCart } = useContext(AppContext); // ดึง countCart จาก AppContext
 
+
+    // อ่านการแจ้งเตือนจาก localStorage เมื่อเริ่มต้น
+    useEffect(() => {
+        const storedNotifications = localStorage.getItem('notifications');
+        if (storedNotifications) {
+            const notificationsFromStorage = JSON.parse(storedNotifications);
+            setNotifications(notificationsFromStorage);
+            setUnreadCount(notificationsFromStorage.length);
+        }
+    }, []);
+
+    // useEffect(() => {
+    //     setNotifications(getNotifications());
+        
+    // }, []);
+
+    // // เก็บการแจ้งเตือนใหม่ใน localStorage
+    // const addNotification = (message: string) => {
+    //     const newNotification = { id: notifications.length + 1, message };
+    //     const updatedNotifications = [...notifications, newNotification];
+    
+    //     setNotifications(updatedNotifications);
+    //     setUnreadCount((prev) => prev + 1);
+    
+    //     // เก็บข้อมูลใน localStorage
+    //     localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+    // };
+
+    const menu = (
+        <Menu>
+            {notifications.map((note) => (
+                <Menu.Item key={note.id}>{note.message}</Menu.Item>
+            ))}
+        </Menu>
+    );
+
+      
     function toggleMode(){
         setIsToggled(!isToggled);
         if(isToggled){
@@ -44,6 +92,10 @@ function Header(props: { page: any;}){
                 </div>
             </div>
         )
+    }
+
+    function markAsRead() {
+        setUnreadCount(0); // รีเซ็ตจำนวนการแจ้งเตือนที่ยังไม่ได้อ่าน
     }
 
     const Logout = () => {
@@ -111,15 +163,30 @@ function Header(props: { page: any;}){
 
         const head_con = document.querySelector("#con-h")
         const head_cart = document.querySelector("#cart-h")
+        const head_notify = document.querySelector("#notify-h")
         if (page=="home" && head_con!=null){
             head_con.setAttribute("class", "container-head-home")
             head_cart?.setAttribute("class","count-cart2")
+            head_notify?.setAttribute("class", "notify-change")
         }
         else if (page!="home" && head_con!=null){
             head_con.setAttribute("class", "container-head")
         }
 
     }, [])
+
+    //  // ตัวอย่างการสร้างการแจ้งเตือน
+    //  const handleCreateOrder = () => {
+    //     addNotification("ได้ทำการสร้างคำสั่งซื้อของคุณแล้ว");
+    // };
+
+    // const handleCreatePayment = () => {
+    //     addNotification("ได้ทำการสร้างการชำระเงินแล้ว อยู่ระหว่างตรวจสอบ");
+    // };
+
+    // const handlePaymentVerificationComplete = () => {
+    //     addNotification("ตรวจสอบการชำระเงินเสร็จสิ้น");
+    // };
 
     return (
         <div className="container-head" id="con-h">
@@ -128,7 +195,6 @@ function Header(props: { page: any;}){
                 {modeElement}
                 <div className="logo-box">
                     <div className="img-box">
-                        {/* <img src="/images/Lenovo_Global_Corporate_Logo.png" alt="" /> */}
                         MY<span>&nbsp;LOGO</span>
                     </div>
                 </div>
@@ -147,20 +213,35 @@ function Header(props: { page: any;}){
                 </a>
             </div>
             <nav>
+
                 <Link to='/' className='menu' id='home'>Home</Link>
                 <Link to='/Product' className='menu' id='product'>Product</Link>
                 <Link to='/Profile' className='menu' id='profile'>Profile</Link>
                 <Link to='/Cart' className="cart-box">
                     <img src={page=="home" ? "/images/icon/cart-pink.png" : "/images/icon/cart-black.png"} alt="" />
-                    {/* add */}
                     {countCart > 0 && (
-                       <div className="count-cart1" id='cart-h' >{countCart}</div>
-                     )}
+                        <div className="count-cart1" id='cart-h' >{countCart}</div>
+                    )}
                 </Link>
+                <Popover
+                    content={menu}
+                    title="Notifications"
+                    trigger="click"
+                    onVisibleChange={markAsRead}
+                >
+                    <Badge count={unreadCount}>
+                    <BellOutlined 
+                        className='notify-contain'
+                        id="notify-h" 
+                        style={{ 
+                            fontSize: '20px',
+                        }} 
+                    /> 
+                    </Badge>
+                </Popover>
                 <div className="line"></div>
                 {customerElement}
             </nav>
-            
         </div>
     )
 }

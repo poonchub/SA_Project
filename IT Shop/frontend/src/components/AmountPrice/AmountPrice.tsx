@@ -8,6 +8,7 @@ import QRcode from '../../../../backend/images/payment/QR.png';
 import { CreatePayment } from '../../services/http';
 import PopupConfirmPayment from './PopupConfirmPayment';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { addNotification } from '../NotificationContext/NotificationContext';
 
 const AmountPrice = ({ orderId, customerId }: { orderId: number, customerId: number }) => {
   const [slip, setSlip] = useState<File[]>([]);
@@ -18,6 +19,7 @@ const AmountPrice = ({ orderId, customerId }: { orderId: number, customerId: num
   const [api, contextHolder] = message.useMessage(); // ใช้ message API
   const navigate = useNavigate(); // ใช้ useNavigate สำหรับการนำทาง
   
+
 
   useEffect(() => {
     // Clean up URLs when component unmounts or slip changes
@@ -103,6 +105,7 @@ const AmountPrice = ({ orderId, customerId }: { orderId: number, customerId: num
         setTimeout(() => {
           navigate(-1); // กลับไปยังหน้าก่อนหน้า
         }, 1000); // หน่วงเวลา 1 วินาที
+        addNotification("ได้ทำการสร้างการชำระเงินแล้ว อยู่ระหว่างตรวจสอบ");
       } else {
         api.error('Failed to upload images. Please try again.');
       }
@@ -141,9 +144,6 @@ const AmountPrice = ({ orderId, customerId }: { orderId: number, customerId: num
                 <div
                   className='warningUpload'
                   style={{
-                    position: 'absolute',
-                    top: '23px',
-                    left: '347px',
                     backgroundColor: '#FF0000',
                   }}
                 />

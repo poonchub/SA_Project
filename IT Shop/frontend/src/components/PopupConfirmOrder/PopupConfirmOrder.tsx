@@ -5,6 +5,7 @@ import { CreateOrder, CreateOrderItem, GetAddressByCustomerID, UpdateProduct } f
 import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { ProductInterface } from "../../Interfaces/IProduct";
+import { addNotification } from "../NotificationContext/NotificationContext";
 
 function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any; quantity: any; products: any; messageApi: any; }){
 
@@ -19,6 +20,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
     const totalPrice = products[sltProduct].PricePerPiece*quantity
     const priceFormat = totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) 
 
+    
     function closePopup(){
         setPopup(null)
     }
@@ -89,6 +91,8 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
         setTimeout(() => {
             location.href = "/Payment";
         }, 1800);
+        
+        addNotification("ได้ทำการสร้างคำสั่งซื้อของคุณแล้ว");
     }
 
     // @ts-ignore
