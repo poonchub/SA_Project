@@ -79,6 +79,7 @@ function Edit() {
           localStorage.setItem('profilePath', result.newProfilePath);
           setImagePreview(`${apiUrl}/${result.newProfilePath}`); // Update preview without reload
           console.log(localStorage.getItem("profilePath"));
+          console.log(imagePreview);
         } else {
           throw new Error('\nเกิดข้อผิดพลาดในการอัพโหลดรูปโปรไฟล์นะจ๊ะ');
         }
@@ -150,6 +151,8 @@ function Edit() {
     let res = await GetCustomerByID(parseInt(id));
     if (res) {
       setCustomer(res);
+      setImagePreview(`${apiUrl}/${res.ProfilePath}`); // ดึง profilePath จากตาราง customer
+      console.log(`${apiUrl}/${res.ProfilePath}`)
       form.setFieldsValue({
         FirstName: res.FirstName,
         LastName: res.LastName,
@@ -160,6 +163,7 @@ function Edit() {
       });
     }
   };
+  
 
   const getAddressByCustomerID = async () => {
     let res = await GetAddressByCustomerID(parseInt(id));
@@ -209,7 +213,7 @@ function Edit() {
         <Col xs={24} style={{display: "flex", flexDirection: "column", justifyItems:"center", alignItems:"center"}}>
           <div className="show-profile-box">
             <img src={
-                imagePreview=="" ? `${apiUrl}/${localStorage.getItem("profilePath")}` : imagePreview
+                imagePreview=="" ? `${apiUrl}/${customer?.ProfilePath}` : imagePreview
               } 
               alt="Selected" 
             />
