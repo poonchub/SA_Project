@@ -78,11 +78,12 @@ function Edit() {
           setUploadError('');
           localStorage.setItem('profilePath', result.newProfilePath);
           setImagePreview(`${apiUrl}/${result.newProfilePath}`); // Update preview without reload
+          console.log(localStorage.getItem("profilePath"));
         } else {
-          throw new Error('Failed to upload profile picture');
+          throw new Error('\nเกิดข้อผิดพลาดในการอัพโหลดรูปโปรไฟล์นะจ๊ะ');
         }
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
+        const errorMessage = err instanceof Error ? err.message : '\nไม่รู้จักข้อผิดพลาดนี้จ่ะ';
         setUploadError(`Error: ${errorMessage}`);
         setUploadMessage('');
       }
@@ -218,9 +219,9 @@ function Edit() {
               <label htmlFor="fileInput">เลือกรูปภาพ</label>
             </div>
             <input id="fileInput" type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
-            <Button type="primary" onClick={handleUploadProfilePicture} style={{ marginLeft: "10px" }}>
+            {/* <Button type="primary" onClick={handleUploadProfilePicture} style={{ marginLeft: "10px" }}>
               Upload
-            </Button>
+            </Button> */}
             {uploadMessage && <p style={{ color: 'green' }}>{uploadMessage}</p>}
             {uploadError && <p style={{ color: 'red' }}>{uploadError}</p>}
           </Form.Item>
