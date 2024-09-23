@@ -6,7 +6,7 @@ import { CloseCircleOutlined } from '@ant-design/icons';
 import '../../../components/ProductMangement/ProductFormPage.css'
 import { CategoryInterface } from '../../../Interfaces/ICategory';
 import { BrandInterface } from '../../../Interfaces/IBrand';
-import { ProductInterFace } from '../../../Interfaces/IProduct';
+import { ProductInterface } from '../../../Interfaces/IProduct';
 import { GetBrands, GetCategories, GetProductByID, UpdateImage, UpdateProduct } from '../../../services/http';
 import Header from '../../../components/ProductMangement/Header';
 
@@ -25,7 +25,7 @@ function ProductEdit() {
   const [messageApi, contextHolder] = message.useMessage();
   const [categories, setCategories] = useState<CategoryInterface[]>([]);
   const [brands, setBrands] = useState<BrandInterface[]>([]);
-  const [product, setProduct] = useState<ProductInterFace | null>(null);
+  const [product, setProduct] = useState<ProductInterface | null>(null);
   const [form] = Form.useForm();
 
   let { id } = useParams();
@@ -59,7 +59,7 @@ function ProductEdit() {
     try {
       setLoading(true);
 
-      const updatedProduct: ProductInterFace = {
+      const updatedProduct: ProductInterface = {
         ...product,
         ProductName: values.ProductName,
         Description: values.Description,
