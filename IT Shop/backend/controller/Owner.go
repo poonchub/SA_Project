@@ -1,11 +1,13 @@
 package controller
 
 import (
+	"fmt"
 	"main/config"
 	"main/entity"
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -99,20 +101,25 @@ func CreateOwner(c *gin.Context) {
 		return
 	}
 
-	hashedPassword, _ := config.HashPassword(owner.Password)
+	hashedPassword, err := config.HashPassword(owner.Password)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to hash password"})
+		return
+	}
+
 	own := entity.Owner{
-		FirstName: owner.FirstName,
-		LastName:  owner.LastName,
-		Email:     owner.Email,
-		Password:  hashedPassword,
+		FirstName:  owner.FirstName,
+		LastName:   owner.LastName,
+		Email:      owner.Email,
+		Password:   hashedPassword,
 		ProfilePath: owner.ProfilePath,
 		Categories: owner.Categories,
-		GenderID:  owner.GenderID,
-		Gender:    owner.Gender,
+		GenderID:   owner.GenderID,
+		Gender:     owner.Gender,
 	}
 
 	// บันทึก owner ลงในฐานข้อมูล
-	if err := db.FirstOrCreate(&own,&entity.Owner{Email: own.Email}).Error; err != nil {
+	if err := db.FirstOrCreate(&own, &entity.Owner{Email: own.Email}).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -122,13 +129,12 @@ func CreateOwner(c *gin.Context) {
 }
 
 
-
 func UpdateOwner(c *gin.Context) {
 	var owner entity.Owner
 	id := c.Param("id")
 	db := config.DB()
 
-
+	// ตรวจสอบว่าเจ้าของมีอยู่ในฐานข้อมูลหรือไม่
 	if err := db.First(&owner, id).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Owner not found"})
 		return
@@ -140,127 +146,120 @@ func UpdateOwner(c *gin.Context) {
 		return
 	}
 
+
+	// อัปเดตข้อมูลเจ้าของ
 	if err := db.Model(&owner).Updates(updatedOwner).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update owner"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Owner updated successfully"})
+	// ส่งกลับเจ้าของที่อัปเดต
+	c.JSON(http.StatusOK, gin.H{"message": "Owner updated successfully", "data": owner})
 }
+
 
 func DeleteOwner(c *gin.Context) {
     id := c.Param("id") // รับค่า id จาก URL
-    
+
     db := config.DB()
 
+    // ลบเจ้าของจากฐานข้อมูล
     if tx := db.Where("id = ?", id).Delete(&entity.Owner{}); tx.RowsAffected == 0 {
-        c.JSON(http.StatusBadRequest, gin.H{"error": "Owner not found"})
+        c.JSON(http.StatusNotFound, gin.H{"error": "Owner not found"})
         return
     }
 
     c.JSON(http.StatusOK, gin.H{"message": "Deleted successfully"})
 }
 
-
-func CreateOwnerImage(c *gin.Context) {
+func UploadProfileOwner(c *gin.Context) {
 	db := config.DB()
-	ownerID := c.Param("id")
 
-	var owner entity.Owner
-
-	// ค้นหา owner จาก ID
-	if err := db.First(&owner, ownerID).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Owner not found"})
-		return
-	}
-
-	// รับไฟล์รูปภาพจาก form
-	file, err := c.FormFile("profile_image")
+	// รับ customer ID จากข้อมูลในฟอร์ม
+	ownerID, err := strconv.ParseUint(c.PostForm("ownerID"), 10, 32)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Image not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid owner ID"})
 		return
 	}
 
-	fileName := filepath.Base(file.Filename)
-	filePath := filepath.Join("images", "profile", "owner", fileName)
+	// รับไฟล์จากฟอร์ม
+	file, err := c.FormFile("owner-profile")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No file is received"})
+		return
+	}
 
-	// สร้างโฟลเดอร์ถ้ายังไม่มี
-	if err := os.MkdirAll(filepath.Join("images", "profile", "owner"), os.ModePerm); err != nil {
+	// เปิดไฟล์เพื่อตรวจสอบ MIME type
+	openedFile, err := file.Open()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to open file"})
+		return
+	}
+	defer openedFile.Close()
+
+	// ตรวจสอบ MIME type
+	buffer := make([]byte, 512)
+	_, err = openedFile.Read(buffer)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read file"})
+		return
+	}
+
+	mimeType := http.DetectContentType(buffer)
+	if mimeType != "image/jpeg" && mimeType != "image/png" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Only JPEG and PNG images are allowed"})
+		return
+	}
+
+	// รับนามสกุลไฟล์จากไฟล์ที่อัพโหลด
+	ext := filepath.Ext(file.Filename)
+	if ext == "" {
+		ext = ".png" // ตั้งค่าเริ่มต้นเป็น .png หากไม่มีนามสกุลไฟล์
+	}
+
+	// สร้างโฟลเดอร์ย่อยสำหรับภาพโปรไฟล์
+	subfolder := "profile"
+	fileName := fmt.Sprintf("owner_id%02d%s", ownerID, ext) // ปรับชื่อไฟล์ให้เหมาะสม
+	filePath := filepath.Join("images", subfolder, "owner", fileName)
+
+	// สร้างไดเรกทอรีหากยังไม่มี
+	err = os.MkdirAll(filepath.Join("images", subfolder, "owner"), os.ModePerm)
+	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create directory"})
 		return
 	}
 
-	// บันทึกไฟล์รูปภาพ
-	if err := c.SaveUploadedFile(file, filePath); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save image"})
-		return
-	}
-
-	// อัปเดตพาธรูปภาพใน owner
-	owner.ProfilePath = filePath
-	if err := db.Save(&owner).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update owner"})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"data": owner})
-}
-
-func UpdateOwnerImage(c *gin.Context) {
-	db := config.DB()
+	// อัพเดตเส้นทางโปรไฟล์ของลูกค้าในฐานข้อมูล
 	var owner entity.Owner
-
-	// รับค่า id ของ owner ที่จะอัปเดต
-	id := c.Param("id")
-	if err := db.First(&owner, id).Error; err != nil {
+	if err := db.First(&owner, ownerID).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Owner not found"})
 		return
 	}
 
-	// ตรวจสอบว่ามีการอัปโหลดรูปใหม่หรือไม่
-	file, err := c.FormFile("profile_image")
-	if err == nil {
-		// ลบรูปเก่าออก ถ้ามีรูปเก่า
-		if owner.ProfilePath != "" {
-			if err := os.Remove(owner.ProfilePath); err != nil {
-				c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete old profile image"})
-				return
-			}
-		}
-
-		// บันทึกรูปภาพใหม่
-		fileName := filepath.Base(file.Filename)
-		filePath := filepath.Join("images", "profile", "owner", fileName)
-
-		if err := os.MkdirAll(filepath.Join("images", "profile", "owner"), os.ModePerm); err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create directory"})
+	// ลบรูปโปรไฟล์เดิมถ้ามี
+	if owner.ProfilePath != "" {
+		if err := os.Remove(owner.ProfilePath); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete old profile picture"})
 			return
 		}
-
-		if err := c.SaveUploadedFile(file, filePath); err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save new profile image"})
-			return
-		}
-
-		// อัปเดตพาธรูปใหม่ใน ProfilePath
-		owner.ProfilePath = filePath
 	}
 
-	// รับข้อมูล owner ใหม่จาก JSON
-	var updatedOwner entity.Owner
-	if err := c.ShouldBindJSON(&updatedOwner); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// บันทึกไฟล์ที่อัพโหลด
+	if err := c.SaveUploadedFile(file, filePath); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save file"})
 		return
 	}
 
-	// อัปเดตข้อมูลอื่น ๆ ของ owner ยกเว้นรูปภาพ
-	if err := db.Model(&owner).Updates(updatedOwner).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update owner"})
+	// อัปเดตเส้นทางโปรไฟล์ใหม่ในฐานข้อมูล
+	owner.ProfilePath = filePath
+	if err := db.Save(&owner).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update customer profile path"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Owner updated successfully"})
+	c.JSON(http.StatusCreated, gin.H{"message": "Profile picture uploaded successfully", "data": owner})
 }
+
 
 
 
