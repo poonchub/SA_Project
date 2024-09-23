@@ -156,7 +156,6 @@ function AdminManagement() {
                                         <p><strong>First Name:</strong> {selectedOwner.FirstName}</p>
                                         <p><strong>Last Name:</strong> {selectedOwner.LastName}</p>
                                         <p><strong>Email:</strong> {selectedOwner.Email}</p>
-                                        <p><strong>AdminRole:</strong> {selectedOwner.AdminRole}</p>
 
                                     </div>
                                     <div className="modal-actions">
