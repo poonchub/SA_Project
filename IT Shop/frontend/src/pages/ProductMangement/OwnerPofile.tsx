@@ -9,6 +9,7 @@ import { OrderInterface } from '../../Interfaces/IOrder';
 import { PaymentInterface } from '../../Interfaces/IPayment';
 import ButtonWithImage from '../../components/ProductMangement/ButtonWithImage';
 import { GendersInterface } from '../../Interfaces/IGender';
+import { useNavigate } from 'react-router-dom';
 
 
 const OwnerProfile: React.FC = () => {
@@ -19,7 +20,7 @@ const OwnerProfile: React.FC = () => {
   const [useslip,setUseslip] = useState(false)
   const [payment,setPayment] = useState<PaymentInterface[]>([]);
   const [gender,setGender] = useState<GendersInterface[]>([]);
-
+  const navigate = useNavigate();
   async function getOrders() {
     try {
       const res = await GetOrders();
@@ -72,6 +73,7 @@ const OwnerProfile: React.FC = () => {
 
   const handleOrderDetail = (orderId: number) => {
     console.log(`Order ID: ${orderId}`);
+    navigate(`/order-detail/${orderId}`);
     //ลิ้งไปหน้ารายละเอียดของคำสั่งซื้อ
   };
   const confirmOrder = async (id: number) => {
