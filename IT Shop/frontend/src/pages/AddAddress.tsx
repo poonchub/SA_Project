@@ -12,7 +12,7 @@ function Add(){
     return (
         <>
             {logoutPopup}
-            <Header page={"profile"}/>
+            <Header page={"add-address"}/>
             <AddAddress />
         </>
     )
