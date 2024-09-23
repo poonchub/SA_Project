@@ -71,21 +71,38 @@ func UpdateCustomerByID(c *gin.Context) {
 // POST /customer
 func CreateCustomer(c *gin.Context) {
 	var customer entity.Customer
-	db := config.DB()
 
-	// Binding ข้อมูลที่ต้องการสร้างจาก form
 	if err := c.ShouldBindJSON(&customer); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// บันทึกข้อมูลลูกค้าใหม่
-	if err := db.Create(&customer).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create customer"})
+	db := config.DB()
+
+	var gender entity.Gender
+	db.First(&gender, customer.GenderID)
+	if gender.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Gender not found"})
 		return
 	}
 
-	c.JSON(http.StatusCreated, customer)
+	hashedPassword, _ := config.HashPassword(customer.Password)
+	cus := entity.Customer{
+		FirstName: customer.FirstName,
+		LastName:  customer.LastName,
+		Email:     customer.Email,
+		Password:  hashedPassword,
+		Birthday:  customer.Birthday,
+		GenderID:  customer.GenderID,
+		Gender:    gender,
+	}
+
+	if err := db.Preload("Address.Custome").FirstOrCreate(&cus, &entity.Customer{Email: cus.Email}).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusCreated, gin.H{"message": "Created success", "data": cus})
 }
 
 // PATCH /orderItem
