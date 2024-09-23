@@ -99,14 +99,26 @@ func CreateOwner(c *gin.Context) {
 		return
 	}
 
+	hashedPassword, _ := config.HashPassword(owner.Password)
+	own := entity.Owner{
+		FirstName: owner.FirstName,
+		LastName:  owner.LastName,
+		Email:     owner.Email,
+		Password:  hashedPassword,
+		ProfilePath: owner.ProfilePath,
+		Categories: owner.Categories,
+		GenderID:  owner.GenderID,
+		Gender:    owner.Gender,
+	}
+
 	// บันทึก owner ลงในฐานข้อมูล
-	if err := db.Create(&owner).Error; err != nil {
+	if err := db.FirstOrCreate(&own,&entity.Owner{Email: own.Email}).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	// ส่งกลับ owner พร้อม ID ที่เพิ่งสร้าง
-	c.JSON(http.StatusCreated, gin.H{"data": owner})
+	c.JSON(http.StatusCreated, gin.H{"data": own})
 }
 
 
