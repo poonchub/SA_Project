@@ -7,4 +7,5 @@ export interface OwnerInterface {
 	Password?:	string
 	ProfilePath?:	string
 	GenderID?:  number
+	[key: string]: any;
 }

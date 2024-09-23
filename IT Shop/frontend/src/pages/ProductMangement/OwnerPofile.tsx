@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { UserOutlined, MailOutlined } from '@ant-design/icons';
-import { Button, message, Table, TableProps } from 'antd';  // นำเข้า Table จาก Ant Design
+import { UserOutlined, MailOutlined, StarOutlined } from '@ant-design/icons';
+import { message, Table, TableProps } from 'antd';  // นำเข้า Table จาก Ant Design
 import './OwnerProfile.css';  
 import { OwnerInterface } from '../../Interfaces/IOwner';
-import { apiUrl, GetOwnerByID, GetOrders, UpdateOrder, UpdatestatusOrderbyID, GetslipByOrderID } from '../../services/http';
+import { apiUrl, GetOwnerByID, GetOrders, UpdatestatusOrderbyID, GetslipByOrderID, GetGenders } from '../../services/http';
 import Header from '../../components/ProductMangement/Header';
 import { OrderInterface } from '../../Interfaces/IOrder';
 import { PaymentInterface } from '../../Interfaces/IPayment';
+import ButtonWithImage from '../../components/ProductMangement/ButtonWithImage';
+import { GendersInterface } from '../../Interfaces/IGender';
 
 
 const OwnerProfile: React.FC = () => {
@@ -16,6 +18,7 @@ const OwnerProfile: React.FC = () => {
   const [orders, setOrders] = useState<OrderInterface[]>([]);
   const [useslip,setUseslip] = useState(false)
   const [payment,setPayment] = useState<PaymentInterface[]>([]);
+  const [gender,setGender] = useState<GendersInterface[]>([]);
 
   async function getOrders() {
     try {
@@ -51,6 +54,19 @@ const OwnerProfile: React.FC = () => {
     }
   }
 
+  
+  const getGender= async () => {
+    let res = await GetGenders();
+    if (res) {
+      setGender(res);
+    }
+  }
+
+  const getGenderName = (genderID: number | undefined) => {
+    const foundGender = gender.find(g => g.ID === genderID);
+    return foundGender ? foundGender.Name : 'Unknown';
+  };
+
   const handleOrderDetail = (orderId: number) => {
     console.log(`Order ID: ${orderId}`);
     //ลิ้งไปหน้ารายละเอียดของคำสั่งซื้อ
@@ -83,6 +99,7 @@ const OwnerProfile: React.FC = () => {
   useEffect(() => {
     getOwner();
     getOrders();
+    getGender();
    
   }, []);
 
@@ -157,40 +174,38 @@ const OwnerProfile: React.FC = () => {
            </div>
         </div>
         <div className="cover-table">
-          <table>
+        <table>
           <tbody>
             <tr>
               <td>
                 <UserOutlined style={{ fontSize: '30px', color: '#FF2E63' }} />
               </td>
               <td valign='bottom'>
-                {owner?.FirstName} {owner?.LastName}
+                 {owner?.FirstName} {owner?.LastName}
               </td>
             </tr>
             <tr>
+              <td> <img src='/images/icon/gender.png' className='gender-image' /></td>
+              <td> {getGenderName(owner?.GenderID)} </td>
+            </tr>
+            <tr>
               <td>
-                <MailOutlined style={{ padding:'2px' ,fontSize: '25px', color: '#FF2E63' }} />
+                <MailOutlined style={{ fontSize: '25px', color: '#FF2E63' }} />
               </td>
               <td>{owner?.Email}</td>
             </tr>
             <tr>
               <td>
-                <div className="img-custom">
-                  <img id="img-cup" src='https://cdn0.iconfinder.com/data/icons/3d-dynamic-color/512/takeaway-cup-dynamic-color.png' alt="Admin Role"/>
-                </div>
+                <StarOutlined style={{ fontSize: '25px', color: '#FF2E63' }} />
               </td>
-              <td>
-                {owner?.AdminRole}
-              </td>
+              <td>{owner?.AdminRole}</td>
             </tr>
           </tbody>
         </table>
         
         </div>
         <div className="comtroll-but">
-          <input type='button' value='จัดการบิล' className='btn-logout'
-          onClick={() => window.location.href = '/ProductManagement'} />
-        </div>
+        <ButtonWithImage ownerId={owner!.ID ?? 0} />       </div>
         
          </div>
 
