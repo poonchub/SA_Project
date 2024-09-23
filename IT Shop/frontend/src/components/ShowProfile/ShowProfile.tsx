@@ -91,11 +91,13 @@ console.log(profilePath)
       key: 'action',
       align: 'center',
       render: (record: OrderInterface) => (
-        <Link to="/Payment">
-          <Space size="middle">
-              <Button style={{backgroundColor: "var(--subtheme-color1)"}} type="primary" onClick={()=>localStorage.setItem("orderId", `${record.ID}`)}>ชำระเงิน</Button>
-          </Space>
-        </Link>   
+        record.Status=="รอการชำระเงิน" ? (
+          <Link to="/Payment">
+            <Space size="middle">
+                <Button style={{backgroundColor: "var(--subtheme-color1)"}} type="primary" onClick={()=>localStorage.setItem("orderId", `${record.ID}`)}>ชำระเงิน</Button>
+            </Space>
+          </Link>
+        ) : "รอการตรวจสอบ"  
       )
   },
   ];
