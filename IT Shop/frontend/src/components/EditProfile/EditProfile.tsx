@@ -42,7 +42,6 @@ interface DataInterface {
 }
 
 function Edit() {
-  const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const [customer, setCustomer] = useState<CustomerInterface>();
   const [genders, setGenders] = useState<GendersInterface[]>([]);
@@ -204,7 +203,7 @@ const handleUploadProfilePicture = async () => {
   return (
     <div className="edit-container">
       {contextHolder}
-      <Card>
+      <Card style={{overflowX: "hidden", display:"flex", flexDirection: "column"}}>
         <h2> แก้ไขข้อมูลส่วนตัว</h2>
         <Divider />
          {/* ส่วนที่เพิ่มเข้ามา */}
@@ -220,22 +219,13 @@ const handleUploadProfilePicture = async () => {
           </Form.Item>
         </Col>
       </Row>
-
-      <Form
-        name="basic"
-        form={form}
-        layout="vertical"
-        onFinish={onFinish}
-        autoComplete="off"
-      >
-
-      </Form>
         <Form
           name="basic"
           form={form}
           layout="vertical"
           onFinish={onFinish}
           autoComplete="off"
+          style={{display:"flex", flexDirection: "column", alignItems: "flex-start"}}
         >
           <Row gutter={[16, 16]}>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
