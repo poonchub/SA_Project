@@ -27,10 +27,15 @@
 			margin-bottom: 20px;
 			border-radius: 50%;
 			overflow: hidden;
-	
-			& img{
-				width: 100px
+
+			.circular-image {
+				width: 120px;
+				height: 120px;
+				border-radius: 60%;
+				object-fit: cover;
+				border: 3px solid #FF2E63;
 			}
+						
 		}
 	
 		& .profile-detail{
@@ -47,13 +52,18 @@
 	}
 }
 
+
+.gender-image{
+	width: 30px;
+	height: 30px;
+}
+
+
 #img-cup{
 	width: 30px;
 	height: 30px;
 }
-.content-left-for-owner{
-   
-	
+.content-left-for-owner{  
 	/* width: 40vw; */
 	display: block;
 	justify-content: center;

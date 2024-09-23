@@ -1,0 +1,21 @@
+.ant-input-password {
+    width: 100%; /* ปรับขนาดกว้างเต็ม */
+    height: 40px; /* ความสูง */
+    border-radius: 8px; /* มุมโค้งมน */
+    border: 2px solid #FF2E63; /* กรอบสีแดง */
+    padding: 5px 10px; /* ระยะห่างด้านใน */
+    font-size: 16px; /* ขนาดฟอนต์ */
+  }
+  .ant-input-password:hover {
+    border-color: #FF6F91 !important; /* เปลี่ยนสีกรอบเมื่อ hover */
+  }
+  
+  .ant-input-password:focus {
+    border-color: #FF9AA2; /* เปลี่ยนสีกรอบเมื่อ focus */
+    box-shadow: 0 0 5px rgba(255, 46, 99, 0.8); /* เพิ่มเงา */
+  }
+  
+  .ant-input-password .ant-input-suffix {
+    color: #FF2E63; /* เปลี่ยนสีของ icon ด้านขวา */
+  }
+  
