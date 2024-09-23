@@ -102,8 +102,8 @@ function OwnerHeader(props: { page: any; }) {
                 </div>
             </div>
             <nav>
-                <Link to='/Owner/Create' className='menu' id='new-owner'>Add Admin</Link>
-                <Link to='/OwnerProfile' className='menu' id='profile'>Profile</Link>
+                <Link to='/Owner/Create' className='menu' id='Create-Owner'>Add Admin</Link>
+                <Link to='/OwnerProfile' className='menu' id='owner-profile'>Profile</Link>
                 <div className="line"></div>
                 {OwnerElement}
             </nav>

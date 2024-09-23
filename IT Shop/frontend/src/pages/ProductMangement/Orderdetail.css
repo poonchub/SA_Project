@@ -44,3 +44,19 @@
     text-align: center;
     margin-bottom: 10px;
 }
+#but-back{
+
+        background-color: #000000;
+        border: none;
+        font-size: 16px;
+        padding: 2px 10px;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.5s;
+        
+    }
+
+#but-back:hover{
+    background-color: #363535;
+}

@@ -118,7 +118,7 @@ function ProductCreate() {
   return (
     <>
       {contextHolder}
-      <Header page={'Create Product'} />
+      <Header page={'New-Product'} />
       <div className="my-layout1">
         <Layout
           style={{
@@ -166,8 +166,12 @@ function ProductCreate() {
                     },
                   ]}
                   style={{ flex: '0 0 100%' }}
+                  className='decsription-input'
                 >
-                  <Input.TextArea placeholder="Enter Product Description" />
+                  <Input.TextArea placeholder="Enter Product Description" 
+                   autoSize={{ minRows: 5, maxRows: 10 }}
+                  />
+                  
                 </Form.Item>
 
                 <Form.Item
