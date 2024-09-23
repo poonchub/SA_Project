@@ -9,6 +9,7 @@ import ShowOwnerProfile from "../pages/ProductMangement/OwnerPofile";
 import AdminManagement from "../pages/ProductMangement/AdminManagement/AdminManagement";
 import OwnerCreate from "../pages/ProductMangement/AdminManagement/create/OwnerCreate";
 import OwnerEditProfile from "../pages/ProductMangement/AdminManagement/edit/OwnerEditProfile";
+import Orderdetail from "../pages/ProductMangement/Orderdetail";
 
 const OwnerRoutes = (): RouteObject => {
  
@@ -60,6 +61,10 @@ const OwnerRoutes = (): RouteObject => {
             {
                 path: "*",
                 element: <Home />,
+            },
+            {
+                path: "/order-detail/:orderId",
+                element: <Orderdetail />,
             },
         ],
 

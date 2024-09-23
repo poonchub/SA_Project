@@ -9,6 +9,7 @@ import { OrderInterface } from '../../Interfaces/IOrder';
 import { PaymentInterface } from '../../Interfaces/IPayment';
 import ButtonWithImage from '../../components/ProductMangement/ButtonWithImage';
 import { GendersInterface } from '../../Interfaces/IGender';
+import { useNavigate } from 'react-router-dom';
 
 
 const OwnerProfile: React.FC = () => {
@@ -19,11 +20,14 @@ const OwnerProfile: React.FC = () => {
   const [useslip,setUseslip] = useState(false)
   const [payment,setPayment] = useState<PaymentInterface[]>([]);
   const [gender,setGender] = useState<GendersInterface[]>([]);
-
+  const navigate = useNavigate();
   async function getOrders() {
     try {
       const res = await GetOrders();
-      setOrders(res);
+     const sortedOrders = res.sort((a: OrderInterface, b: OrderInterface) =>
+  (b.ID?.toString() ?? '').localeCompare((a.ID?.toString() ?? ''))
+);
+    setOrders(sortedOrders);
     } catch (err) {
       setError('Failed to fetch order data.');
     } finally {
@@ -69,11 +73,12 @@ const OwnerProfile: React.FC = () => {
 
   const handleOrderDetail = (orderId: number) => {
     console.log(`Order ID: ${orderId}`);
+    navigate(`/order-detail/${orderId}`);
     //ลิ้งไปหน้ารายละเอียดของคำสั่งซื้อ
   };
   const confirmOrder = async (id: number) => {
     const UpdateStatusOrder: OrderInterface = {
-      Status: "paid"
+      Status: "ยืนยันคำสั่งซื้อ"
       
     };
   
@@ -83,7 +88,7 @@ const OwnerProfile: React.FC = () => {
         console.log("Order status updated successfully", res);
         message.open({
           type:"success",
-          content:"confirm เรียบร้อย",
+          content:"ยืนยันคำสั่งซื้อ เรียบร้อย",
           duration: 2,
         } );
         getOrders();
@@ -94,6 +99,31 @@ const OwnerProfile: React.FC = () => {
       console.error("Error confirming order:", error);
     }
   };
+  const Reupload = async (id: number) => {
+    const UpdateStatusOrder: OrderInterface = {
+      Status: "ส่งสลิปใหม่"
+      
+    };
+  
+    try {
+      const res = await UpdatestatusOrderbyID(UpdateStatusOrder, id);
+      if (res) {
+        console.log("Order status updated successfully", res);
+        message.open({
+          type:"warning",
+          content:"อัพเดทสถานะ เรียบร้อย",
+          duration: 2,
+        } );
+        getOrders();
+      } else {
+        console.log("Failed to update order status");
+      }
+    } catch (error) {
+      console.error("Error confirming order:", error);
+    }
+  };
+
+
   
 
   useEffect(() => {
@@ -143,7 +173,25 @@ const OwnerProfile: React.FC = () => {
     },
     {
       title: 'ยืนยันคำสั่งซื้อ',
-       render: (_,record:OrderInterface) =>  <button  id ='but-confirm-order' onClick={()=>confirmOrder(Number(record.ID))}>Confirm Order</button>,
+       render: (_,record:OrderInterface) =>  (
+        <>
+        <div className="group-order-but">
+          <button  id ='but-confirm-order' onClick={()=>confirmOrder(Number(record.ID))}
+          className={record.Status === "ยืนยันคำสั่งซื้อ" ? 'disabled-button' : ''}
+            disabled={record.Status === "ยืนยันคำสั่งซื้อ"}
+          >
+            ยืนยันคำสั่งซื้อ
+          </button>
+          {(record.Status === "รอการยืนยัน" || record.Status === "ส่งสลิปใหม่") && (
+          <button id='reuplode-slip' onClick={()=>Reupload(Number(record.ID))}>
+            ส่งสลิปใหม่
+          </button>
+        )}
+        </div>
+          
+        </>
+        
+      )
     },
     {
       title: 'Slip',
