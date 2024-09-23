@@ -119,7 +119,6 @@ const ShowProfile: React.FC = () => {
           src={
             localStorage.getItem("profilePath")!="" ? `${apiUrl}/${localStorage.getItem("profilePath")}` : "./images/icon/user-black.png"
           }
-          className="circular-image"
         />
       </div>
       <div className="profile-detail">

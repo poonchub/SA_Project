@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Header from "../components/Header/Header";
 import OrderShow from "../components/OrderShow/OrderShow";
 import AddressShow from "../components/AddressShow/AddressShow";
@@ -6,11 +6,12 @@ import AmountPrice from "../components/AmountPrice/AmountPrice";
 import OrderTableList from "../components/OrderTableList/OrderTableList";
 import "../stylesheet/page.css";
 import "../stylesheet/table.css";
-import { GetOrderByID } from "../services/http";
+import { AppContext } from "../App";
 
 function Payment() {
     const customerID = localStorage.getItem('id');
     const orderId = localStorage.getItem('orderId');
+    const {logoutPopup} = useContext(AppContext)
 
     // Parse customerID and orderId to numbers
     const parsedCustomerID = customerID ? Number(customerID) : null;
@@ -22,7 +23,8 @@ function Payment() {
     return (
         <>
             <div className="mylayout">
-                <Header page={"Payment"} />
+                {logoutPopup}
+                <Header page={"payment"} />
                 
                 {parsedOrderId !== null && (
                     <>

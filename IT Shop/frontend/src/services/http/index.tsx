@@ -271,6 +271,8 @@ async function CreateCustomer(data: CustomerInterface) {
       return false;
     }
   });
+
+  return res
 }
 // async function UpdateProfilePicture(formData: FormData) {
 //   const requestOptions = {
