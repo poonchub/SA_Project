@@ -73,13 +73,11 @@ function Edit() {
 
       try {
         const result = await UploadProfilePicture(formData);
+        console.log(result.data.ProfilePath)
+        localStorage.setItem("profilePath", result.data.ProfilePath);
         if (result) {
           setUploadMessage(result.message);
           setUploadError('');
-          localStorage.setItem('profilePath', result.newProfilePath);
-          setImagePreview(`${apiUrl}/${result.newProfilePath}`); // Update preview without reload
-          console.log(localStorage.getItem("profilePath"));
-          console.log(imagePreview);
         } else {
           throw new Error('\nเกิดข้อผิดพลาดในการอัพโหลดรูปโปรไฟล์นะจ๊ะ');
         }
@@ -125,12 +123,17 @@ function Edit() {
 
         // Upload profile picture after updating customer and address
         await handleUploadProfilePicture();
+        
       } else {
         messageApi.open({
           type: "error",
           content: resAddress.message || "Error updating data",
         });
       }
+
+      setTimeout(() => {
+        location.href = "/Profile";
+      }, 1000);
     } catch (error) {
       console.error(error);
       messageApi.open({
@@ -151,8 +154,6 @@ function Edit() {
     let res = await GetCustomerByID(parseInt(id));
     if (res) {
       setCustomer(res);
-      setImagePreview(`${apiUrl}/${res.ProfilePath}`); // ดึง profilePath จากตาราง customer
-      console.log(`${apiUrl}/${res.ProfilePath}`)
       form.setFieldsValue({
         FirstName: res.FirstName,
         LastName: res.LastName,
@@ -205,7 +206,7 @@ function Edit() {
   return (
     <div className="edit-container">
       {contextHolder}
-      <Card style={{overflowX: "hidden", display:"flex", flexDirection: "column"}}>
+      <Card style={{overflowX: "hidden", display:"flex", flexDirection: "column", justifyItems:"center", alignItems:"center"}}>
         <h2> แก้ไขข้อมูลส่วนตัว</h2>
         <Divider />
          {/* ส่วนที่เพิ่มเข้ามา */}
@@ -213,7 +214,7 @@ function Edit() {
         <Col xs={24} style={{display: "flex", flexDirection: "column", justifyItems:"center", alignItems:"center"}}>
           <div className="show-profile-box">
             <img src={
-                imagePreview=="" ? `${apiUrl}/${customer?.ProfilePath}` : imagePreview
+                imagePreview=="" ? `${apiUrl}/${customer ? customer.ProfilePath : ""}` : imagePreview
               } 
               alt="Selected" 
             />
@@ -223,11 +224,6 @@ function Edit() {
               <label htmlFor="fileInput">เลือกรูปภาพ</label>
             </div>
             <input id="fileInput" type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
-            {/* <Button type="primary" onClick={handleUploadProfilePicture} style={{ marginLeft: "10px" }}>
-              Upload
-            </Button> */}
-            {uploadMessage && <p style={{ color: 'green' }}>{uploadMessage}</p>}
-            {uploadError && <p style={{ color: 'red' }}>{uploadError}</p>}
           </Form.Item>
         </Col>
       </Row>
