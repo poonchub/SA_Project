@@ -5,9 +5,8 @@ import (
 	"main/controller"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-
 	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 const PORT = "8000"
