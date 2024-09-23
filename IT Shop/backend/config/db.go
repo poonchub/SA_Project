@@ -53,7 +53,6 @@ func SetupDatabase() {
 	owner := &entity.Owner{
 		FirstName:   "Poonchub",
 		LastName:    "Nanawan",
-		AdminRole:   "Owner",
 		Email:       "poonchubnanawan310@gmail.com",
 		Password:    hashedPassword,
 		ProfilePath: "images/profile/owner/owner_id01.jpg",
