@@ -102,8 +102,8 @@ function Header(props: { page: any; }) {
                 </div>
             </div>
             <nav>
-                <Link to='/Product/Create' className='menu' id='new-product'>New Product</Link>
-                <Link to='/OwnerProfile' className='menu' id='profile'>Profile</Link>
+                <Link to='/Product/Create' className='menu' id='New-Product'>New Product</Link>
+                <Link to='/OwnerProfile' className='menu' id='owner-profile'>Profile</Link>
                 <div className="line"></div>
                 {OwnerElement}
             </nav>

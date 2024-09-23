@@ -1,18 +1,22 @@
-import { UserOutlined, MailOutlined, StarOutlined } from '@ant-design/icons';
+import { UserOutlined, MailOutlined } from '@ant-design/icons';
 import './OwnerEditProfile.css';
-import { GendersInterface } from '../../../../Interfaces/IGender';
 import { useEffect, useMemo, useState } from 'react';
-import { OwnerInterface } from '../../../../Interfaces/IOwner';
-import Header from '../../../../components/ProductMangement/Header';
-import { apiUrl, GetGenders, GetOwnerByID, UpdateOwner } from '../../../../services/http';
-import { useParams } from 'react-router-dom';
-import { Card, Button } from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Card, Button, message } from 'antd';
+import { OwnerInterface } from '../../../Interfaces/IOwner';
+import { GendersInterface } from '../../../Interfaces/IGender';
+import { apiUrl, GetGenders, GetOwnerByID, UpdateOwner } from '../../../services/http';
+import OwnerHeader from '../../../components/ProductMangement/OwnerHeader';
+
+
 
 function OwnerEditProfile() {
     const [owner, setOwner] = useState<OwnerInterface | null>(null);
     const [gender, setGender] = useState<GendersInterface[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+    const [messageApi, contextHolder] = message.useMessage();
+    const navigate = useNavigate();
+    const [, setLoading] = useState<boolean>(true);
+    const [, setError] = useState<string | null>(null);
     const [formData, setFormData] = useState<OwnerInterface | null>(null);
 
     let { id } = useParams();
@@ -36,21 +40,62 @@ function OwnerEditProfile() {
         }
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-    };
 
-    const handleUpdate = async () => {
-        if (formData) {
-            try {
-                await UpdateOwner(owner?.ID || 0, formData);
-                setError(null);
-            } catch (err) {
-                setError('Failed to update owner data.');
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value, type } = e.target;
+        setFormData(prev => {
+            const updatedData = {
+                ...prev,
+                [name]: type === 'checkbox' ? e.target.checked : value,
+            };
+            return updatedData;
+        });
+    };
+    
+
+    const onFinish = async () => {
+        try {
+            setLoading(true);
+    
+            const updatedOwner: OwnerInterface = {
+                FirstName: formData?.FirstName,
+                LastName: formData?.LastName,
+                Email: formData?.Email,
+                ProfilePath: formData?.ProfilePath,
+                GenderID: Number(formData?.GenderID)
+            };
+
+            console.log(updatedOwner)
+    
+            const res = await UpdateOwner(Number(id), updatedOwner);
+
+            if (res) {
+                messageApi.open({
+                    type: 'success',
+                    content: 'อัปเดตโปรไฟล์สำเร็จ',
+                });
+                setTimeout(() => {
+                    setLoading(false);
+                    navigate('/OwnerProfile');
+                }, 1000);
+            } else {
+                messageApi.open({
+                    type: 'error',
+                    content: 'Error occurred while updating profile!',
+                });
             }
+        } catch (error) {
+            console.error('An error occurred:', error);
+            messageApi.open({
+                type: 'error',
+                content: 'Server connection error!',
+            });
+        } finally {
+            setLoading(false);
         }
     };
+    
 
     useEffect(() => {
         getOwner();
@@ -61,21 +106,19 @@ function OwnerEditProfile() {
         return `${apiUrl}/${localStorage.getItem("profilePath") || owner?.ProfilePath || '/images/default-profile.png'}`;
     }, [owner]);
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
-
     return (
         <>
-            <Header page={"profile"} />
+            {contextHolder}
+            <OwnerHeader page={"profile"} />
             <div className="container-edit">
-                <div className="image-container-edit">
-                    <img
-                        src={profileImageUrl}
-                        className="circular-image-edit"
-                        alt="Owner Profile"
-                    />
-                </div>
                 <Card title="แก้ไขโปรไฟล์" className="edit-card">
+                    <div className="image-container-edit">
+                        <img
+                            src={profileImageUrl}
+                            className="circular-image-edit"
+                            alt="Owner Profile"
+                        />
+                    </div>
                     <div className="form-fields">
                         <div className="form-group">
                             <UserOutlined style={{ fontSize: '30px', color: '#FF2E63' }} />
@@ -108,6 +151,7 @@ function OwnerEditProfile() {
                                     <option key={g.ID} value={g.ID}>{g.Name}</option>
                                 ))}
                             </select>
+
                         </div>
                         <div className="form-group">
                             <MailOutlined style={{ fontSize: '25px', color: '#FF2E63' }} />
@@ -120,10 +164,12 @@ function OwnerEditProfile() {
                                 onChange={handleChange}
                             />
                         </div>
+
                     </div>
-                    <Button type="primary" onClick={handleUpdate} className="save-button">
+                    <Button type="primary" onClick={onFinish} className="save-button">
                         บันทึกการเปลี่ยนแปลง
                     </Button>
+
                 </Card>
             </div>
         </>

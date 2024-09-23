@@ -24,10 +24,10 @@ const ButtonWithImage: React.FC<ButtonWithImageProps> = ({ ownerId }) => {
       </button>
       <button 
         className="btn-with-image" 
-        onClick={() => navigate('/AdminManagement')} // ใช้ฟังก์ชันนำทางสำหรับ Admin Management
+        onClick={() => navigate('/Owner/Create')} // ใช้ฟังก์ชันนำทางสำหรับ Admin Management
       >
         <img src="/images/icon/user.png" alt="Manage Admin Icon" className="btn-image" />
-        จัดการแอดมิน
+        เพิ่มผู้จัดการ
       </button>
     </div>
   );

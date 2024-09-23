@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import { Form, Input, Select, Layout, message } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
-import { OwnerInterface } from '../../../../Interfaces/IOwner';
-import OwnerHeader from '../../../../components/ProductMangement/OwnerHeader';
-import { CreateOwnerWithImage, GetGenders } from '../../../../services/http';
-import { GendersInterface } from '../../../../Interfaces/IGender';
-import CancelButton from '../../../../components/ProductMangement/CancelButton';
-import SubmitButton from '../../../../components/ProductMangement/SubmitButton';
+import { OwnerInterface } from '../../../Interfaces/IOwner';
+import OwnerHeader from '../../../components/ProductMangement/OwnerHeader';
+import { CreateOwner, GetGenders, UploadProfileOwner } from '../../../services/http';
+import { GendersInterface } from '../../../Interfaces/IGender';
+import CancelButton from '../../../components/ProductMangement/CancelButton';
+import SubmitButton from '../../../components/ProductMangement/SubmitButton';
 import './OwnerCreate.css';
 const { Option } = Select;
 
@@ -19,6 +19,8 @@ interface ImageFile {
 
 
 function OwnerCreate() {
+    // const { logoutPopup } = useContext(AppContext)
+
     const [images, setImages] = useState<ImageFile[]>([]);
     const [loading, setLoading] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
@@ -35,25 +37,40 @@ function OwnerCreate() {
                 Email: values.Email,
                 Password: values.Password,
                 GenderID: values.GenderID,
+                ProfilePath: values.ProfilePath,
             };
     
-            const imageFile = images.length > 0 ? images[0].file : null;
-            CreateOwnerWithImage(dataOwner, imageFile);
+            const createOwnerRes = await CreateOwner(dataOwner);
             
-            if (dataOwner&&imageFile) {
+            if (createOwnerRes) {
+                const ownerID = createOwnerRes.data.ID;
+                // อัพโหลดภาพโปรไฟล์หากมีการเลือก
+                const formData = new FormData();
+                if (images.length > 0) {
+                    formData.append("ownerID", ownerID.toString());
+                    images.forEach(image => {
+                        formData.append("owner-profile", image.file);
+                    });
+                    
+                    const uploadRes = await UploadProfileOwner(formData);
+                    if (!uploadRes) {
+                        throw new Error('Failed to upload profile image');
+                    }
+                }
+    
                 messageApi.open({
-                type: 'success',
-                content: 'บันทึกข้อมูลสำเร็จ',
+                    type: 'success',
+                    content: 'บันทึกข้อมูลสำเร็จ',
                 });
                 form.resetFields();
                 setImages([]);
             } else {
                 messageApi.open({
-                type: 'error',
-                content: 'เกิดข้อผิดพลาด!',
+                    type: 'error',
+                    content: 'เกิดข้อผิดพลาด!',
                 });
             }
-
+    
         } catch (error) {
             console.error('An error occurred:', error);
             messageApi.error('เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์');
@@ -61,6 +78,7 @@ function OwnerCreate() {
             setLoading(false);
         }
     };
+    
     
     
     
@@ -78,36 +96,50 @@ function OwnerCreate() {
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
-            const newImages = Array.from(e.target.files).map((file, index) => ({
+            const newImages = Array.from(e.target.files).filter((file) => {
+                const isValidType = ['image/jpeg', 'image/png', 'image/gif'].includes(file.type);
+                const isValidSize = file.size <= 2 * 1024 * 1024; 
+                if (!isValidType) {
+                    messageApi.error('Invalid file type! Only JPEG, PNG, and GIF are allowed.');
+                    return false;
+                }
+                if (!isValidSize) {
+                    messageApi.error('File size exceeds 2MB!');
+                    return false;
+                }
+                return true;
+            }).map((file, index) => ({
                 id: Date.now() + index,
                 file,
                 preview: URL.createObjectURL(file),
             }));
+    
             setImages((prevImages) => [...prevImages, ...newImages]);
         }
     };
+    
 
     const handleRemoveImage = (id: number) => {
         const imageToRemove = images.find((img) => img.id === id);
         if (imageToRemove) {
-            // Free the memory used by the image URL
             URL.revokeObjectURL(imageToRemove.preview);
         }
         setImages((prevImages) => prevImages.filter((img) => img.id !== id));
     };
+    
 
     return (
         <>
             {contextHolder}
-            <OwnerHeader page={'Create Owner'} />
-            <div className="my-layout1">
+            <OwnerHeader page={'Create-Owner'} />
+            <div className="my-layout2">
                 <Layout
                     style={{
                         minHeight: '100vh',
                     }}
                 >
                     <Content>
-                        <div className="form-container">
+                        <div className="owner-form-container">
                             <Form
                                 form={form}
                                 layout="vertical"
@@ -207,7 +239,7 @@ function OwnerCreate() {
                                 </Form.Item>
 
                                 <Form.Item style={{ width: '100%', textAlign: 'center' }}>
-                                    <CancelButton to="/AdminManagement" />
+                                    <CancelButton to="/OwnerProfile" />
                                     <SubmitButton loading={loading} />
                                 </Form.Item>
                             </Form>

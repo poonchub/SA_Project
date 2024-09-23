@@ -1,4 +1,4 @@
-@import "../../../../stylesheet/ColorSheet.css";
+@import "../../../stylesheet/ColorSheet.css";
 
 #bg-video {
     position: fixed;
@@ -93,21 +93,6 @@
     outline: none;
 }
 
-/* button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #FF2E63;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #d02852;
-} */
-
 @media (max-width: 768px) {
     .container-edit {
         padding: 10px;
@@ -149,6 +134,20 @@ button:hover {
     flex: 1;
     transition: border-color 0.3s, background-color 0.3s; /* เพิ่ม transition */
 }
+
+.input-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px; /* ปรับตามความเหมาะสม */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+}
+
 
 .input-field:focus,
 .select-field:focus {

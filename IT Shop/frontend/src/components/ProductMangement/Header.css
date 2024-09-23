@@ -80,6 +80,14 @@
                 border-radius: 40px;
                 color: var(--mainfont-color);
             }
+
+            & .menu-selected{
+                border: 3px solid var(--subtheme-color1);
+                background-color: var(--subtheme-color2);
+                padding: 6px 15px;
+                border-radius: 40px;
+                color: var(--subfont-color2);
+            }
     
             & .menu:hover{
                 border: 4px solid var(--subtheme-color1);
