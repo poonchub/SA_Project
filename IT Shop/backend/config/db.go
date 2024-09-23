@@ -72,7 +72,7 @@ func SetupDatabase() {
 			Password:    hashedPassword,
 			Birthday:    BirthDay,
 			ProfilePath: "images/profile/customer/customer_id01.jpg",
-			PhoneNumber: "0985944576",
+			PhoneNumber: "098-594-4576",
 			GenderID:    1,
 		},
 		{
@@ -82,7 +82,7 @@ func SetupDatabase() {
 			Password:    hashedPassword,
 			Birthday:    BirthDay,
 			ProfilePath: "images/profile/customer/customer_id02.jpg",
-			PhoneNumber: "0985944576",
+			PhoneNumber: "098-594-4576",
 			GenderID:    1,
 		},
 	}

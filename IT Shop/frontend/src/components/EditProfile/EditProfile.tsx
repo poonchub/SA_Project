@@ -361,7 +361,7 @@ function Edit() {
                 name="PhoneNumber"
                 rules={[{ required: true }]}
               >
-                <Input maxLength={10} minLength={10}/>
+                <Input maxLength={13} minLength={13} pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890"/>
               </Form.Item>
             </Col>
           </Row>
