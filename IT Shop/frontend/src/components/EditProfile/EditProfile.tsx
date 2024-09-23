@@ -16,7 +16,7 @@ import {
 import dayjs from "dayjs";
 import { CustomerInterface } from "../../Interfaces/ICustomer";
 import { GendersInterface } from "../../Interfaces/IGender";
-import { GetAddressByCustomerID, GetCustomerByID, GetGenders, UpdateAddressByID, UpdateCustomerByID } from "../../services/http";
+import { apiUrl, GetAddressByCustomerID, GetCustomerByID, GetGenders, UpdateAddressByID, UpdateCustomerByID } from "../../services/http";
 import { useNavigate } from "react-router-dom";
 import { AddressInterface } from "../../Interfaces/IAddress";
 
@@ -32,6 +32,7 @@ interface DataInterface {
   Email?: string;
   Password?: string;
   Birthday?: dayjs.Dayjs;
+  PhoneNumber?: string;
   GenderID?: number;
   AddressID?: number;
   Province?: string;
@@ -47,6 +48,7 @@ function Edit() {
   const [genders, setGenders] = useState<GendersInterface[]>([]);
   const [addresses, setAddresses] = useState<AddressInterface[]>([]);
   const [selectedAddress, setSelectedAddress] = useState<AddressInterface | null>(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [form] = Form.useForm();
 
   const id = localStorage.getItem("id") || "";
@@ -61,6 +63,11 @@ const [uploadError, setUploadError] = useState('');
 const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   if (event.target.files && event.target.files.length > 0) {
     setProfileFile(event.target.files[0]);
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImagePreview(imageUrl);
+    }
   }
 };
 
@@ -109,6 +116,7 @@ const handleUploadProfilePicture = async () => {
       Email: values.Email,
       GenderID: values.GenderID,
       Birthday: birthDayFormatted,
+      PhoneNumber: values.PhoneNumber
     };
 
     let payloadAddress: AddressInterface = {
@@ -159,7 +167,8 @@ const handleUploadProfilePicture = async () => {
         LastName: res.LastName,
         GenderID: res.GenderID,
         Email: res.Email,
-        Birthday: dayjs(res.Birthday), 
+        Birthday: dayjs(res.Birthday),
+        PhoneNumber: res.PhoneNumber 
       });
     }
   };
@@ -207,13 +216,23 @@ const handleUploadProfilePicture = async () => {
         <h2> แก้ไขข้อมูลส่วนตัว</h2>
         <Divider />
          {/* ส่วนที่เพิ่มเข้ามา */}
-      <Row gutter={[16, 16]} style={{ marginTop: "20px" }}>
-        <Col xs={24}>
-          <Form.Item label="Upload Profile Picture">
-            <input type="file" accept="image/*" onChange={handleFileChange} />
-            <Button type="primary" onClick={handleUploadProfilePicture} style={{ marginLeft: "10px" }}>
+      <Row gutter={[16, 16]} >
+        <Col xs={24} style={{display: "flex", flexDirection: "column", justifyItems:"center", alignItems:"center"}}>
+          <div className="show-profile-box">
+            <img src={
+                imagePreview=="" ? `${apiUrl}/${localStorage.getItem("profilePath")}` : imagePreview
+              } 
+              alt="Selected" 
+            />
+          </div>
+          <Form.Item style={{ display:"flex", justifyContent:"center"}}>
+            <div id="btn-upload-image">
+              <label htmlFor="fileInput">เลือกรูปภาพ</label>
+            </div>
+            <input id="fileInput" type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
+            {/* <Button type="primary" onClick={handleUploadProfilePicture} style={{ marginLeft: "10px" }}>
               Upload
-            </Button>
+            </Button> */}
             {uploadMessage && <p style={{ color: 'green' }}>{uploadMessage}</p>}
             {uploadError && <p style={{ color: 'red' }}>{uploadError}</p>}
           </Form.Item>
@@ -345,6 +364,15 @@ const handleUploadProfilePicture = async () => {
                 rules={[{ required: true }]}
               >
                 <Input />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+              <Form.Item
+                label="PhoneNumber"
+                name="PhoneNumber"
+                rules={[{ required: true }]}
+              >
+                <Input maxLength={10} minLength={10}/>
               </Form.Item>
             </Col>
           </Row>

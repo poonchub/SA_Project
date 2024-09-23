@@ -6,5 +6,6 @@ export interface CustomerInterface {
 	Password?:	string;
 	Birthday?:  string;
 	GenderID?:  number;
+	PhoneNumber?: 	string
 	ProfilePath?:	string;
 }
