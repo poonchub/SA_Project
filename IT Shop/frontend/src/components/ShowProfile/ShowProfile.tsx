@@ -100,7 +100,13 @@ const ShowProfile: React.FC = () => {
                 <Button style={{backgroundColor: "var(--subtheme-color1)"}} type="primary" onClick={()=>localStorage.setItem("orderId", `${record.ID}`)}>ชำระเงิน</Button>
             </Space>
           </Link>
-        ) : "รอการตรวจสอบ"  
+        ) : record.Status=="ส่งสลิปใหม่" ? (
+          <Link to="/Payment">
+            <Space size="middle">
+                <Button style={{backgroundColor: "var(--subtheme-color1)"}} type="primary" onClick={()=>localStorage.setItem("orderId", `${record.ID}`)}>แก้ไขสลิป</Button>
+            </Space>
+          </Link>
+        ) : ""  
       )
   },
   ];
