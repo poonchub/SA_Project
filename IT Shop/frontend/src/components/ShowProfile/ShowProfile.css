@@ -21,7 +21,7 @@
 			min-width: 120px;
 			min-height: 120px;
 			margin-top: 50px;
-			margin-bottom: 20px;
+			margin-bottom: 10px;
 			border-radius: 50%;
 			overflow: hidden;
 	
@@ -79,4 +79,9 @@
 		margin-top: 170px;
 		height: calc(100vh - 170px);
 	}
+}
+
+.gender-image{
+	margin-top: -2px;
+	margin-bottom: -9px;
 }
