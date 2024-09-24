@@ -228,7 +228,7 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
             </h2> 
             <img className='myimage' src={QRcode} alt="" />
             <span>
-              <h2>
+              <h4>
                 <p style={{marginTop: '10px'}}> <img src={promptpay}
                           style={{
                             width: '100px',
@@ -236,9 +236,9 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
                             display: 'flex',
 
                           }}
-                /> พร้อมเพย์</p>
+                /><p style={{marginTop: '10px'}}>แสกนจ่ายอย่างรวดเร็วด้วยพร้อมเพย์</p></p>
                 
-              </h2>
+              </h4>
             </span>
             
           </center>
