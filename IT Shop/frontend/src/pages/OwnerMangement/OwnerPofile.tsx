@@ -3,14 +3,13 @@ import { UserOutlined, MailOutlined } from '@ant-design/icons';
 import { message, Table, TableProps } from 'antd';  // นำเข้า Table จาก Ant Design
 import './OwnerProfile.css';  
 import { OwnerInterface } from '../../Interfaces/IOwner';
-import { apiUrl, GetOwnerByID, GetOrders, UpdatestatusOrderbyID, GetslipByOrderID, GetGenders } from '../../services/http';
+import { apiUrl, GetOwnerByID, GetOrders, UpdatestatusOrderbyID, GetslipByOrderID, GetGenders, GetCustomerByID } from '../../services/http';
 import Header from '../../components/ProductMangement/Header';
 import { OrderInterface } from '../../Interfaces/IOrder';
 import { PaymentInterface } from '../../Interfaces/IPayment';
 import ButtonWithImage from '../../components/ProductMangement/ButtonWithImage';
 import { GendersInterface } from '../../Interfaces/IGender';
 import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 
 
 const OwnerProfile: React.FC = () => {
@@ -22,22 +21,30 @@ const OwnerProfile: React.FC = () => {
   const [payment,setPayment] = useState<PaymentInterface[]>([]);
   const [gender,setGender] = useState<GendersInterface[]>([]);
   const navigate = useNavigate();
-  let { id } = useParams();
+  const id = localStorage.getItem("owner_id") || "";
 
   async function getOrders() {
     try {
       const res = await GetOrders();
-     const sortedOrders = res.sort((a: OrderInterface, b: OrderInterface) =>
-  (b.ID?.toString() ?? '').localeCompare((a.ID?.toString() ?? ''))
-);
-    setOrders(sortedOrders);
+      const sortedOrders = await Promise.all(
+        res.map(async (order: OrderInterface) => {
+          const customer = await GetCustomerByID(order.CustomerID);
+          return {
+            ...order,
+            CustomerName: customer?.FirstName + ' ' + customer?.LastName,
+          };
+        })
+      );
+      setOrders(sortedOrders.sort((a: OrderInterface, b: OrderInterface) =>
+        (b.ID?.toString() ?? '').localeCompare((a.ID?.toString() ?? ''))
+      ));
     } catch (err) {
       setError('Failed to fetch order data.');
     } finally {
       setLoading(false);
     }
-  
   }
+  
   async function getslipfrompament(id:number) {
     try{
         const res = await GetslipByOrderID(id)
@@ -48,11 +55,9 @@ const OwnerProfile: React.FC = () => {
       setError("fail fetch image")
     }
   }
-  
-
-  async function getOwner() {
+  async function getCustomer(cus_id: number) {
     try {
-      const res = await GetOwnerByID(3);
+      const res = await GetCustomerByID(cus_id);
       setOwner(res);
     } catch (err) {
       setError('Failed to fetch owner data.');
@@ -60,6 +65,19 @@ const OwnerProfile: React.FC = () => {
       setLoading(false);
     }
   }
+
+  async function getOwner() {
+    try {
+      
+      const res = await GetOwnerByID(Number(id));
+      setOwner(res);
+    } catch (err) {
+      setError('Failed to fetch owner data.');
+    } finally {
+      setLoading(false);
+    }
+  }
+  
 
   
   const getGender= async () => {
@@ -134,7 +152,7 @@ const OwnerProfile: React.FC = () => {
     getOrders();
     getGender();
    
-  }, []);
+  }, [id]);
 
   const profileImageUrl = useMemo(() => {
     return localStorage.getItem("profilePath") !== "" ? `${apiUrl}/${localStorage.getItem("profilePath")}` : '/images/account-black.png';
@@ -155,6 +173,7 @@ const OwnerProfile: React.FC = () => {
       key: 'TotalPrice',
       render: (text: number) => `฿${formatPrice(text)}`, // แสดงราคาในรูปแบบที่มีคอมม่า
     },
+    
     {
       title: 'Status',
       dataIndex: 'Status',
@@ -171,6 +190,11 @@ const OwnerProfile: React.FC = () => {
 
     },
     {
+      title: 'ชื่อลูกค้า',
+      dataIndex: 'CustomerName',
+      key: 'CustomerName',
+   },
+    {
       title: 'ดูรายละเอียด',
        render: (_,record:OrderInterface) =>  <button  id ='but-detail' onClick={()=>handleOrderDetail(Number(record.ID))}>ดูรายละเอียด</button>,
     },
@@ -183,7 +207,7 @@ const OwnerProfile: React.FC = () => {
           className={record.Status === "ยืนยันคำสั่งซื้อ" ? 'disabled-button' : ''}
             disabled={record.Status === "ยืนยันคำสั่งซื้อ"}
           >
-            ยืนยันคำสั่งซื้อ
+            {record.Status == 'ยืนยันคำสั่งซื้อ' ? 'ยืนยันคำสั่งซื้อแล้ว' : 'ยืนยันคำสั่งซื้อ'}
           </button>
           {(record.Status === "รอการยืนยัน" || record.Status === "ส่งสลิปใหม่") && (
           <button id='reuplode-slip' onClick={()=>Reupload(Number(record.ID))}>
@@ -210,7 +234,7 @@ const OwnerProfile: React.FC = () => {
     <>
       <Header page={"owner-profile"} />
       
-      <div className="profile-container">
+      <div className="profile-container-for-owner">
         <div className="all-content-for-admin">
       
          <div className="content-left-for-owner">

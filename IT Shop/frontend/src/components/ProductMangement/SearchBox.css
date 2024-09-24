@@ -4,12 +4,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 30px;
-}
-.selected-but{
-    display: flex;
-    justify-content: space-between;
-    margin-left: 20px;
+    margin: 30px;
+    
 }
 
 .search-bar {

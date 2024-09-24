@@ -11,7 +11,7 @@ function Header(props: { page: any; }) {
 
     const {page} = props
     const {setLogoutPopup, messageApiLogout, contextHolderLogout} = useContext(AppContext)
- 
+
     function showLogoutPopup(){
         setLogoutPopup(
             <div className='logout-container' id='con-l'>
@@ -103,7 +103,7 @@ function Header(props: { page: any; }) {
             </div>
             <nav>
                 <Link to='/Product/Create' className='menu' id='New-Product'>New Product</Link>
-                <Link to='/OwnerProfile' className='menu' id='owner-profile'>Profile</Link>
+                <Link to={`/OwnerProfile`} className='menu' id='owner-profile'>Profile</Link>
                 <div className="line"></div>
                 {OwnerElement}
             </nav>
