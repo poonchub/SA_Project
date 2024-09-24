@@ -5,10 +5,10 @@
         border: 1px solid #d9d9d9;
         border-radius: 8px;
         position: absolute;
-        margin-top: -155px;
-        margin-left: 80px;
+        margin-top: -153px;
+        margin-left: 50px;
         border: 0px solid;
-        width: 50%;
+        width: 60%;
         box-shadow: 0px 2px 10px var(--shadow-color1);
         font-size: 24px;
         overflow: auto; 
@@ -21,8 +21,9 @@
     
     
     .custom-table .ant-table-thead > tr > th {
-        background-color: #f0f0f0; 
+        background-color: var(--subtheme-color1); 
         text-align: center; 
+        color: aliceblue;
     }
     
     .custom-table .ant-table-tbody > tr > td{
@@ -66,7 +67,7 @@
 
 @media (max-width: 1500px) {
     .custom-cardT {
-        margin-top: -180px;
+        margin-top: -170px;
     }
 
     .custom-cardO .location-icon {
