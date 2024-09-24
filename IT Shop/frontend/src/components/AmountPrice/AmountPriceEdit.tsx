@@ -5,7 +5,7 @@ import '../OrderShow/OrderShow.css';
 import { Button, Card, message } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import QRcode from '../../../../backend/images/payment/QR.png';
-import { UpdatePaymentSlip, DeleteOrderByID, GetOrderByID, GetOrderItemByOrderID, UpdateProduct } from '../../services/http';
+import { UpdatePaymentSlip, DeleteOrderByID, GetOrderItemByOrderID, UpdateProduct } from '../../services/http';
 import PopupConfirmPayment from './PopupConfirmPayment';
 import { useNavigate } from 'react-router-dom';
 import { OrderItemInterface } from '../../Interfaces/IOrderItem';
@@ -27,7 +27,7 @@ const AmountPriceEdit = ({ orderId, customerId }: { orderId: number, customerId:
 
   const [orderItems, setOrderItems] = useState<OrderItemInterface[]>([]);
   const [products, setProducts] = useState<{ [key: number]: ProductInterface }>({});
-  const [existingSlip, setExistingSlip] = useState<string[]>([]); // New state for existing slip
+  // const [existingSlip, setExistingSlip] = useState<string[]>([]); // New state for existing slip
 
   useEffect(() => {
     const fetchOrderItems = async () => {
@@ -62,22 +62,22 @@ const AmountPriceEdit = ({ orderId, customerId }: { orderId: number, customerId:
     fetchProducts();
   }, [orderItems]);
 
-  useEffect(() => {
-    const fetchExistingSlip = async () => {
-      try {
-        const paymentData = await GetOrderByID(orderId);
-        if (paymentData && paymentData.Slip) {
-          setExistingSlip([paymentData.Slip]); // Assuming Slip contains the URL or path to the existing slip image
-          // Store the existing payment ID if needed
-          // setExistingPaymentId(paymentData.id); // if there's an ID returned
-        }
-      } catch (error) {
-        console.error('Error fetching existing slip:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchExistingSlip = async () => {
+  //     try {
+  //       const paymentData = await GetOrderByID(orderId);
+  //       if (paymentData && paymentData.Slip) {
+  //         setExistingSlip([paymentData.Slip]); // Assuming Slip contains the URL or path to the existing slip image
+  //         // Store the existing payment ID if needed
+  //         // setExistingPaymentId(paymentData.id); // if there's an ID returned
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching existing slip:', error);
+  //     }
+  //   };
   
-    fetchExistingSlip();
-  }, [orderId]);
+  //   fetchExistingSlip();
+  // }, [orderId]);
   
 
   useEffect(() => {

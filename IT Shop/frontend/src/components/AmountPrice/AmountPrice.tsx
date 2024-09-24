@@ -12,7 +12,7 @@ import { OrderItemInterface } from '../../Interfaces/IOrderItem';
 import { ProductInterface } from '../../Interfaces/IProduct';
 import { GetProductByID } from '../../services/http';
 import PopupCancelPayment from './PopupCancelPayment';
-import PopupPaymentThx from './PopupPaymentThx';
+// import PopupPaymentThx from './PopupPaymentThx';
 import promptpay from '../../assets/promptpay.jpg';
 import Umaru from '../../assets/Umaru-Smail.gif';
 
@@ -22,7 +22,7 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
 
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [showCancelPopup, setShowCancelPopup] = useState(false);
-  const [showThxPopup, setShowThxPopup] = useState(false);
+  // const [showThxPopup, setShowThxPopup] = useState(false);
 
   const [showWarning, setShowWarning] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
