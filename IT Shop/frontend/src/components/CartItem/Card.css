@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Slab:wght@100..900&display=swap');
+@import "../../stylesheet/ColorSheet.css";
+ 
 * {
     font-family: "Noto Sans Thai", sans-serif;
     box-sizing: border-box;
@@ -254,6 +256,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+    height: 32px;
 }
 #select-all{
     background-color: #FF2E63;
@@ -262,10 +265,17 @@
 }
 #delete-all{
     background-color: black;
+    color: white;
     transition: all 0.5s;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+ 
 }
 #delete-all:hover{
     box-shadow: 0 0 3px 1px #545353;
+    background-color: var( --subtheme-color2);      
     font-size: 15px;
 }
 #select-all:hover{
@@ -292,8 +302,9 @@
 
 .card-container-item{
     /* border: #FF2E63 1px solid; */
-    height: 720px;
+    height: 70vh;
     overflow: auto;
+    padding-bottom: 20px;
 }
 
 .topic-cart-header{
@@ -303,4 +314,5 @@
 }
 #check-point{
     cursor: pointer;
+    
 }

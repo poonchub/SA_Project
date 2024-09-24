@@ -78,7 +78,7 @@
 }
 
 .table-for-show-order 	{
-	width: 60vw;
+	width: 70vw;
 	height: 100%;
 	display: block;
 	justify-content: center;
@@ -186,7 +186,7 @@
 /* popup */
 
 .back-slip{
-	position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -243,7 +243,10 @@
   
 }
 
-
+.table-show-item{
+	height: 100%;
+	overflow: auto;
+}
 
 
 @media only screen and (max-width:1100px){

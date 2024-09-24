@@ -214,7 +214,7 @@ const OwnerProfile: React.FC = () => {
           >
             {record.Status == 'ยืนยันคำสั่งซื้อ' ? 'ยืนยันคำสั่งซื้อแล้ว' : 'ยืนยันคำสั่งซื้อ'}
           </button>
-          {(record.Status === "รอการยืนยัน" || record.Status === "ส่งสลิปใหม่") && (
+          {(record.Status === "รอการตรวจสอบ" || record.Status === "ส่งสลิปใหม่") && (
           <button id='reuplode-slip' onClick={()=>Reupload(Number(record.ID))}>
             ส่งสลิปใหม่
           </button>
@@ -286,11 +286,14 @@ const OwnerProfile: React.FC = () => {
          {/* ตารางสำหรับแสดงข้อมูล orders โดยใช้ Ant Design */}
          <div className="table-for-show-order">
            <h3 id='order-head'>Orders</h3>
+           <div className="table-show-item">
            <Table<OrderInterface>
              columns={columns}
              dataSource={orders}
              rowKey="ID"  // กำหนด key ให้กับแต่ละ row
-           />
+           /> 
+           </div>
+           
          </div>
        
          </div>
