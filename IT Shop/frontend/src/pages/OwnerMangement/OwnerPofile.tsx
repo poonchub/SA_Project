@@ -11,6 +11,8 @@ import ButtonWithImage from '../../components/ProductMangement/ButtonWithImage';
 import { GendersInterface } from '../../Interfaces/IGender';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { CustomerInterface } from '../../Interfaces/ICustomer';
+import {GetCustomerByID} from '../../services/http'
 
 
 const OwnerProfile: React.FC = () => {
@@ -23,21 +25,30 @@ const OwnerProfile: React.FC = () => {
   const [gender,setGender] = useState<GendersInterface[]>([]);
   const navigate = useNavigate();
   let { id } = useParams();
+  const [customer, setCustomer] = useState<CustomerInterface | null>(null);
 
   async function getOrders() {
     try {
       const res = await GetOrders();
-     const sortedOrders = res.sort((a: OrderInterface, b: OrderInterface) =>
-  (b.ID?.toString() ?? '').localeCompare((a.ID?.toString() ?? ''))
-);
-    setOrders(sortedOrders);
+      const sortedOrders = await Promise.all(
+        res.map(async (order: OrderInterface) => {
+          const customer = await GetCustomerByID(order.CustomerID);
+          return {
+            ...order,
+            CustomerName: customer?.FirstName + ' ' + customer?.LastName,
+          };
+        })
+      );
+      setOrders(sortedOrders.sort((a: OrderInterface, b: OrderInterface) =>
+        (b.ID?.toString() ?? '').localeCompare((a.ID?.toString() ?? ''))
+      ));
     } catch (err) {
       setError('Failed to fetch order data.');
     } finally {
       setLoading(false);
     }
-  
   }
+  
   async function getslipfrompament(id:number) {
     try{
         const res = await GetslipByOrderID(id)
@@ -48,7 +59,16 @@ const OwnerProfile: React.FC = () => {
       setError("fail fetch image")
     }
   }
-  
+  async function getCustomer(cus_id: number) {
+    try {
+      const res = await GetCustomerByID(cus_id);
+      setOwner(res);
+    } catch (err) {
+      setError('Failed to fetch owner data.');
+    } finally {
+      setLoading(false);
+    }
+  }
 
   async function getOwner() {
     try {
@@ -60,6 +80,7 @@ const OwnerProfile: React.FC = () => {
       setLoading(false);
     }
   }
+  
 
   
   const getGender= async () => {
@@ -155,6 +176,7 @@ const OwnerProfile: React.FC = () => {
       key: 'TotalPrice',
       render: (text: number) => `฿${formatPrice(text)}`, // แสดงราคาในรูปแบบที่มีคอมม่า
     },
+    
     {
       title: 'Status',
       dataIndex: 'Status',
@@ -171,6 +193,11 @@ const OwnerProfile: React.FC = () => {
 
     },
     {
+      title: 'ชื่อลูกค้า',
+      dataIndex: 'CustomerName',
+      key: 'CustomerName',
+   },
+    {
       title: 'ดูรายละเอียด',
        render: (_,record:OrderInterface) =>  <button  id ='but-detail' onClick={()=>handleOrderDetail(Number(record.ID))}>ดูรายละเอียด</button>,
     },
@@ -183,7 +210,7 @@ const OwnerProfile: React.FC = () => {
           className={record.Status === "ยืนยันคำสั่งซื้อ" ? 'disabled-button' : ''}
             disabled={record.Status === "ยืนยันคำสั่งซื้อ"}
           >
-            ยืนยันคำสั่งซื้อ
+            {record.Status == 'ยืนยันคำสั่งซื้อ' ? 'ยืนยันคำสั่งซื้อแล้ว' : 'ยืนยันคำสั่งซื้อ'}
           </button>
           {(record.Status === "รอการยืนยัน" || record.Status === "ส่งสลิปใหม่") && (
           <button id='reuplode-slip' onClick={()=>Reupload(Number(record.ID))}>
