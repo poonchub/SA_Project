@@ -13,6 +13,8 @@
 
   .popup-bg {
     background-color: rgba(0, 0, 0, 0.801);
+    width: 1000vw;
+  height: 1000vh;
     position: absolute;
     top: 0;
     bottom: 0;

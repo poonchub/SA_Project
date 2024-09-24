@@ -19,6 +19,8 @@
             width: 100%;
         }
     }
+
+    
     
     .upload-center{
         margin-left: 37%;
@@ -158,6 +160,20 @@
         flex-direction: column; /* วางปุ่มและ QR ให้อยู่ในแนวตั้ง */
         align-items: center; /* จัดกึ่งกลาง */
         gap: 20px; /* เพิ่มช่องว่างระหว่าง QR กับปุ่มอัปโหลด */
+    }
+
+    .custom-success-message{
+        /* background-color: #4CAF50 ; */
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        width: 400px;
+        color: #000000 !important; /* สีตัวหนังสือ */
+        font-weight: bold; /* ตัวหนา */
+        border-radius: 20px; /* ปรับขอบโค้ง */
+        padding: 10px; /* เพิ่มพื้นที่รอบข้อความ */
+        /* font-size: 20px; */
+        /* -webkit-text-stroke: 1px #4CAF50; */
     }
 }
 
