@@ -12,13 +12,6 @@
   padding-bottom: 50px;
 }
 
-
-/* Form */
-.ant-layout-content{
-  background-color:#F6F9FC ;
-}
-
-
 .ant-form{
   display: flex;
   flex-direction: row;
@@ -30,10 +23,10 @@
   padding: 50px;
   border-radius: 8px;
   background-color: #fff;
-  box-shadow: 0 2px 8px #F6F9FC(0, 0, 0, 0.1);
   margin-top: 75px;
  
 }
+
 
 /* input, */
 .ant-input-number,
@@ -121,8 +114,6 @@ input::file-selector-button {
   font-size: 20px;
   cursor: pointer;
 }
-
-
 
 
 .ant-input:hover{

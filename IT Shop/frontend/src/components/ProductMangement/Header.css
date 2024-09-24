@@ -104,10 +104,10 @@
                 background-color: var(--subtheme-color2);
             }
     
-            & .cart-box{
+            & .new-box{
                 /* border: 1px solid red; */
-                width: 35px;
-                height: 35px;
+                width: 40px;
+                height: 40px;
                 display: block;
     
                 & img{

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useContext } from 'react';
 import { UserOutlined, MailOutlined } from '@ant-design/icons';
 import { message, Table, TableProps } from 'antd';  // นำเข้า Table จาก Ant Design
 import './OwnerProfile.css';  
@@ -10,9 +10,11 @@ import { PaymentInterface } from '../../Interfaces/IPayment';
 import ButtonWithImage from '../../components/ProductMangement/ButtonWithImage';
 import { GendersInterface } from '../../Interfaces/IGender';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../App';
 
 
 const OwnerProfile: React.FC = () => {
+  const { logoutPopup } = useContext(AppContext)
   const [owner, setOwner] = useState<OwnerInterface | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -233,7 +235,7 @@ const OwnerProfile: React.FC = () => {
   return (
     <>
       <Header page={"owner-profile"} />
-      
+      { logoutPopup }
       <div className="profile-container-for-owner">
         <div className="all-content-for-admin">
       
