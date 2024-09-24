@@ -1,4 +1,4 @@
-import {  useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Form, Input, Select, Layout, message } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
@@ -9,6 +9,7 @@ import { GendersInterface } from '../../../Interfaces/IGender';
 import CancelButton from '../../../components/ProductMangement/CancelButton';
 import SubmitButton from '../../../components/ProductMangement/SubmitButton';
 import './OwnerCreate.css';
+import { AppContext } from '../../../App';
 const { Option } = Select;
 
 interface ImageFile {
@@ -19,7 +20,7 @@ interface ImageFile {
 
 
 function OwnerCreate() {
-    // const { logoutPopup } = useContext(AppContext)
+    const { logoutPopup } = useContext(AppContext)
 
     const [images, setImages] = useState<ImageFile[]>([]);
     const [loading, setLoading] = useState(false);
@@ -30,7 +31,7 @@ function OwnerCreate() {
     const onFinish = async (values: any) => {
         try {
             setLoading(true);
-            
+
             const dataOwner: OwnerInterface = {
                 FirstName: values.FirstName,
                 LastName: values.LastName,
@@ -39,9 +40,9 @@ function OwnerCreate() {
                 GenderID: values.GenderID,
                 ProfilePath: values.ProfilePath,
             };
-    
+
             const createOwnerRes = await CreateOwner(dataOwner);
-            
+
             if (createOwnerRes) {
                 const ownerID = createOwnerRes.data.ID;
                 // อัพโหลดภาพโปรไฟล์หากมีการเลือก
@@ -51,13 +52,13 @@ function OwnerCreate() {
                     images.forEach(image => {
                         formData.append("owner-profile", image.file);
                     });
-                    
+
                     const uploadRes = await UploadProfileOwner(formData);
                     if (!uploadRes) {
                         throw new Error('Failed to upload profile image');
                     }
                 }
-    
+
                 messageApi.open({
                     type: 'success',
                     content: 'บันทึกข้อมูลสำเร็จ',
@@ -70,7 +71,7 @@ function OwnerCreate() {
                     content: 'เกิดข้อผิดพลาด!',
                 });
             }
-    
+
         } catch (error) {
             console.error('An error occurred:', error);
             messageApi.error('เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์');
@@ -78,10 +79,10 @@ function OwnerCreate() {
             setLoading(false);
         }
     };
-    
-    
-    
-    
+
+
+
+
 
     const getGenders = async () => {
         const res = await GetGenders();
@@ -98,7 +99,7 @@ function OwnerCreate() {
         if (e.target.files) {
             const newImages = Array.from(e.target.files).filter((file) => {
                 const isValidType = ['image/jpeg', 'image/png', 'image/gif'].includes(file.type);
-                const isValidSize = file.size <= 2 * 1024 * 1024; 
+                const isValidSize = file.size <= 2 * 1024 * 1024;
                 if (!isValidType) {
                     messageApi.error('Invalid file type! Only JPEG, PNG, and GIF are allowed.');
                     return false;
@@ -113,11 +114,11 @@ function OwnerCreate() {
                 file,
                 preview: URL.createObjectURL(file),
             }));
-    
+
             setImages((prevImages) => [...prevImages, ...newImages]);
         }
     };
-    
+
 
     const handleRemoveImage = (id: number) => {
         const imageToRemove = images.find((img) => img.id === id);
@@ -126,16 +127,18 @@ function OwnerCreate() {
         }
         setImages((prevImages) => prevImages.filter((img) => img.id !== id));
     };
-    
+
 
     return (
         <>
             {contextHolder}
+            {logoutPopup}
             <OwnerHeader page={'Create-Owner'} />
             <div className="my-layout2">
                 <Layout
                     style={{
                         minHeight: '100vh',
+                        backgroundColor: '#F6F9FC',
                     }}
                 >
                     <Content>
@@ -186,13 +189,18 @@ function OwnerCreate() {
                                 <Form.Item
                                     name="Password"
                                     label="Password"
-                                    rules={[{ required: true, message: 'Please input your Password!' }, { min: 6, message: 'Password must be at least 6 characters!' }]}
+                                    rules={[
+                                        { required: true, message: 'Please input your Password!' },
+                                        { min: 6, message: 'Password must be at least 6 characters!' }
+                                    ]}
                                     style={{ flex: '0 0 48%' }}
-                                    className='custom-password-input'
                                 >
-                                    <Input.Password placeholder="Enter Password" />
+                                    <input
+                                        type="password"
+                                        placeholder="Enter Password"
+                                        className="custom-password-input" // เพิ่ม class สำหรับปรับแต่ง
+                                    />
                                 </Form.Item>
-
                                 <Form.Item
                                     name="GenderID"
                                     label="Gender"

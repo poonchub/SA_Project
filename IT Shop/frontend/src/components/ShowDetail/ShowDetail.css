@@ -75,14 +75,19 @@
                     min-width: 45px;
                 }
 
-                & .quantity-btn {
+                /* & .quantity-btn {
                     border: 2px solid black;
                     width: 30px;
                     height: 30px;
                     min-width: 30px;
                     min-height: 30px;
                     cursor: pointer;
-                }
+                } */
+                 & .quantity-btn img {
+                    width: 30px;
+                    height: 30px; 
+                    cursor: pointer;
+                 }
             }
 
             & .button-box {

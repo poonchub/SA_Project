@@ -13,6 +13,10 @@
         padding: 20px;
         display: flex;
         flex-direction: column; /* เพื่อให้เนื้อหาเรียงตามแนวตั้ง */
+
+        .ant-card-body {
+            width: 100%;
+        }
     }
     
     .custom-cardA .buttonAddr {

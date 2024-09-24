@@ -1,14 +1,16 @@
 import { UserOutlined, MailOutlined } from '@ant-design/icons';
 import './OwnerEditProfile.css';
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Button, message } from 'antd';
 import { OwnerInterface } from '../../../Interfaces/IOwner';
 import { GendersInterface } from '../../../Interfaces/IGender';
 import { apiUrl, GetGenders, GetOwnerByID, UpdateOwner, UploadProfileOwner } from '../../../services/http';
 import OwnerHeader from '../../../components/ProductMangement/OwnerHeader';
+import { AppContext } from '../../../App';
 
 function OwnerEditProfile() {
+    const { logoutPopup } = useContext(AppContext)
     const [owner, setOwner] = useState<OwnerInterface | null>(null);
     const [gender, setGender] = useState<GendersInterface[]>([]);
     const [messageApi, contextHolder] = message.useMessage();
@@ -114,10 +116,10 @@ function OwnerEditProfile() {
                     content: 'อัปเดตโปรไฟล์สำเร็จ',
                 });
                 await handleUploadProfilePicture();
-                // setTimeout(() => {
-                //     setLoading(false);
-                //     navigate('/OwnerProfile/');
-                // }, 1000);
+                setTimeout(() => {
+                    setLoading(false);
+                    navigate('/OwnerProfile/');
+                }, 1000);
             } else {
                 messageApi.open({
                     type: 'error',
@@ -147,6 +149,7 @@ function OwnerEditProfile() {
     return (
         <>
             {contextHolder}
+            { logoutPopup }
             <OwnerHeader page={"profile"} />
             <div className="container-edit">
                 <Card title="แก้ไขโปรไฟล์" className="edit-card">
@@ -159,8 +162,10 @@ function OwnerEditProfile() {
                         <div className="show-profile-box">
                             <img src={
                                 imagePreview == "" ? `${apiUrl}/${owner ? owner.ProfilePath : ""}` : imagePreview
+                                
                             }
                                 alt="Selected"
+                                className="circular-image-edit"
                             />
                         </div>
                         <div id="btn-upload-image">

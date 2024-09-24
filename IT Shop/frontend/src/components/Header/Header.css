@@ -48,10 +48,83 @@
                     align-items: center;
                     font-size: 30px;
                     font-weight: 600;
-        
+                    /* border: #FF2E63 1px solid; */
+                    position: relative;
                     & img{
                         height: 100%;
                     }
+                    & #CapN{
+                        width: 48px;
+                        height: 48px;
+                        position: absolute;
+                        left: 5px;
+                        transition: all 0.25s ease-in;
+                        z-index: 6;
+                    }
+                    & #CapN:hover{
+                        /* top: 2px; */
+                        left: 3px;
+                        height: 47px;
+                        width: 47px;
+                    }
+                    & #CapF{
+                        width: 48px;
+                        height: 48px;
+                        position: absolute;
+                        left: 42px;
+                        transition: all 0.25s ease-in;
+                        z-index: 5;
+                    }
+                    & #CapF:hover{
+                        /* top: 2px; */
+                        left: 40px;
+                        height: 47px;
+                        width: 47px;
+                    }
+                    & #CapE{
+                        width: 48px;
+                        height: 48px;
+                        position: absolute;
+                        left: 79px;
+                        transition: all 0.25s ease-in;
+                        z-index: 4;
+                    }
+                    & #CapE:hover{
+                        /* top: 2px; */
+                        left: 77px;
+                        height: 47px;
+                        width: 47px;
+                    }
+                    & #CapM{
+                        width: 48px;
+                        height: 48px;
+                        position: absolute;
+                        left: 116px;
+                        transition: all 0.25s ease-in;
+                        z-index: 3;
+                    }
+                    & #CapM:hover{
+                        /* top: 2px; */
+                        left: 114px;
+                        height: 47px;
+                        width: 47px;
+                    }
+                    & #CapJ{
+                        width: 48px;
+                        height: 48px;
+                        position: absolute;
+                        left: 153px;
+                        transition: all 0.25s ease-in;
+                        z-index: 2;
+                    }
+                    & #CapJ:hover{
+                        /* top: 2px; */
+                        left: 151px;
+                        height: 47px;
+                        width: 47px;
+                    }
+
+
     
                     & span{
                         color: var(--subtheme-color1);

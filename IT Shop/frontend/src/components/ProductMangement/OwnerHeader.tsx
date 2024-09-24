@@ -1,5 +1,4 @@
 import { useContext, useEffect } from 'react';
-import './Header-Home.css';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../../App';
@@ -102,7 +101,7 @@ function OwnerHeader(props: { page: any; }) {
                 </div>
             </div>
             <nav>
-                <Link to='/Owner/Create' className='menu' id='Create-Owner'>Add Admin</Link>
+                <Link to='/Owner/Create' className='menu' id='Create-Owner'>Add Owner</Link>
                 <Link to='/OwnerProfile' className='menu' id='owner-profile'>Profile</Link>
                 <div className="line"></div>
                 {OwnerElement}

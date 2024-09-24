@@ -6,6 +6,16 @@ import { Context } from '../../pages/Product';
 import { apiUrl } from '../../services/http';
 import { AppContext } from '../../App';
 
+import CapN from './image-for-logo/letter-n.png'
+import CapF from './image-for-logo/letter-f.png'
+import CapE from './image-for-logo/letter-e.png'
+import CapM from './image-for-logo/letter-m.png'
+import CapJ from './image-for-logo/letter-j.png'
+import CapBM from './image-for-logo/letter-m black.png'
+import CapBF from './image-for-logo/letter-f black.png'
+import CapBJ from './image-for-logo/letter-j black.png'
+import CapBN from './image-for-logo/letter-n black.png'
+import CapBE from './image-for-logo/letter-e black.png'
 //for countCart
 function Header(props: { page: any;}){
 
@@ -101,7 +111,7 @@ function Header(props: { page: any;}){
                 <img src={"images/icon/back.png"} alt="" />
             </div>
         </Link>
-    ) : (page=="edit" || page=="add-address") ? (
+    ) : (page=="edit" || page=="add-address" || page=="payment") ? (
         <Link to="/profile" className="option-box">
             <div className="img-box">
                 <img src={"images/icon/back.png"} alt="" />
@@ -135,7 +145,14 @@ function Header(props: { page: any;}){
                 <div className="logo-box">
                     <div className="img-box">
                         {/* <img src="/images/Lenovo_Global_Corporate_Logo.png" alt="" /> */}
-                        MY<span>&nbsp;LOGO</span>
+                        {/* MY<span>&nbsp;LOGO</span> */}
+                        <img src={page == "home" ?   CapBN : CapN} id="CapN" />
+                        <img src={page == "home" ?   CapBF : CapF} id = "CapF"/>
+                        <img src={page == "home" ?   CapBE : CapE} id = "CapE" />
+                        <img src={page == "home" ?   CapBM : CapM} id = "CapM" />
+                        <img src={page == "home" ?   CapBJ : CapJ} id='CapJ' />
+                     
+
                     </div>
                 </div>
             </div>

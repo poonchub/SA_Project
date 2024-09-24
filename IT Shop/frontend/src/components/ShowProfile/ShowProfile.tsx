@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Space, Table } from 'antd';
-import { UserOutlined, CalendarOutlined, MailOutlined, EnvironmentOutlined } from '@ant-design/icons';
+import { UserOutlined, CalendarOutlined, MailOutlined, EnvironmentOutlined, PhoneOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import './ShowProfile.css';
 import { CustomerInterface } from '../../Interfaces/ICustomer';
@@ -84,7 +84,8 @@ const ShowProfile: React.FC = () => {
       key: 'CreatedAt',
       render: (text: string) => formatDate(text)
     },
-    { title: 'Total Price', dataIndex: 'TotalPrice', key: 'TotalPrice', render: (text: number) => text.toLocaleString('th-TH', { minimumFractionDigits: 2 })},
+    { title: 'Total Price', dataIndex: 'TotalPrice', key: 'TotalPrice', render: (text: number) => text.toLocaleString('th-TH', 
+      {style: 'currency', currency: 'THB', minimumFractionDigits: 2, maximumFractionDigits: 2,})},
     { title: 'Status', dataIndex: 'Status', key: 'Status' },
     {
       title: '',
@@ -119,7 +120,6 @@ const ShowProfile: React.FC = () => {
           src={
             localStorage.getItem("profilePath")!="" ? `${apiUrl}/${localStorage.getItem("profilePath")}` : "./images/icon/user-black.png"
           }
-          className="circular-image"
         />
       </div>
       <div className="profile-detail">
@@ -152,6 +152,7 @@ const ShowProfile: React.FC = () => {
                 </td>
                 <td>{`${add.AddressDetail} ${add.Subdistrict} ${add.District} ${add.Province} ${add.ZipCode}`}</td>
               </tr>
+              
             )) : (
               <tr>
                 <td>
@@ -160,6 +161,12 @@ const ShowProfile: React.FC = () => {
                 <td colSpan={2}>No address found</td>
               </tr>
             )}
+            <tr>
+                <td>
+                <PhoneOutlined style={{ fontSize: '25px', color: '#FF2E63', transform: 'scaleX(-1)' }}/>
+                </td>
+                <td>{customer?.PhoneNumber}</td>
+              </tr>
           </tbody>
         </table>
         <div className="button-container">
@@ -170,7 +177,7 @@ const ShowProfile: React.FC = () => {
               style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63', marginRight: "15px" }}
               onClick={handleClick}
             >
-              Edit profile
+              Edit Profile
             </Button>
         </Link>
         <Link to={"/AddAddress"}>
