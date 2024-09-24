@@ -89,6 +89,7 @@ func main() {
 		router.PATCH("/owners/:id", controller.UpdateOwner)
 		router.DELETE("/owners/:id", controller.DeleteOwner)
 		router.PATCH("/owner-upload-profile/",controller.UploadProfileOwner)
+		router.PATCH("/owner-update-profile/:id", controller.UpdateProfileOwner)
 		router.GET("/AllOrders", controller.GetAllOrderforOwner)
 		router.PATCH("/confirm/:orderId", controller.ConfirmOrder)
 		router.GET("/getslip/:id", controller.GetPaymentbyID)

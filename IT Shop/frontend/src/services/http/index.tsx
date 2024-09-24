@@ -560,7 +560,9 @@ async function GetOwnerByID(id: Number | undefined) {
       }
     }
   );
+  console.log("API response status:", res.status);
   return res;
+  
 }
 
 async function UpdateOwner(id: number, data: OwnerInterface) {
@@ -614,21 +616,18 @@ async function UploadProfileOwner(formData: FormData) {
 async function UpdateProfileOwner(id: Number | undefined, formData: FormData) {
   const requestOptions = {
     method: "PATCH",
-    body: formData
+    body: formData,
   };
 
-  let res = await fetch(`${apiUrl}/owner/${id}/profilepicture`, requestOptions).then(
-    (res) => {
-      if (res.status === 200) {
-        return res.json();
-      } else {
-        return false;
-      }
-    }
-  )
-
-  return res;
+  const res = await fetch(`${apiUrl}/owner-update-profile/${id}`, requestOptions);
+  if (res.status === 200) {
+    return await res.json();
+  } else {
+    return false;
+  }
 }
+
+
 
 
 async function DeleteOwnerByID(id: number) {
