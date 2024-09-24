@@ -40,7 +40,13 @@ const Add = () => {
           content: "บันทึกข้อมูลสำเร็จ",
         });
         setTimeout(() => {
-          navigate("/profile");
+          const path = localStorage.getItem("before-add-address")=="/selected"
+          if (path){
+            navigate("/selected");
+          }
+          else {
+            navigate("/profile");
+          }
         }, 2000);
       } else {
         messageApi.open({
