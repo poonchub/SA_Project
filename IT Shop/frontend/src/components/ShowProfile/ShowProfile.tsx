@@ -184,7 +184,7 @@ const ShowProfile: React.FC = () => {
             <Button
               className="button-add"
               type="primary"
-              style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63' }}
+              style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63'  }}
               onClick={handleClick}
             >
                 Add Address</Button>
@@ -205,6 +205,7 @@ const ShowProfile: React.FC = () => {
           </Col>
         </Row>
       </div>
+    
     </div>
   );
 };

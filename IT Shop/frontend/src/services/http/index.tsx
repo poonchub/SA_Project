@@ -383,6 +383,25 @@ async function CreateOrder(data: OrderInterface) {
   return res;
 }
 
+async function DeleteOrderByID(id: number) {
+  if (!id) {
+      console.error('Order ID is required to delete');
+      return false;
+  }
+
+  const requestOptions = {
+      method: "DELETE"
+  };
+
+  try {
+      const res = await fetch(`${apiUrl}/order/${id}`, requestOptions);
+      return res.status === 200;
+  } catch (error) {
+      console.error('Error occurred while deleting order:', error);
+      return false;
+  }
+}
+
 async function UpdateOrder(data: OrderInterface) {
   const requestOptions = {
     method: "PATCH",
@@ -400,6 +419,7 @@ async function UpdateOrder(data: OrderInterface) {
 
   return res;
 }
+
 export async function UpdatestatusOrderbyID(data:OrderInterface,id:number) {
   const requestOptions = {
     method: "PATCH",
@@ -1135,6 +1155,7 @@ export {
     GetOrderByCustomerID,
     CreateOrder,
     UpdateOrder,
+    DeleteOrderByID,
 
     // OrderItem  ------------------------
     GetOrderItems,

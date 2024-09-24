@@ -98,14 +98,18 @@ function Orderdetail() {
     <>
       <Header page={"profile"} />
       <div className="show-detail-in-order">
-        
+         
         <div className="detail-table-orderid">
           <h3 id='orderdetail-all'>รายละเอียดคำสั้งซื้อ</h3>
-          <Table<OrderItemInterface & { Product: ProductInterface, Images: ImageInterface[] }>
+          <div className="table-show-list-detail" style={{ height: "80%", overflow: "auto"}}>
+           <Table<OrderItemInterface & { Product: ProductInterface, Images: ImageInterface[] }>
             columns={columns}
             dataSource={itemdetail}
             rowKey="ID"
-          />
+            pagination={false}
+           />  
+          </div>
+         
           <button id='but-back' onClick={() => window.history.back()}>ย้อนกลับ</button>
         </div>
       </div>
