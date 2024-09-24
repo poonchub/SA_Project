@@ -67,6 +67,11 @@
             background-color: var(--subtheme-color1);
             color: var(--subfont-color2);
     }
+
+    #Cancel-button{
+        color: var(--subtheme-color1);
+        background-color: white;
+    }
     
     .btn:hover {
         box-shadow: 0px 0px 8px var(--shadow-color2);
