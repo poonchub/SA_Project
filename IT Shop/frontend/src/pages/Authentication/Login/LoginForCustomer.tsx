@@ -13,6 +13,7 @@ function LoginForCustomer() {
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [phoneNumber, setPhoneNumber] = useState("");
 	const [birthday, setBirthday] = useState("");
 	const [genders, setGenders] = useState<GendersInterface[]>([]);
 	const [genderID, setGenderID] = useState(1);
@@ -64,6 +65,7 @@ function LoginForCustomer() {
 			LastName: lastName,
 			Email: email,
 			Password: password,
+			PhoneNumber: phoneNumber,
 			Birthday: birthDayFormatted,
 			GenderID: genderID
 		};
@@ -168,6 +170,14 @@ function LoginForCustomer() {
 							placeholder="Password"
 							className="password-input in-box"
 							onChange={(e) => setPassword(e.target.value)}
+							required
+						/>
+						<input
+							type="tel"
+							placeholder="Phone Number (123-456-7890)"
+							className="pn-input in-box"
+							pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+							onChange={(e) => setPhoneNumber(e.target.value)}
 							required
 						/>
 						<div className="half-input">

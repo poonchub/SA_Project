@@ -73,3 +73,7 @@
 #btn-upload-image:hover{
     font-size: 13.5px;
 }
+
+.ant-card-body{
+    width: 75%;
+}

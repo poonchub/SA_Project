@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { ListProducts } from "../../services/http";
 import "./ShowProduct.css"
 import "./ShowProduct-half.css"
-import { ProductInterFace } from "../../Interfaces/IProduct";
+import { ProductInterface } from "../../Interfaces/IProduct";
 import { Context } from "../../pages/Product";
 import ProductItem from "../ProductItem/ProductItem";
 
 
 function ShowProduct(){
 
-    const [products, setProducts] = useState<ProductInterFace[]>([]);
+    const [products, setProducts] = useState<ProductInterface[]>([]);
     const {searchText, mode, minRange, maxRange, categoryClick, brandClick} = useContext(Context)
 
     async function getProducts(){
@@ -45,7 +45,7 @@ function ShowProduct(){
     })
 
     const productElements = filteredProduct.map((subProduct, index) => {
-        return <ProductItem key={index} product={subProduct} searchText={searchText} category={categoryClick} minRange={minRange} maxRange={maxRange}/>
+        return <ProductItem key={index} product={subProduct} searchText={searchText} category={categoryClick} brand={brandClick} minRange={minRange} maxRange={maxRange}/>
     })
 
     if (mode=="half"){

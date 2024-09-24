@@ -1,39 +1,84 @@
 @import "../../stylesheet/ColorSheet.css";
 /* styles.css */
+@media (max-width: 5000px) {
+    .custom-cardT {
+        border: 1px solid #d9d9d9;
+        border-radius: 8px;
+        position: absolute;
+        margin-top: -155px;
+        margin-left: 80px;
+        border: 0px solid;
+        width: 50%;
+        box-shadow: 0px 2px 10px var(--shadow-color1);
+        font-size: 24px;
+        overflow: auto; 
+        z-index: 0; /* Ensure it stays above other elements */
 
-.custom-cardT {
-    border: 1px solid #d9d9d9;
-    border-radius: 8px;
-    position: absolute;
-    margin-top: -200px;
-    margin-left: 80px;
-    border: 0px solid;
-    width: 50%;
-    box-shadow: 0px 2px 10px var(--shadow-color1);
-    font-size: 24px;
-    overflow: auto; 
-    z-index: 0; /* Ensure it stays above other elements */
+        .ant-card-body {
+            width: 100%;
+        }
+    }
+    
+    
+    .custom-table .ant-table-thead > tr > th {
+        background-color: #f0f0f0; 
+        text-align: center; 
+    }
+    
+    .custom-table .ant-table-tbody > tr > td{
+        text-align: center; 
+        font-size: 14px; 
+    }
+    
+    .custom-table .ant-table {
+        border: 0px solid #d9d9d9;
+        width: 100%; 
+        overflow-y: auto;
+    }
+    
+    .custom-table {
+        max-height: 400px; /* กำหนดความสูงสูงสุดที่ต้องการ */
+        overflow-y: auto; /*ทำให้ตารางเลื่อนลงได้*/
+        width: 100%; /* ปรับขนาดตาราง */
+    }
+
+    .ant-card-body {
+        width: 100%;
+    }
 }
 
+@media (max-width: 1100px) {
+    .custom-cardO {
+        margin-top: 130px;
+    }
 
-.custom-table .ant-table-thead > tr > th {
-    background-color: #f0f0f0; 
-    text-align: center; 
+    .custom-cardO .location-icon {
+        margin-right: 1rem; /* Adjust spacing for smaller screens */
+        margin-left: -1rem;
+    }
+
+    .color-price {
+        display: block; /* บังคับให้ขึ้นบรรทัดใหม่ */
+        margin-left: 5%; /* ปรับตำแหน่งเมื่อขึ้นบรรทัดใหม่ */
+        margin-top: 10px; /* เพิ่มช่องว่างด้านบนเพื่อให้ดูสวยงาม */
+    }
 }
 
-.custom-table .ant-table-tbody > tr > td{
-    text-align: center; 
-    font-size: 14px; 
-}
+@media (max-width: 1500px) {
+    .custom-cardT {
+        margin-top: -180px;
+    }
 
-.custom-table .ant-table {
-    border: 0px solid #d9d9d9;
-    width: 100%; 
-    overflow-y: auto;
-}
+    .custom-cardO .location-icon {
+        margin-right: 1rem;
+        margin-left: -1rem;
+    }
 
-.custom-table {
-    max-height: 400px; /* กำหนดความสูงสูงสุดที่ต้องการ */
-    overflow-y: auto; /*ทำให้ตารางเลื่อนลงได้*/
-    width: 100%; /* ปรับขนาดตาราง */
+    /* ถ้าใช้งาน float */
+    .color-price {
+        display: flex;
+        flex-direction: column;
+        margin-left: 5%;
+        margin-top: 10px;
+    }
 }

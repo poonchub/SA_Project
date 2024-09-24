@@ -16,12 +16,9 @@ import {
 import dayjs from "dayjs";
 import { CustomerInterface } from "../../Interfaces/ICustomer";
 import { GendersInterface } from "../../Interfaces/IGender";
-import { apiUrl, GetAddressByCustomerID, GetCustomerByID, GetGenders, UpdateAddressByID, UpdateCustomerByID } from "../../services/http";
+import { apiUrl, GetAddressByCustomerID, GetCustomerByID, GetGenders, UpdateAddressByID, UpdateCustomerByID, UploadProfilePicture } from "../../services/http";
 import { useNavigate } from "react-router-dom";
 import { AddressInterface } from "../../Interfaces/IAddress";
-
-  // เพิ่ม import สำหรับ UploadProfilePicture
-import { UploadProfilePicture } from "../../services/http";
 
 const { Option } = Select;
 
@@ -53,61 +50,47 @@ function Edit() {
 
   const id = localStorage.getItem("id") || "";
 
+  const [profileFile, setProfileFile] = useState<File | null>(null);
+  const [uploadMessage, setUploadMessage] = useState('');
+  const [uploadError, setUploadError] = useState('');
 
-
-// เพิ่ม state และฟังก์ชัน
-const [profileFile, setProfileFile] = useState<File | null>(null);
-const [uploadMessage, setUploadMessage] = useState('');
-const [uploadError, setUploadError] = useState('');
-
-const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  if (event.target.files && event.target.files.length > 0) {
-    setProfileFile(event.target.files[0]);
-    const file = event.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImagePreview(imageUrl);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setProfileFile(event.target.files[0]);
+      const file = event.target.files[0];
+      if (file) {
+        const imageUrl = URL.createObjectURL(file);
+        setImagePreview(imageUrl);
+      }
     }
-  }
-};
+  };
 
-const handleUploadProfilePicture = async () => {
-  if (profileFile) {
-    const formData = new FormData();
-    formData.append('profile', profileFile);
-    formData.append('customerID', id); // ส่ง customerID ด้วย
+  const handleUploadProfilePicture = async () => {
+    if (profileFile) {
+      const formData = new FormData();
+      formData.append('profile', profileFile);
+      formData.append('customerID', id);
 
-    try {
-      const result = await UploadProfilePicture(formData);
-      console.log(result);
-      if (result) {
-        setUploadMessage(result.message); // แสดงข้อความจาก API
-        setUploadError('');
-
-        // เก็บรูปโปรไฟล์ใหม่ใน localStorage
-        localStorage.setItem('profilePath', result.newProfilePath);
-
-        // บังคับให้รีเฟรชรูปโปรไฟล์ใน frontend
-        window.location.reload();
-      } else {
-        setUploadError('เกิดข้อผิดพลาดในการอัพโหลดรูปโปรไฟล์');
+      try {
+        const result = await UploadProfilePicture(formData);
+        localStorage.setItem("profilePath", result.data.ProfilePath);
+        if (result) {
+          setUploadMessage(result.message);
+          setUploadError('');
+        } else {
+          throw new Error('\nเกิดข้อผิดพลาดในการอัพโหลดรูปโปรไฟล์นะจ๊ะ');
+        }
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : '\nไม่รู้จักข้อผิดพลาดนี้จ่ะ';
+        setUploadError(`Error: ${errorMessage}`);
         setUploadMessage('');
       }
-    } catch (err: unknown) {
-  if (err instanceof Error) {
-    setUploadError('เกิดข้อผิดพลาด: ' + err.message);
-  } else {
-    setUploadError('เกิดข้อผิดพลาดที่ไม่รู้จัก');
-  }
-  setUploadMessage('');
-}
-  } else {
-    setUploadError('กรุณาเลือกไฟล์รูปโปรไฟล์');
-  }
-};
+    } else {
+      setUploadError('กรุณาเลือกไฟล์รูปโปรไฟล์');
+    }
+  };
 
   const onFinish = async (values: DataInterface) => {
-
     const birthDayFormatted = values.Birthday?.format('YYYY-MM-DDTHH:mm:ss[Z]') || "";
 
     let payloadCustomer: CustomerInterface = {
@@ -130,18 +113,27 @@ const handleUploadProfilePicture = async () => {
     try {
       let resCustomer = await UpdateCustomerByID(payloadCustomer, parseInt(id));
       let resAddress = await UpdateAddressByID(payloadAddress, selectedAddress?.ID);
-
       if (resCustomer && resAddress) {
+        localStorage.setItem("firstName", resCustomer.FirstName);
+        localStorage.setItem("lastName", resCustomer.LastName);
         messageApi.open({
           type: "success",
           content: resAddress.message,
         });
+
+        // Upload profile picture after updating customer and address
+        await handleUploadProfilePicture();
+        
       } else {
         messageApi.open({
           type: "error",
           content: resAddress.message || "Error updating data",
         });
       }
+
+      setTimeout(() => {
+        location.href = "/Profile";
+      }, 1000);
     } catch (error) {
       console.error(error);
       messageApi.open({
@@ -172,7 +164,7 @@ const handleUploadProfilePicture = async () => {
       });
     }
   };
-
+  
   const getAddressByCustomerID = async () => {
     let res = await GetAddressByCustomerID(parseInt(id));
     if (res && res.length > 0) {
@@ -209,10 +201,11 @@ const handleUploadProfilePicture = async () => {
     getAddressByCustomerID();
   }, []);
 
+
   return (
     <div className="edit-container">
       {contextHolder}
-      <Card style={{overflowX: "hidden", display:"flex", flexDirection: "column"}}>
+      <Card style={{overflowX: "hidden", display:"flex", flexDirection: "column", justifyItems:"center", alignItems:"center"}}>
         <h2> แก้ไขข้อมูลส่วนตัว</h2>
         <Divider />
          {/* ส่วนที่เพิ่มเข้ามา */}
@@ -220,7 +213,7 @@ const handleUploadProfilePicture = async () => {
         <Col xs={24} style={{display: "flex", flexDirection: "column", justifyItems:"center", alignItems:"center"}}>
           <div className="show-profile-box">
             <img src={
-                imagePreview=="" ? `${apiUrl}/${localStorage.getItem("profilePath")}` : imagePreview
+                imagePreview=="" ? `${apiUrl}/${customer ? customer.ProfilePath : ""}` : imagePreview
               } 
               alt="Selected" 
             />
@@ -230,11 +223,6 @@ const handleUploadProfilePicture = async () => {
               <label htmlFor="fileInput">เลือกรูปภาพ</label>
             </div>
             <input id="fileInput" type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
-            {/* <Button type="primary" onClick={handleUploadProfilePicture} style={{ marginLeft: "10px" }}>
-              Upload
-            </Button> */}
-            {uploadMessage && <p style={{ color: 'green' }}>{uploadMessage}</p>}
-            {uploadError && <p style={{ color: 'red' }}>{uploadError}</p>}
           </Form.Item>
         </Col>
       </Row>
@@ -372,7 +360,7 @@ const handleUploadProfilePicture = async () => {
                 name="PhoneNumber"
                 rules={[{ required: true }]}
               >
-                <Input maxLength={10} minLength={10}/>
+                <Input maxLength={13} minLength={13} pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890"/>
               </Form.Item>
             </Col>
           </Row>
@@ -385,6 +373,7 @@ const handleUploadProfilePicture = async () => {
                     type="primary"
                     htmlType="submit"
                     className="submit-btn"
+                    onClick={handleUploadProfilePicture}
                     
                   >
                     Update

@@ -60,7 +60,7 @@ const OrderShow: React.FC<{ orderId: number }> = ({ orderId }) => {
       <Card className="custom-cardO">
         <div className="card-title">
           <img src={cart} alt="" className="location-icon" />
-          <span>หมายเลขคำสั่งซื้อ</span>
+          <span style={{marginTop: '-2px'}}>หมายเลขคำสั่งซื้อ</span>
           <b className="color-id">{Id}</b> {/* แสดง Order ID */}
           <b className="color-price">฿{formattedPrice}</b> {/* แสดงราคาสุทธิที่กำลังนับขึ้น */}
         </div>

@@ -1,0 +1,163 @@
+@import "../../../stylesheet/ColorSheet.css";
+
+#bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+    filter: brightness(50%);
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+.container-edit {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--maintheme-color);
+}
+
+.image-container-edit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.circular-image-edit {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #FF2E63;
+    animation: fadeIn 2s ease-in-out, float 3s ease-in-out infinite;
+}
+
+.circular-image-edit:hover {
+    animation: fadeIn 2s ease-in-out, shadowPulse 3s infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes shadowPulse {
+    0% { box-shadow: 0 0 5px rgba(255, 46, 99, 0.5); }
+    50% { box-shadow: 0 0 15px rgba(255, 46, 99, 0.8); }
+}
+
+.table-edit {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    animation: fadeInTable 1s ease forwards;
+}
+
+@keyframes fadeInTable {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.table-edit td {
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.table-edit input,
+.table-edit select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s;
+}
+
+.table-edit input:focus,
+.table-edit select:focus {
+    border-color: #FF2E63;
+    outline: none;
+}
+
+@media (max-width: 768px) {
+    .container-edit {
+        padding: 10px;
+    }
+
+    .circular-image-edit {
+        width: 100px;
+        height: 100px;
+    }
+
+    .table-edit {
+        font-size: 14px;
+    }
+}
+
+.edit-card {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-fields {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.input-field, .select-field {
+    margin-left: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex: 1;
+    transition: border-color 0.3s, background-color 0.3s; /* เพิ่ม transition */
+}
+
+.input-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px; /* ปรับตามความเหมาะสม */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+}
+
+
+.input-field:focus,
+.select-field:focus {
+    border-color: #FF2E63; /* เปลี่ยนสีขอบเมื่อมีการโฟกัส */
+    outline: none; /* ลบเส้นรอบ */
+}
+
+
+.save-button {
+    width: 100%;
+    border-radius: 5px;
+}
+

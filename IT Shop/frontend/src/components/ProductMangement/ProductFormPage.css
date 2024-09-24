@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: center; 
   background-color: #F6F9FC;
+  padding-bottom: 50px;
 }
 
 
@@ -16,6 +17,7 @@
 .ant-layout-content{
   background-color:#F6F9FC ;
 }
+
 
 .ant-form{
   display: flex;
@@ -29,7 +31,7 @@
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 2px 8px #F6F9FC(0, 0, 0, 0.1);
-  margin-top: 15%;
+  margin-top: 75px;
  
 }
 
@@ -103,13 +105,12 @@ input::file-selector-button {
   cursor: pointer; 
 }
 
-/* Image Preview and Close Icon */
 .image-preview-container {
   position: relative;
-  display: flex; /* Flexbox สำหรับการจัดวางภาพ */
+  display: flex; 
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 3px;
 }
 
 .close-icon {
@@ -120,6 +121,8 @@ input::file-selector-button {
   font-size: 20px;
   cursor: pointer;
 }
+
+
 
 
 .ant-input:hover{

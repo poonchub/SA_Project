@@ -5,9 +5,8 @@ import (
 	"main/controller"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-
 	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 const PORT = "8000"
@@ -89,8 +88,7 @@ func main() {
 		router.POST("/owners", controller.CreateOwner)
 		router.PATCH("/owners/:id", controller.UpdateOwner)
 		router.DELETE("/owners/:id", controller.DeleteOwner)
-		router.POST("/owners/:id/profile-image", controller.CreateOwnerImage)
-		router.PUT("/owners/:id", controller.UpdateOwnerImage)
+		router.PATCH("/owner-upload-profile/",controller.UploadProfileOwner)
 		router.GET("/AllOrders", controller.GetAllOrderforOwner)
 		router.PATCH("/confirm/:orderId", controller.ConfirmOrder)
 		router.GET("/getslip/:id", controller.GetPaymentbyID)
