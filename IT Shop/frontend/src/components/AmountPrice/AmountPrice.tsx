@@ -194,10 +194,12 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
       <Card className="custom-cardAM">
         <div className='upload-container'>
           <center style={{ fontSize: '16px' }}>
+            
+            <span ><h2>
             <img className='myimage' src={QRcode} alt="" />
-            <p></p>
-            <span>บริษัท ITShop จำกัด </span>
-            ธนาคารกสิกรไทย
+                <p style={{marginTop: '10px'}}>บริษัท nfemj จำกัด</p>
+                <p>ธนาคารกสิกรไทย</p>
+            </h2></span>
           </center>
           <div style={{ margin: -30 }}>
             <input
@@ -259,7 +261,7 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
         </button>
 
         {/* ปุ่มยกเลิกคำสั่งซื้อ */}
-        <button className="btn" id="Cancel-button" onClick={handleCancelOrder}>
+        <button className="btn" style={{marginTop: '7px'}} id="Cancel-button" onClick={handleCancelOrder}>
           ยกเลิกคำสั่งซื้อ
         </button>
       </Card>
