@@ -84,7 +84,7 @@ const ShowProfile: React.FC = () => {
       key: 'CreatedAt',
       render: (text: string) => formatDate(text)
     },
-    { title: 'Total Price', dataIndex: 'TotalPrice', key: 'TotalPrice', render: (text: number) => text.toLocaleString('th-TH', { minimumFractionDigits: 2 })},
+    { title: 'Total Price', dataIndex: 'TotalPrice', key: 'TotalPrice', render: (text: number) => text.toLocaleString('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 2, })},
     { title: 'Status', dataIndex: 'Status', key: 'Status' },
     {
       title: '',
