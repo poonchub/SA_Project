@@ -73,7 +73,6 @@ function Edit() {
 
       try {
         const result = await UploadProfilePicture(formData);
-        console.log(result.data.ProfilePath)
         localStorage.setItem("profilePath", result.data.ProfilePath);
         if (result) {
           setUploadMessage(result.message);
@@ -114,8 +113,9 @@ function Edit() {
     try {
       let resCustomer = await UpdateCustomerByID(payloadCustomer, parseInt(id));
       let resAddress = await UpdateAddressByID(payloadAddress, selectedAddress?.ID);
-
       if (resCustomer && resAddress) {
+        localStorage.setItem("firstName", resCustomer.FirstName);
+        localStorage.setItem("lastName", resCustomer.LastName);
         messageApi.open({
           type: "success",
           content: resAddress.message,
@@ -165,7 +165,6 @@ function Edit() {
     }
   };
   
-
   const getAddressByCustomerID = async () => {
     let res = await GetAddressByCustomerID(parseInt(id));
     if (res && res.length > 0) {
