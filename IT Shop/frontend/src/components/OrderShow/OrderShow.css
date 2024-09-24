@@ -1,44 +1,54 @@
 @import "../../stylesheet/ColorSheet.css";
 
-.custom-cardO {
-    border: 1px solid #d9d9d9; /* Custom border */
-    border-radius: 8px; /* Rounded corners */
-    position: absolute;
-    margin-top: 90px;
-    margin-left: 80px; /* Adjust for responsiveness */
-    border: 0px solid;
-    width: 50%; /* Use percentage for flexible width */
-    box-shadow: 0px 2px 10px var(--shadow-color1);
-    font-size: 1.3rem; /* Use rem for responsive font size */
-    text-align: center;
-    z-index: 0; /* Ensure it stays above other elements */
-}
+@media (max-width: 5000px) {
+    .custom-cardO {
+        border: 1px solid #d9d9d9; /* Custom border */
+        border-radius: 8px; /* Rounded corners */
+        position: absolute;
+        margin-top: 90px;
+        margin-left: 80px; /* Adjust for responsiveness */
+        border: 0px solid;
+        width: 50%; /* Use percentage for flexible width */
+        box-shadow: 0px 2px 10px var(--shadow-color1);
+        font-size: 1.3rem; /* Use rem for responsive font size */
+        text-align: center;
+        z-index: 0; /* Ensure it stays above other elements */
 
-.color-id {
-    color: var(--orderid-color);
-    margin-left: 10%;
-}
+        .ant-card-body {
+            width: 100%;
+        }
 
-.custom-cardO .card-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        .color-price {
+            color: var(--subfont-color3);
+            margin-left: 20%;
+            margin-right: 2%;
+            margin-top: 0px;
+        }
 
-.custom-cardO .location-icon {
-    margin-right: 1rem; /* Use rem for consistent spacing */
-    margin-left: 0.5rem;
-}
-
-.color-price {
-    color: var(--subfont-color3);
-    margin-left: 20%;
-    margin-right: 2%;
-}
-
-.img-pos {
-    position: fixed;
-    margin-top: auto;
+        .color-id {
+            color: var(--orderid-color);
+            margin-left: 10%;
+        }
+    }
+    
+    
+    .custom-cardO .card-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .custom-cardO .location-icon {
+        margin-right: 1rem; /* Use rem for consistent spacing */
+        margin-left: 0.5rem;
+    }
+    
+    
+    
+    .img-pos {
+        position: fixed;
+        margin-top: auto;
+    }
 }
 
 @media (max-width: 1100px) {
