@@ -81,6 +81,7 @@ func main() {
 		router.POST("/orderItem", controller.CreateOrderItem)
 		router.PATCH("/orderItem", controller.UpdateOrderItem)
 		router.GET("/orderItems/:id", controller.GetOrderItemsByOrderID)
+		router.DELETE("/order/:id", controller.DeleteOrder)
 
 		// Owner
 		router.GET("/owners", controller.GetOwners)

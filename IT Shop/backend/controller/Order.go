@@ -160,3 +160,16 @@ func UpdateOrderAddressByOrderID(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "Address updated successfully", "order": order})
 }
+
+func DeleteOrder(c *gin.Context) {
+    id := c.Param("id")
+    
+    db := config.DB()
+
+    if tx := db.Where("id = ?", id).Delete(&entity.Order{}); tx.RowsAffected == 0 {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Order not found"})
+        return
+    }
+
+    c.JSON(http.StatusOK, gin.H{"message": "Deleted successfully"})
+}
