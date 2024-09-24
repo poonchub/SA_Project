@@ -104,7 +104,7 @@ func main() {
 		router.GET("/product-images", controller.ListImages)
 		router.GET("/product-images/:productId", controller.GetImageByProductByID)
 		router.POST("/product-image/:productId", controller.CreateImage)
-		router.PUT("/product-image/:productId", controller.UpdateImage)
+		router.PATCH("/product-image/:productId", controller.UpdateImage)
 
 		// Product
 		router.GET("/products", controller.ListProducts)

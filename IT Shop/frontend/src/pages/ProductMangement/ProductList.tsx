@@ -142,10 +142,6 @@ function ProductList() {
         setSelectedCategory(undefined);
         setFilteredProducts(products); 
     };
-    
-    
-    
-
 
     const columns: ColumnsType<ProductInterface> = [
         {
@@ -161,6 +157,7 @@ function ProductList() {
             align: 'center',
             render: (images: ImageInterface[]) => {
                 const imageFilePath = images && images.length > 0 ? images[0].FilePath : '';
+                console.log(imageFilePath);
                 return imageFilePath ? (
                     <img src={`${apiUrl}/${imageFilePath}`} alt="Product" style={{ maxWidth: '100px', height: 'auto' }} />
                 ) : 'No Image';
@@ -231,7 +228,7 @@ function ProductList() {
                     <SelectBrand onBrandChange={handleBrandChange} />
                     <SelectCategory onCategoryChange={handleCategoryChange} />
                 </div>
-                <Content style={{ padding: '0 20px', marginTop: '20px' }}>
+                <Content style={{ padding: '0 20px', width:"90vw" }}>
 
                     {loading ? (
                         <Spin size="large" style={{ display: 'block', margin: '20px auto' }} />

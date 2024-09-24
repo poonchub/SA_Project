@@ -5,17 +5,25 @@ import '../OrderShow/OrderShow.css';
 import { Button, Card, message } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import QRcode from '../../../../backend/images/payment/QR.png';
-import { CreatePayment, DeleteOrderByID, GetOrderItemByOrderID, UpdateProduct } from '../../services/http'; // เรียกใช้ฟังก์ชัน DeleteOrderByID และ UpdateProduct
+import { CreatePayment, DeleteOrderByID, GetOrderByID, GetOrderItemByOrderID, UpdateProduct } from '../../services/http'; // เรียกใช้ฟังก์ชัน DeleteOrderByID และ UpdateProduct
 import PopupConfirmPayment from './PopupConfirmPayment';
 import { useNavigate } from 'react-router-dom';
 import { OrderItemInterface } from '../../Interfaces/IOrderItem';
 import { ProductInterface } from '../../Interfaces/IProduct';
 import { GetProductByID } from '../../services/http';
+import PopupCancelPayment from './PopupCancelPayment';
+import PopupPaymentThx from './PopupPaymentThx';
+import promptpay from '../../assets/promptpay.jpg';
+import Umaru from '../../assets/Umaru-Smail.gif';
 
 const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: number}) => {
   const [slip, setSlip] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
+
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+  const [showCancelPopup, setShowCancelPopup] = useState(false);
+  const [showThxPopup, setShowThxPopup] = useState(false);
+
   const [showWarning, setShowWarning] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [api, contextHolder] = message.useMessage();
@@ -108,7 +116,7 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
   };
 
   const confirmUpload = async () => {
-    setShowConfirmPopup(false);
+    setShowConfirmPopup(false)
     const formData = new FormData();
     slip.forEach((file) => {
       formData.append('slip', file);
@@ -118,11 +126,29 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
 
     try {
       const res = await CreatePayment(formData);
+      // ดึงข้อมูลคำสั่งซื้อเพื่อตรวจสอบ AddressID
+      const order = await GetOrderByID(orderId);
+        
+      // ตรวจสอบว่า AddressID เป็น null หรือไม่
+      if (order.AddressID === null) {
+          api.error('ที่อยู่สำหรับคำสั่งซื้อของคุณยังไม่ได้ระบุ กรุณาระบุที่อยู่ก่อนทำการชำระเงิน');
+          return;
+      }
+      
       if (res) {
-        api.success('ชำระเงินเสร็จสิ้น กรุณารอการตรวจสอบจากทางเราค่ะ');
+        api.success({
+          content: 
+            <div className='custom-success-message'>
+              <span>ชำระเงินเสร็จสิ้น กรุณารอการตรวจสอบจากทางเราค่ะ</span>
+              <img src={Umaru} alt="success" style={{ width: '100px', marginRight: '10px', borderRadius: '15%' }} />
+            </div>,
+          // className: 'custom-success-message',
+          duration: 4.5,
+        });
         setTimeout(() => {
+          // setShowThxPopup(true)
           navigate('/Profile'); // เปลี่ยนเส้นทางไปที่ /Profile
-        }, 1000);
+        }, 5000);
       } else {
         api.error('Failed to upload images. Please try again.');
       }
@@ -131,7 +157,12 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
     }
   };
 
+  const setCancel = async () => {
+    setShowCancelPopup(true);
+  }
+
   const handleCancelOrder = async () => {
+    setShowCancelPopup(false); // เปิด Popup
     try {
       if (orderItems.length > 0) {
         // เริ่มทำการยกเลิกคำสั่งซื้อ
@@ -163,7 +194,7 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
             api.success('คำสั่งซื้อถูกยกเลิกและสินค้าได้ถูกอัปเดตเรียบร้อยแล้วค่ะ');
             setTimeout(() => {
               navigate('/Profile'); // เปลี่ยนเส้นทางไปที่ /Profile
-            }, 1000);
+            }, 2000);
           } else {
             api.error('ไม่สามารถอัปเดตสินค้าได้ครบทุกตัว');
           }
@@ -179,13 +210,20 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
     }
   };
   
+  const cancelUpload = () => {
+    setShowConfirmPopup(false); // ซ่อน popup confirm
+  };
+  const cancelCancelOrder = () => {
+    setShowCancelPopup(false); // ซ่อน popup cancel
+  };
+  
 
-  
-  
-  
-  
-  
-  
+  // function PaymentSuccessfull(): void {
+  //   setTimeout(() => {
+  //     navigate('/Profile'); // เปลี่ยนเส้นทางไปที่ /Profile
+  //     setShowThxPopup(false)
+  //   }, 5000);
+  // }
 
   return (
     <div>
@@ -194,12 +232,24 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
       <Card className="custom-cardAM">
         <div className='upload-container'>
           <center style={{ fontSize: '16px' }}>
-            
-            <span ><h2>
+            <h2>
+              <p>บริษัท <span style={{color: '#fa3869', marginBottom: '15px'}}>SHOENG LEUK</span> จำกัด</p>
+            </h2> 
             <img className='myimage' src={QRcode} alt="" />
-                <p style={{marginTop: '10px'}}>บริษัท nfemj จำกัด</p>
-                <p>ธนาคารกสิกรไทย</p>
-            </h2></span>
+            <span>
+              <h4>
+                <p style={{marginTop: '10px'}}> <img src={promptpay}
+                          style={{
+                            width: '100px',
+                            borderRadius: '50%',
+                            display: 'flex',
+
+                          }}
+                /><p style={{marginTop: '10px'}}>แสกนจ่ายอย่างรวดเร็วด้วยพร้อมเพย์</p></p>
+                
+              </h4>
+            </span>
+            
           </center>
           <div style={{ margin: -30 }}>
             <input
@@ -261,18 +311,32 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
         </button>
 
         {/* ปุ่มยกเลิกคำสั่งซื้อ */}
-        <button className="btn" style={{marginTop: '7px'}} id="Cancel-button" onClick={handleCancelOrder}>
+        <button className="btn" style={{marginTop: '7px'}} id="Cancel-button" onClick={setCancel}>
           ยกเลิกคำสั่งซื้อ
         </button>
       </Card>
 
+      <PopupCancelPayment
+        visible={showCancelPopup}
+        onConfirm={handleCancelOrder}
+        onCancel={cancelCancelOrder}
+      />
+
       <PopupConfirmPayment
         visible={showConfirmPopup}
         onConfirm={confirmUpload}
-        onCancel={handleCancelOrder}
+        onCancel={cancelUpload}
       />
+
+      {/* <PopupPaymentThx
+        visible={showThxPopup}
+        onConfirm={PaymentSuccessfull}
+        onCancel={cancelUpload}
+      /> */}
     </div>
   );
 };
 
 export default AmountPrice;
+
+

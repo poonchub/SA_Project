@@ -17,4 +17,10 @@
     margin-top: 50px;
     background-color:#FF2E63 ;
     cursor: pointer;
+    transition: all 0.5s;
+}
+#buy-button:hover{
+    box-shadow: 0 0 3px 1px #FF2E63;
+    background-color: var( --subtheme-color2);      
+    font-size: 15px;
 }

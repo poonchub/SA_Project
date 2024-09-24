@@ -737,7 +737,7 @@ async function CreateImage(formData: FormData,id: Number | undefined) {
 const UpdateImage = async (formData: FormData, id: number) => {
   try {
     const response = await fetch(`${apiUrl}/product-image/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: formData,
     });
 

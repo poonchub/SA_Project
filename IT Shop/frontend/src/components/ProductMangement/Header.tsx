@@ -1,5 +1,4 @@
 import { useContext, useEffect } from 'react';
-import './Header-Home.css';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../../App';
@@ -102,8 +101,12 @@ function Header(props: { page: any; }) {
                 </div>
             </div>
             <nav>
-                <Link to='/Product/Create' className='menu' id='New-Product'>New Product</Link>
+                <Link to='/ProductManagement' className='menu' id='ProductList'>Management</Link>
                 <Link to={`/OwnerProfile`} className='menu' id='owner-profile'>Profile</Link>
+                {/* <Link to='/Product/Create' className="new-box">
+                    <img src="./images/icon/new (1).png" alt="product-new" />
+                </Link> */}
+                <Link to='/Product/Create' className='menu' id='ProductCreate'>New Product</Link>
                 <div className="line"></div>
                 {OwnerElement}
             </nav>

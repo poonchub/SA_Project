@@ -14,7 +14,7 @@
     
 }
 .detail-table-orderid{
-    margin-top: 10px;
+    margin-top: 30px;
     width: 60vw;
     /* height: 200px; */
     background-color: white;
@@ -25,7 +25,7 @@
     
 	background-color: #ffffff;
     max-height: fit-content;
-    overflow: auto;
+  
     z-index: 0;
     & .ant-table-thead > tr > th{
         background-color: #FF2E63;
@@ -54,7 +54,7 @@
         border-radius: 6px;
         cursor: pointer;
         transition: all 0.5s;
-        
+        margin-top: 10px;
     }
 
 #but-back:hover{

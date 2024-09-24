@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Form, Input, Button, Select, Layout, InputNumber, message } from 'antd';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Content } from 'antd/es/layout/layout';
@@ -7,8 +7,9 @@ import '../../../components/ProductMangement/ProductFormPage.css'
 import { CategoryInterface } from '../../../Interfaces/ICategory';
 import { BrandInterface } from '../../../Interfaces/IBrand';
 import { ProductInterface } from '../../../Interfaces/IProduct';
-import { GetBrands, GetCategories, GetProductByID, UpdateImage, UpdateProduct } from '../../../services/http';
+import { CreateImage, GetBrands, GetCategories, GetProductByID, UpdateImage, UpdateProduct } from '../../../services/http';
 import Header from '../../../components/ProductMangement/Header';
+import { AppContext } from '../../../App';
 
 
 
@@ -21,6 +22,7 @@ interface ImageFile {
 }
 
 function ProductEdit() {
+  const { logoutPopup } = useContext(AppContext)
   const [images, setImages] = useState<ImageFile[]>([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -82,6 +84,7 @@ function ProductEdit() {
           }
 
           const imageRes = await UpdateImage(formData, Number(id));
+
           if (!imageRes) {
             messageApi.open({
               type: 'error',
@@ -122,14 +125,24 @@ function ProductEdit() {
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const newImages = Array.from(e.target.files).map((file, index) => ({
+      const selectedFiles = Array.from(e.target.files);
+
+      if (selectedFiles.length + images.length > 8) {
+        message.error('คุณสามารถอัปโหลดได้สูงสุด 8 รูป');
+        e.target.value = ''; 
+        return;
+      }
+
+      const newImages = selectedFiles.map((file, index) => ({
         id: Date.now() + index,
         file,
         preview: URL.createObjectURL(file),
       }));
+
       setImages((prevImages) => [...prevImages, ...newImages]);
     }
   };
+  
 
   const handleRemoveImage = (id: number) => {
     setImages(images.filter((img) => img.id !== id));
@@ -145,7 +158,8 @@ function ProductEdit() {
   return (
     <>
       {contextHolder}
-      <Header page={undefined} />
+      {logoutPopup}
+      <Header page={"ProductEdit"} />
       <div className="my-layout1">
         <Layout
           style={{
@@ -153,6 +167,7 @@ function ProductEdit() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            background: '#F6F9FC',
           }}
         >
           <Content
@@ -193,10 +208,10 @@ function ProductEdit() {
                 <Form.Item
                   name="Description"
                   label="Description"
-                  style={{ flex: '0 0 100%' }}
+                  style={{ flex: '0 0 100%', maxHeight: '1000px' }}
                 >
                   <Input.TextArea placeholder="Enter Product Description" 
-                  autoSize={{ minRows: 5, maxRows: 10 }}
+                  autoSize={{ minRows: 4, maxRows: 8 }}
                  />
                 </Form.Item>
 

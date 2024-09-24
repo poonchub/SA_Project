@@ -21,7 +21,7 @@ const OwnerRoutes = (): RouteObject => {
         children: [
             {
                 path: "/",
-                element: <Home />
+                element: <ProductList />
             },
             {
                 path: "/Login-Owner",

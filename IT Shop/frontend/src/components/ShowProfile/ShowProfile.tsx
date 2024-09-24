@@ -4,10 +4,11 @@ import { UserOutlined, CalendarOutlined, MailOutlined, EnvironmentOutlined, Phon
 import { Link, useNavigate } from 'react-router-dom';
 import './ShowProfile.css';
 import { CustomerInterface } from '../../Interfaces/ICustomer';
-import { apiUrl, GetAddressByCustomerID, GetCustomerByID, GetOrderByCustomerID } from '../../services/http';
+import { apiUrl, GetAddressByCustomerID, GetCustomerByID, GetGenders, GetOrderByCustomerID } from '../../services/http';
 import { AddressInterface } from '../../Interfaces/IAddress';
 import { OrderInterface } from '../../Interfaces/IOrder';
 import { Col, Row } from "antd";
+import { GendersInterface } from '../../Interfaces/IGender';
 
 const ShowProfile: React.FC = () => {
   const navigate = useNavigate();
@@ -15,20 +16,21 @@ const ShowProfile: React.FC = () => {
   const [customer, setCustomer] = useState<CustomerInterface | undefined>(undefined);
   const [address, setAddress] = useState<AddressInterface[]>([]);
   const [orders, setOrders] = useState<OrderInterface[]>([]);
+  const [gender,setGender] = useState<GendersInterface[]>([]);
 
   const id = localStorage.getItem("id") || "";
 
-//   const [profilePath, setProfilePath] = useState<string | null>(null);
+  const getGender= async () => {
+    let res = await GetGenders();
+    if (res) {
+      setGender(res);
+    }
+  }
 
-// useEffect(() => {
-//   // ดึง URL รูปโปรไฟล์จาก localStorage
-//   const storedProfilePath = localStorage.getItem('profilePath');
-//   if (storedProfilePath) {
-//     setProfilePath(storedProfilePath);
-//   }
-// }, []);
-
-// console.log(profilePath)
+  const getGenderName = (genderID: number | undefined) => {
+    const foundGender = gender.find(g => g.ID === genderID);
+    return foundGender ? foundGender.Name : 'Unknown';
+  };
 
   async function getCustomer() {
     try {
@@ -105,7 +107,7 @@ const ShowProfile: React.FC = () => {
 
   useEffect(() => {
     getCustomer();
-    // getOrders();
+    getGender();
     getOrderByCustomerID();
   }, []);
 
@@ -123,7 +125,7 @@ const ShowProfile: React.FC = () => {
         />
       </div>
       <div className="profile-detail">
-        <table>
+        <table style={{borderCollapse: "separate", borderSpacing: "0 10px"}}>
           <tbody>
             <tr>
               <td>
@@ -145,6 +147,16 @@ const ShowProfile: React.FC = () => {
               </td>
               <td>{customer?.Email}</td>
             </tr>
+            <tr>
+              <td> <img src='/images/icon/gender.png' className='gender-image' style={{width: "26px", height: "28px"}}/></td>
+              <td> {getGenderName(customer?.GenderID)} </td>
+            </tr>
+            <tr>
+              <td>
+              <PhoneOutlined style={{ fontSize: '25px', color: '#FF2E63', transform: 'scaleX(-1)' }}/>
+              </td>
+              <td>{customer?.PhoneNumber}</td>
+            </tr>
             {address.length > 0 ? address.map((add, index) => (
               <tr key={index}>
                 <td>
@@ -161,12 +173,6 @@ const ShowProfile: React.FC = () => {
                 <td colSpan={2}>No address found</td>
               </tr>
             )}
-            <tr>
-                <td>
-                <PhoneOutlined style={{ fontSize: '25px', color: '#FF2E63', transform: 'scaleX(-1)' }}/>
-                </td>
-                <td>{customer?.PhoneNumber}</td>
-              </tr>
           </tbody>
         </table>
         <div className="button-container">
@@ -184,7 +190,7 @@ const ShowProfile: React.FC = () => {
             <Button
               className="button-add"
               type="primary"
-              style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63' }}
+              style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63'  }}
               onClick={handleClick}
             >
                 Add Address</Button>
@@ -205,6 +211,7 @@ const ShowProfile: React.FC = () => {
           </Col>
         </Row>
       </div>
+    
     </div>
   );
 };

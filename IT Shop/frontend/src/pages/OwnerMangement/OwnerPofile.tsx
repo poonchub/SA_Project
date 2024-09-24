@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useContext } from 'react';
 import { UserOutlined, MailOutlined } from '@ant-design/icons';
 import { message, Table, TableProps } from 'antd';  // นำเข้า Table จาก Ant Design
 import './OwnerProfile.css';  
@@ -10,9 +10,14 @@ import { PaymentInterface } from '../../Interfaces/IPayment';
 import ButtonWithImage from '../../components/ProductMangement/ButtonWithImage';
 import { GendersInterface } from '../../Interfaces/IGender';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { CustomerInterface } from '../../Interfaces/ICustomer';
+
+import { AppContext } from '../../App';
 
 
 const OwnerProfile: React.FC = () => {
+  const { logoutPopup } = useContext(AppContext)
   const [owner, setOwner] = useState<OwnerInterface | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,6 +26,8 @@ const OwnerProfile: React.FC = () => {
   const [payment,setPayment] = useState<PaymentInterface[]>([]);
   const [gender,setGender] = useState<GendersInterface[]>([]);
   const navigate = useNavigate();
+  // let { id } = useParams();
+  const [customer, setCustomer] = useState<CustomerInterface | null>(null);
   const id = localStorage.getItem("owner_id") || "";
 
   async function getOrders() {
@@ -209,7 +216,7 @@ const OwnerProfile: React.FC = () => {
           >
             {record.Status == 'ยืนยันคำสั่งซื้อ' ? 'ยืนยันคำสั่งซื้อแล้ว' : 'ยืนยันคำสั่งซื้อ'}
           </button>
-          {(record.Status === "รอการยืนยัน" || record.Status === "ส่งสลิปใหม่") && (
+          {(record.Status === "รอการตรวจสอบ" || record.Status === "ส่งสลิปใหม่") && (
           <button id='reuplode-slip' onClick={()=>Reupload(Number(record.ID))}>
             ส่งสลิปใหม่
           </button>
@@ -233,7 +240,7 @@ const OwnerProfile: React.FC = () => {
   return (
     <>
       <Header page={"owner-profile"} />
-      
+      { logoutPopup }
       <div className="profile-container-for-owner">
         <div className="all-content-for-admin">
       
@@ -281,11 +288,14 @@ const OwnerProfile: React.FC = () => {
          {/* ตารางสำหรับแสดงข้อมูล orders โดยใช้ Ant Design */}
          <div className="table-for-show-order">
            <h3 id='order-head'>Orders</h3>
+           <div className="table-show-item">
            <Table<OrderInterface>
              columns={columns}
              dataSource={orders}
              rowKey="ID"  // กำหนด key ให้กับแต่ละ row
-           />
+           /> 
+           </div>
+           
          </div>
        
          </div>
