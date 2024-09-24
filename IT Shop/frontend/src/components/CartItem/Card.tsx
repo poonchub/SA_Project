@@ -145,7 +145,7 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
           </div>
           <div className="select-acction">
             <Button type="primary" id="select-all" onClick={handleSelectAll}>เลือกทั้งหมด</Button>    
-            <Button type="primary" id="delete-all" onClick={DeleteAllCart}>ลบทั้งหมด</Button> 
+            <button  id="delete-all" onClick={DeleteAllCart}>ลบทั้งหมด</button> 
           </div>
           <div className="card-container-item" id="all-item">
             <AnimatePresence>
@@ -189,7 +189,7 @@ function Card({ onCartDataChange, onSelectedItemsChange }: ShowlistProps) {
                           >-</button>
                         </div>
                         <div className="value">
-                          <p>{item.Quantity}</p>
+                          <p style={{ color: "rgb(212, 0, 26)" }}>{item.Quantity}</p>
                         </div>
                         <div className="plus">
                           <button
