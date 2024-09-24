@@ -154,6 +154,7 @@
         color: var(--subfont-color2);
         transition: all 0.3s;
     }
+   
     & .confirm-button:hover {
         box-shadow: 0 0 3px 1px var(--shadow-color2);
         font-size: 17px;
