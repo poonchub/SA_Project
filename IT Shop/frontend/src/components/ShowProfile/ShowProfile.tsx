@@ -94,7 +94,7 @@ const ShowProfile: React.FC = () => {
       key: 'action',
       align: 'center',
       render: (record: OrderInterface) => (
-        record.Status=="รอการชำระเงิน" ? (
+        record.Status=="รอการชำระเงิน" || record.Status=="ส่งสลิปใหม่" ? (
           <Link to="/Payment">
             <Space size="middle">
                 <Button style={{backgroundColor: "var(--subtheme-color1)"}} type="primary" onClick={()=>localStorage.setItem("orderId", `${record.ID}`)}>ชำระเงิน</Button>
