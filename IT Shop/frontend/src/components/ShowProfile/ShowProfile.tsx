@@ -101,7 +101,7 @@ const ShowProfile: React.FC = () => {
             </Space>
           </Link>
         ) : record.Status=="ส่งสลิปใหม่" ? (
-          <Link to="/Payment">
+          <Link to="/PaymentEdit">
             <Space size="middle">
                 <Button style={{backgroundColor: "var(--subtheme-color1)"}} type="primary" onClick={()=>localStorage.setItem("orderId", `${record.ID}`)}>แก้ไขสลิป</Button>
             </Space>
