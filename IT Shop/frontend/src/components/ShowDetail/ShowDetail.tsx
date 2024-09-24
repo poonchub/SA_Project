@@ -1,15 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import "./ShowDetail.css"
 import { AddToCart, GetCart, ListProducts} from "../../services/http";
-import { ProductInterFace } from "../../Interfaces/IProduct";
+import { ProductInterface } from "../../Interfaces/IProduct";
 import { message } from "antd";
 import { PopupContext } from "../../pages/Selected";
 import PopupConfirmOrder from "../PopupConfirmOrder/PopupConfirmOrder";
 //for countCart
 import { AppContext } from '../../App';
+import Minus from "../Header/image-for-logo/min (1) (1).png"
+import Plus from "../Header/image-for-logo/plus (1).png"
 function ShowDetail(){
 
-    const [products, setProducts] = useState<ProductInterFace[]>([]);
+    const [products, setProducts] = useState<ProductInterface[]>([]);
     const [quantity, setQuantity] = useState(1);
     const [messageApi, contextHolder] = message.useMessage();
     const {setPopup} = useContext(PopupContext)
@@ -153,14 +155,14 @@ function ShowDetail(){
                     <span>Quantity:</span>
                     <div className="quantity-btn" id="minus-button" onClick={minus}>
                         {/* − */}
-                        <img src="" alt="" />
+                        <img src={Minus}  id="decrease"/>
                     </div>
                     <span className="num-of-quantity">
                         {quantity}
                     </span>
                     <div className="quantity-btn" id="add-button" onClick={add}>
                         {/* + */}
-                        <img src="" alt="" />
+                        <img src={Plus}  id="increase"/>
                     </div>
                 </div>
                 <div className="button-box">
