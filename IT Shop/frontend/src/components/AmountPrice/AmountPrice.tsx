@@ -14,6 +14,7 @@ import { GetProductByID } from '../../services/http';
 import PopupCancelPayment from './PopupCancelPayment';
 // import PopupPaymentThx from './PopupPaymentThx';
 import promptpay from '../../assets/promptpay.jpg';
+import UmaruCry from '../../assets/Umaru-Cry.gif';
 import Umaru from '../../assets/Umaru-Smail.gif';
 
 const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: number}) => {
@@ -139,7 +140,7 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
         api.success({
           content: 
             <div className='custom-success-message'>
-              <span>ชำระเงินเสร็จสิ้น กรุณารอการตรวจสอบจากทางเราค่ะ</span>
+              <span style={{marginTop: '10px', marginRight: '20px'}}>ชำระเงินเสร็จสิ้น กรุณารอการตรวจสอบจากทางเราค่ะ</span>
               <img src={Umaru} alt="success" style={{ width: '100px', marginRight: '10px', borderRadius: '15%' }} />
             </div>,
           // className: 'custom-success-message',
@@ -191,10 +192,17 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
           const allSuccess = updateResults.every((result: boolean) => result);
   
           if (allSuccess) {
-            api.success('คำสั่งซื้อถูกยกเลิกและสินค้าได้ถูกอัปเดตเรียบร้อยแล้วค่ะ');
+            api.success({
+              content: 
+                <div className='custom-success-message'>
+                  <span style={{marginTop: '20px', marginRight: '20px'}}>ว้าาเสียดายจัง ไม่ยกเลิกได้ไหมอ้าา~~</span>
+                  <img src={UmaruCry} alt="success" style={{ width: '100px', marginRight: '10px', borderRadius: '15%' }} />
+                </div>,
+              duration: 4.5,
+            });
             setTimeout(() => {
               navigate('/Profile'); // เปลี่ยนเส้นทางไปที่ /Profile
-            }, 2000);
+            }, 5000);
           } else {
             api.error('ไม่สามารถอัปเดตสินค้าได้ครบทุกตัว');
           }

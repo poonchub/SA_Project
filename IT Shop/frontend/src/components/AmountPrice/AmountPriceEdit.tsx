@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../AmountPrice/AmountPrice.css';
 import uploadPhoto from '../../assets/Upload_Button.svg';
 import '../OrderShow/OrderShow.css';
-import { Button, Card, message } from 'antd';
+import { Button, Card, Flex, message } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import QRcode from '../../../../backend/images/payment/QR.png';
 import { UpdatePaymentSlip, DeleteOrderByID, GetOrderItemByOrderID, UpdateProduct } from '../../services/http';
@@ -13,6 +13,7 @@ import { ProductInterface } from '../../Interfaces/IProduct';
 import { GetProductByID } from '../../services/http';
 import PopupCancelPayment from './PopupCancelPayment';
 import Umaru from '../../assets/Umaru-Smail.gif';
+import UmaruCry from '../../assets/Umaru-Cry.gif';
 import promptpay from '../../assets/promptpay.jpg';
 
 const AmountPriceEdit = ({ orderId, customerId }: { orderId: number, customerId: number }) => {
@@ -147,7 +148,7 @@ const AmountPriceEdit = ({ orderId, customerId }: { orderId: number, customerId:
         api.success({
           content: 
             <div className='custom-success-message'>
-              <span>ชำระเงินเสร็จสิ้น กรุณารอการตรวจสอบจากทางเราค่ะ</span>
+              <span style={{marginTop: '10px', marginRight: '20px'}}>ชำระเงินเสร็จสิ้น กรุณารอการตรวจสอบจากทางเราค่ะ</span>
               <img src={Umaru} alt="success" style={{ width: '100px', marginRight: '10px', borderRadius: '15%' }} />
             </div>,
           duration: 4.5,
@@ -192,10 +193,17 @@ const AmountPriceEdit = ({ orderId, customerId }: { orderId: number, customerId:
           const allSuccess = updateResults.every((result: boolean) => result);
   
           if (allSuccess) {
-            api.success('คำสั่งซื้อถูกยกเลิกและสินค้าได้ถูกอัปเดตเรียบร้อยแล้วค่ะ');
+            api.success({
+              content: 
+                <div className='custom-success-message'>
+                  <span style={{marginTop: '20px', marginRight: '20px'}}>ว้าาเสียดายจัง ไม่ยกเลิกได้ไหมอ้าา~~</span>
+                  <img src={UmaruCry} alt="success" style={{ width: '100px', marginRight: '10px', borderRadius: '15%' }} />
+                </div>,
+              duration: 4.5,
+            });
             setTimeout(() => {
               navigate('/Profile'); // เปลี่ยนเส้นทางไปที่ /Profile
-            }, 2000);
+            }, 5000);
           } else {
             api.error('ไม่สามารถอัปเดตสินค้าได้ครบทุกตัว');
           }
