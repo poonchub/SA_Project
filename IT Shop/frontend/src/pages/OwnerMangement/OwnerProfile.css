@@ -1,20 +1,18 @@
 @import "../../stylesheet/ColorSheet.css";
 
 @media only screen and (max-width:5000px){
-	.profile-container {
-		/* position: fixed; */
+	.profile-container-for-owner {
+		position: fixed;
 		margin-top: 75px;
+		margin-bottom: 20px;
 		width: 100vw;
 		height: 100vh;
-		/* height: calc(100vh - 75px); */
+		height: calc(100vh - 75px);
 		overflow-y: auto;
 		overflow-x: hidden;
 		display: flex;
-		/* justify-content: center; */
+		justify-content: center;
 
-		
-		
-	
 		& .image-container{
 			/* border: red 1px solid; */
 			display: flex;
@@ -81,14 +79,15 @@
 
 .table-for-show-order 	{
 	width: 60vw;
+	height: 100%;
 	display: block;
 	justify-content: center;
 	align-items: center;
-	/* border: red 1px solid; */
 	padding: 10px;
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 6px, rgba(0, 0, 0, 0.16) 0px 0px 6px;
 	border-radius: 10px;
 	background-color: #ffffff;
+	overflow-y: auto;
 }
 
 
@@ -96,7 +95,6 @@
 	background-color: #FF2E63; 
 	text-align: center;
 	color: white;
-    
 	/* border: rgb(0, 0, 0) 1px solid; */
 	
 
@@ -105,6 +103,7 @@
 	display: flex;
 	margin-top: 30px;
 	align-items: start;
+	margin-bottom: 30px;
 }
 .image-cover{
 	width: 100%;
@@ -118,6 +117,7 @@
 	/* border: #FF2E63 solid 1px; */
 	display: flex;
 	justify-content: center;
+	overflow-y: auto;
 }
 
 #but-detail{

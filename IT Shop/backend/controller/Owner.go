@@ -31,9 +31,9 @@ func GetOwnerByID(c *gin.Context){
 	db := config.DB()
 
 	if err := db.First(&owner, "id = ?", id).Error; err != nil {
-        c.JSON(http.StatusNotFound, gin.H{"error": "Owner not found"})
-        return
-    }
+		c.JSON(http.StatusNotFound, gin.H{"error": "Owner not found"})
+		return
+	}	
 
 	c.JSON(http.StatusOK, owner)
 }
@@ -258,6 +258,93 @@ func UploadProfileOwner(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, gin.H{"message": "Profile picture uploaded successfully", "data": owner})
+}
+
+func UpdateProfileOwner(c *gin.Context) {
+	db := config.DB()
+
+	// รับ owner ID จากข้อมูลในฟอร์ม
+	ownerID, err := strconv.ParseUint(c.PostForm("ownerID"), 10, 32)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid owner ID"})
+		return
+	}
+
+	// ค้นหา owner จากฐานข้อมูล
+	var owner entity.Owner
+	if err := db.First(&owner, ownerID).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Owner not found"})
+		return
+	}
+
+	// รับไฟล์จากฟอร์ม (ตรวจสอบว่าไฟล์มีการอัพโหลดหรือไม่)
+	file, err := c.FormFile("owner-profile")
+	if err == nil {
+		// เปิดไฟล์เพื่อตรวจสอบ MIME type
+		openedFile, err := file.Open()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to open file"})
+			return
+		}
+		defer openedFile.Close()
+
+		// ตรวจสอบ MIME type
+		buffer := make([]byte, 512)
+		_, err = openedFile.Read(buffer)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read file"})
+			return
+		}
+
+		mimeType := http.DetectContentType(buffer)
+		if mimeType != "image/jpeg" && mimeType != "image/png" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Only JPEG and PNG images are allowed"})
+			return
+		}
+
+		// รับนามสกุลไฟล์จากไฟล์ที่อัพโหลด
+		ext := filepath.Ext(file.Filename)
+		if ext == "" {
+			ext = ".png" // ตั้งค่าเริ่มต้นเป็น .png หากไม่มีนามสกุลไฟล์
+		}
+
+		// สร้างโฟลเดอร์ย่อยสำหรับภาพโปรไฟล์
+		subfolder := "profile"
+		fileName := fmt.Sprintf("owner_id%02d%s", ownerID, ext) // ปรับชื่อไฟล์ให้เหมาะสม
+		filePath := filepath.Join("images", subfolder, "owner", fileName)
+
+		// สร้างไดเรกทอรีหากยังไม่มี
+		err = os.MkdirAll(filepath.Join("images", subfolder, "owner"), os.ModePerm)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create directory"})
+			return
+		}
+
+		// ลบรูปโปรไฟล์เดิมถ้ามี
+		if owner.ProfilePath != "" {
+			if err := os.Remove(owner.ProfilePath); err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete old profile picture"})
+				return
+			}
+		}
+
+		// บันทึกไฟล์ที่อัพโหลด
+		if err := c.SaveUploadedFile(file, filePath); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save file"})
+			return
+		}
+
+		// อัปเดตเส้นทางโปรไฟล์ใหม่ในฐานข้อมูล
+		owner.ProfilePath = filePath
+	}
+
+	// บันทึกข้อมูลทั้งหมดในฐานข้อมูล
+	if err := db.Save(&owner).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update owner profile"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Owner profile updated successfully", "data": owner})
 }
 
 

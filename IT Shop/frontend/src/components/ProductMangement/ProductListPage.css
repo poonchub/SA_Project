@@ -9,6 +9,13 @@
     padding-bottom: 20px;
 }
 
+/* filter data */
+.selected-but{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
 /* Antd Table */
 .product-table .ant-table-thead > tr > th {
     background-color: #FF2E63; 
@@ -27,7 +34,7 @@
 }
 
 .product-table .ant-table-cell {
-    padding: 20px !important; 
+    padding: 2rem !important; 
 }
 
 
@@ -38,7 +45,7 @@
 
 .ant-table-content{
     /* border:1px solid red; */
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 
 }
 
