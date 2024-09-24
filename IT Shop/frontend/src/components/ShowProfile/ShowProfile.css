@@ -28,22 +28,44 @@
 			& img{
 				width: 100%;
 			}
+			
 		}
 	
 		& .profile-detail{
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			& .ant-table-thead > tr > th{	
+				background-color: #FF2E63; 
+				text-align: center;
+				color: white;
+				/* border: rgb(0, 0, 0) 1px solid; */
+				
+			
+			}
+			
 		}
-	
+	  
 		& .button-container{
 			margin-top: 20px;
 			margin-bottom: 40px;
+			height: 32px;
+	
+			& button{
+				
+				
+				transition: all 0.5s;
+			}
+			& button:hover{
+				box-shadow: 0 0 3px 1px #FF2E63;
+                 font-size: 15px;
+			}
 			
 		}
 	
 	}
 }
+
 
 @media only screen and (max-width:1100px){
 	.profile-container{

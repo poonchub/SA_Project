@@ -5,12 +5,16 @@
 }
 .web-cart-layout{
 
-
+   /* position: fixed; */
     background-color: rgb(255, 255, 255);
     height: 100vh;
     width: 100vw;
     /* position: fixed; */
     display: flex;
     justify-content: center;
+    z-index: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-bottom:20px ;
     
 }
