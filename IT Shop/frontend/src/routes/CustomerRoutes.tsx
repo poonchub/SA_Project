@@ -9,6 +9,7 @@ import Cart from "../pages/Cart";
 import Edit from "../pages/Edit";
 import LoginForCustomer from "../pages/Authentication/Login/LoginForCustomer";
 import Add from "../pages/AddAddress";
+import PaymentEdit from "../pages/PaymentEdit";
 
 const CustomerRoutes = (): RouteObject => {
  
@@ -50,6 +51,10 @@ const CustomerRoutes = (): RouteObject => {
             {
                 path: "/Payment",
                 element: <Payment />
+            },
+            {
+                path: "/paymentEdit",
+                element: <PaymentEdit />
             },
             {
                 path: "/AddAddress",

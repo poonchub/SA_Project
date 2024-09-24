@@ -1114,6 +1114,29 @@ async function UploadProfilePicture(formData: FormData) {
   return res;
 }
 
+async function UpdatePaymentSlip(orderID: any, formData: any) {
+  const requestOptions = {
+    method: "PUT",
+    body: formData
+  };
+
+  let res = await fetch(`${apiUrl}/payments/${orderID}`, requestOptions)
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return false; // หรือจัดการกับข้อผิดพลาดเพิ่มเติมที่นี่
+      }
+    })
+    .catch((error) => {
+      console.error("Error updating payment slip:", error);
+      return false;
+    });
+
+  return res;
+}
+
+
 export {
 
     SignInForCustomer,
@@ -1148,6 +1171,7 @@ export {
     CreatePayment,
     UpdateOrderAddressByOrderID,
     GetOrderItemByOrderID,
+    UpdatePaymentSlip,
     
     // Order  ----------------------------
     GetOrders,
