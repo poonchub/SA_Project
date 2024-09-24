@@ -1,4 +1,4 @@
-import { useEffect , useState } from 'react';
+import { useContext, useEffect , useState } from 'react';
 import { Form, Input, Select, Layout, InputNumber, message } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
@@ -10,6 +10,7 @@ import Header from '../../../components/ProductMangement/Header';
 import CancelButton from '../../../components/ProductMangement/CancelButton';
 import SubmitButton from '../../../components/ProductMangement/SubmitButton';
 import '../../../components/ProductMangement/ProductFormPage.css'
+import { AppContext } from '../../../App';
 
 
 const { Option } = Select;
@@ -22,6 +23,8 @@ interface ImageFile {
 
 
 function ProductCreate() {
+
+  const { logoutPopup } = useContext(AppContext)
   const [images, setImages] = useState<ImageFile[]>([]);
   const [loading, setLoading] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
@@ -118,11 +121,13 @@ function ProductCreate() {
   return (
     <>
       {contextHolder}
-      <Header page={'New-Product'} />
+     { logoutPopup }
+      <Header page={'ProductCreate'} />
       <div className="my-layout1">
         <Layout
           style={{
             minHeight: '100vh',
+            backgroundColor: '#F6F9FC',
           }}
         >
           <Content

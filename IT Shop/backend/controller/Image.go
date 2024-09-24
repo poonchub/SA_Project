@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"main/config"
 	"main/entity"
 	"net/http"
@@ -41,7 +42,7 @@ func GetImageByProductByID(c *gin.Context){
 }
 
 // POST /image/:productId
-func CreateImage(c *gin.Context){
+func CreateImage(c *gin.Context) {
 	productID, err := strconv.ParseUint(c.Param("productId"), 10, 64)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product ID"})
@@ -58,10 +59,29 @@ func CreateImage(c *gin.Context){
 
 	files := form.File["image"]
 
-	for _, file := range files{
-		subfolder := "product"+strconv.Itoa(int(productID))
-		fileName := filepath.Base(file.Filename)
-		filePath := filepath.Join("images", "product", subfolder, fileName)	
+	for _, file := range files {
+		subfolder := "product" + strconv.Itoa(int(productID))
+
+		// ลบไฟล์รูปเก่าก่อนถ้ามี
+		var oldImages []entity.Image
+		if err := db.Where("product_id = ?", productID).Find(&oldImages).Error; err == nil {
+			for _, oldImage := range oldImages {
+				if err := os.Remove(oldImage.FilePath); err != nil {
+					c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete old file"})
+					return
+				}
+				// ลบจากฐานข้อมูลด้วย
+				if err := db.Delete(&oldImage).Error; err != nil {
+					c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete old file from database"})
+					return
+				}
+			}
+		}
+
+		// เปลี่ยนชื่อไฟล์เป็น pตามด้วยตัวเลขถ้าหลักหน่วยให้ขึ้นต้นด้วย 0
+		imageCount := len(files)
+		fileName := fmt.Sprintf("p%02d", imageCount) + filepath.Ext(file.Filename)
+		filePath := filepath.Join("images", "product", subfolder, fileName)
 
 		// สร้างตำแหน่งโฟลเดอร์ที่จะเก็บถ้ายังไม่มี
 		err = os.MkdirAll(filepath.Join("images", "product", subfolder), os.ModePerm)
@@ -86,8 +106,7 @@ func CreateImage(c *gin.Context){
 			ProductID: uint(productID),
 			Product:   product,
 		}
-		if err := db.Create(&image).Error; 
-		err != nil {
+		if err := db.Create(&image).Error; err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
@@ -118,14 +137,14 @@ func UpdateImage(c *gin.Context) {
         return
     }
 
-    // Find existing images to delete
+    // ค้นหารูปภาพที่มีอยู่เพื่อทำการลบ
     var existingImages []entity.Image
     if err := db.Where("product_id = ?", productID).Find(&existingImages).Error; err != nil {
         c.JSON(http.StatusNotFound, gin.H{"error": "Product not found"})
         return
     }
 
-    // Delete old images
+    // ลบรูปภาพเก่าที่มีอยู่
     for _, img := range existingImages {
         if err := os.Remove(img.FilePath); err != nil {
             c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete old image"})
@@ -137,10 +156,12 @@ func UpdateImage(c *gin.Context) {
         }
     }
 
-    // Save new images
-    for _, file := range files {
+    // บันทึกรูปภาพใหม่
+    for i, file := range files {
         subfolder := "product" + strconv.Itoa(int(productID))
-        fileName := filepath.Base(file.Filename)
+
+        // เปลี่ยนชื่อไฟล์ใหม่ให้เป็น pตามด้วยตัวเลข เช่น p01, p02
+        fileName := fmt.Sprintf("p%02d", i+1) + filepath.Ext(file.Filename)
         filePath := filepath.Join("images", "product", subfolder, fileName)
 
         err = os.MkdirAll(filepath.Join("images", "product", subfolder), os.ModePerm)
@@ -166,3 +187,4 @@ func UpdateImage(c *gin.Context) {
 
     c.JSON(http.StatusOK, gin.H{"message": "Files updated successfully"})
 }
+
