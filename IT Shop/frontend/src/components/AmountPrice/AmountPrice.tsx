@@ -5,7 +5,7 @@ import '../OrderShow/OrderShow.css';
 import { Button, Card, message } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import QRcode from '../../../../backend/images/payment/QR.png';
-import { CreatePayment, DeleteOrderByID, GetOrderItemByOrderID, UpdateProduct } from '../../services/http'; // เรียกใช้ฟังก์ชัน DeleteOrderByID และ UpdateProduct
+import { CreatePayment, DeleteOrderByID, GetOrderByID, GetOrderItemByOrderID, UpdateProduct } from '../../services/http'; // เรียกใช้ฟังก์ชัน DeleteOrderByID และ UpdateProduct
 import PopupConfirmPayment from './PopupConfirmPayment';
 import { useNavigate } from 'react-router-dom';
 import { OrderItemInterface } from '../../Interfaces/IOrderItem';
@@ -126,6 +126,15 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
 
     try {
       const res = await CreatePayment(formData);
+      // ดึงข้อมูลคำสั่งซื้อเพื่อตรวจสอบ AddressID
+      const order = await GetOrderByID(orderId);
+        
+      // ตรวจสอบว่า AddressID เป็น null หรือไม่
+      if (order.AddressID === null) {
+          api.error('ที่อยู่สำหรับคำสั่งซื้อของคุณยังไม่ได้ระบุ กรุณาระบุที่อยู่ก่อนทำการชำระเงิน');
+          return;
+      }
+      
       if (res) {
         api.success({
           content: 
