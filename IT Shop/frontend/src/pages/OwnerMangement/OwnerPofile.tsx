@@ -59,6 +59,7 @@ const OwnerProfile: React.FC = () => {
         setUseslip(true)
         console.log("id:", res[0].SlipPath);
     }catch (err){
+      
       setError("fail fetch image")
     }
   }
@@ -305,7 +306,7 @@ const OwnerProfile: React.FC = () => {
         useslip && (
           <div className="back-slip" onClick={()=>setUseslip(false)}>
             <div>
-                  <img src={apiUrl + '/'+ payment[0].SlipPath || ''} alt="" id='slip-image' />
+                  <img src={apiUrl + '/'+ payment[payment.length-1].SlipPath || ''} alt="" id='slip-image' />
             </div>
 
           </div>
