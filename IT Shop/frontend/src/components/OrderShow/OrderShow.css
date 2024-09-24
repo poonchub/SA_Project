@@ -9,7 +9,7 @@
     border: 0px solid;
     width: 50%; /* Use percentage for flexible width */
     box-shadow: 0px 2px 10px var(--shadow-color1);
-    font-size: 1.5rem; /* Use rem for responsive font size */
+    font-size: 1.3rem; /* Use rem for responsive font size */
     text-align: center;
     z-index: 0; /* Ensure it stays above other elements */
 }

@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
 import { AddressInterface } from "../../Interfaces/IAddress";
 import "./PopupConfirmOrder.css"
-import { CreateOrder, CreateOrderItem, GetAddressByCustomerID, UpdateProduct } from "../../services/http";
+import { CreateOrder, CreateOrderItem, GetAddressByCustomerID, GetCustomerByID, UpdateProduct } from "../../services/http";
 import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { ProductInterface } from "../../Interfaces/IProduct";
+import { CustomerInterface } from "../../Interfaces/ICustomer";
 
 function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any; quantity: any; products: any; messageApi: any; }){
 
     const {setPopup, productName, price, quantity, products, messageApi} = props
 
+    const [customer, setCustomer] = useState<CustomerInterface>()
     const [addresses, setAddresses] = useState<AddressInterface[]>([]);
     const [selectedAddress, setSelectedAddress] = useState(1);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false)
 
     const sltProductStr = localStorage.getItem("sltProduct")
     const sltProduct = sltProductStr!=null ? parseInt(sltProductStr) : 0;
@@ -31,9 +34,17 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
         }
     }
 
+    async function getCustomer(){
+        const cutomerID = localStorage.getItem("id")
+        let res = await GetCustomerByID(cutomerID!=null ? parseInt(cutomerID): 0)
+        if (res) {
+            setCustomer(res);
+        }
+    }
+
     async function createOrder() {
         try {
-            
+            setIsButtonDisabled(true);
             const cutomerID = localStorage.getItem("id")
             const orderData: OrderInterface = {
                 TotalPrice: totalPrice,
@@ -88,6 +99,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
 
         setTimeout(() => {
             location.href = "/Payment";
+            setIsButtonDisabled(false);
         }, 1800);
     }
 
@@ -98,6 +110,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
 
     useEffect(()=> {
         getAddress()
+        getCustomer()
     }, [])
 
     const addressElement = addresses.map((subAddress, index) => {
@@ -123,8 +136,8 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
                             แขวง/ตำบล: {subAddress.Subdistrict}{",\t"}
                             อำเภอ/เขต: {subAddress.District}{",\t"}
                             จังหวัด: {subAddress.Province}{",\t"}
-                            รหัสไปรษณีย์: {subAddress.ZipCode}
-                            
+                            รหัสไปรษณีย์: {subAddress.ZipCode}{",\t"}
+                            เบอร์โทร: {customer ? customer.PhoneNumber : ""}
                         </td>
                     </tr></tbody></table>
                 </td>  
@@ -165,7 +178,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
                 </table>
                 <div className="btn-box">
                     <button className="cancel-btn" onClick={closePopup}>ยกเลิก</button>
-                    <button className="confirm-btn" onClick={createOrder}>ยืนยันคำสั่งซื้อ</button>
+                    <button className="confirm-btn" disabled={isButtonDisabled} onClick={createOrder}>ยืนยันคำสั่งซื้อ</button>
                 </div>
             </div>
         </div>

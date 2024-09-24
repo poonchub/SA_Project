@@ -5,7 +5,7 @@
     border: 1px solid #d9d9d9;
     border-radius: 8px;
     position: absolute;
-    margin-top: -200px;
+    margin-top: -180px;
     margin-left: 80px;
     border: 0px solid;
     width: 50%;
@@ -36,4 +36,41 @@
     max-height: 400px; /* กำหนดความสูงสูงสุดที่ต้องการ */
     overflow-y: auto; /*ทำให้ตารางเลื่อนลงได้*/
     width: 100%; /* ปรับขนาดตาราง */
+}
+
+
+@media (max-width: 1100px) {
+    .custom-cardO {
+        margin-top: 145px;
+    }
+
+    .custom-cardO .location-icon {
+        margin-right: 1rem; /* Adjust spacing for smaller screens */
+        margin-left: -1rem;
+    }
+
+    .color-price {
+        display: block; /* บังคับให้ขึ้นบรรทัดใหม่ */
+        margin-left: 5%; /* ปรับตำแหน่งเมื่อขึ้นบรรทัดใหม่ */
+        margin-top: 10px; /* เพิ่มช่องว่างด้านบนเพื่อให้ดูสวยงาม */
+    }
+}
+
+@media (max-width: 1860px) {
+    .custom-cardT {
+        margin-top: -170px;
+    }
+
+    .custom-cardO .location-icon {
+        margin-right: 1rem;
+        margin-left: -1rem;
+    }
+
+    /* ถ้าใช้งาน float */
+    .color-price {
+        display: flex;
+        flex-direction: column;
+        margin-left: 5%;
+        margin-top: 10px;
+    }
 }

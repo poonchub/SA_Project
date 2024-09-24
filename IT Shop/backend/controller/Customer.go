@@ -92,6 +92,7 @@ func CreateCustomer(c *gin.Context) {
 		LastName:  customer.LastName,
 		Email:     customer.Email,
 		Password:  hashedPassword,
+		PhoneNumber: customer.PhoneNumber,
 		Birthday:  customer.Birthday,
 		GenderID:  customer.GenderID,
 		Gender:    gender,

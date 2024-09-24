@@ -271,6 +271,8 @@ async function CreateCustomer(data: CustomerInterface) {
       return false;
     }
   });
+
+  return res
 }
 // async function UpdateProfilePicture(formData: FormData) {
 //   const requestOptions = {
@@ -509,21 +511,24 @@ async function UpdateOrderItem(data: OrderItemInterface) {
 // Owner
 async function CreateOwner(data: OwnerInterface) {
   const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
   };
 
-  let res = await fetch(`${apiUrl}/owners`, requestOptions)
-    .then((res) => {
-      if (res.status == 201) {
-        return res.json();
-      } else {
-        return false;
-      }
-    });
+  try {
+      const res = await fetch(`${apiUrl}/owners`, requestOptions);
 
-  return res;
+      if (res.ok) { // ใช้ res.ok เพื่อตรวจสอบสถานะ 2xx
+          return await res.json();
+      } else {
+          console.error("Failed to create owner:", res.status, res.statusText);
+          return false;
+      }
+  } catch (error) {
+      console.error("Error occurred during fetch:", error);
+      return false;
+  }
 }
 async function GetOwners() {
   const requestOptions = {
@@ -560,40 +565,70 @@ async function GetOwnerByID(id: Number | undefined) {
   return res;
 }
 
-async function UpdateOwner(id: number, data: OwnerInterface, file?: File) {
+async function UpdateOwner(id: number, data: OwnerInterface) {
   if (id === undefined) {
-    throw new Error("Owner ID is undefined");
-  }
-
-  // สร้าง FormData เพื่อรองรับการส่งข้อมูลและรูปภาพ
-  const formData = new FormData();
-
-  // เพิ่มข้อมูล owner ลงใน formData
-  Object.keys(data).forEach((key) => {
-    if (data[key] !== undefined) {
-      formData.append(key, data[key] as string | Blob);
-    }
-  });
-
-  // ถ้ามีรูปใหม่ ให้เพิ่มไฟล์ลงใน formData
-  if (file) {
-    formData.append("profile_image", file);
+      throw new Error("Owner ID is undefined");
   }
 
   const requestOptions = {
-    method: "PATCH",
-    body: formData,
+      method: "PATCH",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
   };
 
-  let res = await fetch(`${apiUrl}/owners/${id}`, requestOptions)
-    .then((res) => {
+  try {
+      const res = await fetch(`${apiUrl}/owners/${id}`, requestOptions);
+
+      if (res.ok) {
+          return await res.json();
+      } else {
+          console.error("Failed to update owner:", res.status, res.statusText);
+          return false;
+      }
+  } catch (error) {
+      console.error("Error occurred during fetch:", error);
+      return false;
+  }
+}
+
+async function UploadProfileOwner(formData: FormData) {
+  const requestOptions = {
+      method: "PATCH",
+      // headers: { "Content-Type": "application/json" }, // ไม่ต้องตั้งค่า Content-Type สำหรับ FormData
+      body: formData,
+  };
+
+  let res = await fetch(`${apiUrl}/owner-upload-profile/`, requestOptions).then(
+      (res) => {
+          if (res.status === 201) {
+              return res.json(); // ส่งคืนข้อมูลที่ได้รับจาก API
+          } else {
+              return false; // หรือสามารถจัดการกับข้อผิดพลาดที่เกิดขึ้นได้
+          }
+      }
+  );
+
+  return res;
+}
+
+async function UpdateProfileOwner(id: Number | undefined, formData: FormData) {
+  const requestOptions = {
+    method: "PATCH",
+    body: formData
+  };
+
+  let res = await fetch(`${apiUrl}/owner/${id}/profilepicture`, requestOptions).then(
+    (res) => {
       if (res.status === 200) {
         return res.json();
       } else {
-        console.error("Failed to update owner:", res.status, res.statusText);
         return false;
       }
-    });
+    }
+  )
+
   return res;
 }
 
@@ -616,75 +651,6 @@ async function DeleteOwnerByID(id: number) {
     return false;
   }
 }
-
-async function CreateOwnerImage(formData: FormData, id: number | undefined) {
-  const requestOptions = {
-    method: "POST",
-    body: formData,
-  };
-
-  try {
-    const response = await fetch(`${apiUrl}/owners/${id}/profile-image`, requestOptions);
-    if (response.status === 201) {
-      return await response.json();
-    } else {
-      console.error('Failed to create owner image:', await response.text());
-      return false;
-    }
-  } catch (error) {
-    console.error('Fetch error:', error);
-    return false;
-  }
-};
-
-async function UpdateOwnerImage(formData: FormData, id: number) {
-  try {
-    const response = await fetch(`${apiUrl}/owners/${id}`, {
-      method: 'PUT',
-      body: formData,
-    });
-
-    if (!response.ok) {
-      console.error('Failed to update owner image:', await response.text());
-      return false;
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Fetch error:', error);
-    return false;
-  }
-
-};
-
-async function CreateOwnerWithImage(ownerData: OwnerInterface, imageFile: File | null) {
-  try {
-      // Create owner
-      const createOwnerRes = await CreateOwner(ownerData);
-      if (!createOwnerRes) {
-          throw new Error('Failed to create owner');
-      }
-
-      // If image is provided, upload it
-      if (imageFile && createOwnerRes.data.ID) {
-          const formData = new FormData();
-          formData.append('profile_image', imageFile);
-          
-          const imageUploadRes = await CreateOwnerImage(formData, createOwnerRes.data.ID);
-          if (!imageUploadRes) {
-              throw new Error('Failed to upload owner image');
-          }
-
-          return { owner: createOwnerRes.data, image: imageUploadRes.data };
-      }
-
-      return { owner: createOwnerRes.data };
-  } catch (error) {
-      console.error('Error in CreateOwnerWithImage:', error);
-      return null;
-  }
-}
-
 
 // Image
 async function ListImages() {
@@ -1183,9 +1149,9 @@ export {
     GetOwners,
     GetOwnerByID,
     DeleteOwnerByID,
-    CreateOwnerImage,
-    UpdateOwnerImage,
-    CreateOwnerWithImage,
+    UploadProfileOwner,
+    UpdateProfileOwner,
+
 
     // Image  ----------------------------
     ListImages,

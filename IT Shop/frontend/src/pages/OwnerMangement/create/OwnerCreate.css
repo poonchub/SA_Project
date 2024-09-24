@@ -1,3 +1,27 @@
+.my-layout2{
+  position: fixed;
+  width: 100vw;
+  margin-top: 75px;
+  height: calc(100vh - 75px);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  background-color: #F6F9FC;
+  padding-bottom: 50px;
+}
+
+.owner-form-container {
+  max-width: 800px;
+  padding: 50px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px #F6F9FC(0, 0, 0, 0.1);
+  margin-top: 150px;
+ 
+}
+
 .ant-input-password {
     width: 100%; /* ปรับขนาดกว้างเต็ม */
     height: 40px; /* ความสูง */

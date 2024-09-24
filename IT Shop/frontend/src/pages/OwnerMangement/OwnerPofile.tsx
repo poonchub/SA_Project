@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { UserOutlined, MailOutlined, StarOutlined } from '@ant-design/icons';
+import { UserOutlined, MailOutlined } from '@ant-design/icons';
 import { message, Table, TableProps } from 'antd';  // นำเข้า Table จาก Ant Design
 import './OwnerProfile.css';  
 import { OwnerInterface } from '../../Interfaces/IOwner';
@@ -10,6 +10,7 @@ import { PaymentInterface } from '../../Interfaces/IPayment';
 import ButtonWithImage from '../../components/ProductMangement/ButtonWithImage';
 import { GendersInterface } from '../../Interfaces/IGender';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 
 const OwnerProfile: React.FC = () => {
@@ -21,6 +22,8 @@ const OwnerProfile: React.FC = () => {
   const [payment,setPayment] = useState<PaymentInterface[]>([]);
   const [gender,setGender] = useState<GendersInterface[]>([]);
   const navigate = useNavigate();
+  let { id } = useParams();
+
   async function getOrders() {
     try {
       const res = await GetOrders();
@@ -49,7 +52,7 @@ const OwnerProfile: React.FC = () => {
 
   async function getOwner() {
     try {
-      const res = await GetOwnerByID(1);
+      const res = await GetOwnerByID(3);
       setOwner(res);
     } catch (err) {
       setError('Failed to fetch owner data.');
@@ -205,7 +208,7 @@ const OwnerProfile: React.FC = () => {
 
   return (
     <>
-      <Header page={"profile"} />
+      <Header page={"owner-profile"} />
       
       <div className="profile-container">
         <div className="all-content-for-admin">
@@ -241,12 +244,6 @@ const OwnerProfile: React.FC = () => {
                 <MailOutlined style={{ fontSize: '25px', color: '#FF2E63' }} />
               </td>
               <td>{owner?.Email}</td>
-            </tr>
-            <tr>
-              <td>
-                <StarOutlined style={{ fontSize: '25px', color: '#FF2E63' }} />
-              </td>
-              <td>{owner?.AdminRole}</td>
             </tr>
           </tbody>
         </table>

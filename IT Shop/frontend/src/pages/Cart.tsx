@@ -13,7 +13,7 @@ function Cart(){
     const [cartData, setCartData] = useState<CartInterface[] | null>(null);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
 
-  const [icon, setIcon] = useState("/images/icon/Hamburger.png");
+  const {logoutPopup} = useContext(AppContext)
   
   //for Countcart
   const { setCountCart } = useContext(AppContext); // ดึง setCountCart จาก AppContext
@@ -52,6 +52,7 @@ function Cart(){
 
     return (
         <>
+          {logoutPopup}
              <Header page={"cart" } /> 
             
                      {/* <TopicCart /> */}
