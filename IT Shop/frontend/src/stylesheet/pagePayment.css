@@ -9,3 +9,7 @@
     padding: 0px; /* เพิ่ม padding ตามต้องการ */
     box-sizing: border-box;
 }
+
+.ant-card-body {
+    width: 100%;
+}

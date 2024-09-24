@@ -25,14 +25,14 @@ function SelectBrand({ onBrandChange }: SelectBrandProps) {
     };
 
     useEffect(() => {
-        getBrands(); 
-    }, []); 
+        getBrands();
+    }, []);
 
     return (
         <div className="SelectBrand">
             <Form layout="inline">
                 <Form.Item name="brand" label="Brand">
-                    <Select 
+                    <Select
                         placeholder="เลือกแบรนด์"
                         onChange={value => onBrandChange(value)}
                     >
@@ -41,6 +41,7 @@ function SelectBrand({ onBrandChange }: SelectBrandProps) {
                                 <Option value={item.ID?.toString()} key={item.ID ?? ''}>
                                     {item.BrandName}
                                 </Option>
+
                             ))
                         ) : (
                             <Option value="">No brands found</Option>

@@ -10,6 +10,8 @@ import Header from '../../components/ProductMangement/Header';
 import SearchBox from '../../components/ProductMangement/SearchBox';
 import '../../components/ProductMangement/ProductListPage.css'
 import { ProductInterface } from '../../Interfaces/IProduct';
+import SelectBrand from '../../components/ProductMangement/SelectBrand';
+import SelectCategory from '../../components/ProductMangement/SelectCategory';
 
 function ProductList() {
     const { logoutPopup } = useContext(AppContext)
@@ -81,58 +83,68 @@ function ProductList() {
 
 
     const handleSearch = (searchTerm: string) => {
-        const lowerSearchTerm = searchTerm.toLowerCase();
-        const isNumeric = !isNaN(Number(searchTerm));
-
-        const filtered = products.filter(product => {
-            if (isNumeric) {
-                return product.ID === Number(searchTerm);
-            } else {
-                return product.ProductName?.toLowerCase().includes(lowerSearchTerm);
-            }
-        });
-
-        applyFilters(filtered);
+        applyFilters(selectedBrand, selectedCategory, searchTerm); 
     };
 
     const handleCategoryChange = (category: string) => {
         setSelectedCategory(category);
-        applyFilters();
+        applyFilters(selectedBrand, category, undefined); 
     };
-
+    
     const handleBrandChange = (brand: string) => {
         setSelectedBrand(brand);
-        applyFilters();
+        applyFilters(brand, selectedCategory, undefined); 
     };
-
-    const applyFilters = (productList: ProductInterface[] = products) => {
+    
+    const applyFilters = (
+        brand: string | undefined,
+        category: string | undefined,
+        searchTerm: string | undefined,
+        productList: ProductInterface[] = products
+    ) => {
         let filtered = [...productList];
-
-        if (selectedBrand) {
-            filtered = filtered.filter(product => product.BrandID === Number(selectedBrand));
+    
+        if (brand) {
+            filtered = filtered.filter(product => product.BrandID === Number(brand));
         }
-
-        if (selectedCategory) {
-            filtered = filtered.filter(product => product.CategoryID === Number(selectedCategory));
+    
+        if (category) {
+            filtered = filtered.filter(product => product.CategoryID === Number(category));
         }
-
+    
+        if (searchTerm) {
+            const lowerSearchTerm = searchTerm.toLowerCase();
+            const isNumeric = !isNaN(Number(searchTerm));
+    
+            filtered = filtered.filter(product => {
+                if (isNumeric) {
+                    return product.ID === Number(searchTerm);
+                } else {
+                    return product.ProductName?.toLowerCase().includes(lowerSearchTerm);
+                }
+            });
+        }
+    
         if (filtered.length === 0) {
             Modal.warning({
                 title: 'ไม่พบสินค้า',
                 content: `ไม่พบสินค้าที่ตรงกับค่าที่ค้นหา โปรดลองใหม่อีกครั้ง`,
                 className: 'custom-modal',
-                onOk: () => {
-                    setLoading(true);
-                    setTimeout(() => {
-                        setFilteredProducts(products);
-                        setLoading(false);
-                    }, 1250);
-                },
+                onOk: resetFilters, 
             });
         } else {
             setFilteredProducts(filtered);
         }
     };
+    
+    const resetFilters = () => {
+        setSelectedBrand(undefined);
+        setSelectedCategory(undefined);
+        setFilteredProducts(products); 
+    };
+    
+    
+    
 
 
     const columns: ColumnsType<ProductInterface> = [
@@ -160,15 +172,15 @@ function ProductList() {
             key: 'ProductName',
             align: 'center',
         },
-        {
-            title: 'Description',
-            dataIndex: 'Description',
-            key: 'Description',
-            align: 'center',
-            render: (description: string) => (
-                description.length > 50 ? `${description.substring(0, 50)}...` : description
-            ),
-        },
+        // {
+        //     title: 'Description',
+        //     dataIndex: 'Description',
+        //     key: 'Description',
+        //     align: 'center',
+        //     render: (description: string) => (
+        //         description.length > 50 ? `${description.substring(0, 50)}...` : description
+        //     ),
+        // },
         {
             title: 'Price',
             dataIndex: 'PricePerPiece',
@@ -214,13 +226,13 @@ function ProductList() {
             {logoutPopup}
             <Header page={"ProductList"} />
             <Layout className="my-layout1">
-            <SearchBox
-                        onSearch={handleSearch}
-                        onCategoryChange={handleCategoryChange}
-                        onBrandChange={handleBrandChange}
-                    />
+                <div className="selected-but">
+                    <SearchBox onSearch={handleSearch}  />
+                    <SelectBrand onBrandChange={handleBrandChange} />
+                    <SelectCategory onCategoryChange={handleCategoryChange} />
+                </div>
                 <Content style={{ padding: '0 20px', marginTop: '20px' }}>
-                    
+
                     {loading ? (
                         <Spin size="large" style={{ display: 'block', margin: '20px auto' }} />
                     ) : (
@@ -253,7 +265,7 @@ function ProductList() {
             >
                 <p>{modalText}</p>
             </Modal>
-            
+
 
         </>
     );

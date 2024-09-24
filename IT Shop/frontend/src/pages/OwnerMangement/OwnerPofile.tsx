@@ -24,8 +24,9 @@ const OwnerProfile: React.FC = () => {
   const [payment,setPayment] = useState<PaymentInterface[]>([]);
   const [gender,setGender] = useState<GendersInterface[]>([]);
   const navigate = useNavigate();
-  let { id } = useParams();
+  // let { id } = useParams();
   const [customer, setCustomer] = useState<CustomerInterface | null>(null);
+  const id = localStorage.getItem("owner_id") || "";
 
   async function getOrders() {
     try {
@@ -72,7 +73,8 @@ const OwnerProfile: React.FC = () => {
 
   async function getOwner() {
     try {
-      const res = await GetOwnerByID(3);
+      
+      const res = await GetOwnerByID(Number(id));
       setOwner(res);
     } catch (err) {
       setError('Failed to fetch owner data.');
@@ -155,7 +157,7 @@ const OwnerProfile: React.FC = () => {
     getOrders();
     getGender();
    
-  }, []);
+  }, [id]);
 
   const profileImageUrl = useMemo(() => {
     return localStorage.getItem("profilePath") !== "" ? `${apiUrl}/${localStorage.getItem("profilePath")}` : '/images/account-black.png';
@@ -237,7 +239,7 @@ const OwnerProfile: React.FC = () => {
     <>
       <Header page={"owner-profile"} />
       
-      <div className="profile-container">
+      <div className="profile-container-for-owner">
         <div className="all-content-for-admin">
       
          <div className="content-left-for-owner">

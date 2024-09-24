@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import './SearchBox.css';
-import SelectCategory from './SelectCategory';
-import SelectBrand from './SelectBrand';
+
 
 interface SearchBoxProps {
     onSearch: (searchTerm: string) => void;
-    onCategoryChange: (category: string) => void;
-    onBrandChange: (brand: string) => void;
+
 }
 
-const SearchBox: React.FC<SearchBoxProps> = ({ onSearch, onCategoryChange, onBrandChange }) => { 
+const SearchBox: React.FC<SearchBoxProps> = ({ onSearch }) => { 
     const [searchTerm, setSearchTerm] = useState<string>("");
 
     const handleSearch = () => {
@@ -39,11 +37,6 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onSearch, onCategoryChange, onBra
                     <img src="/images/icon/search.png" alt="Search icon" />
                 </div>
             </div>
-            <div className="selected-but">
-                {/* Use the passed onBrandChange and onCategoryChange props */}
-                <SelectBrand onBrandChange={onBrandChange} /> 
-                <SelectCategory onCategoryChange={onCategoryChange} />
-            </div>     
         </div>
     );
 };
