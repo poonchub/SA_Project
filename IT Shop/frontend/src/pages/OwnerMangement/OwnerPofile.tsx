@@ -12,6 +12,7 @@ import { GendersInterface } from '../../Interfaces/IGender';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { CustomerInterface } from '../../Interfaces/ICustomer';
+import GenderIcon from './picture/gender-fluid.png';
 
 import { AppContext } from '../../App';
 
@@ -42,15 +43,17 @@ const OwnerProfile: React.FC = () => {
           };
         })
       );
-      setOrders(sortedOrders.sort((a: OrderInterface, b: OrderInterface) =>
-        (b.ID?.toString() ?? '').localeCompare((a.ID?.toString() ?? ''))
-      ));
+      
+      // เปลี่ยนเป็นการ sort แบบตัวเลข
+      setOrders(sortedOrders.sort((a: OrderInterface, b: OrderInterface) => (b.ID ?? 0) - (a.ID ?? 0)));
+      
     } catch (err) {
       setError('Failed to fetch order data.');
     } finally {
       setLoading(false);
     }
   }
+  
   
   async function getslipfrompament(id:number,status: string) {
     if (status === "รอการชำระเงิน") {
@@ -218,8 +221,8 @@ const OwnerProfile: React.FC = () => {
         <>
         <div className="group-order-but">
           <button  id ='but-confirm-order' onClick={()=>confirmOrder(Number(record.ID))}
-          className={record.Status === "ยืนยันคำสั่งซื้อ" ? 'disabled-button' : ''}
-            disabled={record.Status === "ยืนยันคำสั่งซื้อ"}
+          className={record.Status === "ยืนยันคำสั่งซื้อ"  || record.Status === "รอการชำระเงิน" ? 'disabled-button' : ''}
+            disabled={record.Status === "ยืนยันคำสั่งซื้อ" || record.Status === "รอการชำระเงิน"}
           >
             {record.Status == 'ยืนยันคำสั่งซื้อ' ? 'ยืนยันคำสั่งซื้อแล้ว' : 'ยืนยันคำสั่งซื้อ'}
           </button>
@@ -278,7 +281,7 @@ const OwnerProfile: React.FC = () => {
               </td>
             </tr>
             <tr>
-              <td> <img src='/images/icon/gender.png' className='gender-image' /></td>
+              <td> <img src={GenderIcon} className='gender-image' /></td>
               <td> {getGenderName(owner?.GenderID)} </td>
             </tr>
             <tr>
@@ -299,11 +302,12 @@ const OwnerProfile: React.FC = () => {
          {/* ตารางสำหรับแสดงข้อมูล orders โดยใช้ Ant Design */}
          <div className="table-for-show-order">
            <h3 id='order-head'>Orders</h3>
-           <div className="table-show-item">
+           <div className="table-show-item" style={{height: "90%", overflow: "auto"}}>
            <Table<OrderInterface>
              columns={columns}
              dataSource={orders}
              rowKey="ID"  // กำหนด key ให้กับแต่ละ row
+             
            /> 
            </div>
            

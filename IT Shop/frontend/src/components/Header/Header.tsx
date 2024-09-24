@@ -16,6 +16,20 @@ import CapBF from './image-for-logo/letter-f black.png'
 import CapBJ from './image-for-logo/letter-j black.png'
 import CapBN from './image-for-logo/letter-n black.png'
 import CapBE from './image-for-logo/letter-e black.png'
+import CapBS from './image-for-logo/letter-s black.png'
+import CapS from './image-for-logo/letter-s.png'
+// import CapH from './image-for-logo/'
+import CapBH from './image-for-logo/letter-h black.png' 
+import CapBO from './image-for-logo/letter-o black.png'
+import CapBU from './image-for-logo/letter-u black.png'
+import CapBG from "./image-for-logo/letter-g black.png"
+import CapG from "./image-for-logo/letter-g (1).png"
+import CapL from "./image-for-logo/letter-l (1).png"
+import CapBL from "./image-for-logo/letter-l black.png"
+import CapK from "./image-for-logo/letter-k (1).png"
+import CapBK from "./image-for-logo/letter-k black.png"
+// import CapBU1 from './image-for-logo/letter-u black.png'
+
 //for countCart
 function Header(props: { page: any;}){
 
@@ -146,11 +160,19 @@ function Header(props: { page: any;}){
                     <div className="img-box">
                         {/* <img src="/images/Lenovo_Global_Corporate_Logo.png" alt="" /> */}
                         {/* MY<span>&nbsp;LOGO</span> */}
-                        <img src={page == "home" ?   CapBN : CapN} id="CapN" />
-                        <img src={page == "home" ?   CapBF : CapF} id = "CapF"/>
-                        <img src={page == "home" ?   CapBE : CapE} id = "CapE" />
-                        <img src={page == "home" ?   CapBM : CapM} id = "CapM" />
-                        <img src={page == "home" ?   CapBJ : CapJ} id='CapJ' />
+                        <img src={page == "home" ?   CapBS : CapS} id="CapN" />
+                        <img src={page == "home" ?   CapBH : CapF} id = "CapF"/>
+                        <img src={page == "home" ?   CapBO : CapE} id = "CapO" />
+                        <img src={page == "home" ?   CapBU : CapM} id = "CapM" />
+                        <img src={page == "home" ?   CapBN : CapN} id='CapJ' />
+                        <img src={page == "home" ?   CapBG : CapG} id='CapG' />
+                        <img src={page == "home" ?   CapBL : CapL} id='CapL' />
+                        <img src={page == "home" ?   CapBE : CapE} id='CapE' />
+                        <img src={page == "home" ?   CapBU : CapS} id='CapU' />
+                        <img src={page == "home" ?   CapBK : CapK} id='CapK' />
+                        
+                        
+
                      
 
                     </div>
