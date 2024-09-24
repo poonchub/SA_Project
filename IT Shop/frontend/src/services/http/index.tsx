@@ -383,6 +383,25 @@ async function CreateOrder(data: OrderInterface) {
   return res;
 }
 
+async function DeleteOrderByID(id: number) {
+  if (!id) {
+      console.error('Order ID is required to delete');
+      return false;
+  }
+
+  const requestOptions = {
+      method: "DELETE"
+  };
+
+  try {
+      const res = await fetch(`${apiUrl}/order/${id}`, requestOptions);
+      return res.status === 200;
+  } catch (error) {
+      console.error('Error occurred while deleting order:', error);
+      return false;
+  }
+}
+
 async function UpdateOrder(data: OrderInterface) {
   const requestOptions = {
     method: "PATCH",
@@ -400,6 +419,7 @@ async function UpdateOrder(data: OrderInterface) {
 
   return res;
 }
+
 export async function UpdatestatusOrderbyID(data:OrderInterface,id:number) {
   const requestOptions = {
     method: "PATCH",
@@ -562,7 +582,9 @@ async function GetOwnerByID(id: Number | undefined) {
       }
     }
   );
+  console.log("API response status:", res.status);
   return res;
+  
 }
 
 async function UpdateOwner(id: number, data: OwnerInterface) {
@@ -616,21 +638,18 @@ async function UploadProfileOwner(formData: FormData) {
 async function UpdateProfileOwner(id: Number | undefined, formData: FormData) {
   const requestOptions = {
     method: "PATCH",
-    body: formData
+    body: formData,
   };
 
-  let res = await fetch(`${apiUrl}/owner/${id}/profilepicture`, requestOptions).then(
-    (res) => {
-      if (res.status === 200) {
-        return res.json();
-      } else {
-        return false;
-      }
-    }
-  )
-
-  return res;
+  const res = await fetch(`${apiUrl}/owner-update-profile/${id}`, requestOptions);
+  if (res.status === 200) {
+    return await res.json();
+  } else {
+    return false;
+  }
 }
+
+
 
 
 async function DeleteOwnerByID(id: number) {
@@ -1136,6 +1155,7 @@ export {
     GetOrderByCustomerID,
     CreateOrder,
     UpdateOrder,
+    DeleteOrderByID,
 
     // OrderItem  ------------------------
     GetOrderItems,
