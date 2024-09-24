@@ -52,7 +52,11 @@ const OwnerProfile: React.FC = () => {
     }
   }
   
-  async function getslipfrompament(id:number) {
+  async function getslipfrompament(id:number,status: string) {
+    if (status === "รอการชำระเงิน") {
+      message.info("คำสั่งซื้อนี้รอการชำระเงิน");
+      return;
+    }
     try{
         const res = await GetslipByOrderID(id)
         setPayment(res)
@@ -174,6 +178,8 @@ const OwnerProfile: React.FC = () => {
       title: 'ID',
       dataIndex: 'ID',
       key: 'ID',
+      
+      
     },
     {
       title: 'Total Price',
@@ -230,7 +236,11 @@ const OwnerProfile: React.FC = () => {
     },
     {
       title: 'Slip',
-       render: (_,record:OrderInterface) =>  <button  id ='but-preview-slip' onClick={()=>getslipfrompament(Number(record.ID))} >ดู slip</button>,
+       render: (_,record:OrderInterface) => 
+        <button  id ='but-preview-slip'
+       onClick={() => record.Status && getslipfrompament(Number(record.ID), record.Status)} >
+        ดู slip
+        </button>,
     },
 
   ];

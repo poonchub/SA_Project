@@ -126,8 +126,9 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
   const createOrderFromCart = async () => {
     try {
       const cus_id = Number(localStorage.getItem("id"));
-      if (totalPrice > 0) {
-         const orderData: OrderInterface = {
+      if (totalPrice > 0 && address.length > 0) {
+
+        const orderData: OrderInterface = {
         TotalPrice: Math.round(finalPrice),
         Status: "รอการชำระเงิน",
         CustomerID: cus_id,
@@ -193,7 +194,19 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
       }
 
       setUsePopup(false);
-      }else{
+      }
+      else if(address.length == 0){ 
+        messageApi.open({
+          type: "error",
+          content: "กรุณาเพิ่มที่อยู่",
+          duration: 2,
+        });
+        setTimeout(() => {
+          navigate('/AddAddress');
+        },1000)
+        
+      }
+      else{
         messageApi.open({
           type: "error",
           content: "เกิดข้อผิดพลาดในการสร้างคำสั่งซื้อ",
