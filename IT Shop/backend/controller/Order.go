@@ -162,14 +162,19 @@ func UpdateOrderAddressByOrderID(c *gin.Context) {
 }
 
 func DeleteOrder(c *gin.Context) {
-    id := c.Param("id")
-    
-    db := config.DB()
+	id := c.Param("id")
 
-    if tx := db.Where("id = ?", id).Delete(&entity.Order{}); tx.RowsAffected == 0 {
-        c.JSON(http.StatusBadRequest, gin.H{"error": "Order not found"})
-        return
-    }
+	db := config.DB()
 
-    c.JSON(http.StatusOK, gin.H{"message": "Deleted successfully"})
+	if tx := db.Where("id = ?", id).Delete(&entity.Order{}); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Order not found"})
+		return
+	}
+
+	// if tx := db.Where("id = ?", id).Model(&entity.Order{}).Update("status", "ยกเลิกแล้ว"); tx.RowsAffected == 0 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to update order status"})
+	// 	return
+	// }
+
+	c.JSON(http.StatusOK, gin.H{"message": "Deleted successfully"})
 }
