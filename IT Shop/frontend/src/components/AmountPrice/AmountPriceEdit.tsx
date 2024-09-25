@@ -148,7 +148,7 @@ const AmountPriceEdit = ({ orderId, customerId }: { orderId: number, customerId:
         api.success({
           content: 
             <div className='custom-success-message'>
-              <span style={{marginTop: '10px', marginRight: '20px'}}>ชำระเงินเสร็จสิ้น กรุณารอการตรวจสอบจากทางเราค่ะ</span>
+              <span style={{marginTop: '10px', marginRight: '20px'}}>แก้ไขการชำระเงินเสร็จสิ้น กรุณารอการตรวจสอบจากทางเราค่ะ</span>
               <img src={Umaru} alt="success" style={{ width: '100px', marginRight: '10px', borderRadius: '15%' }} />
             </div>,
           duration: 4.5,
