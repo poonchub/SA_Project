@@ -6,32 +6,15 @@ import { Context } from '../../pages/Product';
 import { apiUrl } from '../../services/http';
 import { AppContext } from '../../App';
 
-import CapN from './image-for-logo/letter-n.png'
-import CapF from './image-for-logo/letter-f.png'
-import CapE from './image-for-logo/letter-e.png'
-import CapM from './image-for-logo/letter-m.png'
-import CapJ from './image-for-logo/letter-j.png'
-import CapBM from './image-for-logo/letter-m black.png'
-import CapBF from './image-for-logo/letter-f black.png'
-import CapBJ from './image-for-logo/letter-j black.png'
-import CapBN from './image-for-logo/letter-n black.png'
-import CapBE from './image-for-logo/letter-e black.png'
-import CapBS from './image-for-logo/letter-s black.png'
-import CapS from './image-for-logo/letter-s.png'
+
+// import CapS from './image-for-logo/letter-s.png'
 // import CapH from './image-for-logo/'
-import CapBH from './image-for-logo/letter-h black.png' 
-import CapBO from './image-for-logo/letter-o black.png'
-import CapBU from './image-for-logo/letter-u black.png'
-import CapBG from "./image-for-logo/letter-g black.png"
-import CapG from "./image-for-logo/letter-g (1).png"
-import CapL from "./image-for-logo/letter-l (1).png"
-import CapBL from "./image-for-logo/letter-l black.png"
-import CapK from "./image-for-logo/letter-k (1).png"
-import CapBK from "./image-for-logo/letter-k black.png"
-import CapH from "./image-for-logo/letter-h.png"
-import CapO from "./image-for-logo/letter-o.png"
-import CapU from "./image-for-logo/letter-u.png"
-// import CapBU1 from './image-for-logo/letter-u black.png'
+import CapBA from '/images/image-for-logo/letter-a.png' 
+import CapA  from '/images/image-for-logo/letter-a (1).png' 
+import CapH from  '/images/image-for-logo/letter-h.png' 
+import CapBH from  '/images/image-for-logo/letter-h black.png' 
+// import CapBO from './image-for-logo/letter-o black.png'
+
 
 //for countCart
 function Header(props: { page: any;}){
@@ -163,16 +146,10 @@ function Header(props: { page: any;}){
                     <div className="img-box">
                         {/* <img src="/images/Lenovo_Global_Corporate_Logo.png" alt="" /> */}
                         {/* MY<span>&nbsp;LOGO</span> */}
-                        <img src={page == "home" ?   CapBS : CapS} id="CapN" />
+                        <img src={page == "home" ?   CapBA : CapA} id="CapN" />
                         <img src={page == "home" ?   CapBH : CapH} id = "CapF"/>
-                        <img src={page == "home" ?   CapBO : CapO} id = "CapO" />
-                        <img src={page == "home" ?   CapBU : CapU} id = "CapM" />
-                        <img src={page == "home" ?   CapBN : CapN} id='CapJ' />
-                        <img src={page == "home" ?   CapBG : CapG} id='CapG' />
-                        <img src={page == "home" ?   CapBL : CapL} id='CapL' />
-                        <img src={page == "home" ?   CapBE : CapE} id='CapE' />
-                        <img src={page == "home" ?   CapBU : CapU} id='CapU' />
-                        <img src={page == "home" ?   CapBK : CapK} id='CapK' />
+                        <img src={page == "home" ?   CapBH : CapH} id = "CapO" /> 
+                        
                         
                         
 

@@ -97,7 +97,7 @@ const ShowProfile: React.FC = () => {
         record.Status=="รอการชำระเงิน"? (
           <Link to="/Payment">
             <Space size="middle">
-                <Button style={{backgroundColor: "var(--subtheme-color1)"}} type="primary" onClick={()=>localStorage.setItem("orderId", `${record.ID}`)}>ชำระเงิน</Button>
+                <Button style={{backgroundColor: "rgb(71, 209, 71)"}} type="primary" onClick={()=>localStorage.setItem("orderId", `${record.ID}`)}>ชำระเงิน</Button>
             </Space>
           </Link>
         ) : record.Status=="ส่งสลิปใหม่" ? (

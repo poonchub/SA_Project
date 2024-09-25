@@ -55,150 +55,48 @@
                         height: 100%;
                     }
                     & #CapN{
-                        width: 30px;
-                        height: 30px;
+                        width: 48px;
+                        height: 48px;
                         position: absolute;
-                        left: 1px;
+                        left: 3px;
                         transition: all 0.25s ease-in;
                         z-index: 11;
                     }
                     & #CapN:hover{
                         /* top: 2px; */
-                        left: 0px;
-                        width: 29px;
-                        height: 29px;
+                        left: 1px;
+                        width: 46px;
+                        height: 46px;
                     }
                     & #CapF{
-                        width: 30px;
-                        height: 30px;
+                        width: 48px;
+                        height: 48px;
                         position: absolute;
-                        left: 25px;
+                        left: 35px;
                         transition: all 0.25s ease-in;
                         z-index: 10;
                     }
                     & #CapF:hover{
                         /* top: 2px; */
-                        left: 24px;
-                        width: 29px;
-                        height: 29px;
+                        left: 33px;
+                        width: 46px;
+                        height: 46px;
                     }
                     & #CapO{
-                        width: 30px;
-                        height: 30px;
+                        width: 48px;
+                        height: 48px;
                         position: absolute;
-                        left: 48px;
+                        left: 67px;
                         transition: all 0.25s ease-in;
                         z-index: 9;
                     }
                     & #CapO:hover{
                         /* top: 2px; */
-                        left: 47px;
-                        width: 29px;
-                        height: 29px;
+                        left: 65px;
+                        width: 46px;
+                        height: 46px;
                     }
-                    & #CapM{
-                        width: 30px;
-                        height: 30px;
-                        position: absolute;
-                        left: 71px;
-                        transition: all 0.25s ease-in;
-                        z-index: 8;
-                    }
-                    & #CapM:hover{
-                        /* top: 2px; */
-                        left: 70px;
-                        width: 29px;
-                        height: 29px;
-                    }
-                    & #CapJ{
-                        width: 30px;
-                        height: 30px;
-                        position: absolute;
-                        left: 94px;
-                        transition: all 0.25s ease-in;
-                        z-index: 7;
-                    }
-                    & #CapJ:hover{
-                        /* top: 2px; */
-                        left: 93px;
-                        width: 29px;
-                        height: 29px;
-                    }
-                    & #CapG{
-                        width: 30px;
-                        height: 30px;
-                        position: absolute;
-                        left: 117px;
-                        transition: all 0.25s ease-in;
-                        z-index: 6;
-                    }
-                    & #CapG:hover{
-                        /* top: 2px; */
-                        left: 116px;
-                        width: 29px;
-                        height: 29px;
-                    }
-                    & #CapL{
-                        width: 30px;
-                        height: 30px;
-                        position: absolute;
-                        left: 149px;
-                        transition: all 0.25s ease-in;
-                        z-index: 5;
-                    }
-                    & #CapL:hover{
-                        /* top: 2px; */
-                        left: 148px;
-                        width: 29px;
-                        height: 29px;
-                    }
-                    & #CapE{
-                        width: 30px;
-                        height: 30px;
-                        position: absolute;
-                        left: 172px;
-                        transition: all 0.25s ease-in;
-                        z-index: 4;
-                    }
-                    & #CapE:hover{
-                        /* top: 2px; */
-                        left: 171px;
-                        width: 29px;
-                        height: 29px;
-                    }
-                    & #CapU{
-                        width: 30px;
-                        height: 30px;
-                        position: absolute;
-                        left: 195px;
-                        transition: all 0.25s ease-in;
-                        z-index: 3;
-                    }
-                    & #CapU:hover{
-                        /* top: 2px; */
-                        left: 194px;
-                        width: 29px;
-                        height: 29px;
-                    }
-                    & #CapK{
-                        width: 30px;
-                        height: 30px;
-                        position: absolute;
-                        left: 218px;
-                        transition: all 0.25s ease-in;
-                        z-index: 1;
-                    }
-                    & #CapK:hover{
-                        /* top: 2px; */
-                        left: 217px;
-                        width: 29px;
-                        height: 29px;
-                    }
-
-
-
-
-    
+                    
                     & span{
                         color: var(--subtheme-color1);
                     }

@@ -7,8 +7,8 @@ import { PopupContext } from "../../pages/Selected";
 import PopupConfirmOrder from "../PopupConfirmOrder/PopupConfirmOrder";
 //for countCart
 import { AppContext } from '../../App';
-import Minus from "../Header/image-for-logo/min (1) (1).png"
-import Plus from "../Header/image-for-logo/plus (1).png"
+import Minus from "/images/image-for-logo/min (1) (1).png"
+import Plus from "/images/image-for-logo/plus (1).png"
 function ShowDetail(){
 
     const [products, setProducts] = useState<ProductInterface[]>([]);

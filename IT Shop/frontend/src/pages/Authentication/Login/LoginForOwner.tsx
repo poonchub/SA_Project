@@ -30,7 +30,7 @@ function LoginForOwner() {
 
             localStorage.setItem("firstName", resGetOwner.FirstName);
 			localStorage.setItem("lastName", resGetOwner.LastName);
-            localStorage.setItem("profilePath", resGetOwner.ProfilePath);
+            localStorage.setItem("OwnerprofilePath", resGetOwner.ProfilePath);
 
 			setTimeout(() => {
 				location.href = "/";
