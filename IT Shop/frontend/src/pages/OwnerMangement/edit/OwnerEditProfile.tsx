@@ -26,6 +26,7 @@ function OwnerEditProfile() {
     // let { id } = useParams();
     const id = localStorage.getItem("owner_id") || "";
 
+    const ProfilePath = owner ? (owner.ProfilePath!="" ? `${apiUrl}/${owner.ProfilePath}` : "./images/icon/user-black.png") : ""
 
     async function getOwner() {
         try {
@@ -76,17 +77,15 @@ function OwnerEditProfile() {
 
             try {
                 const result = await UploadProfileOwner(formData);
-                console.log(result.data.ProfilePath);
                 localStorage.setItem('OwnerprofilePath', result.data.ProfilePath);
-                console.log(result.data.ProfilePath);
                 if (result) {
                     setUploadMessage(result.message);
                     setUploadError('');
                 } else {
-                    throw new Error('\nเกิดข้อผิดพลาดในการอัพโหลดรูปโปรไฟล์นะจ๊ะ');
+                    throw new Error('\nเกิดข้อผิดพลาดในการอัพโหลดรูปโปรไฟล์');
                 }
             } catch (err) {
-                const errorMessage = err instanceof Error ? err.message : '\nไม่รู้จักข้อผิดพลาดนี้จ่ะ';
+                const errorMessage = err instanceof Error ? err.message : '\nไม่รู้จักข้อผิดพลาดนี้';
                 setUploadError(`Error: ${errorMessage}`);
                 setUploadMessage('');
             }
@@ -143,10 +142,6 @@ function OwnerEditProfile() {
         getGender();
     }, []);
 
-    const profileImageUrl = useMemo(() => {
-        return `${apiUrl}/${localStorage.getItem("profilePath") || owner?.ProfilePath || '/images/default-profile.png'}`;
-    }, [owner]);
-
     return (
         <>
             {contextHolder}
@@ -161,7 +156,7 @@ function OwnerEditProfile() {
                     <div className="image-container-edit">
                         <div className="show-profile-box">
                             <img src={
-                                imagePreview == "" ? `${apiUrl}/${owner ? owner.ProfilePath : ""}` : imagePreview
+                                imagePreview=="" ? ProfilePath : imagePreview
                                 
                             }
                                 alt="Selected"

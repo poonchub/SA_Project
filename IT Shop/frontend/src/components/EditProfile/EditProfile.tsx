@@ -54,6 +54,8 @@ function Edit() {
   const [uploadMessage, setUploadMessage] = useState('');
   const [uploadError, setUploadError] = useState('');
 
+  const ProfilePath = customer ? (customer.ProfilePath!="" ? `${apiUrl}/${customer.ProfilePath}` : "./images/icon/user-black.png") : ""
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       setProfileFile(event.target.files[0]);
@@ -213,7 +215,7 @@ function Edit() {
         <Col xs={24} style={{display: "flex", flexDirection: "column", justifyItems:"center", alignItems:"center"}}>
           <div className="show-profile-box">
             <img src={
-                imagePreview=="" ? `${apiUrl}/${customer ? customer.ProfilePath : ""}` : imagePreview
+                imagePreview=="" ? ProfilePath : imagePreview
               } 
               alt="Selected" 
             />

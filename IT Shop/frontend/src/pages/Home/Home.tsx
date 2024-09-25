@@ -24,12 +24,6 @@ function Home(){
                 <Link to="/Product" className="btn-box">
                     <button className="shopnow-btn">Shop Now</button>
                 </Link>
-                <Link to='/Payment' className="btn-box">
-                    <button className="shopnow-btn">Pay Now</button>
-                </Link>
-                {/* <Link to='/ProductManagement' className="btn-box">
-                    <button className="shopnow-btn">Manage Now</button>
-                </Link> */}
                 <div className="model-box">
                     <My3DModel/>
                 </div>

@@ -30,7 +30,7 @@
         }
     
         & .text-box{
-            width: 50%;
+            width: 60%;
             min-width: 610px;
             display: flex;
             flex-direction: column;
@@ -48,6 +48,7 @@
                     color: var(--subtheme-color1);
                     text-shadow: 0px 0px 5px var(--shadow-color2);
                     animation: blink-animation 4s infinite;
+                    margin: 10px 0px;
                 }
             }
     

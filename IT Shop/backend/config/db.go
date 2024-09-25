@@ -149,7 +149,7 @@ func SetupDatabase() {
 	categories := []string{"Notebook", "Monitor", "RAM", "Graphic Card", "CPU", "Mainboard", "Computer", "Keyboard"}
 	for _, category := range categories {
 		path := fmt.Sprintf("images/category/%s.png", category)
-		err := createCategory(category, path, 1)
+		err := createCategory(category, path)
 		if err != nil {
 			panic(err)
 		}
@@ -441,8 +441,8 @@ Warranty	3 Years`,
 	}
 }
 
-func createCategory(name string, filePath string, id uint) error {
-	category := entity.Category{CategoryName: name, ImagePath: filePath, OwnerID: id}
+func createCategory(name string, filePath string) error {
+	category := entity.Category{CategoryName: name, ImagePath: filePath}
 
 	if err := db.Where("category_name = ?", &category.CategoryName).FirstOrCreate(&category).Error; err != nil {
 		return err
