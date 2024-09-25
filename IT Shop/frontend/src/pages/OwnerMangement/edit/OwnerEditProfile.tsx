@@ -150,15 +150,10 @@ function OwnerEditProfile() {
         <>
             {contextHolder}
             { logoutPopup }
-            <OwnerHeader page={"profile"} />
+            <OwnerHeader page={"Edit-Profile"} />
             <div className="container-edit">
                 <Card title="แก้ไขโปรไฟล์" className="edit-card">
                     <div className="image-container-edit">
-                        {/* <img
-                            src={profileImageUrl}
-                            className="circular-image-edit"
-                            alt="Owner Profile"
-                        /> */}
                         <div className="show-profile-box">
                             <img src={
                                 imagePreview == "" ? `${apiUrl}/${owner ? owner.ProfilePath : ""}` : imagePreview
@@ -220,11 +215,12 @@ function OwnerEditProfile() {
                     </div>
                     <div className="btn-edit-pofile">
                         <Button type="link" onClick={() => navigate('/OwnerProfile')} className="back-button">
-                            <img src="/images/icon/back.png" alt="Cancel" className='back-image' />
-                            ย้อนกลับ
+                            <img src="/images/icon/back2.png" alt="Cancel" className='back-image' />
+                            กลับ
                         </Button>
                         <Button type="primary" onClick={onFinish} className="save-button">
-                            บันทึกการเปลี่ยนแปลง
+                            <img src="/images/icon/floppy-disk.png" alt="Save" className='save-image' />
+                            บันทึก
                         </Button>
                     </div>
                 </Card>

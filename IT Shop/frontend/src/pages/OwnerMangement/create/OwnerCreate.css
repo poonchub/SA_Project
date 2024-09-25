@@ -49,4 +49,30 @@
   border-color: #FF2E63; /* สี border เมื่อ hover */
 }
 
+
+.password-container {
+
+  position: relative; 
+}
+
+.custom-password-input {
+  width: 100%; 
+  padding-right: 30px; 
+}
+
+.toggle-password-visibility {
+  width: 18px; 
+  height: 18px; 
+  position: absolute;
+  right: 10px; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  cursor: pointer; 
+  transition: transform 0.75s ease, opacity 0.75s ease; 
+
+}
+
+
+
+
   

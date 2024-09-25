@@ -128,6 +128,12 @@ function OwnerCreate() {
         setImages((prevImages) => prevImages.filter((img) => img.id !== id));
     };
 
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(prev => !prev);
+    };
+
 
     return (
         <>
@@ -157,57 +163,69 @@ function OwnerCreate() {
 
                                 <Form.Item
                                     name="FirstName"
-                                    label="First Name"
-                                    rules={[{ required: true, message: 'Please input the First Name!' }]}
+                                    label="ชื่อ"
+                                    rules={[{ required: true, message: 'กรุณากรอกชื่อ!' }]}
                                     style={{ flex: '0 0 48%' }}
                                 >
-                                    <Input placeholder="Enter First Name" />
+                                    <Input />
                                 </Form.Item>
 
                                 <Form.Item
                                     name="LastName"
-                                    label="Last Name"
-                                    rules={[{ required: true, message: 'Please input the Last Name!' }]}
+                                    label="นามสกุล"
+                                    rules={[{ required: true, message: 'กรุณากรอกนามสกุล!' }]}
                                     style={{ flex: '0 0 48%' }}
                                 >
-                                    <Input placeholder="Enter Last Name" />
+                                    <Input />
                                 </Form.Item>
 
                                 <Form.Item
                                     name="Email"
-                                    label="Email"
+                                    label="อีเมล"
                                     rules={[
-                                        { required: true, message: 'Please input your Email!' },
-                                        { type: 'email', message: 'The input is not a valid email!' },
-                                        { pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Email must contain @!' },
+                                        {
+                                            type: "email",
+                                            message: "รูปแบบอีเมลไม่ถูกต้อง !",
+                                        },
+                                        {
+                                            required: true,
+                                            message: "กรุณากรอกอีเมล !",
+                                        },
                                     ]}
                                     style={{ flex: '0 0 48%' }}
                                 >
-                                    <Input placeholder="Enter Email" />
+                                    <Input />
                                 </Form.Item>
 
                                 <Form.Item
                                     name="Password"
-                                    label="Password"
+                                    label="รหัสผ่าน"
                                     rules={[
-                                        { required: true, message: 'Please input your Password!' },
-                                        { min: 6, message: 'Password must be at least 6 characters!' }
+                                        { required: true, message: 'กรุณากรอกรหัสผ่าน!' },
+                                        { min: 6, message: 'รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัว!' }
                                     ]}
                                     style={{ flex: '0 0 48%' }}
                                 >
-                                    <input
-                                        type="password"
-                                        placeholder="Enter Password"
-                                        className="custom-password-input" // เพิ่ม class สำหรับปรับแต่ง
-                                    />
+                                    <div className="password-container">
+                                        <input
+                                            type={showPassword ? "text" : "password"}
+                                            className="custom-password-input"
+                                        />
+                                        <img
+                                            src={showPassword ? '/images/icon/eye.png' : '/images/icon/hidden.png'}
+                                            alt="toggle password visibility"
+                                            className={`toggle-password-visibility`}
+                                            onClick={togglePasswordVisibility}
+                                        />
+                                    </div>
                                 </Form.Item>
                                 <Form.Item
                                     name="GenderID"
-                                    label="Gender"
-                                    rules={[{ required: true, message: 'Please select the Gender!' }]}
+                                    label="เพศ"
+                                    rules={[{ required: true, message: 'กรุณาเลือกเพศ!' }]}
                                     style={{ flex: '0 0 48%' }}
                                 >
-                                    <Select allowClear placeholder="เลือกเพศ">
+                                    <Select allowClear>
                                         {genders.map((item) => (
                                             <Option value={item.ID} key={item.Name}>
                                                 {item.Name}
@@ -218,7 +236,8 @@ function OwnerCreate() {
 
                                 <Form.Item
                                     name="Picture"
-                                    label="Images"
+                                    label="อัพโหลดรูปภาพ"
+                                    rules={[{ required: true, message: 'กรุณาอัพโหลดรูปภาพโปรไฟล์!' }]}
                                     style={{ flex: '0 0 100%' }}
                                 >
                                     <div>

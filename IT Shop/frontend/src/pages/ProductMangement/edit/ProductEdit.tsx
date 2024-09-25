@@ -7,9 +7,9 @@ import '../../../components/ProductMangement/ProductFormPage.css'
 import { CategoryInterface } from '../../../Interfaces/ICategory';
 import { BrandInterface } from '../../../Interfaces/IBrand';
 import { ProductInterface } from '../../../Interfaces/IProduct';
-import { CreateImage, GetBrands, GetCategories, GetProductByID, UpdateImage, UpdateProduct } from '../../../services/http';
-import Header from '../../../components/ProductMangement/Header';
+import {  GetBrands, GetCategories, GetProductByID, UpdateImage, UpdateProduct } from '../../../services/http';
 import { AppContext } from '../../../App';
+import ProductEditHeader from '../../../components/ProductMangement/ProductEditHeader';
 
 
 
@@ -159,7 +159,7 @@ function ProductEdit() {
     <>
       {contextHolder}
       {logoutPopup}
-      <Header page={"ProductEdit"} />
+      <ProductEditHeader page={"Product-Edit"} />
       <div className="my-layout1">
         <Layout
           style={{
@@ -199,7 +199,7 @@ function ProductEdit() {
               >
                 <Form.Item
                   name="ProductName"
-                  label="Product Name"
+                  label="ชื่อสินค้า"
                   style={{ flex: '0 0 48%' }}
                 >
                   <Input placeholder="Enter Product Name" />
@@ -207,7 +207,7 @@ function ProductEdit() {
 
                 <Form.Item
                   name="Description"
-                  label="Description"
+                  label="คำอธิบายสินค้า"
                   style={{ flex: '0 0 100%', maxHeight: '1000px' }}
                 >
                   <Input.TextArea placeholder="Enter Product Description" 
@@ -217,7 +217,7 @@ function ProductEdit() {
 
                 <Form.Item
                   name="PricePerPiece"
-                  label="Price"
+                  label="ราคาต่อหน่วย"
                   style={{ flex: '0 0 48%' }}
                 >
                   <InputNumber
@@ -231,7 +231,7 @@ function ProductEdit() {
 
                 <Form.Item
                   name="Stock"
-                  label="Quantity"
+                  label="จำนวนสินค้า"
                   style={{ flex: '0 0 48%' }}
                 >
                   <InputNumber
@@ -243,7 +243,7 @@ function ProductEdit() {
 
                 <Form.Item
                   name="BrandID"
-                  label="Brand"
+                  label="แบรนด์"
                   style={{ flex: '0 0 48%' }}
                 >
                   <Select allowClear placeholder="Select Product Brand">
@@ -257,7 +257,7 @@ function ProductEdit() {
 
                 <Form.Item
                   name="CategoryID"
-                  label="Category"
+                  label="หมวดหมู่"
                   style={{ flex: '0 0 48%' }}
                 >
                   <Select allowClear placeholder="Select Category">
@@ -271,7 +271,7 @@ function ProductEdit() {
 
                 <Form.Item
                   name="Picture"
-                  label="Images"
+                  label="อัพโหลดรูปภาพ"
                   style={{ flex: '0 0 100%' }}
                 >
                   <div>
@@ -313,7 +313,7 @@ function ProductEdit() {
                 >
                   <Link to="/ProductManagement">
                     <Button id="cancel-bt" type="default">
-                      Cancel
+                      ยกเลิก
                     </Button>
                   </Link>
                   <Button
@@ -322,7 +322,7 @@ function ProductEdit() {
                     htmlType="submit"
                     loading={loading}
                   >
-                    Update
+                    บันทึก
                   </Button>
                 </Form.Item>
               </Form>

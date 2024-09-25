@@ -17,7 +17,7 @@ function ProductList() {
     const { logoutPopup } = useContext(AppContext)
 
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+    const [loading,setLoading] = useState(false);
     const [products, setProducts] = useState<ProductInterface[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<ProductInterface[]>([]);
     const [selectedBrand, setSelectedBrand] = useState<string | undefined>(undefined);
@@ -44,8 +44,13 @@ function ProductList() {
     };
 
     const handleEdit = (id: number) => {
-        navigate(`/Product/Edit/${id}`);
+        setLoading(true); 
+        setTimeout(() => {
+            setLoading(false); 
+            navigate(`/Product/Edit/${id}`); 
+        }, 750); 
     };
+    
 
     const handleDelete = (id: number) => {
         const product = products.find(p => p.ID === id);
@@ -151,7 +156,7 @@ function ProductList() {
             align: 'center',
         },
         {
-            title: 'Image',
+            title: 'รูปภาพ',
             dataIndex: 'Images',
             key: 'Image',
             align: 'center',
@@ -164,55 +169,46 @@ function ProductList() {
             },
         },
         {
-            title: 'Product Name',
+            title: 'ชื่อสินค้า',
             dataIndex: 'ProductName',
             key: 'ProductName',
             align: 'center',
         },
-        // {
-        //     title: 'Description',
-        //     dataIndex: 'Description',
-        //     key: 'Description',
-        //     align: 'center',
-        //     render: (description: string) => (
-        //         description.length > 50 ? `${description.substring(0, 50)}...` : description
-        //     ),
-        // },
         {
-            title: 'Price',
+            title: 'ราคา',
             dataIndex: 'PricePerPiece',
             key: 'Price',
             align: 'center',
             render: (price: number) => formatPrice(price),
         },
         {
-            title: 'Stock',
+            title: 'จำนวน',
             dataIndex: 'Stock',
             key: 'Stock',
             align: 'center',
         },
         {
-            title: 'Brand',
+            title: 'แบรนด์',
             dataIndex: 'Brand',
             key: 'Brand',
             align: 'center',
             render: (brand) => brand?.BrandName || 'N/A',
         },
         {
-            title: 'Category',
+            title: 'หมวดหมู่',
             dataIndex: 'Category',
             key: 'Category',
             align: 'center',
             render: (category) => category?.CategoryName || 'N/A',
         },
         {
-            title: 'Action',
+            title: 'จัดการ',
             key: 'action',
             align: 'center',
             render: (record: ProductInterface) => (
                 <Space size="middle">
-                    <Button onClick={() => handleEdit(record?.ID ?? 0)} type="primary">จัดการ</Button>
-                    <Button onClick={() => handleDelete(record?.ID ?? 0)} danger>ลบสินค้า</Button>
+                    <Button onClick={() => handleEdit(record?.ID ?? 0)} type="primary"><img src='/images/icon/notepad.png' alt="notepad-box" className='notepad-box' />แก้ไข</Button>
+                    <Button onClick={() => handleDelete(record?.ID ?? 0)} danger><img src='/images/icon/bin.png' alt="bin-box" className='bin-box' />ลบสินค้า</Button>
                 </Space>
             )
         },

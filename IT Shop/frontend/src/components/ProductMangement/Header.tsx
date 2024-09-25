@@ -36,7 +36,7 @@ function Header(props: { page: any; }) {
 		localStorage.clear();
 		messageApiLogout.success("Logout successful");
 		setTimeout(() => {
-		  	location.href = "/";
+		  	location.href = "/Login-Owner";
 		}, 2000);
 	};
 
