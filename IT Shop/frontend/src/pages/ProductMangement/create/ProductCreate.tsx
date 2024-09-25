@@ -148,51 +148,48 @@ function ProductCreate() {
               >
                 <Form.Item
                   name="ProductName"
-                  label="Product Name"
+                  label="ชื่อสินค้า"
                   rules={[
                     {
                       required: true,
-                      message: 'Please input the Product Name!',
+                      message: 'กรุณากรอกชื่อสินค้า!',
                     },
                   ]}
 
                   style={{ flex: '0 0 48%' }}
                 >
-                  <Input placeholder="Enter Product Name" />
+                  <Input/>
                 </Form.Item>
 
                 <Form.Item
                   name="Description"
-                  label="Description"
+                  label="คำอธิบายสินค้า"
                   rules={[
                     {
                       required: true,
-                      message: 'Please input the Description!',
+                      message: 'กรุณากรอกคำอธิบายสินค้า!',
                     },
                   ]}
                   style={{ flex: '0 0 100%' }}
                   className='decsription-input'
                 >
-                  <Input.TextArea placeholder="Enter Product Description" 
-                   autoSize={{ minRows: 5, maxRows: 10 }}
-                  />
+                  <Input.TextArea autoSize={{ minRows: 5, maxRows: 10 }} />
                   
                 </Form.Item>
 
                 <Form.Item
                   name="PricePerPiece"
-                  label="Price"
+                  label="ราคาต่อหน่วย"
                   rules={[
                     {
                       required: true,
-                      message: 'Please input the Price!',
+                      message: 'กรุณาใส่ราคาสินค้า!',
                     },
                   ]}
                   style={{ flex: '0 0 48%' }}
                   id='price-input'
                 >
                   <InputNumber
-                    placeholder="Enter Product Price"
                     style={{ width: '100%' }}
                     min={0}
                     step={0.01} 
@@ -202,17 +199,16 @@ function ProductCreate() {
 
                 <Form.Item
                   name="Stock"
-                  label="Quantity"
+                  label="จำนวนสินค้า"
                   rules={[
                     {
                       required: true,
-                      message: 'Please input the Quantity!',
+                      message: 'กรุณาใส่จำนวนสินค้า!',
                     },
                   ]}
                   style={{ flex: '0 0 48%' }}
                 >
                   <InputNumber
-                    placeholder="Enter Product Quantity"
                     style={{ width: '100%' }}
                     min={0}
                   />
@@ -220,17 +216,17 @@ function ProductCreate() {
 
                 <Form.Item
                   name="BrandID"
-                  label="Brand"
+                  label="แบรนด์"
                   rules={[
                     {
                       required: true,
-                      message: 'Please select the Brand!',
+                      message: 'กรุณาเลือกแบรนด์!',
                     },
                   ]}
                   className="custom-select-brand"
                   style={{ flex: '0 0 48%' }}
                 >
-                  <Select allowClear placeholder="Select Product Brand">
+                  <Select allowClear>
                     {brands.map((item) => (
                       <Option value={item.ID} key={item.BrandName}>
                         {item.BrandName}
@@ -241,17 +237,17 @@ function ProductCreate() {
 
                 <Form.Item
                   name="CategoryID"
-                  label="Category"
+                  label="หมวดหมู่"
                   rules={[
                     {
                       required: true,
-                      message: 'Please select the Category!',
+                      message: 'กรุณาเลือกหมวดหมู่!',
                     },
                   ]}
                   style={{ flex: '0 0 48%' }}
                   className="custom-select-category"
                 >
-                  <Select allowClear placeholder="Select Category">
+                  <Select allowClear>
                     {categories.map((item) => (
                       <Option value={item.ID} key={item.CategoryName}>
                         {item.CategoryName}
@@ -261,11 +257,11 @@ function ProductCreate() {
                 </Form.Item>
                 <Form.Item
                   name="Picture"
-                  label="Images"
+                  label="อัพโหลดรูปภาพ"
                   rules={[
                     {
                       required: true,
-                      message: 'Please upload the product images!',
+                      message: 'กรุณาอัพโหลดรูปภาพ!',
                     },
                   ]}
                   style={{ flex: '0 0 100%' }}

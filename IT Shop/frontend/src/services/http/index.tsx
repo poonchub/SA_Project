@@ -714,24 +714,24 @@ async function GetImageByProductID(id: Number | undefined) {
   return res;
 }
 
-async function CreateImage(formData: FormData,id: Number | undefined) {
-  const requestOptions = {
-    method: "POST",
-    // headers: { "Content-Type": "application/json" },
-    body: formData,
-  };
+async function CreateImage(formData: FormData,id: number) {
+  try {
+    const response = await fetch(`${apiUrl}/product-image/${id}`, {
+      method: 'PATCH',
+      body: formData,
+    });
 
-  let res = await fetch(`${apiUrl}/product-image/${id}`, requestOptions).then(
-    (res) => {
-      if (res.status == 201) {
-        return res.json();
-      } else {
-        return false;
-      }
+    if (!response.ok) {
+      const errorText = await response.text(); 
+      console.error('Error response from server:', errorText);
+      return false;
     }
-  );
 
-  return res;
+    return await response.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return false;
+  }
 }
 
 const UpdateImage = async (formData: FormData, id: number) => {
@@ -742,7 +742,7 @@ const UpdateImage = async (formData: FormData, id: number) => {
     });
 
     if (!response.ok) {
-      const errorText = await response.text(); // Or use response.json() if the error is in JSON format
+      const errorText = await response.text(); 
       console.error('Error response from server:', errorText);
       return false;
     }

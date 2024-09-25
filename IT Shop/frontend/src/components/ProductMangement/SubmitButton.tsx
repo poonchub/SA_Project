@@ -13,7 +13,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ loading }) => {
       htmlType="submit"
       loading={loading}
     >
-      Submit
+      ยืนยัน
     </Button>
   );
 };

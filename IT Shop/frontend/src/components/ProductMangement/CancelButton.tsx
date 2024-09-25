@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 
@@ -7,12 +7,25 @@ interface CancelButtonProps {
 }
 
 const CancelButton: React.FC<CancelButtonProps> = ({ to }) => {
+  const [loading, setLoading] = useState(false); 
+
+  const handleCancel = () => {
+    setLoading(true); 
+    setTimeout(() => {
+      setLoading(false); 
+      window.location.href = to; 
+    }, 650); 
+  };
+
   return (
-    <Link to={to}>
-      <Button id="cancel-bt" type="default">
-        Cancel
-      </Button>
-    </Link>
+    <Button
+      id="cancel-bt"
+      type="default"
+      loading={loading} 
+      onClick={handleCancel} 
+    >
+      ยกเลิก
+    </Button>
   );
 };
 

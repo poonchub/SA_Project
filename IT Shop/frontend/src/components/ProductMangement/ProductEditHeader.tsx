@@ -1,16 +1,17 @@
 import { useContext, useEffect } from 'react';
 import './Header.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AppContext } from '../../App';
 import { apiUrl } from '../../services/http';
 
 
 
-function OwnerHeader(props: { page: any; }) {
+function ProductEditHeader(props: { page: any; }) {
 
     const {page} = props
     const {setLogoutPopup, messageApiLogout, contextHolderLogout} = useContext(AppContext)
-    const id = localStorage.getItem("owner_id") || "";
+    let { id } = useParams();
+
 
     function showLogoutPopup(){
         setLogoutPopup(
@@ -102,9 +103,9 @@ function OwnerHeader(props: { page: any; }) {
                 </div>
             </div>
             <nav>
-            <Link to={`/OwnerEditProfile/${id}`} className='menu' id='Edit-Profile'>Edit Profile</Link>
-            <Link to='/Owner/Create' className='menu' id='Create-Owner'>Add Owner</Link>
-                <Link to='/OwnerProfile' className='menu' id='owner-profile'>Profile</Link>
+                <Link to={`/Product/Edit/${id}`} className='menu' id='Product-Edit'>Product Edit</Link>
+                <Link to={`/OwnerProfile`} className='menu' id='owner-profile'>Profile</Link>
+                <Link to='/Product/Create' className='menu' id='ProductCreate'>New Product</Link>
                 <div className="line"></div>
                 {OwnerElement}
             </nav>
@@ -113,4 +114,4 @@ function OwnerHeader(props: { page: any; }) {
     );
 }
 
-export default OwnerHeader;
+export default ProductEditHeader;

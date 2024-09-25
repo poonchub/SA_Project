@@ -33,7 +33,7 @@ function SelectCategory({ onCategoryChange }: SelectCategoryProps) {
             <Form layout="inline">
                 <Form.Item name="category" label="Category">
                     <Select 
-                        placeholder="เลือกประเภท"
+                        placeholder="เลือกหมวดหมู่"
                         onChange={value => onCategoryChange(value)}
                     >
                         {categories.length > 0 ? (
