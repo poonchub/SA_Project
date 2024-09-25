@@ -54,7 +54,7 @@ function Edit() {
   const [uploadMessage, setUploadMessage] = useState('');
   const [uploadError, setUploadError] = useState('');
 
-  const ProfilePath = customer ? (customer.ProfilePath!="" ? `${apiUrl}/${customer.ProfilePath} : ""}` : "./images/icon/user-black.png") : ""
+  const ProfilePath = customer ? (customer.ProfilePath!="" ? `${apiUrl}/${customer.ProfilePath}` : "./images/icon/user-black.png") : ""
 
   console.log(ProfilePath)
 

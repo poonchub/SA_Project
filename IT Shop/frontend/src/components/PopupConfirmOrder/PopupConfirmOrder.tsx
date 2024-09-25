@@ -8,6 +8,7 @@ import { ProductInterface } from "../../Interfaces/IProduct";
 import { CustomerInterface } from "../../Interfaces/ICustomer";
 import { Link } from "react-router-dom";
 import { div } from "framer-motion/client";
+import { Float } from "@react-three/drei";
 
 function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any; quantity: any; products: any; messageApi: any; }){
 
@@ -21,8 +22,15 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
     const sltProductStr = localStorage.getItem("sltProduct")
     const sltProduct = sltProductStr!=null ? parseInt(sltProductStr) : 0;
 
-    const totalPrice = products[sltProduct].PricePerPiece*quantity
-    const priceFormat = totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) 
+    const fullPrice = products[sltProduct].PricePerPiece*quantity
+
+    const discount = parseFloat((fullPrice*(3/100)).toFixed(2))
+    const totalPrice = parseFloat((fullPrice-discount).toFixed(2))
+    const discountFormat = (discount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+    const priceFormat = (totalPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
+    console.log((fullPrice*(3/100)).toFixed(2))
+    console.log(totalPrice)
 
     localStorage.setItem("before-add-address","/selected")
 
@@ -175,6 +183,10 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
                         <tr>
                             <td className="sub-t">ราคาต่อชิ้น</td>
                             <td>{price} บาท</td>
+                        </tr>
+                        <tr>
+                            <td className="sub-t">ส่วนลด</td>
+                            <td>{discountFormat} บาท</td>
                         </tr>
                         <tr>
                             <td className="sub-t">ราคารวม</td>
