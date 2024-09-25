@@ -42,11 +42,13 @@ func SetupDatabase() {
 		&entity.Gender{},
 	)
 
-	GenderMale := entity.Gender{Name: "Male"}
-	GenderFemale := entity.Gender{Name: "Female"}
+	GenderMale := entity.Gender{Name: "ชาย"}
+	GenderFemale := entity.Gender{Name: "หญิง"}
+	GenderOther := entity.Gender{Name: "ไม่ระบุ"}
 
-	db.FirstOrCreate(&GenderMale, &entity.Gender{Name: "Male"})
-	db.FirstOrCreate(&GenderFemale, &entity.Gender{Name: "Female"})
+	db.FirstOrCreate(&GenderMale, &entity.Gender{Name: "ชาย"})
+	db.FirstOrCreate(&GenderFemale, &entity.Gender{Name: "หญิง"})
+	db.FirstOrCreate(&GenderOther, &entity.Gender{Name: "ไม่ระบุ"})
 
 	// Create Owner
 	hashedPassword, _ := HashPassword("123456")
