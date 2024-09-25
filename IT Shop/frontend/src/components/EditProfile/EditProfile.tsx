@@ -314,7 +314,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="AddressDetail"
+                label="Address"
                 name="AddressDetail"
                 rules={[{ required: true }]}
               >
@@ -323,7 +323,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="SubDistrict"
+                label="Subdistrict"
                 name="Subdistrict"
                 rules={[{ required: true }]}
               >
@@ -350,7 +350,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="ZipCode"
+                label="Zip Code"
                 name="ZipCode"
                 rules={[{ required: true }]}
               >
@@ -359,7 +359,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="PhoneNumber"
+                label="Phone Number"
                 name="PhoneNumber"
                 rules={[{ required: true }]}
               >

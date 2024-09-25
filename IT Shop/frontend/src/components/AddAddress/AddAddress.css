@@ -10,15 +10,25 @@
 }
 
 .submit-btn{
-    background-color: var(--subtheme-color1) !important;
+    background-color: #FF2E63 !important;
 }
 
 .ant-input:focus {
-        border-color: var(--subtheme-color1);
-        box-shadow: var(--subtheme-color1);
+        border-color: #FF2E63;
+        box-shadow: #FF2E63;
 }
 
 .ant-input:hover {
-    border-color: var(--subtheme-color1);
-    box-shadow: 0 0 6px var(--subtheme-color1);
+    border-color: #FF2E63;
+    box-shadow: 0 0 6px #FF2E63;
+}
+
+.ant-card{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.ant-btn{
+    margin-right: 15px;
 }
