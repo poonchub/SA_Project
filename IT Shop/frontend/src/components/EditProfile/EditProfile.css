@@ -9,38 +9,45 @@
 }
 
 .submit-btn{
-    background-color: var(--subtheme-color1) !important;
+    background-color: #FF2E63 !important;
 }
 
 
 .ant-input:focus {
-        border-color: var(--subtheme-color1);
-        box-shadow: var(--subtheme-color1);
+        border-color: #FF2E63;
+        box-shadow: #FF2E63;
 }
 
 .ant-input:hover {
-    border-color: var(--subtheme-color1);
-    box-shadow: 0 0 6px var(--subtheme-color1);
+    border-color: #FF2E63;
+    box-shadow: 0 0 6px #FF2E63;
 }
 
-/* .ant-select-selector:focus{
-    border-color: var(--subtheme-color1);
-    box-shadow: 0 0 6px var(--subtheme-color1);
-} */
-
-.ant-select-selector:hover{
-    border-color: var(--subtheme-color1) !important;
-    box-shadow: 0 0 6px var(--subtheme-color1) !important;
+/* เส้นกรอบเริ่มต้นเป็นสีเทา */
+.ant-select-selector {
+    border: 2px solid #ccc; /* เส้นกรอบสีเทา */
+    border-radius: 4px; /* ปรับตามที่ต้องการ */
 }
 
-.ant-select-selector:hover{
-    border-color: var(--subtheme-color1) !important;
-    box-shadow: 0 0 6px var(--subtheme-color1) !important;
+/* เส้นกรอบสีเทาเมื่อไม่โฟกัส */
+.ant-select:not(.ant-select-focused) .ant-select-selector {
+    border-color: #ccc; /* กลับเป็นสีเทา */
 }
 
-.ant-picker:hover, .ant-picker:focus{
-    border-color: var(--subtheme-color1);
-    box-shadow: 0 0 6px var(--subtheme-color1);
+/* ป้องกันเส้นกรอบหายเมื่อเลือก */
+.ant-select-item-option-selected {
+    background-color: rgba(255, 46, 99, 0.1) !important; /* สีพื้นหลังเมื่อเลือก */
+}
+
+/* ทำให้เส้นกรอบคงอยู่หลังการเลือก */
+.ant-select:not(.ant-select-disabled) .ant-select-selector {
+    border-color: #ccc !important; /* ทำให้เส้นกรอบอยู่ตลอด */
+}
+
+/* เส้นกรอบสีแดงเมื่อมีการโฟกัส */
+.ant-select-selector:focus,
+.ant-select-selector.ant-select-selector-focused {
+    border-color: #FF2E63 !important; /* เส้นกรอบสีแดงเมื่อมีการโฟกัส */
 }
 
 .show-profile-box{
@@ -61,8 +68,8 @@
 #btn-upload-image{
     width: 80px;
     height: 30px;
-    background-color: var(--subtheme-color1);
-    color: var(--subfont-color2);
+    background-color: #FF2E63;
+    color: #FFFFFF;
     border-radius: 5px;
     transition: all 0.5s;
     display: flex;
@@ -76,4 +83,19 @@
 
 .ant-card-body{
     width: 75%;
+}
+
+.ant-picker:hover {
+    border-color: #FF2E63;
+    box-shadow: 0 0 6px #FF2E63;
+}
+
+.ant-picker.ant-picker-focused{
+    border-color: #FF2E63;
+    box-shadow: 0 0 3.5px #FF2E63;
+}
+
+.ant-picker:not(.ant-picker-focused):not(:hover) {
+    border-color: none; /* Apply pink color */
+    box-shadow: none; /* Adjust if needed */
 }
