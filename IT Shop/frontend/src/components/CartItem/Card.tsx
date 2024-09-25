@@ -8,8 +8,11 @@ import { message, Button } from 'antd';
 import { motion, AnimatePresence } from "framer-motion";
 
 export const formatNumber = (value: number): string => {
-  const roundedValue = Math.round(value);
-  return new Intl.NumberFormat().format(roundedValue);
+  const roundedValue = value;
+  return new Intl.NumberFormat('en-US', { 
+    minimumFractionDigits: 2, 
+    maximumFractionDigits: 2 
+  }).format(roundedValue);
 };
 
 interface ShowlistProps {

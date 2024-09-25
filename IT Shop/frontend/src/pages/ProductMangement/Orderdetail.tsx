@@ -3,10 +3,14 @@ import { useParams } from 'react-router-dom';
 import Header from '../../components/ProductMangement/Header';
 import "./Orderdetail.css";
 import { Table, TableProps } from 'antd';;
-import { apiUrl, GetImageByProductID, GetOrderItems, GetProductByID } from '../../services/http';
+import { apiUrl, GetImageByProductID, GetOrderItems, GetProductByID,GetOrderByID, GetAddressByID, GetCustomerByID } from '../../services/http';
 import { ProductInterface } from '../../Interfaces/IProduct';
 import { OrderItemInterface } from '../../Interfaces/IOrderItem';
 import { ImageInterface } from '../../Interfaces/IImage';
+import { CustomerInterface } from '../../Interfaces/ICustomer';
+import { OrderInterface } from '../../Interfaces/IOrder';
+import Add from '../AddAddress';
+import { AddressInterface } from '../../Interfaces/IAddress';
 
 function Orderdetail() {
   const { orderId } = useParams<{ orderId: string }>();
@@ -14,15 +18,30 @@ function Orderdetail() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [customer, setCustomer] = useState<CustomerInterface | null>(null);
+  const [order, setOrder] = useState<OrderInterface | null>(null);
+  const [address, setAddress] = useState<AddressInterface | null>(null);[]
   async function getOrdersItemdetail() {
     try {
       const res = await GetOrderItems();
+      const dataOrder = await GetOrderByID(Number(orderId));
+      
+      setOrder(dataOrder);
+      console.log('Order',dataOrder.AddressID);
+      const dataAddress = await GetAddressByID(dataOrder.AddressID);
+      setAddress(dataAddress);
+      console.log('Address',dataAddress);
       const filteredItems = res.filter((item: OrderItemInterface) => item.OrderID === Number(orderId));
+
+      const dataCustomer = await GetCustomerByID(dataOrder.CustomerID);
+      setCustomer(dataCustomer);
+      console.log('Customer',dataCustomer);
       
       const itemsWithProducts = await Promise.all(
         filteredItems.map(async (item: OrderItemInterface) => {
           const product = await GetProductByID(Number(item.ProductID));
           const images = await GetImageByProductID(Number(item.ProductID)); // เรียกข้อมูลภาพ
+          
           return { 
             ...item, 
             Product: product,
@@ -44,11 +63,10 @@ function Orderdetail() {
     getOrdersItemdetail();
   }, []);
 
-  const formatPrice = (price: number | undefined) => {
-    if (typeof price !== 'number') {
-      return 'N/A';
-    }
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const formatPrice = (price: number) => {
+    return price
+      .toFixed(2) // แสดงทศนิยม 2 ตำแหน่ง
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // จัดรูปแบบตัวเลข
   };
 
   const columns: TableProps<OrderItemInterface & { Product: ProductInterface, Images: ImageInterface[] }>['columns'] = [
@@ -111,7 +129,19 @@ function Orderdetail() {
           </div>
          
           <button id='but-back' onClick={() => window.history.back()}>ย้อนกลับ</button>
+         
+          
         </div>
+        <div className="detail-bill-for-deliverly">
+            <h3 id='orderdetail-all'>รายละเอียดการจัดส่ง</h3>
+            <p>ชื่อ : {customer?.FirstName}      {customer?.LastName} เบอร์ติดต่อ : {customer?.PhoneNumber}</p>
+            
+            <p>ที่อยู่ : {address?.AddressDetail}</p>
+            <p>อำเภอ: {address?.District} จังหวัด:{address?.Province} ตำบล:{address?.Subdistrict} </p>
+            
+            <p>รหัสไปรษณีย์ : {address?.ZipCode}</p>
+            
+          </div>
       </div>
     </>
   );

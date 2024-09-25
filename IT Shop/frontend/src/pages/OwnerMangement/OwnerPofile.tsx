@@ -173,7 +173,9 @@ const OwnerProfile: React.FC = () => {
     return localStorage.getItem("profilePath") !== "" ? `${apiUrl}/${localStorage.getItem("profilePath")}` : '/images/account-black.png';
   }, [owner]);
   const formatPrice = (price: number) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return price
+      .toFixed(2) // แสดงทศนิยม 2 ตำแหน่ง
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // จัดรูปแบบตัวเลข
   };
 
   const columns: TableProps<OrderInterface>['columns'] = [
@@ -281,7 +283,7 @@ const OwnerProfile: React.FC = () => {
               </td>
             </tr>
             <tr>
-              <td> <img src={GenderIcon} className='gender-image' /></td>
+              <td> <img src="/images/icon/gender.png" className='gender-image' /></td>
               <td> {getGenderName(owner?.GenderID)} </td>
             </tr>
             <tr>
