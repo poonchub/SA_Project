@@ -12,9 +12,7 @@
     background-color: var(--maintheme-color);
 }
 
-.ant-card-body{
-    width: 100%;
-}
+
 
 .image-container-edit {
     display: flex;
@@ -86,15 +84,41 @@
 }
 
 .edit-card {
-    width: 100%;
-    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto; 
+}
+
+.edit-card-head {
+    width: 100%; 
+    text-align: left; 
+    margin-bottom: 10px; 
+}
+
+.edit-card-head h3 {
+    margin: 0; 
+    padding-left: 0; 
+}
+
+.edit-card-head hr {
+    width: 100%; 
+    border: 1px solid #ccc; 
+    margin-top: 5px; 
 }
 
 .form-fields {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* เพิ่มช่องว่างระหว่างฟิลด์ฟอร์ม */
+    width: 100%;
 }
 
 .form-group {
@@ -112,6 +136,7 @@
     transition: border-color 0.3s, background-color 0.3s; /* เพิ่ม transition */
 }
 
+
 .input-container {
     position: relative;
 }
@@ -121,20 +146,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    margin-left: 10px;
-    margin-top: 20px;
+    margin-left: 40px;
+    margin-top: 1px;
 }
 
 .save-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
-    padding: 10px;
+    width: 100%;
+    height: 70%;
+    padding: 15px;
     border-radius: 5px;
     background-color: #FF2E63;
     color: white;
+    font-weight: 500;
     cursor: pointer;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
@@ -151,6 +177,10 @@
   
   
 .back-button {
+    height: 70%;
+    width: 100%;
+    font-weight: 500;
+    padding: 15px;
     text-transform: uppercase;
     transition: all 0.3s ease;
     border: none;
