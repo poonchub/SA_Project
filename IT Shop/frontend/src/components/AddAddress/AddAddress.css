@@ -7,10 +7,17 @@
     overflow: auto;
     height: calc(100vh - 75px);
     width: 100%;
+
+    .ant-card-body{
+        padding: 50px;
+        width: 60%;
+    }
 }
 
 .submit-btn{
     background-color: #FF2E63 !important;
+    position: absolute;
+    left: 20%;
 }
 
 .ant-input:focus {
@@ -23,11 +30,7 @@
     box-shadow: 0 0 6px #FF2E63;
 }
 
-.ant-card{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
+
 
 .ant-btn{
     margin-right: 15px;

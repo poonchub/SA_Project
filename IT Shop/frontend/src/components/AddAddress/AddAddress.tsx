@@ -86,7 +86,7 @@ const Add = () => {
           layout="vertical"
           onFinish={onFinish}
           autoComplete="off"
-          style={{width: "100%", display: "flex", flexDirection: "column", alignItems:"flex-start"}}
+          style={{width: "100%", display: "flex", flexDirection: "column"}}
         >
           <Row gutter={[16, 16]}>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
@@ -136,8 +136,8 @@ const Add = () => {
             </Col>
           </Row>
 
-          <Row justify="start">
-            <Col style={{ marginTop: "40px" }}>
+          <Row style={{width: '100%'}}>
+            <Col style={{ marginTop: "40px", width: '100%', display: 'flex' }}>
               <Form.Item>
                 <Space>
                   <Button type="primary" htmlType="submit" className="submit-btn">
