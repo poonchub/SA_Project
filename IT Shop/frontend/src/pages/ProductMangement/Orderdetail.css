@@ -14,9 +14,11 @@
     
 }
 .detail-table-orderid{
+    /* border: red 1px solid; */
     margin-top: 30px;
     width: 60vw;
     /* height: 200px; */
+    height: fit-content;
     background-color: white;
     z-index: 1;
     padding: 20px;
@@ -58,4 +60,16 @@
 
 #but-back:hover{
     background-color: #363535;
+}
+.detail-bill-for-deliverly{
+    /* border: red 1px solid; */
+    margin-top: 30px;
+    margin-left: 20px;
+    width: fit-content;
+    height: fit-content;
+    background-color: white;
+    z-index: 1;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 6px, rgba(0, 0, 0, 0.16) 0px 0px 6px;
+    border-radius: 10px;
 }

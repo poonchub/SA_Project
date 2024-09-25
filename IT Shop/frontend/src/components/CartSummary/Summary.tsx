@@ -41,7 +41,7 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
   const calculateDiscount = (totalPrice: number): number => {
     // Calculate the discount here
     if (totalPrice >= 1000) {
-      return totalPrice * 0.05;
+      return totalPrice * 0.03;
     } else {
       return 0;
     }
@@ -129,7 +129,7 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
       if (totalPrice > 0 && address.length > 0) {
 
         const orderData: OrderInterface = {
-        TotalPrice: Math.round(finalPrice),
+        TotalPrice: finalPrice,
         Status: "รอการชำระเงิน",
         CustomerID: cus_id,
         AddressID: Number(selectedAddress),
@@ -280,15 +280,15 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
             </div>
             <div className="data">
               <p>ยอดรวม</p>
-              <p id="fill1">฿<CountUp start={0} end={totalPrice} duration={2} /></p>
+              <p id="fill1">฿<CountUp start={0} end={totalPrice} duration={2} decimals={2}/></p>
             </div>
             <div className="data">
               <p>ส่วนลด</p>
-              <p id="fill1">฿<CountUp start={0} end={discount} duration={2} /></p>
+              <p id="fill1">฿<CountUp start={0} end={discount} duration={2}  decimals={2}/></p>
             </div>
             <div className="data">
               <p>ยอดรวม</p>
-              <p id="fill1">฿<CountUp start={0} end={finalPrice} duration={2} /></p>
+              <p id="fill1">฿<CountUp start={0} end={finalPrice} duration={2} decimals={2} /></p>
             </div>
             <div className="submit">
               <button id="checkout" onClick={handleCheckout}>
