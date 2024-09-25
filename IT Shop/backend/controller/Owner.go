@@ -113,7 +113,7 @@ func CreateOwner(c *gin.Context) {
 		Email:      owner.Email,
 		Password:   hashedPassword,
 		ProfilePath: owner.ProfilePath,
-		Categories: owner.Categories,
+		
 		GenderID:   owner.GenderID,
 		Gender:     owner.Gender,
 	}

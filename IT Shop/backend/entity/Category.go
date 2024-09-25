@@ -9,6 +9,5 @@ type Category struct {
 
 	Products	[]Product	`gorm:"foreignKey:CategoryID"`
 
-	OwnerID uint
-	Owner	Owner `gorm:"foriegnKey:OwnerID"`
+	
 }
