@@ -128,7 +128,7 @@ function Header(props: { page: any;}){
                 <img src={"images/icon/back.png"} alt="" />
             </div>
         </Link>
-    ) : (page=="edit" || page=="add-address" || page=="payment") ? (
+    ) : (page=="edit-profile" || page=="add-address" || page=="payment") ? (
         <Link to="/profile" className="option-box">
             <div className="img-box">
                 <img src={"images/icon/back.png"} alt="" />

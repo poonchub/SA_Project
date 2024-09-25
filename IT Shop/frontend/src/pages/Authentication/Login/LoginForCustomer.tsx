@@ -137,7 +137,7 @@ function LoginForCustomer() {
 							onChange={(e) => setPassword(e.target.value)}
 							required
 						/>
-						<input type="submit" className="submit-btn" value={"SIGN IN"} />
+						<input type="submit" className="submit-btn-login" value={"SIGN IN"} />
 					</form>
 					<Link className="back" to="/">Back To Home</Link>
 				</div>
@@ -203,7 +203,7 @@ function LoginForCustomer() {
 								}
 							</select>				
 						</div>
-						<input type="submit" className="submit-btn" value={"SIGN UP"} />
+						<input type="submit" className="submit-btn-login" value={"SIGN UP"} />
 					</form>
 					<Link className="back" to="/">Back To Home</Link>
 				</div>

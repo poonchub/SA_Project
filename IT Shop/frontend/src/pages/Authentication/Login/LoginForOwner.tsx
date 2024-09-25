@@ -64,7 +64,7 @@ function LoginForOwner() {
 						/>
 					</div>
 					<div className="input-box">
-						<input type="submit" className="submit-btn" value={"SIGN IN"} />
+						<input type="submit" className="submit-btn-login" value={"SIGN IN"} />
 					</div>
 				</form>
                 <Link className="back" to='/'>Back To Home</Link>
