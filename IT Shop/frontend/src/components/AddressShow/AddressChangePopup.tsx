@@ -152,7 +152,7 @@ function AddressChangePopup(props: { setPopup: any; messageApi: any; orderId: nu
   ));
 
   return (
-    <div className="popup-container">
+    <div className="popup-container" style={{marginLeft: '-70%'}}>
       <div className="popup-bg"></div>
       <div className="detail-box">
         <div>
