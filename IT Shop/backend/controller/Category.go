@@ -14,7 +14,7 @@ func ListCategories(c *gin.Context) {
 
 	db := config.DB()
 
-	db.Preload("Owner").Find(&categories)
+	db.Find(&categories)
 
 	c.JSON(http.StatusOK, &categories)
 }

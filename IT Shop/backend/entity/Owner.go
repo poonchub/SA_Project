@@ -10,7 +10,6 @@ type Owner struct {
 	Password    string
 	ProfilePath string
 
-	Categories []Category `gorm:"foreignKey:OwnerID"`
 
 	GenderID uint
 	Gender   Gender `gorm:"foriegnKey:GenderID"`

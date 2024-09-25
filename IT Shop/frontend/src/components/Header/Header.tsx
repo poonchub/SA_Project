@@ -7,13 +7,11 @@ import { apiUrl } from '../../services/http';
 import { AppContext } from '../../App';
 
 
-// import CapS from './image-for-logo/letter-s.png'
-// import CapH from './image-for-logo/'
 import CapBA from '/images/image-for-logo/letter-a.png' 
 import CapA  from '/images/image-for-logo/letter-a (1).png' 
 import CapH from  '/images/image-for-logo/letter-h.png' 
 import CapBH from  '/images/image-for-logo/letter-h black.png' 
-// import CapBO from './image-for-logo/letter-o black.png'
+
 
 
 //for countCart
@@ -146,9 +144,9 @@ function Header(props: { page: any;}){
                     <div className="img-box">
                         {/* <img src="/images/Lenovo_Global_Corporate_Logo.png" alt="" /> */}
                         {/* MY<span>&nbsp;LOGO</span> */}
-                        <img src={page == "home" ?   CapBA : CapA} id="CapN" />
-                        <img src={page == "home" ?   CapBH : CapH} id = "CapF"/>
-                        <img src={page == "home" ?   CapBH : CapH} id = "CapO" /> 
+                        <img src={page == "home" ?   CapBA : CapA} id="CapA" />
+                        <img src={page == "home" ?   CapBH : CapH} id = "CapH"/>
+                        <img src={page == "home" ?   CapBH : CapH} id = "CapH2" /> 
                         
                         
                         

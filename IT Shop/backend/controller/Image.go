@@ -33,7 +33,7 @@ func GetImageByProductByID(c *gin.Context){
 	var image []entity.Image
 
 	db := config.DB()
-	results := db.Preload("Product.Category.Owner").Preload("Product.Brand").Find(&image, "product_id=?", productID)
+	results := db.Preload("Product.Brand").Find(&image, "product_id=?", productID)
 	if results.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
 		return
