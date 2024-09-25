@@ -9,6 +9,7 @@
         margin-left: 50px;
         border: 0px solid;
         width: 60%;
+        height: 68%;
         box-shadow: 0px 2px 10px var(--shadow-color1);
         font-size: 24px;
         overflow: auto; 
@@ -38,9 +39,8 @@
     }
     
     .custom-table {
-        max-height: 400px; /* กำหนดความสูงสูงสุดที่ต้องการ */
-        overflow-y: auto; /*ทำให้ตารางเลื่อนลงได้*/
-        width: 100%; /* ปรับขนาดตาราง */
+        max-height: 850px; /* กำหนดความสูงสูงสุดที่ต้องการ */
+        overflow-y: hidden; /*ทำให้ตารางเลื่อนลงได้*/
     }
 
     .ant-card-body {
