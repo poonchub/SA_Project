@@ -12,7 +12,7 @@
         height: 68%;
         box-shadow: 0px 2px 10px var(--shadow-color1);
         font-size: 24px;
-        overflow: auto; 
+        overflow: hidden; 
         z-index: 0; /* Ensure it stays above other elements */
 
         .ant-card-body {
@@ -40,7 +40,7 @@
     
     .custom-table {
         max-height: 850px; /* กำหนดความสูงสูงสุดที่ต้องการ */
-        overflow-y: hidden; /*ทำให้ตารางเลื่อนลงได้*/
+        overflow-y: auto; /*ทำให้ตารางเลื่อนลงได้*/
     }
 
     .ant-card-body {
