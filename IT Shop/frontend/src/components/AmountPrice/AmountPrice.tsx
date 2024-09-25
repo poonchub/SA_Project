@@ -237,7 +237,7 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
     <div>
       {contextHolder}
 
-      <Card className="custom-cardAM">
+      <div className="custom-cardAM">
         <div className='upload-container'>
           <center style={{ fontSize: '16px' }}>
             <h2>
@@ -322,7 +322,7 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
         <button className="btn" style={{marginTop: '7px'}} id="Cancel-button" onClick={setCancel}>
           ยกเลิกคำสั่งซื้อ
         </button>
-      </Card>
+      </div>
 
       <PopupCancelPayment
         visible={showCancelPopup}

@@ -78,6 +78,7 @@ function OwnerEditProfile() {
                 const result = await UploadProfileOwner(formData);
                 console.log(result.data.ProfilePath);
                 localStorage.setItem('OwnerprofilePath', result.data.ProfilePath);
+                console.log(result.data.ProfilePath);
                 if (result) {
                     setUploadMessage(result.message);
                     setUploadError('');

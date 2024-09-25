@@ -67,27 +67,25 @@ const AddressShow: React.FC<{ orderId: number  }> = ({ orderId }) => {
   };
 
   return (
-    <div>
+    <div className="custom-cardA">
       {contextHolder}
-      <Card
-        title={
+      <div >
           <div className="card-title">
             <img src={location} alt="Location Icon" className="location-icon" />
-            <span>ที่อยู่ในการจัดส่ง</span>
+            <h6>ที่อยู่ในการจัดส่ง</h6>
           </div>
-        }
-        className="custom-cardA"
-      >
+          <hr style={{ marginTop: '10px', marginBottom: '10px', marginLeft: '0px', color: 'WhiteSmoke',border: 'none', width: '100%' }} />
+
         {
           address ? (
-            <Card className="custom-card-background">
+            <Card className="custom-card-background" style={{width: '100%'}}>
               <div>
                 <p>{address.AddressDetail}</p>
                 <p>{address.Subdistrict}, {address.District}, {address.Province}, {address.ZipCode}</p>
               </div>
             </Card>
           ) : (
-            <p>ไม่พบข้อมูลที่อยู่</p>
+            <p style={{fontSize: '20px', marginTop: '30px'}}>ไม่พบข้อมูลที่อยู่</p>
           )
         }
 
@@ -95,7 +93,7 @@ const AddressShow: React.FC<{ orderId: number  }> = ({ orderId }) => {
         <div className="btn" onClick={showPopup}>
           <img src={edit} alt="Edit Icon" />
         </div>
-      </Card>
+        </div>
 
       {/* แสดง popup เมื่อ isPopupVisible เป็น true และ customerId ไม่เป็น null */}
       {isPopupVisible && customerId !== null && (

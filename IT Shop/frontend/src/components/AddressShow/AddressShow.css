@@ -1,22 +1,29 @@
 @import "../../stylesheet/ColorSheet.css";
 
 @media (max-width: 5000px) {
+
     .custom-cardA {
-        border: 1px solid #d9d9d9; /* Custom border */
+        border: 0px solid #d9d9d9; /* Custom border */
         border-radius: 8px; /* Rounded corners */
         margin-top: 100px;
         width: 30%;
         box-shadow: 0px 2px 10px var(--shadow-color1);
         font-size: 24px;
         margin-left: 67%;
+        /* margin-right: 80%; */
         height: auto; /* เปลี่ยนจากค่า fix เป็น auto */
         padding: 20px;
         display: flex;
         flex-direction: column; /* เพื่อให้เนื้อหาเรียงตามแนวตั้ง */
 
-        .ant-card-body {
-            width: 100%;
-        }
+
+        
+    }
+
+    .custom-cardA .card-body{
+        width: 100%;
+        border: 0px solid #d9d9d9;
+        font-size: 20px;
     }
     
     .custom-cardA .buttonAddr {
@@ -38,7 +45,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: 10px;
+        margin-top: 0px;
     }
   
     .ant-card.ant-card-bordered{

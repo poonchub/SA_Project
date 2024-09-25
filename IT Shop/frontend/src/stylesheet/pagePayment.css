@@ -8,8 +8,16 @@
     overflow-x: hidden;
     padding: 0px; /* เพิ่ม padding ตามต้องการ */
     box-sizing: border-box;
+
+    .ant-card{
+        width: 60%;
+    }
+
+    .ant-card-body {
+        width: 100%;
+    }
+
 }
 
-.ant-card-body {
-    width: 100%;
-}
+
+

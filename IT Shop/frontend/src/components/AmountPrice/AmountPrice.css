@@ -15,9 +15,7 @@
         margin-left: 67%;
         z-index: 0; /* Ensure it stays above other elements */
 
-        .ant-card-body {
-            width: 100%;
-        }
+        padding: 30px;
     }
 
     

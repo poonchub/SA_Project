@@ -55,7 +55,7 @@ function OwnerHeader(props: { page: any; }) {
     )
 
     const profilePath = isLoggedIn ? (
-        `${apiUrl}/${localStorage.getItem("profilePath")}`
+        `${apiUrl}/${localStorage.getItem("OwnerprofilePath")}`
     ) : page=="home" ? "./images/icon/user-pink.png" :(
         "./images/icon/user-black.png"
     )

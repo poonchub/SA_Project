@@ -170,7 +170,7 @@ const OwnerProfile: React.FC = () => {
   }, [id]);
 
   const profileImageUrl = useMemo(() => {
-    return localStorage.getItem("profilePath") !== "" ? `${apiUrl}/${localStorage.getItem("profilePath")}` : '/images/account-black.png';
+    return localStorage.getItem("OwnerprofilePath") !== "" ? `${apiUrl}/${localStorage.getItem("OwnerprofilePath")}` : '/images/account-black.png';
   }, [owner]);
   const formatPrice = (price: number) => {
     return price
