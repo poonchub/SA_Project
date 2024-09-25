@@ -283,7 +283,7 @@ const OwnerProfile: React.FC = () => {
               </td>
             </tr>
             <tr>
-              <td> <img src={GenderIcon} className='gender-image' /></td>
+              <td> <img src="/images/icon/gender.png" className='gender-image' /></td>
               <td> {getGenderName(owner?.GenderID)} </td>
             </tr>
             <tr>
