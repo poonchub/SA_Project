@@ -89,7 +89,7 @@ func main() {
 		router.POST("/owners", controller.CreateOwner)
 		router.PATCH("/owners/:id", controller.UpdateOwner)
 		router.DELETE("/owners/:id", controller.DeleteOwner)
-		router.PATCH("/owner-upload-profile/",controller.UploadProfileOwner)
+		router.PATCH("/owner-upload-profile/", controller.UploadProfileOwner)
 		router.PATCH("/owner-update-profile/:id", controller.UpdateProfileOwner)
 		router.GET("/AllOrders", controller.GetAllOrderforOwner)
 		router.PATCH("/confirm/:orderId", controller.ConfirmOrder)
@@ -97,8 +97,8 @@ func main() {
 
 		// Payment
 		router.GET("/payments", controller.ListPayment)
-
 		router.POST("/payment", controller.CreatePayment)
+		router.PUT("/payments/:orderID", controller.UpdatePaymentSlipByOrderID)
 
 		// Image Routes
 		router.GET("/product-images", controller.ListImages)

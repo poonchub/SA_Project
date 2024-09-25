@@ -6,6 +6,8 @@ import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { ProductInterface } from "../../Interfaces/IProduct";
 import { CustomerInterface } from "../../Interfaces/ICustomer";
+import { Link } from "react-router-dom";
+import { div } from "framer-motion/client";
 
 function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any; quantity: any; products: any; messageApi: any; }){
 
@@ -21,6 +23,8 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
 
     const totalPrice = products[sltProduct].PricePerPiece*quantity
     const priceFormat = totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) 
+
+    localStorage.setItem("before-add-address","/selected")
 
     function closePopup(){
         setPopup(null)
@@ -45,6 +49,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
     async function createOrder() {
         try {
             setIsButtonDisabled(true);
+            localStorage.setItem("before-add-address","")
             const cutomerID = localStorage.getItem("id")
             const orderData: OrderInterface = {
                 TotalPrice: totalPrice,
@@ -113,7 +118,14 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
         getCustomer()
     }, [])
 
-    const addressElement = addresses.map((subAddress, index) => {
+    const addressElement = addresses.length<1 ? (
+        <div className="no-add-element">
+            <Link to={"/AddAddress"}>
+                <button className="create-add-btn">สร้างที่อยู่</button>
+            </Link>
+            <span>หากยังไม่มีที่อยู่จะไม่สามารถสั่งซื้อสินค้าได้</span>
+        </div>
+        ) : addresses.map((subAddress, index) => {
         return (
             <table key={index} width={"100%"}><tbody><tr>
                 <td style={{
@@ -147,7 +159,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
 
     return (
         <div className="popup-con-container">
-            <div className="popup-bg"></div>
+            <div className="popup-bg" onClick={closePopup}></div>
             <div className="detail-box">
                 <span className="title">ยืนยันคำสั่งซื้อ</span>
                 <table>
@@ -178,7 +190,15 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
                 </table>
                 <div className="btn-box">
                     <button className="cancel-btn" onClick={closePopup}>ยกเลิก</button>
-                    <button className="confirm-btn" disabled={isButtonDisabled} onClick={createOrder}>ยืนยันคำสั่งซื้อ</button>
+                    <button 
+                        className="confirm-btn" 
+                        disabled={isButtonDisabled} 
+                        onClick={createOrder}
+                        style={{
+                            pointerEvents: addresses.length>0 ? "auto" : "none",
+                            opacity: addresses.length>0 ? "1" : "0.6"
+                        }}
+                    >ยืนยันคำสั่งซื้อ</button>
                 </div>
             </div>
         </div>

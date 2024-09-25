@@ -4,15 +4,25 @@ import "./AddressChangePopup.css";
 import { GetAddressByCustomerID, UpdateOrderAddressByOrderID, GetOrderByID } from "../../services/http";
 import { OrderInterface } from "../../Interfaces/IOrder";
 import sorryEmoji from '../../assets/woman-bowing-light-skin-tone_1f647-1f3fb-200d-2640-fe0f.png';
+import {  useNavigate } from "react-router-dom";
 
 function AddressChangePopup(props: { setPopup: any; messageApi: any; orderId: number; onAddressUpdated: () => void }) {
 
   const { setPopup, messageApi, orderId, onAddressUpdated } = props;
+  const navigate = useNavigate(); // ย้าย useNavigate มาประกาศที่นี่
 
   const customerId = localStorage.getItem('id'); // ดึง customerId จาก localStorage
   const [addresses, setAddresses] = useState<AddressInterface[]>([]);
   const [selectedAddress, setSelectedAddress] = useState<number | null>(null); // ค่าเริ่มต้นของ selectedAddress
   const [orderAddressID, setOrderAddressID] = useState<number | null>(null); // เก็บ AddressID ของ order
+
+   // ฟังก์ชันสำหรับการแก้ไขที่อยู่
+   function EditAddress() {
+    setTimeout(() => {
+      navigate('/AddAddress'); // ใช้ navigate function
+      setPopup(null);
+    }, 0);
+  }
 
   function closePopup() {
     setPopup(null);
@@ -155,7 +165,7 @@ function AddressChangePopup(props: { setPopup: any; messageApi: any; orderId: nu
                     <img src={sorryEmoji} style={{width: '60px'}} alt="Sorry" />
                 </center> 
                 <div className="btn-box">
-                        <button className="confirm-btn" style={{width: '60%'}} onClick={closePopup}>ยกเลิก</button>
+                        <button className="confirm-btn" style={{width: '100%', marginLeft: '40%', marginRight: '-5%'}} onClick={EditAddress}>เพิ่มข้อมูลที่อยู่</button>
                 </div>
             </>
           ) : (

@@ -12,6 +12,7 @@ import { formatNumber } from "../CartItem/Card";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../../pages/Payment'
 import { AnimatePresence, motion } from "framer-motion";
+import { add } from "three/webgpu";
 
 interface TotalPriceProps {
   cartItems: CartInterface[] | null;
@@ -100,6 +101,7 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
     try {
       const cus_id = Number(localStorage.getItem("id"));
       const res = await GetAddressByCustomerID(cus_id);
+      
       if (res) setAddress(res);
     } catch (error) {
       console.error("Error fetching addresses:", error);
@@ -124,8 +126,9 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
   const createOrderFromCart = async () => {
     try {
       const cus_id = Number(localStorage.getItem("id"));
-      if (totalPrice > 0) {
-         const orderData: OrderInterface = {
+      if (totalPrice > 0 && address.length > 0) {
+
+        const orderData: OrderInterface = {
         TotalPrice: Math.round(finalPrice),
         Status: "รอการชำระเงิน",
         CustomerID: cus_id,
@@ -166,7 +169,7 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
           count++;
         }
           
-        if (resultOrder && count == selected.length && totalPrice > 0) {
+        if (resultOrder && count == selected.length && totalPrice > 0 && address.length > 0) {
           localStorage.setItem("orderId", resultOrder.data.ID);
           messageApi.open({
             type: "success",
@@ -181,7 +184,8 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
 
 
 
-        } else {
+        } 
+        else {
           messageApi.open({
             type: "error",
             content: "เกิดข้อผิดพลาดในการสร้างคำสั่งซื้อ",
@@ -190,7 +194,19 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
       }
 
       setUsePopup(false);
-      }else{
+      }
+      else if(address.length == 0){ 
+        messageApi.open({
+          type: "error",
+          content: "กรุณาเพิ่มที่อยู่",
+          duration: 2,
+        });
+        setTimeout(() => {
+          navigate('/AddAddress');
+        },1000)
+        
+      }
+      else{
         messageApi.open({
           type: "error",
           content: "เกิดข้อผิดพลาดในการสร้างคำสั่งซื้อ",

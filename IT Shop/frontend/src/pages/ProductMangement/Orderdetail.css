@@ -25,7 +25,6 @@
     
 	background-color: #ffffff;
     max-height: fit-content;
-  
     z-index: 0;
     & .ant-table-thead > tr > th{
         background-color: #FF2E63;

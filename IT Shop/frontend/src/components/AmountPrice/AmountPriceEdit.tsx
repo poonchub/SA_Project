@@ -2,29 +2,25 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../AmountPrice/AmountPrice.css';
 import uploadPhoto from '../../assets/Upload_Button.svg';
 import '../OrderShow/OrderShow.css';
-import { Button, Card, message } from 'antd';
+import { Button, Card, Flex, message } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import QRcode from '../../../../backend/images/payment/QR.png';
-import { CreatePayment, DeleteOrderByID, GetOrderByID, GetOrderItemByOrderID, UpdateProduct } from '../../services/http'; // เรียกใช้ฟังก์ชัน DeleteOrderByID และ UpdateProduct
+import { UpdatePaymentSlip, DeleteOrderByID, GetOrderItemByOrderID, UpdateProduct } from '../../services/http';
 import PopupConfirmPayment from './PopupConfirmPayment';
 import { useNavigate } from 'react-router-dom';
 import { OrderItemInterface } from '../../Interfaces/IOrderItem';
 import { ProductInterface } from '../../Interfaces/IProduct';
 import { GetProductByID } from '../../services/http';
 import PopupCancelPayment from './PopupCancelPayment';
-// import PopupPaymentThx from './PopupPaymentThx';
-import promptpay from '../../assets/promptpay.jpg';
-import UmaruCry from '../../assets/Umaru-Cry.gif';
 import Umaru from '../../assets/Umaru-Smail.gif';
+import UmaruCry from '../../assets/Umaru-Cry.gif';
+import promptpay from '../../assets/promptpay.jpg';
 
-const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: number}) => {
+const AmountPriceEdit = ({ orderId, customerId }: { orderId: number, customerId: number }) => {
   const [slip, setSlip] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
-
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [showCancelPopup, setShowCancelPopup] = useState(false);
-  // const [showThxPopup, setShowThxPopup] = useState(false);
-
   const [showWarning, setShowWarning] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [api, contextHolder] = message.useMessage();
@@ -32,7 +28,7 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
 
   const [orderItems, setOrderItems] = useState<OrderItemInterface[]>([]);
   const [products, setProducts] = useState<{ [key: number]: ProductInterface }>({});
-
+  // const [existingSlip, setExistingSlip] = useState<string[]>([]); // New state for existing slip
 
   useEffect(() => {
     const fetchOrderItems = async () => {
@@ -66,6 +62,24 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
 
     fetchProducts();
   }, [orderItems]);
+
+  // useEffect(() => {
+  //   const fetchExistingSlip = async () => {
+  //     try {
+  //       const paymentData = await GetOrderByID(orderId);
+  //       if (paymentData && paymentData.Slip) {
+  //         setExistingSlip([paymentData.Slip]); // Assuming Slip contains the URL or path to the existing slip image
+  //         // Store the existing payment ID if needed
+  //         // setExistingPaymentId(paymentData.id); // if there's an ID returned
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching existing slip:', error);
+  //     }
+  //   };
+  
+  //   fetchExistingSlip();
+  // }, [orderId]);
+  
 
   useEffect(() => {
     return () => {
@@ -117,25 +131,19 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
   };
 
   const confirmUpload = async () => {
-    setShowConfirmPopup(false)
+    setShowConfirmPopup(false);
     const formData = new FormData();
     slip.forEach((file) => {
-      formData.append('slip', file);
+      formData.append('SlipPath', file);
     });
-    formData.append('customerID', customerId.toString());
-    formData.append('orderID', orderId.toString());
-
+    console.log(formData);
     try {
-      const res = await CreatePayment(formData);
-      // ดึงข้อมูลคำสั่งซื้อเพื่อตรวจสอบ AddressID
-      const order = await GetOrderByID(orderId);
-        
-      // ตรวจสอบว่า AddressID เป็น null หรือไม่
-      if (order.AddressID === null) {
-          api.error('ที่อยู่สำหรับคำสั่งซื้อของคุณยังไม่ได้ระบุ กรุณาระบุที่อยู่ก่อนทำการชำระเงิน');
-          return;
-      }
-      
+      // Call UpdatePaymentSlip with the payment ID and formData
+      // Here, ensure you use the correct existing payment ID.
+      const paymentIdToUpdate = orderId; // Change this if you have a different payment ID
+      const res = await UpdatePaymentSlip(paymentIdToUpdate, formData);
+  
+      // Check if the response is valid
       if (res) {
         api.success({
           content: 
@@ -143,11 +151,9 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
               <span style={{marginTop: '10px', marginRight: '20px'}}>ชำระเงินเสร็จสิ้น กรุณารอการตรวจสอบจากทางเราค่ะ</span>
               <img src={Umaru} alt="success" style={{ width: '100px', marginRight: '10px', borderRadius: '15%' }} />
             </div>,
-          // className: 'custom-success-message',
           duration: 4.5,
         });
         setTimeout(() => {
-          // setShowThxPopup(true)
           navigate('/Profile'); // เปลี่ยนเส้นทางไปที่ /Profile
         }, 5000);
       } else {
@@ -166,24 +172,19 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
     setShowCancelPopup(false); // เปิด Popup
     try {
       if (orderItems.length > 0) {
-        // เริ่มทำการยกเลิกคำสั่งซื้อ
         const isDeleted = await DeleteOrderByID(orderId);
         
         if (isDeleted) { // ตรวจสอบว่าการลบคำสั่งซื้อสำเร็จ
           const updatePromises = orderItems.map(async (item: OrderItemInterface) => {
             const productID = item.ProductID; // ดึง ProductID
-            console.log(productID);
-  
             if (typeof productID === 'number') {
               const currentStock = products[productID]?.Stock || 0; // ใช้ผลิตภัณฑ์ที่ดึงมา
               const updatedProductData: ProductInterface = {
                 Stock: (currentStock || 0) + (item.Quantity || 0), // เพิ่มสต็อกตามจำนวนที่ถูกยกเลิก
               };
-  
-              // อัปเดตสต็อกของสินค้า
               return UpdateProduct(productID, updatedProductData);
             } else {
-              api.error('ไม่พบข้อมูลสินค้า'); // หาก productID ไม่ถูกต้อง
+              api.error('ไม่พบข้อมูลสินค้า');
               return false; // ส่งค่าผลลัพธ์เป็น false
             }
           });
@@ -207,7 +208,7 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
             api.error('ไม่สามารถอัปเดตสินค้าได้ครบทุกตัว');
           }
         } else {
-          api.error('ไม่สามารถยกเลิกคำสั่งซื้อได้'); // แจ้งผู้ใช้ว่าการลบคำสั่งซื้อไม่สำเร็จ
+          api.error('ไม่สามารถยกเลิกคำสั่งซื้อได้');
         }
       } else {
         api.error('ไม่พบรายการสินค้าในคำสั่งซื้อ');
@@ -217,21 +218,15 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
       api.error('เกิดข้อผิดพลาดในการยกเลิกคำสั่งซื้อ');
     }
   };
-  
-  const cancelUpload = () => {
-    setShowConfirmPopup(false); // ซ่อน popup confirm
-  };
-  const cancelCancelOrder = () => {
-    setShowCancelPopup(false); // ซ่อน popup cancel
-  };
-  
 
-  // function PaymentSuccessfull(): void {
-  //   setTimeout(() => {
-  //     navigate('/Profile'); // เปลี่ยนเส้นทางไปที่ /Profile
-  //     setShowThxPopup(false)
-  //   }, 5000);
-  // }
+  const cancelUpload = () => {
+    setShowConfirmPopup(false);
+  };
+
+  const cancelCancelOrder = () => {
+    setShowCancelPopup(false);
+  };
+
 
   return (
     <div>
@@ -345,6 +340,6 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
   );
 };
 
-export default AmountPrice;
+export default AmountPriceEdit;
 
 

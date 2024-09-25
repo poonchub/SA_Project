@@ -8,8 +8,8 @@
 		width: 100vw;
 		height: 100vh;
 		height: calc(100vh - 75px);
-		overflow-y: auto;
-		overflow-x: hidden;
+		/* overflow-y: auto; */
+		/* overflow-x: hidden; */
 		display: flex;
 		justify-content: center;
 
@@ -87,7 +87,7 @@
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 6px, rgba(0, 0, 0, 0.16) 0px 0px 6px;
 	border-radius: 10px;
 	background-color: #ffffff;
-	overflow-y: auto;
+	/* overflow-y: auto; */
 }
 
 
@@ -95,6 +95,7 @@
 	background-color: #FF2E63; 
 	text-align: center;
 	color: white;
+	height: fit-content;
 	/* border: rgb(0, 0, 0) 1px solid; */
 	
 
@@ -243,10 +244,10 @@
   
 }
 
-.table-show-item{
-	height: 100%;
-	overflow: auto;
-}
+
+
+
+
 
 
 @media only screen and (max-width:1100px){
