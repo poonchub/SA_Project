@@ -241,7 +241,7 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
         <div className='upload-container'>
           <center style={{ fontSize: '16px' }}>
             <h2>
-              <p>บริษัท <span style={{color: '#fa3869', marginBottom: '15px'}}>SHOENG LEUK</span> จำกัด</p>
+              <p>บริษัท <span style={{color: '#fa3869', marginBottom: '15px'}}>ahh</span> จำกัด</p>
             </h2> 
             <img className='myimage' src={QRcode} alt="" />
             <span>
