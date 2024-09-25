@@ -240,7 +240,7 @@ function Edit() {
           <Row gutter={[16, 16]}>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="FirstName"
+                label="ชื่อ"
                 name="FirstName"
                 rules={[{ required: true }]}
               >
@@ -249,7 +249,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="LastName"
+                label="นามสกุล"
                 name="LastName"
                 rules={[{ required: true }]}
               >
@@ -258,7 +258,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="Email"
+                label="อีเมล"
                 name="Email"
                 rules={[{ type: "email", required: true }]}
               >
@@ -267,7 +267,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="Birthday"
+                label="วันเกิด"
                 name="Birthday"
                 rules={[
                   {
@@ -284,7 +284,7 @@ function Edit() {
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
                 
-                label="Gender"
+                label="เพศ"
                 name="GenderID"
                 rules={[{ required: true }]}
               >
@@ -299,8 +299,8 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
+                label="เลือกที่อยู่"
                 name="SelectAddress"
-                label="Select Address"
                 rules={[{ required: true }]}
               >
                 <Select allowClear onChange={handleAddressChange}>
@@ -314,7 +314,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="Address"
+                label="ที่อยู่"
                 name="AddressDetail"
                 rules={[{ required: true }]}
               >
@@ -323,7 +323,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="Subdistrict"
+                label="แขวง/ตำบล"
                 name="Subdistrict"
                 rules={[{ required: true }]}
               >
@@ -332,7 +332,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="District"
+                label="อำเภอ/เขต"
                 name="District"
                 rules={[{ required: true }]}
               >
@@ -341,7 +341,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="Province"
+                label="จังหวัด"
                 name="Province"
                 rules={[{ required: true }]}
               >
@@ -350,7 +350,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="Zip Code"
+                label="รหัสไปรษณีย์"
                 name="ZipCode"
                 rules={[{ required: true }]}
               >
@@ -359,7 +359,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="Phone Number"
+                label="เบอร์โทรศัพท์"
                 name="PhoneNumber"
                 rules={[{ required: true }]}
               >
@@ -379,7 +379,7 @@ function Edit() {
                     onClick={handleUploadProfilePicture}
                     
                   >
-                    Update
+                    บันทึก
                   </Button>
                 </Space>
               </Form.Item>

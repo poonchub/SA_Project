@@ -91,7 +91,7 @@ const Add = () => {
           <Row gutter={[16, 16]}>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="Address"
+                label="ที่อยู่"
                 name="AddressDetail"
                 rules={[{ required: true }]}
               >
@@ -100,7 +100,7 @@ const Add = () => {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="Subdistrict"
+                label="แขวง/ตำบล"
                 name="Subdistrict"
                 rules={[{ required: true }]}
               >
@@ -109,7 +109,7 @@ const Add = () => {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="District"
+                label="อำเภอ/เขต"
                 name="District"
                 rules={[{ required: true }]}
               >
@@ -118,7 +118,7 @@ const Add = () => {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="Province"
+                label="จังหวัด"
                 name="Province"
                 rules={[{ required: true }]}
               >
@@ -127,7 +127,7 @@ const Add = () => {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="Zip Code"
+                label="รหัสไปรษณีย์"
                 name="ZipCode"
                 rules={[{ required: true }]}
               >
@@ -141,7 +141,7 @@ const Add = () => {
               <Form.Item>
                 <Space>
                   <Button type="primary" htmlType="submit" className="submit-btn">
-                    Save
+                    บันทึก
                   </Button>
                 </Space>
               </Form.Item>

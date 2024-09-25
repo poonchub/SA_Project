@@ -189,7 +189,7 @@ const ShowProfile: React.FC = () => {
               style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63', marginRight: "15px" }}
               onClick={handleClick}
             >
-              Edit Profile
+              แก้ไขข้อมูล
             </Button>
         </Link>
         <Link to={"/AddAddress"}>
@@ -199,11 +199,11 @@ const ShowProfile: React.FC = () => {
               style={{ backgroundColor: '#FF2E63', borderColor: '#FF2E63'  }}
               onClick={handleClick}
             >
-                Add Address</Button>
+                เพิ่มที่อยู่</Button>
         </Link>
         </div>
         <Row gutter={[16, 16]}>
-          <h3>Order List</h3>
+          <h3>รายละเอียดคำสั่งซื้อ</h3>
           <Col xs={24}>
             <Table
               // @ts-ignore
