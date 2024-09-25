@@ -152,7 +152,11 @@ function OwnerEditProfile() {
             { logoutPopup }
             <OwnerHeader page={"Edit-Profile"} />
             <div className="container-edit">
-                <Card title="แก้ไขโปรไฟล์" className="edit-card">
+                <div className="edit-card">
+                    <div className="edit-card-head">
+                        <h3>แก้ไขโปรไฟล์</h3>
+                        <hr></hr>
+                    </div>
                     <div className="image-container-edit">
                         <div className="show-profile-box">
                             <img src={
@@ -202,7 +206,7 @@ function OwnerEditProfile() {
                             </select>
                         </div>
                         <div className="form-group">
-                            <MailOutlined style={{ fontSize: '25px', color: '#FF2E63' }} />
+                            <MailOutlined style={{ fontSize: '30px', color: '#FF2E63' }} />
                             <input
                                 type="email"
                                 name="Email"
@@ -223,7 +227,7 @@ function OwnerEditProfile() {
                             บันทึก
                         </Button>
                     </div>
-                </Card>
+                </div>
             </div>
         </>
     );
