@@ -54,10 +54,6 @@ function Edit() {
   const [uploadMessage, setUploadMessage] = useState('');
   const [uploadError, setUploadError] = useState('');
 
-  const ProfilePath = customer ? (customer.ProfilePath!="" ? `${apiUrl}/${customer.ProfilePath}` : "./images/icon/user-black.png") : ""
-
-  console.log(ProfilePath)
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       setProfileFile(event.target.files[0]);
@@ -205,6 +201,7 @@ function Edit() {
     getAddressByCustomerID();
   }, []);
 
+
   return (
     <div className="edit-container">
       {contextHolder}
@@ -216,7 +213,7 @@ function Edit() {
         <Col xs={24} style={{display: "flex", flexDirection: "column", justifyItems:"center", alignItems:"center"}}>
           <div className="show-profile-box">
             <img src={
-                  imagePreview=="" ? ProfilePath : imagePreview
+                imagePreview=="" ? `${apiUrl}/${customer ? customer.ProfilePath : ""}` : imagePreview
               } 
               alt="Selected" 
             />
@@ -299,8 +296,8 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="เลือกที่อยู่"
                 name="SelectAddress"
+                label="เลือกที่อยู่"
                 rules={[{ required: true }]}
               >
                 <Select allowClear onChange={handleAddressChange}>
@@ -332,7 +329,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="อำเภอ/เขต"
+                label="เขต/อำเภอ"
                 name="District"
                 rules={[{ required: true }]}
               >
@@ -379,7 +376,7 @@ function Edit() {
                     onClick={handleUploadProfilePicture}
                     
                   >
-                    บันทึก
+                    Update
                   </Button>
                 </Space>
               </Form.Item>

@@ -6,6 +6,14 @@
     display: flex;
     overflow: auto;
     height: calc(100vh - 75px);
+
+    
+        .ant-card-body{
+            width: 100%;
+            padding: 0% 15%;
+    
+        }
+    
 }
 
 .submit-btn{
