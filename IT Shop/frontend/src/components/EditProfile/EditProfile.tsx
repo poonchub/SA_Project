@@ -323,7 +323,7 @@ function Edit() {
             </Col>
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
               <Form.Item
-                label="SubDistrict"
+                label="Subdistrict"
                 name="Subdistrict"
                 rules={[{ required: true }]}
               >

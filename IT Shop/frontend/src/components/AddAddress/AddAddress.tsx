@@ -81,6 +81,10 @@ const Add = () => {
         <h2> เพิ่มที่อยู่ </h2>
         <Divider />
         <Form
+          style={{
+            flexDirection: "column",
+            alignItems: "flex-start"
+          }}
           name="basic"
           form={form}
           layout="vertical"
