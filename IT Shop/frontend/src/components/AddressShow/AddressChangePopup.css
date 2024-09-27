@@ -1,8 +1,8 @@
 @import "../../stylesheet/ColorSheet.css";
 
 .popup-container{
-    width: 100vw;
-    height: 100vh;
+    width: 1000vw;
+    height: 1000vh;
     position: fixed;
     display: flex;
     align-items: center;
