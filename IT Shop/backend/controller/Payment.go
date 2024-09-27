@@ -159,7 +159,7 @@ func UpdatePaymentSlipByOrderID(c *gin.Context) {
 	newFilePath := filepath.Join("images", "payment", "slip", subfolder, fileName)
 
 	// สร้างตำแหน่งโฟลเดอร์ถ้ายังไม่มี
-	err = os.MkdirAll(filepath.Join("images", "payment", subfolder), os.ModePerm)
+	err = os.MkdirAll(filepath.Join("images", "payment", "slip", subfolder), os.ModePerm)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create directory"})
 		return
