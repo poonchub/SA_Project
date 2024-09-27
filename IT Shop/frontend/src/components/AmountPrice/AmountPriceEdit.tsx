@@ -63,24 +63,6 @@ const AmountPriceEdit = ({ orderId, customerId }: { orderId: number, customerId:
     fetchProducts();
   }, [orderItems]);
 
-  // useEffect(() => {
-  //   const fetchExistingSlip = async () => {
-  //     try {
-  //       const paymentData = await GetOrderByID(orderId);
-  //       if (paymentData && paymentData.Slip) {
-  //         setExistingSlip([paymentData.Slip]); // Assuming Slip contains the URL or path to the existing slip image
-  //         // Store the existing payment ID if needed
-  //         // setExistingPaymentId(paymentData.id); // if there's an ID returned
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching existing slip:', error);
-  //     }
-  //   };
-  
-  //   fetchExistingSlip();
-  // }, [orderId]);
-  
-
   useEffect(() => {
     return () => {
       previews.forEach((preview) => {
