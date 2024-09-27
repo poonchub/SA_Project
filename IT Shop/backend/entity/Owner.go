@@ -10,7 +10,6 @@ type Owner struct {
 	Password    string
 	ProfilePath string
 
-
 	GenderID uint
 	Gender   Gender `gorm:"foriegnKey:GenderID"`
 }

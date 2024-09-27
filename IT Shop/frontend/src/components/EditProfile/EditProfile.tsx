@@ -80,10 +80,10 @@ function Edit() {
           setUploadMessage(result.message);
           setUploadError('');
         } else {
-          throw new Error('\nเกิดข้อผิดพลาดในการอัพโหลดรูปโปรไฟล์นะจ๊ะ');
+          throw new Error('\nเกิดข้อผิดพลาดในการอัพโหลดรูปโปรไฟล์');
         }
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : '\nไม่รู้จักข้อผิดพลาดนี้จ่ะ';
+        const errorMessage = err instanceof Error ? err.message : '\nไม่รู้จักข้อผิดพลาดนี้';
         setUploadError(`Error: ${errorMessage}`);
         setUploadMessage('');
       }
@@ -120,7 +120,7 @@ function Edit() {
         localStorage.setItem("lastName", resCustomer.LastName);
         messageApi.open({
           type: "success",
-          content: resAddress.message,
+          content: "บันทึกข้อมูลสำเร็จ",
         });
 
         // Upload profile picture after updating customer and address
@@ -129,7 +129,7 @@ function Edit() {
       } else {
         messageApi.open({
           type: "error",
-          content: resAddress.message || "Error updating data",
+          content: "เกิดข้อผิดพลาด",
         });
       }
 
@@ -140,7 +140,7 @@ function Edit() {
       console.error(error);
       messageApi.open({
         type: "error",
-        content: "An error occurred",
+        content: "เกิดข้อผิดพลาด",
       });
     }
   };
@@ -241,7 +241,7 @@ function Edit() {
               <Form.Item
                 label="ชื่อ"
                 name="FirstName"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณากรอกชื่อ !" }]}
               >
                 <Input />
               </Form.Item>
@@ -250,7 +250,7 @@ function Edit() {
               <Form.Item
                 label="นามสกุล"
                 name="LastName"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณากรอกนามสกุล !" }]}
               >
                 <Input />
               </Form.Item>
@@ -259,7 +259,7 @@ function Edit() {
               <Form.Item
                 label="อีเมล"
                 name="Email"
-                rules={[{ type: "email", required: true }]}
+                rules={[{ type: "email", required: true, message: "กรุณากรอกอีเมล !" }]}
               >
                 <Input />
               </Form.Item>
@@ -270,7 +270,7 @@ function Edit() {
                 name="Birthday"
                 rules={[
                   {
-                    required: true
+                    required: true, message: "กรุณากรอกวันเกิด !"
                   },
                 ]}
               >
@@ -285,7 +285,7 @@ function Edit() {
                 
                 label="เพศ"
                 name="GenderID"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณาเลือกเพศ !"}]}
               >
                 <Select allowClear style={{borderColor: 'red'}}>
                   {genders.map((item) => (
@@ -300,7 +300,7 @@ function Edit() {
               <Form.Item
                 name="SelectAddress"
                 label="เลือกที่อยู่"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณาเลือกที่อยู่ !" }]}
               >
                 <Select allowClear onChange={handleAddressChange}>
                   {addresses.map((item) => (
@@ -315,7 +315,7 @@ function Edit() {
               <Form.Item
                 label="ที่อยู่"
                 name="AddressDetail"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณากรอกที่อยู่ !" }]}
               >
                 <Input />
               </Form.Item>
@@ -324,7 +324,7 @@ function Edit() {
               <Form.Item
                 label="แขวง/ตำบล"
                 name="Subdistrict"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณากรอกแขวง/ตำบล !" }]}
               >
                 <Input />
               </Form.Item>
@@ -333,7 +333,7 @@ function Edit() {
               <Form.Item
                 label="เขต/อำเภอ"
                 name="District"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณากรอกเขต/อำเภอ !" }]}
               >
                 <Input />
               </Form.Item>
@@ -342,7 +342,7 @@ function Edit() {
               <Form.Item
                 label="จังหวัด"
                 name="Province"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณากรอกจังหวัด !" }]}
               >
                 <Input />
               </Form.Item>
@@ -351,7 +351,7 @@ function Edit() {
               <Form.Item
                 label="รหัสไปรษณีย์"
                 name="ZipCode"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณากรอกรหัสไปรษณีย์ !" }]}
               >
                 <Input />
               </Form.Item>
@@ -360,7 +360,7 @@ function Edit() {
               <Form.Item
                 label="เบอร์โทรศัพท์"
                 name="PhoneNumber"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณากรอกเบอร์โทรศัพท์ !" }]}
               >
                 <Input maxLength={13} minLength={13} pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890"/>
               </Form.Item>
@@ -378,7 +378,7 @@ function Edit() {
                     onClick={handleUploadProfilePicture}
                     
                   >
-                    Update
+                    บันทึก
                   </Button>
                 </Space>
               </Form.Item>

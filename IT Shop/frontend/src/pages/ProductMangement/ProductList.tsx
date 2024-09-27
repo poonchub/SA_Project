@@ -249,10 +249,10 @@ function ProductList() {
                 className="custom-modal2"
                 footer={[
                     <Button key="cancel" onClick={handleCancel} className="custom-cancel-button">
-                        Cancel
+                        ยกเลิก
                     </Button>,
                     <Button key="submit" type="primary" onClick={handleOk} className="custom-ok-button">
-                        OK
+                        ตกลง
                     </Button>,
                 ]}
             >

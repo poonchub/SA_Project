@@ -1,8 +1,8 @@
 import { UserOutlined, MailOutlined } from '@ant-design/icons';
 import './OwnerEditProfile.css';
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, Button, message } from 'antd';
+import { Button, message } from 'antd';
 import { OwnerInterface } from '../../../Interfaces/IOwner';
 import { GendersInterface } from '../../../Interfaces/IGender';
 import { apiUrl, GetGenders, GetOwnerByID, UpdateOwner, UploadProfileOwner } from '../../../services/http';
@@ -119,6 +119,7 @@ function OwnerEditProfile() {
                 setTimeout(() => {
                     setLoading(false);
                     navigate('/OwnerProfile/');
+                    window.location.reload()
                 }, 1000);
             } else {
                 messageApi.open({
