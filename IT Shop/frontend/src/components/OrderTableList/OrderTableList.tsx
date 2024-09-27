@@ -49,13 +49,16 @@ const columns: TableColumnsType<OrderItemInterface & { ProductName: string, Prod
   },
   {
       title: 'ราคาต่อหน่วย',
-      dataIndex: 'Price',
-      key: 'Price',
+      dataIndex: 'UnitPrice',
+      key: 'UnitPrice',
       render: (price: number) => {
-        const formattedPrice = price < 0 
-            ? `-฿${Math.abs(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-            : `฿${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-        return formattedPrice;
+        if (price !== undefined && price !== null) {
+            const formattedPrice = price < 0 
+                ? `-฿${Math.abs(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` 
+                : `฿${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            return formattedPrice; // แสดงราคาต่อหน่วยที่แท้จริง
+        }
+        return 'N/A'; // แสดงข้อความที่เหมาะสมเมื่อไม่มีราคา
       }
     },
 ];
@@ -67,6 +70,8 @@ const OrderTableList: React.FC<{ orderId: number }> = ({ orderId }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const [totalPriceFromOrder, setTotalPriceFromOrder] = useState<number>(0); // State สำหรับ TotalPrice ของ Order
+
+  
 
 
   useEffect(() => {
@@ -109,31 +114,37 @@ const OrderTableList: React.FC<{ orderId: number }> = ({ orderId }) => {
   }, [orderId]);
 
     // คำนวณยอดรวมของ OrderItems
-    const totalItemPrice = orderItems.reduce((sum, item) => sum + ((item.Quantity || 0) * (item.Price || 0)), 0);
+    const totalItemPrice = orderItems.reduce((sum, item) => sum + ((item.Price || 0)), 0);
+    
+    console.log("Total item price:", totalItemPrice);
 
 
   // Combine order items with product names and images
   const dataSource = orderItems.map((item: OrderItemInterface) => {
       const productName = item.ProductID !== undefined ? products[item.ProductID]?.ProductName : 'Loading...';
       const productImage = item.ProductID !== undefined ? images[item.ProductID] : '';
+      const unitPrice = item.ProductID !== undefined ? products[item.ProductID]?.PricePerPiece : 0;  // ใช้ราคาจาก product
+      console.log("Price per peace: ", unitPrice)
       return {
           ...item,
           ProductName: productName || 'Unknown', // Fallback to 'Unknown' if no product name
           ProductImage: productImage || '', // Fallback to empty string if no image
+          UnitPrice: unitPrice, // เพิ่มราคาต่อหน่วย
       };
   });
 
   // ถ้ายอดรวมของ OrderItems มากกว่า TotalPrice ของ Order ให้เพิ่มแถวส่วนลด
   if (totalItemPrice > totalPriceFromOrder) {
-    const discountAmount =Math.round(totalItemPrice * 0.03);
+    const discountAmount = Math.round(totalItemPrice * 0.03);
+    console.log("Discount: ", discountAmount);
     dataSource.push({
         ID: 'discount', // ค่า ID แบบไม่ซ้ำ
         ProductName: 'ส่วนลด 3%',
         ProductImage: '',
         Quantity: 1,
-        Price: -discountAmount.toFixed(2), // แสดงส่วนลดเป็นจำนวนติดลบ
+        UnitPrice: -discountAmount.toFixed(2), // แสดงส่วนลด
     } as any); // แปลงชนิดของ object ให้ตรงกับ dataSource
-}
+  }
 
   return (
       <div>
