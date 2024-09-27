@@ -1033,7 +1033,6 @@ async function GetAddressByOrderID(id: number): Promise<any> {
 async function CreatePayment(formData: FormData) {
   const requestOptions = {
     method: "POST",
-    // headers: { "Content-Type": "application/json" },
     body: formData
   };
 

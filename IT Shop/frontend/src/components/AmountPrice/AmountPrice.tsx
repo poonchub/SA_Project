@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../AmountPrice/AmountPrice.css';
 import uploadPhoto from '../../assets/Upload_Button.svg';
 import '../OrderShow/OrderShow.css';
-import { Button, Card, message } from 'antd';
+import { Button, message } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import QRcode from '../../../../backend/images/payment/QR.png';
 import { CreatePayment, DeleteOrderByID, GetOrderByID, GetOrderItemByOrderID, UpdateProductByID } from '../../services/http'; // เรียกใช้ฟังก์ชัน DeleteOrderByID และ UpdateProduct
@@ -24,8 +24,8 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [showCancelPopup, setShowCancelPopup] = useState(false);
   // const [showThxPopup, setShowThxPopup] = useState(false);
-
   const [showWarning, setShowWarning] = useState(false);
+  
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [api, contextHolder] = message.useMessage();
   const navigate = useNavigate();
@@ -177,7 +177,8 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
             if (typeof productID === 'number') {
               const currentStock = products[productID]?.Stock || 0; // ใช้ผลิตภัณฑ์ที่ดึงมา
               const updatedProductData: ProductInterface = {
-                Stock: (currentStock || 0) + (item.Quantity || 0), // เพิ่มสต็อกตามจำนวนที่ถูกยกเลิก
+                Stock: (currentStock || 0) + (item.Quantity || 0),
+                Price: undefined
               };
   
               // อัปเดตสต็อกของสินค้า

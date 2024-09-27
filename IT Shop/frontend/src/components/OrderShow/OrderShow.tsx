@@ -13,7 +13,6 @@ const OrderShow: React.FC<{ orderId: number }> = ({ orderId }) => {
   const Id = order?.ID !== undefined ? order.ID.toString().padStart(10, '0') : 'ไม่ทราบID';
   
   // Format price to 2 decimal places
-  const tprice = order?.TotalPrice || 0;
   const formattedPrice = displayPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   // Function to fetch order data by ID

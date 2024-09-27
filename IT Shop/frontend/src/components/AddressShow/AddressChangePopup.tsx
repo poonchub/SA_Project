@@ -9,7 +9,7 @@ import {  useNavigate } from "react-router-dom";
 function AddressChangePopup(props: { setPopup: any; messageApi: any; orderId: number; onAddressUpdated: () => void }) {
 
   const { setPopup, messageApi, orderId, onAddressUpdated } = props;
-  const navigate = useNavigate(); // ย้าย useNavigate มาประกาศที่นี่
+  const navigate = useNavigate(); 
 
   const customerId = localStorage.getItem('id'); // ดึง customerId จาก localStorage
   const [addresses, setAddresses] = useState<AddressInterface[]>([]);
