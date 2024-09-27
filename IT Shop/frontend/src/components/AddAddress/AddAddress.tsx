@@ -51,13 +51,13 @@ const Add = () => {
       } else {
         messageApi.open({
           type: "error",
-          content: "เกิดข้อผิดพลาด !",
+          content: "เกิดข้อผิดพลาด",
         });
       }
     } catch (error) {
       messageApi.open({
         type: "error",
-        content: "เกิดข้อผิดพลาดในการบันทึกข้อมูล!",
+        content: "เกิดข้อผิดพลาด",
       });
       console.error(error);
     }
@@ -93,7 +93,7 @@ const Add = () => {
               <Form.Item
                 label="ที่อยู่"
                 name="AddressDetail"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณากรอกที่อยู่ !" }]}
               >
                 <Input />
               </Form.Item>
@@ -102,7 +102,7 @@ const Add = () => {
               <Form.Item
                 label="แขวง/ตำบล"
                 name="Subdistrict"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณากรอกแขวง/ตำบล !" }]}
               >
                 <Input />
               </Form.Item>
@@ -111,7 +111,7 @@ const Add = () => {
               <Form.Item
                 label="อำเภอ/เขต"
                 name="District"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณากรอกเขต/อำเภอ !" }]}
               >
                 <Input />
               </Form.Item>
@@ -120,7 +120,7 @@ const Add = () => {
               <Form.Item
                 label="จังหวัด"
                 name="Province"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณากรอกจังหวัด !" }]}
               >
                 <Input />
               </Form.Item>
@@ -129,7 +129,7 @@ const Add = () => {
               <Form.Item
                 label="รหัสไปรษณีย์"
                 name="ZipCode"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "กรุณากรอกรหัสไปรษณีย์ !" }]}
               >
                 <Input />
               </Form.Item>

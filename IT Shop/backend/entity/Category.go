@@ -8,6 +8,4 @@ type Category struct {
 	ImagePath		string
 
 	Products	[]Product	`gorm:"foreignKey:CategoryID"`
-
-	
 }

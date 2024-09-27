@@ -8,7 +8,7 @@ type OrderItem struct {
 	Price 		float32
 
 	OrderID		uint
-	Order		Order	`gorm:"foreignKey:OrderID"`
+	Order		Order	`gorm:"foreignKey:OrderID;constraint:OnDelete:CASCADE;"`
 
 	ProductID	uint
 	Product		Product	`gorm:"foreignKey:ProductID"`

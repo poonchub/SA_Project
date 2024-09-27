@@ -41,7 +41,7 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
   const calculateDiscount = (totalPrice: number): number => {
     // Calculate the discount here
     if (totalPrice >= 1000) {
-      return totalPrice * 0.03;
+      return Math.round(totalPrice * 0.03);
     } else {
       return 0;
     }

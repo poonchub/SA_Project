@@ -7,8 +7,6 @@ import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { ProductInterface } from "../../Interfaces/IProduct";
 import { CustomerInterface } from "../../Interfaces/ICustomer";
 import { Link } from "react-router-dom";
-import { div } from "framer-motion/client";
-import { Float } from "@react-three/drei";
 
 function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any; quantity: any; products: any; messageApi: any; }){
 
@@ -24,8 +22,8 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
 
     const fullPrice = products[sltProduct].PricePerPiece*quantity
 
-    const discount = parseFloat((fullPrice*(3/100)).toFixed(2))
-    const totalPrice = parseFloat((fullPrice-discount).toFixed(2))
+    const discount = fullPrice>=1000 ? Math.round(fullPrice*(3/100)) : 0
+    const totalPrice = fullPrice-discount
     const discountFormat = (discount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
     const priceFormat = (totalPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
@@ -72,7 +70,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
                 localStorage.setItem("orderId", `${newOrderID}`)
                 const orderItemData: OrderItemInterface = {
                     Quantity: quantity,
-                    Price: totalPrice,
+                    Price: fullPrice,
                     OrderID: newOrderID, 
                     ProductID: products[sltProduct].ID
                 };
