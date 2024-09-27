@@ -24,8 +24,8 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [showCancelPopup, setShowCancelPopup] = useState(false);
   // const [showThxPopup, setShowThxPopup] = useState(false);
-
   const [showWarning, setShowWarning] = useState(false);
+  
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [api, contextHolder] = message.useMessage();
   const navigate = useNavigate();
@@ -177,7 +177,8 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
             if (typeof productID === 'number') {
               const currentStock = products[productID]?.Stock || 0; // ใช้ผลิตภัณฑ์ที่ดึงมา
               const updatedProductData: ProductInterface = {
-                Stock: (currentStock || 0) + (item.Quantity || 0), // เพิ่มสต็อกตามจำนวนที่ถูกยกเลิก
+                Stock: (currentStock || 0) + (item.Quantity || 0),
+                Price: undefined
               };
   
               // อัปเดตสต็อกของสินค้า

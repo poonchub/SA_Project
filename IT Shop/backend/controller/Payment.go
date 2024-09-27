@@ -42,12 +42,15 @@ func CreatePayment(c *gin.Context) {
 	orderID, _ := strconv.ParseUint(c.PostForm("orderID"), 10, 32)
 
 	for _, file := range files {
-		subfolder := "slip"
-		fileName := filepath.Base(file.Filename) //ดึงชื่อไฟล์มาเก็บไว้
-		filePath := filepath.Join("images", "payment", subfolder, fileName)
+		subfolder := fmt.Sprintf("customer_id%02d", customerID)
+		// ดึงนามสกุลของไฟล์ที่อัปโหลด
+		fileExt := filepath.Ext(file.Filename)
+		// สร้างชื่อไฟล์ใหม่เป็น orderID พร้อมนามสกุลเดิม
+		fileName := fmt.Sprintf("slipOrder_id%02d%s", orderID, fileExt)
+		filePath := filepath.Join("images", "payment", "slip", subfolder, fileName)
 
 		// สร้างตำแหน่งโฟลเดอร์ที่จะเก็บถ้ายังไม่มี
-		err = os.MkdirAll(filepath.Join("images", "payment", subfolder), os.ModePerm)
+		err = os.MkdirAll(filepath.Join("images", "payment", "slip", subfolder), os.ModePerm)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create directory"})
 			return
@@ -137,11 +140,23 @@ func UpdatePaymentSlipByOrderID(c *gin.Context) {
 
 	// รับไฟล์แรก
 	file := files[0]
+	// ลบไฟล์เก่าที่อยู่ใน SlipPath
+	if payment.SlipPath != "" {
+		if err := os.Remove(payment.SlipPath); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete old slip file"})
+			return
+		}
+	}
 
-	// สร้างเส้นทางโฟลเดอร์ใหม่
-	subfolder := "slip"
-	fileName := filepath.Base(file.Filename)
-	newFilePath := filepath.Join("images", "payment", subfolder, fileName)
+	// สร้าง subfolder ตาม customerID
+	customerID := payment.CustomerID // สมมติว่าคุณสามารถเข้าถึง CustomerID จาก payment
+	subfolder := fmt.Sprintf("customer_id%02d", customerID)
+
+	// ดึงนามสกุลของไฟล์ที่อัปโหลด
+	fileExt := filepath.Ext(file.Filename)
+	// สร้างชื่อไฟล์ใหม่เป็น orderID พร้อมนามสกุลเดิม
+	fileName := fmt.Sprintf("slipOrder_id%02d%s", orderID, fileExt)
+	newFilePath := filepath.Join("images", "payment", "slip", subfolder, fileName)
 
 	// สร้างตำแหน่งโฟลเดอร์ถ้ายังไม่มี
 	err = os.MkdirAll(filepath.Join("images", "payment", subfolder), os.ModePerm)

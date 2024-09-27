@@ -180,7 +180,8 @@ const AmountPriceEdit = ({ orderId, customerId }: { orderId: number, customerId:
             if (typeof productID === 'number') {
               const currentStock = products[productID]?.Stock || 0; // ใช้ผลิตภัณฑ์ที่ดึงมา
               const updatedProductData: ProductInterface = {
-                Stock: (currentStock || 0) + (item.Quantity || 0), // เพิ่มสต็อกตามจำนวนที่ถูกยกเลิก
+                Stock: (currentStock || 0) + (item.Quantity || 0),
+                Price: undefined
               };
               return UpdateProductByID(updatedProductData, productID);
             } else {
