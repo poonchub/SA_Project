@@ -5,7 +5,6 @@ import { Card } from 'antd';
 import '../OrderTableList/OrderTableList.css';
 import { OrderItemInterface } from '../../Interfaces/IOrderItem';
 import { ProductInterface } from '../../Interfaces/IProduct';
-import { ImageInterface } from '../../Interfaces/IImage';
 import { GetProductByID, GetOrderItemByOrderID, GetImageByProductID } from '../../services/http';
 import { apiUrl } from '../../services/http';
 
@@ -15,7 +14,24 @@ const columns: TableColumnsType<OrderItemInterface & { ProductName: string, Prod
       dataIndex: 'ProductImage',
       key: 'ProductImage',
       render: (image: string) => (
-        image ? <img src={image} alt="Product" style={{ width: 100, height: 100 }} /> : <span>No Image</span>
+        image ? (
+            <img src={image} alt="Product" style={{ width: 100, height: 100 }} />
+          ) : (
+            <div style={{
+              width: '100px',
+              height: '100px',
+              border: '2px dashed #FF2E63',
+              borderRadius: '50%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontSize: '20px',
+              color: '#FF2E63'
+              
+            }}>
+              <h3>3% off</h3>
+            </div>
+          )
       ),
       width: 150,
   },
@@ -35,8 +51,13 @@ const columns: TableColumnsType<OrderItemInterface & { ProductName: string, Prod
       title: 'ราคาต่อหน่วย',
       dataIndex: 'Price',
       key: 'Price',
-      render: (price: number) => `฿${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, // Format price with comma and 2 decimal places
-  },
+      render: (price: number) => {
+        const formattedPrice = price < 0 
+            ? `-฿${Math.abs(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+            : `฿${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        return formattedPrice;
+      }
+    },
 ];
 
 const OrderTableList: React.FC<{ orderId: number }> = ({ orderId }) => {
@@ -44,6 +65,9 @@ const OrderTableList: React.FC<{ orderId: number }> = ({ orderId }) => {
   const [products, setProducts] = useState<{ [key: number]: ProductInterface }>({});
   const [images, setImages] = useState<{ [key: number]: string }>({});
   const [loading, setLoading] = useState<boolean>(true);
+
+  const [totalPriceFromOrder, setTotalPriceFromOrder] = useState<number>(0); // State สำหรับ TotalPrice ของ Order
+
 
   useEffect(() => {
       const fetchData = async () => {
@@ -84,6 +108,10 @@ const OrderTableList: React.FC<{ orderId: number }> = ({ orderId }) => {
       fetchData();
   }, [orderId]);
 
+    // คำนวณยอดรวมของ OrderItems
+    const totalItemPrice = orderItems.reduce((sum, item) => sum + ((item.Quantity || 0) * (item.Price || 0)), 0);
+
+
   // Combine order items with product names and images
   const dataSource = orderItems.map((item: OrderItemInterface) => {
       const productName = item.ProductID !== undefined ? products[item.ProductID]?.ProductName : 'Loading...';
@@ -94,6 +122,18 @@ const OrderTableList: React.FC<{ orderId: number }> = ({ orderId }) => {
           ProductImage: productImage || '', // Fallback to empty string if no image
       };
   });
+
+  // ถ้ายอดรวมของ OrderItems มากกว่า TotalPrice ของ Order ให้เพิ่มแถวส่วนลด
+  if (totalItemPrice > totalPriceFromOrder) {
+    const discountAmount =Math.round(totalItemPrice * 0.03);
+    dataSource.push({
+        ID: 'discount', // ค่า ID แบบไม่ซ้ำ
+        ProductName: 'ส่วนลด 3%',
+        ProductImage: '',
+        Quantity: 1,
+        Price: -discountAmount.toFixed(2), // แสดงส่วนลดเป็นจำนวนติดลบ
+    } as any); // แปลงชนิดของ object ให้ตรงกับ dataSource
+}
 
   return (
       <div>

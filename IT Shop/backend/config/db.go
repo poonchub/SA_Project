@@ -419,6 +419,99 @@ Warranty	3 Years`,
 			CategoryID:    4,
 			BrandID:       1,
 		},
+		{
+			ProductName: "NOTEBOOK (โน้ตบุ๊ค) LENOVO LOQ 15IAX9 83GS00CPTA (LUNA GREY) (3Y)",
+			Description: `Brands	LENOVO
+Model	LOQ 15IAX9 83GS00CPTA
+Processors	Intel® Core™ i5-12450HX Processors (12th Gen)
+Processor Speed	8C (4P + 4E) / 12T, P-core up to 4.4GHz, E-core up to 3.1GHz, 12MB
+Video Graphics	NVIDIA® GeForce RTX™ 2050 Laptop GPU 4GB GDDR6
+Screen Size	15.6"
+Display	FHD (1920x1080) IPS 300nits Anti-glare, 100% sRGB, 144Hz, G-SYNC
+Memory	24GB (12GB x 2) DDR5 4800MHz
+Storage	512GB PCIe® 4.0 x4 NVMe™ M.2 2242 SSD
+Operating System	Windows 11 Home
+Camera	HD 720p with E-shutter
+Optical Drive	No
+Connection port	1 x RJ-45 port, 4 x USB 3.2 Gen 1 5Gbps Type-A, 1 x HDMI™ 2.1, up to 8K/60Hz, 1 x Headphone / microphone combo jack (3.5mm), 1 x Power connector, 1 x USB 10Gbps Type-C
+Wi-Fi/ Bluetooth	802.11 ax Wi-Fi 6 + Bluetooth 5.2
+Battery	60WHr (Integrated)
+Color	Luna Grey
+Dimensions	359.86 x 258.7 x 21.9 - 23.9 mm
+Weight	2.37 kg
+Warranty	3 Year`,
+			PricePerPiece: 26990.00,
+			Stock:         20,
+			CategoryID:    1,
+			BrandID:       2,
+		},
+		{
+			ProductName: "MONITOR (จอมอนิเตอร์) SAMSUNG ODYSSEY G5 G50D LS27DG502EEXXT - 27 IPS 2K 180Hz (3Y)",
+			Description: `Brands	SAMSUNG
+Display Size (in.)	27"
+Panel Size (in.)	27" IPS
+Resolution	2560 x 1440
+Resolution Type	2K QHD
+Display color	16.7 Million
+Display Viewing Area (H x V)	596.736 x 335.664 mm
+Brightness	350 cd/m² (Typical)
+Contrast ratio	1000 : 1 (Typ.)
+Response Time	1ms (GtG)
+Aspect Ratio	16 : 9
+Refresh Rate	180Hz
+Screen Curvature	Flat screen
+Viewing Angle (CR≧10)	178° (H) / 178° (V)
+Color Gamut	sRGB : 99%
+HDR Support	VESA DisplayHDR™ 400
+Adaptive Sync	AMD FreeSync™
+Display Surface	Anti-Glare
+Flicker free	Yes
+Low Blue Light	Yes
+Connectivity	1 x HDMI™ 2.0, 1 x DisplayPort™ 1.2
+Built-in Speaker	No
+Power Consumption	Power Input : AC 100-240V, Power Type : External Power Adaptor, Consumption (max) : 48 Watt
+Mechanical	Wall Mountable : 100x100mm, Height 0~120mm, Tilt -2˚(±2˚) ~ +25˚(±2˚), Swivel : -30°(± 3°) ~ +30°(± 3°), Pivot -92°(± 2°) ~ +92°(± 2°)
+Dimension (W x H x D)	613 x 552 x 263.5 mm
+Weight (Esti.)	Net Weight without stand : 3.4 kg, Net Weight with stand : 6.4 kg, Net Weight with Packaging : 8.3 kg
+Color	BLACK
+Warranty	3 Years`,
+			PricePerPiece: 8990.00,
+			Stock:         25,
+			CategoryID:    2,
+			BrandID:       5,
+		},
+		{
+			ProductName: "RAM (แรม) T-FORCE VULCAN Z 16GB (8x2) DDR4 3200MHz GRAY (TLZGD416G3200HC16CDC01)",
+			Description: `Brand	T-FORCE
+Memory Series	VULCAN Z
+Memory Capacity	16GB (8GBx2)
+Memory Type	DDR4
+Cas Latency	CL16
+Tested Latency	16-18-18-38
+SPD Voltage	1.35 V
+Memory Color	GRAY
+Warranty	Lifetime`,
+			PricePerPiece: 1450.00,
+			Stock:         29,
+			CategoryID:    3,
+			BrandID:       3,
+		},
+		{
+			ProductName: "RAM (แรม) T-FORCE VULCAN Z 16GB (8x2) DDR4 3200MHz GRAY (TLZGD416G3200HC16CDC01)",
+			Description: `Brand	T-FORCE
+Memory Series	VULCAN Z
+Memory Capacity	16GB (8GBx2)
+Memory Type	DDR4
+Cas Latency	CL16
+Tested Latency	16-18-18-38
+SPD Voltage	1.35 V
+Memory Color	GRAY
+Warranty	Lifetime`,
+			PricePerPiece: 1450.00,
+			Stock:         29,
+			CategoryID:    3,
+			BrandID:       3,
+		},
 	}
 
 	for _, product := range products {
@@ -428,7 +521,7 @@ Warranty	3 Years`,
 	}
 
 	// Create Image Product
-	for i := uint(1); i <= 11; i++ {
+	for i := uint(1); i <= 14; i++ {
 		dir := fmt.Sprintf("images/product/product%d", i)
 		count := countFilesInDir(dir)
 		for j := 1; j <= count; j++ {
