@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import './Header.css'
 import './Header-Home.css'
 import { Link } from 'react-router-dom';
@@ -23,6 +23,16 @@ function Header(props: { page: any;}){
     const [isToggled, setIsToggled] = useState(true);
     //count cart
     const { countCart } = useContext(AppContext); // ดึง countCart จาก AppContext
+
+    const audioRef = useRef(new Audio('audio/keyboard.mp3'))
+    const playSound = () => {
+        audioRef.current.currentTime = 0.28
+        audioRef.current.play()
+        setTimeout(() => {
+            audioRef.current.pause()
+            audioRef.current.currentTime = 0.28
+        }, (0.48 - 0.28) * 1000)
+    }
 
     function toggleMode(){
         setIsToggled(!isToggled);
@@ -142,17 +152,9 @@ function Header(props: { page: any;}){
                 {modeElement}
                 <div className="logo-box">
                     <div className="img-box">
-                        {/* <img src="/images/Lenovo_Global_Corporate_Logo.png" alt="" /> */}
-                        {/* MY<span>&nbsp;LOGO</span> */}
-                        <img src={page == "home" ?   CapBA : CapA} id="CapA" />
-                        <img src={page == "home" ?   CapBH : CapH} id = "CapH"/>
-                        <img src={page == "home" ?   CapBH : CapH} id = "CapH2" /> 
-                        
-                        
-                        
-
-                     
-
+                        <img src={page == "home" ? CapBA : CapA} id="CapA" onMouseEnter={playSound} onMouseLeave={() => audioRef.current.pause()}/>
+                        <img src={page == "home" ? CapBH : CapH} id="CapH" onMouseEnter={playSound} onMouseLeave={() => audioRef.current.pause()}/>
+                        <img src={page == "home" ? CapBH : CapH} id="CapH2" onMouseEnter={playSound} onMouseLeave={() => audioRef.current.pause()}/> 
                     </div>
                 </div>
             </div>
