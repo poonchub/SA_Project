@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AddressInterface } from "../../Interfaces/IAddress";
 import "./PopupConfirmOrder.css"
-import { CreateOrder, CreateOrderItem, GetAddressByCustomerID, GetCustomerByID, UpdateProduct } from "../../services/http";
+import { CreateOrder, CreateOrderItem, GetAddressByCustomerID, GetCustomerByID, UpdateProductByID } from "../../services/http";
 import { OrderInterface } from "../../Interfaces/IOrder";
 import { OrderItemInterface } from "../../Interfaces/IOrderItem";
 import { ProductInterface } from "../../Interfaces/IProduct";
@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any; quantity: any; products: any; messageApi: any; }){
 
     const {setPopup, productName, price, quantity, products, messageApi} = props
-
+    
     const [customer, setCustomer] = useState<CustomerInterface>()
     const [addresses, setAddresses] = useState<AddressInterface[]>([]);
     const [selectedAddress, setSelectedAddress] = useState(1);
@@ -78,9 +78,9 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
                 const resultOrderItem = await CreateOrderItem(orderItemData);
 
                 const updateProductData: ProductInterface = {
-                    Stock: (products[sltProduct].Stock)-1
+                    Stock: (products[sltProduct].Stock)-quantity
                 }
-                const resultUpdateProduct = await UpdateProduct(products[sltProduct].ID,updateProductData)
+                const resultUpdateProduct = await UpdateProductByID(updateProductData,products[sltProduct].ID)
     
                 if (resultOrderItem && resultUpdateProduct) {
                     messageApi.open({

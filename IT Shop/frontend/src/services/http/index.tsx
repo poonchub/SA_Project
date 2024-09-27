@@ -818,31 +818,6 @@ async function GetProductByID(productID: number): Promise<ProductInterface | fal
   }
 }
 
-async function UpdateProduct(id: number, data: ProductInterface) {
-  if (id === undefined) {
-      throw new Error("Product ID is undefined");
-  }
-
-  const requestOptions = {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-  };
-
-  let res = await fetch(`${apiUrl}/products/${id}`, requestOptions)
-      .then((res) => {
-          if (res.status === 200) {
-              return res.json();
-          } else {
-              console.error("Failed to update product:", res.status, res.statusText);
-              return false;
-          }
-      });
-
-  console.log("Product update response:", res);
-  return res;
-}
-
 async function DeleteProductByID(id: number) {
   if (!id) {
       console.error('Product ID is required to delete');
@@ -991,7 +966,7 @@ export async function AddToCart(customerId: number, productId: number, quantity:
   }
 }
 
-export async function UpdateProductbyid(data: ProductInterface,p_id:number) {
+async function UpdateProductByID(data: ProductInterface,p_id:number) {
   const requestOptions = {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -1207,6 +1182,6 @@ export {
     CreateProduct,
     ListProducts,
     GetProductByID,
-    UpdateProduct,
+    UpdateProductByID,
     DeleteProductByID,
 };

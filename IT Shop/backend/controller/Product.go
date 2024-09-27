@@ -56,35 +56,31 @@ func GetProductByID(c *gin.Context) {
     c.JSON(http.StatusOK, product)
 }
 
-//  อัปเดตข้อมูลสินค้า PATCH /products/:id
 func UpdateProduct(c *gin.Context) {
+	ID := c.Param("productid")
+
 	var product entity.Product
-	id := c.Param("id")
+
 	db := config.DB()
-
-	// Find the product by ID
-	if err := db.First(&product, id).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Product not found"})
+	result := db.First(&product, ID)
+	if result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "id not found"})
 		return
 	}
 
-	// Bind the updated product details from the request body
-	var updatedProduct entity.Product
-	if err := c.ShouldBindJSON(&updatedProduct); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	if err := c.ShouldBindJSON(&product); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request, unable to map payload"})
 		return
 	}
 
-	// Update the product
-	if err := db.Model(&product).Updates(updatedProduct).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update product"})
+	result = db.Save(&product)
+	if result.Error != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad request"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Product updated successfully"})
+	c.JSON(http.StatusOK, gin.H{"message": "Updated successful"})
 }
-
-
 
 // ลบสินค้าตาม ID PATCH /product/:id
 func DeleteProduct(c *gin.Context) {

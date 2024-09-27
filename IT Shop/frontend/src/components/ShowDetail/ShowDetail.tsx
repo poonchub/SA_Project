@@ -27,7 +27,12 @@ function ShowDetail(){
     }
 
     function add(){
-        setQuantity(quantity+1)
+        if(stock && quantity+1 > stock){
+            setQuantity(quantity)
+        }
+        else {
+            setQuantity(quantity+1)
+        }
     }
 
     function minus(){
@@ -55,7 +60,7 @@ function ShowDetail(){
     // @ts-ignore
     const brand = products.length > 0 ? products[sltProduct].Brand.BrandName : '';
     // @ts-ignore
-    const stock = products.length > 0 ? products[sltProduct].Stock : '';
+    const stock = products.length > 0 ? products[sltProduct].Stock : 0;
     // @ts-ignore
     const price = products.length > 0 ? products[sltProduct].PricePerPiece.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00';
     // @ts-ignore
