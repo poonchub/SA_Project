@@ -5,7 +5,7 @@ import '../OrderShow/OrderShow.css';
 import { Button, Card, message } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import QRcode from '../../../../backend/images/payment/QR.png';
-import { CreatePayment, DeleteOrderByID, GetOrderByID, GetOrderItemByOrderID, UpdateProduct } from '../../services/http'; // เรียกใช้ฟังก์ชัน DeleteOrderByID และ UpdateProduct
+import { CreatePayment, DeleteOrderByID, GetOrderByID, GetOrderItemByOrderID, UpdateProductByID } from '../../services/http'; // เรียกใช้ฟังก์ชัน DeleteOrderByID และ UpdateProduct
 import PopupConfirmPayment from './PopupConfirmPayment';
 import { useNavigate } from 'react-router-dom';
 import { OrderItemInterface } from '../../Interfaces/IOrderItem';
@@ -181,7 +181,7 @@ const AmountPrice = ({ orderId, customerId}: { orderId: number, customerId: numb
               };
   
               // อัปเดตสต็อกของสินค้า
-              return UpdateProduct(productID, updatedProductData);
+              return UpdateProductByID(updatedProductData, productID);
             } else {
               api.error('ไม่พบข้อมูลสินค้า'); // หาก productID ไม่ถูกต้อง
               return false; // ส่งค่าผลลัพธ์เป็น false

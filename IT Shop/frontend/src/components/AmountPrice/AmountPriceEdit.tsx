@@ -5,7 +5,7 @@ import '../OrderShow/OrderShow.css';
 import { Button, Card, Flex, message } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import QRcode from '../../../../backend/images/payment/QR.png';
-import { UpdatePaymentSlip, DeleteOrderByID, GetOrderItemByOrderID, UpdateProduct } from '../../services/http';
+import { UpdatePaymentSlip, DeleteOrderByID, GetOrderItemByOrderID, UpdateProductByID } from '../../services/http';
 import PopupConfirmPayment from './PopupConfirmPayment';
 import { useNavigate } from 'react-router-dom';
 import { OrderItemInterface } from '../../Interfaces/IOrderItem';
@@ -182,7 +182,7 @@ const AmountPriceEdit = ({ orderId, customerId }: { orderId: number, customerId:
               const updatedProductData: ProductInterface = {
                 Stock: (currentStock || 0) + (item.Quantity || 0), // เพิ่มสต็อกตามจำนวนที่ถูกยกเลิก
               };
-              return UpdateProduct(productID, updatedProductData);
+              return UpdateProductByID(updatedProductData, productID);
             } else {
               api.error('ไม่พบข้อมูลสินค้า');
               return false; // ส่งค่าผลลัพธ์เป็น false

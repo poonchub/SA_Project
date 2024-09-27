@@ -1,6 +1,6 @@
 import "../CartSummary/Summary.css";
 import { CartInterface } from "../../Interfaces/ICart";
-import { CreateOrder, CreateOrderItem, DeleteCart, GetAddressByCustomerID, UpdateProductbyid } from "../../services/http";
+import { CreateOrder, CreateOrderItem, DeleteCart, GetAddressByCustomerID, UpdateProductByID } from "../../services/http";
 import CountUp from "react-countup";
 import { useEffect, useState } from "react";
 import { AddressInterface } from "../../Interfaces/IAddress";
@@ -165,7 +165,7 @@ function Summary({ cartItems, selectedItems, onCartUpdate }: TotalPriceProps) {
             Stock: item.stock - Number(item.quantity),
           };
         
-          await UpdateProductbyid(updateProductData,item.productID);
+          await UpdateProductByID(updateProductData,item.productID);
           count++;
         }
           

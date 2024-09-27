@@ -7,7 +7,7 @@ import '../../../components/ProductMangement/ProductFormPage.css'
 import { CategoryInterface } from '../../../Interfaces/ICategory';
 import { BrandInterface } from '../../../Interfaces/IBrand';
 import { ProductInterface } from '../../../Interfaces/IProduct';
-import {  GetBrands, GetCategories, GetProductByID, UpdateImage, UpdateProduct } from '../../../services/http';
+import {  GetBrands, GetCategories, GetProductByID, UpdateImage, UpdateProductByID } from '../../../services/http';
 import { AppContext } from '../../../App';
 import ProductEditHeader from '../../../components/ProductMangement/ProductEditHeader';
 
@@ -74,7 +74,7 @@ function ProductEdit() {
         CategoryID: values.CategoryID,
       };
 
-      const res = await UpdateProduct(Number(id), updatedProduct);
+      const res = await UpdateProductByID(updatedProduct, Number(id));
 
       if (res) {
         if (images.length > 0) {
