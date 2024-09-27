@@ -142,7 +142,7 @@ func AddAddress(c *gin.Context) {
 	}
 
 	// บันทึกที่อยู่ใหม่
-	if err := db.Create(&a).Error; err != nil {
+	if err := db.FirstOrCreate(&a, &entity.Address{Province: a.Province, District: a.District, Subdistrict: a.Subdistrict, ZipCode: a.ZipCode, AddressDetail: a.AddressDetail, CustomerID: a.CustomerID}).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

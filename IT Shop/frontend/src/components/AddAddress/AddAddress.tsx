@@ -25,6 +25,9 @@ const Add = () => {
   const [form] = Form.useForm();
   const id = localStorage.getItem("id") || "";
 
+  console.log(localStorage.getItem("before-add-address"))
+  console.log(localStorage.getItem("before-add-address")=="/selected")
+
   const onFinish = async (values: AddressInterface) => {
     const payload = {
       ...values,
@@ -42,10 +45,11 @@ const Add = () => {
         setTimeout(() => {
           const path = localStorage.getItem("before-add-address")=="/selected"
           if (path){
-            navigate("/selected");
+            localStorage.setItem("before-add-address","")
+            navigate("/Selected");
           }
           else {
-            navigate("/profile");
+            navigate("/Profile");
           }
         }, 2000);
       } else {

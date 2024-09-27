@@ -30,8 +30,6 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
     console.log((fullPrice*(3/100)).toFixed(2))
     console.log(totalPrice)
 
-    localStorage.setItem("before-add-address","/selected")
-
     function closePopup(){
         setPopup(null)
     }
@@ -126,7 +124,7 @@ function PopupConfirmOrder(props: { setPopup: any; productName: any; price: any;
 
     const addressElement = addresses.length<1 ? (
         <div className="no-add-element">
-            <Link to={"/AddAddress"}>
+            <Link to={"/AddAddress"} onClick={()=>localStorage.setItem("before-add-address","/selected")}>
                 <button className="create-add-btn">สร้างที่อยู่</button>
             </Link>
             <span>หากยังไม่มีที่อยู่จะไม่สามารถสั่งซื้อสินค้าได้</span>

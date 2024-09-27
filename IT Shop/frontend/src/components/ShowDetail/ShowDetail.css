@@ -116,6 +116,10 @@
                     color: var(--subfont-color2);
                 }
 
+                & #cart-button{
+                    background-color: var(--subtheme-color3);
+                }
+
                 & .btn:hover {
                     box-shadow: 0px 0px 8px var(--shadow-color2);
                     font-size: 21px;
