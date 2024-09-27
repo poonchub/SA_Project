@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../AmountPrice/AmountPrice.css';
 import uploadPhoto from '../../assets/Upload_Button.svg';
 import '../OrderShow/OrderShow.css';
-import { Button, Card, message } from 'antd';
+import { Button, message } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import QRcode from '../../../../backend/images/payment/QR.png';
 import { CreatePayment, DeleteOrderByID, GetOrderByID, GetOrderItemByOrderID, UpdateProductByID } from '../../services/http'; // เรียกใช้ฟังก์ชัน DeleteOrderByID และ UpdateProduct

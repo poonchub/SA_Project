@@ -31,19 +31,19 @@ func CreatePayment(c *gin.Context) {
 
 	db := config.DB()
 
-	form, err := c.MultipartForm()
+	form, err := c.MultipartForm() //ตรวจสอบว่ามีไฟล์ที่อัปโหลดมาหรือไม่ หากไม่มีไฟล์ที่อัปโหลดเข้ามา จะส่งสถานะ HTTP 400 (BadRequest)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "No file is received"})
 		return
 	}
 
-	files := form.File["slip"]
+	files := form.File["slip"] //ดึงไฟล์ที่อัปโหลดมาในฟิลด์ "slip" และดึง customerID และ orderID จากฟอร์มข้อมูลที่ส่งเข้ามา โดยแปลงจาก string เป็นตัวเลข
 	customerID, _ := strconv.ParseUint(c.PostForm("customerID"), 10, 32)
 	orderID, _ := strconv.ParseUint(c.PostForm("orderID"), 10, 32)
 
 	for _, file := range files {
 		subfolder := "slip"
-		fileName := filepath.Base(file.Filename)
+		fileName := filepath.Base(file.Filename) //ดึงชื่อไฟล์มาเก็บไว้
 		filePath := filepath.Join("images", "payment", subfolder, fileName)
 
 		// สร้างตำแหน่งโฟลเดอร์ที่จะเก็บถ้ายังไม่มี
@@ -85,12 +85,7 @@ func CreatePayment(c *gin.Context) {
 			return
 		}
 
-		// if err := db.Preload("Customer").Preload("Order").Create(&paym).Error; err != nil {
-		// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		// 	return
-		// }
-
-		// อัพเดตสถานะของ Order เป็น "paid"
+		// อัพเดตสถานะของ Order เป็น "รอการตรวจสอบ"
 		if err := db.Model(&order).Update("status", "รอการตรวจสอบ").Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update order status"})
 			return
@@ -98,9 +93,6 @@ func CreatePayment(c *gin.Context) {
 
 		c.JSON(http.StatusCreated, gin.H{"message": "Created success", "data": paym})
 	}
-
-	// c.JSON(http.StatusCreated, gin.H{"message": "Files uploaded successfully"})
-
 }
 
 func UpdatePaymentSlipByOrderID(c *gin.Context) {
@@ -143,7 +135,7 @@ func UpdatePaymentSlipByOrderID(c *gin.Context) {
 		return
 	}
 
-	// รับไฟล์แรก (สมมติว่าอัพโหลดเพียงไฟล์เดียว)
+	// รับไฟล์แรก
 	file := files[0]
 
 	// สร้างเส้นทางโฟลเดอร์ใหม่

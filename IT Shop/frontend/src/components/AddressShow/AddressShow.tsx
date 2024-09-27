@@ -6,7 +6,7 @@ import '../AddressShow/AddressShow.css';
 import edit from '../../assets/edit.svg';
 import location from '../../assets/location.svg';
 import { PopupContext } from "../../pages/Selected";
-import PopupConfirmOrder from "./AddressChangePopup";
+import PopupAddressChange from "./AddressChangePopup";
 
 const AddressShow: React.FC<{ orderId: number  }> = ({ orderId }) => {
   const [address, setAddress] = useState<AddressInterface | null>(null);
@@ -16,7 +16,7 @@ const AddressShow: React.FC<{ orderId: number  }> = ({ orderId }) => {
   const [customerId, setCustomerId] = useState<number | null>(null); // State สำหรับเก็บ customerId
   const [messageApi, contextHolder] = message.useMessage(); // ใช้ messageApi
 
-  async function fetchAddress() {
+  async function fetchAddress() { //เอาไว้อัพเดทที่อยู่บน component
     try {
       const addressRes = await GetAddressByOrderID(orderId);
       if (addressRes) {
@@ -30,24 +30,24 @@ const AddressShow: React.FC<{ orderId: number  }> = ({ orderId }) => {
     }
   }
 
+  async function fetchOrderData() {
+    try {
+      const orderData = await GetOrderByID(orderId);
+      if (orderData && orderData.CustomerID) {
+        setCustomerId(orderData.CustomerID); // เก็บ customerId ไว้ใน state
+      } else {
+        setError('ไม่พบข้อมูลลูกค้า');
+      }
+    } catch (err) {
+      setError('ไม่สามารถดึงข้อมูลลูกค้าได้');
+      console.error(err);
+    }
+  }
+
 
   useEffect(() => {
     fetchAddress();
-
     // ดึง customerId จาก orderId
-    async function fetchOrderData() {
-      try {
-        const orderData = await GetOrderByID(orderId);
-        if (orderData && orderData.CustomerID) {
-          setCustomerId(orderData.CustomerID); // เก็บ customerId ไว้ใน state
-        } else {
-          setError('ไม่พบข้อมูลลูกค้า');
-        }
-      } catch (err) {
-        setError('ไม่สามารถดึงข้อมูลลูกค้าได้');
-        console.error(err);
-      }
-    }
     fetchOrderData(); // เรียกใช้เพื่อดึง customerId
   }, [orderId]);
 
@@ -75,7 +75,6 @@ const AddressShow: React.FC<{ orderId: number  }> = ({ orderId }) => {
             <h6>ที่อยู่ในการจัดส่ง</h6>
           </div>
           <hr style={{ marginTop: '10px', marginBottom: '10px', marginLeft: '0px', color: 'WhiteSmoke',border: 'none', width: '100%' }} />
-
         {
           address ? (
             <Card className="custom-card-background" style={{width: '100%'}}>
@@ -97,7 +96,7 @@ const AddressShow: React.FC<{ orderId: number  }> = ({ orderId }) => {
 
       {/* แสดง popup เมื่อ isPopupVisible เป็น true และ customerId ไม่เป็น null */}
       {isPopupVisible && customerId !== null && (
-        <PopupConfirmOrder 
+        <PopupAddressChange 
           setPopup={closePopup} // ฟังก์ชันปิด popup
           messageApi={messageApi} // ส่ง message api ไปยัง popup
           orderId={orderId} // ส่ง orderId ไปยัง popup
