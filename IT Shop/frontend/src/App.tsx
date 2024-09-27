@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import ConfigRoutes from "./routes";
 import "./App.css";
 import { message } from "antd";
-import icon from './assets/Umaru-Cry.gif'
 //for countCart
 import { GetCart } from "./services/http"; // ดึงฟังก์ชัน GetCart
 
@@ -44,8 +43,9 @@ const App: React.FC = () => {
         document.title= 'ahh Shop'
         const ahhIcon = document.querySelector("link[rel='icon']") as HTMLLinkElement;
         if(ahhIcon)
-            ahhIcon.href = './assets/Umaru-Cry.gif';
+            ahhIcon.href = '../public/letter-a.png';
     }, []);
+    
     // เรียก fetchCartData เมื่อคอมโพเนนต์หลักโหลด
     useEffect(() => {
         fetchCartData();
