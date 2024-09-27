@@ -180,6 +180,6 @@ func DeleteOrder(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Order not found"})
 		return
 	}
-	
+
 	c.JSON(http.StatusOK, gin.H{"message": "Deleted successfully"})
 }

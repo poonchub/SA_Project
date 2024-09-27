@@ -11,7 +11,7 @@ import { AppContext } from "../App";
 function Payment() {
     const customerID = localStorage.getItem('id');
     const orderId = localStorage.getItem('orderId');
-    const {logoutPopup} = useContext(AppContext)
+    const {logoutPopup} = useContext(AppContext);
 
     // Parse customerID and orderId to numbers
     const parsedCustomerID = customerID ? Number(customerID) : null;
