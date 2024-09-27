@@ -170,14 +170,26 @@ function ShowDetail(){
                         <img src={Plus}  id="increase"/>
                     </div>
                 </div>
-                <div className="button-box">
-                    <div className="btn" id="cart-button" onClick={() => handleAddToCart(sltProduct+1, quantity)}>
-                        เพิ่มลงตะกร้า
+                {stock==0 ? (
+                    <div style={{width:"100%", justifyContent:"center", display:"flex", color:"var(--subtheme-color1)", fontSize:"20px"}}>สินค้าหมดแล้ว ขออภัยด้วยค่ะ</div>
+                ):(
+                    <div className="button-box">
+                        <button className="btn" 
+                            id="cart-button" 
+                            onClick={() => handleAddToCart(sltProduct+1, quantity)}
+                        >
+                            เพิ่มลงตะกร้า
+                        </button>
+                        <button className="btn" 
+                            id="order-button" 
+                            onClick={showPopup}
+                        >
+                            ซื้อทันที
+                        </button>
                     </div>
-                    <div className="btn" id="order-button" onClick={showPopup}>
-                        ซื้อทันที
-                    </div>
-                </div>
+                )}
+
+                
             </div>
             <div className="line">
             </div>
